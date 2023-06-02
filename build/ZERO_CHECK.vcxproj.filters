@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Repositories\Medit\MAseminar\ONNO\build\CMakeFiles\c5515300c3731eb746be3aba558a3d7b\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{88E0CA5A-6DAC-38C8-A6D4-7AE3FFED124B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

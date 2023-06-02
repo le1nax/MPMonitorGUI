@@ -1,0 +1,14 @@
+[
+{
+  "directory": "C:/Repositories/Medit/MAseminar/ONNO/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DGLFW_DLL @CMakeFiles/BasicApp.dir/includes_CXX.rsp  -o CMakeFiles\\BasicApp.dir\\main.cpp.obj -c C:\\Repositories\\Medit\\MAseminar\\ONNO\\main.cpp",
+  "file": "C:/Repositories/Medit/MAseminar/ONNO/main.cpp",
+  "output": "CMakeFiles/BasicApp.dir/main.cpp.obj"
+},
+{
+  "directory": "C:/Repositories/Medit/MAseminar/ONNO/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DGLFW_DLL @CMakeFiles/BasicApp.dir/includes_CXX.rsp  -o CMakeFiles\\BasicApp.dir\\source\\ControllerBox.cpp.obj -c C:\\Repositories\\Medit\\MAseminar\\ONNO\\source\\ControllerBox.cpp",
+  "file": "C:/Repositories/Medit/MAseminar/ONNO/source/ControllerBox.cpp",
+  "output": "CMakeFiles/BasicApp.dir/source/ControllerBox.cpp.obj"
+}
+]

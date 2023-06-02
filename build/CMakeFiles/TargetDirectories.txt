@@ -1,0 +1,3 @@
+C:/Repositories/Medit/MAseminar/ONNO/build/CMakeFiles/BasicApp.dir
+C:/Repositories/Medit/MAseminar/ONNO/build/CMakeFiles/edit_cache.dir
+C:/Repositories/Medit/MAseminar/ONNO/build/CMakeFiles/rebuild_cache.dir
