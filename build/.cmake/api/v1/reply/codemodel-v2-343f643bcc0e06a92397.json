@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-d0094a50bb2071803777.json",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.17"
@@ -19,7 +19,7 @@
 					]
 				}
 			],
-			"name" : "",
+			"name" : "Debug",
 			"projects" : 
 			[
 				{
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "BasicApp::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-BasicApp-0cc33d41c64903155a0e.json",
+					"jsonFile" : "target-BasicApp-Debug-69dc7900f3fa4e8dee5c.json",
 					"name" : "BasicApp",
 					"projectIndex" : 0
 				}

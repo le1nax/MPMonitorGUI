@@ -6,5 +6,5 @@ CXX_DEFINES = -DGLFW_DLL
 
 CXX_INCLUDES = @CMakeFiles/BasicApp.dir/includes_CXX.rsp
 
-CXX_FLAGS = 
+CXX_FLAGS = -g
 
