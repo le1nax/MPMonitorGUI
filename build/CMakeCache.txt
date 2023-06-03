@@ -23,6 +23,15 @@ BasicGuiExample_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 BasicGuiExample_SOURCE_DIR:STATIC=C:/Repositories/Medit/MAseminar/ONNO
 
+//Value Computed by CMake
+BasicGui_BINARY_DIR:STATIC=C:/Repositories/Medit/MAseminar/ONNO/build
+
+//Value Computed by CMake
+BasicGui_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+BasicGui_SOURCE_DIR:STATIC=C:/Repositories/Medit/MAseminar/ONNO
+
 //Path to a program.
 CMAKE_ADDR2LINE:FILEPATH=C:/msys64/mingw64/bin/addr2line.exe
 
@@ -140,7 +149,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=BasicGuiExample
+CMAKE_PROJECT_NAME:STATIC=BasicGui
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=C:/msys64/mingw64/bin/ranlib.exe

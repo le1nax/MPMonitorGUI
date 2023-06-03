@@ -12,12 +12,12 @@
 * Constructor method for UDPClient
 * Assigns IP address and port, creates a Winsock (IPv4/UDP) and connects to Socket
 */
-UDPClient::UDPClient(string ipAddress, int port){
+UDPClient::UDPClient(std::string ipAddress, int port){
 	
 	
 	this->ipAddress = ipAddress;
 	this->port = port;
-	this->udpSocket = CreateSocket();
+	this->udpSocket = createSocket();
 	if(this->udpSocket == NULL){
 		return;
 	}
@@ -29,32 +29,32 @@ UDPClient::UDPClient(string ipAddress, int port){
 /*
 * Method for creating a Winsock; returns Winsock (client socket)
 */
-SOCKET UDPClient::CreateSocket(){
+SOCKET UDPClient::createSocket(){
 	
-	//Create a Socket if it is windows operating system (what do we need to do for UNIX?)
-	WSAData wsaData = {0};
-	WORD ver = MAKEWORD(2,2); // Request for Winsock version 2.2 on the system
+	// //Create a Socket if it is windows operating system (what do we need to do for UNIX?)
+	// WSAData wsaData = {0};
+	// WORD ver = MAKEWORD(2,2); // Request for Winsock version 2.2 on the system
 	
 	
-	int wsaResult = WSAStartup(ver, &data);
+	// int wsaResult = WSAStartup(ver, &data);
 	
-	if(wsResult != 0){
+	// if(wsResult != 0){
 	
-		std::cerr << "Winsock couldn't be started, Error #" << wsResult << std::endl;
-		return;
+	// 	std::cerr << "Winsock couldn't be started, Error #" << wsResult << std::endl;
+	// 	return;
 	
-	}
+	// }
 	
-	SOCKET clientSocket = socket(AF_INET, SOCK_DGRM, IPPROTO_UDP);
-	if(clientSocket == INVALID_SOCKET){
+	// SOCKET clientSocket = socket(AF_INET, SOCK_DGRM, IPPROTO_UDP);
+	// if(clientSocket == INVALID_SOCKET){
 	
-		std:cerr << "Can't create socket, Error #" << WSAGetLastError() << std::endl;
-		WSACleanup();
-		return;
+	// 	std:cerr << "Can't create socket, Error #" << WSAGetLastError() << std::endl;
+	// 	WSACleanup();
+	// 	return;
 		
-	}
+	// }
 	
-	return clientSocket;
+	// return clientSocket;
 	
 }
 
@@ -65,21 +65,21 @@ SOCKET UDPClient::CreateSocket(){
 */
 void UDPClient::connectSocket(){
 
-	// define which server and which port to connect to 
-	sockaddr_in hint;
-	hint.sin_family = AF_INET;
-	hint.sin_port = htons(this->port);
-	inet_pton(AF_INET, this->ipAddress.c_str(), &hint.sin_addr);
+	// // define which server and which port to connect to 
+	// sockaddr_in hint;
+	// hint.sin_family = AF_INET;
+	// hint.sin_port = htons(this->port);
+	// inet_pton(AF_INET, this->ipAddress.c_str(), &hint.sin_addr);
 	
-	// Connect to Monitor
-	int connResult = connect(this->udpSocket, (sockaddr*) &hint, sizeof(hint));
-	if(connResult == SOCKET_ERROR){
+	// // Connect to Monitor
+	// int connResult = connect(this->udpSocket, (sockaddr*) &hint, sizeof(hint));
+	// if(connResult == SOCKET_ERROR){
 	
-		std::cerr << "Can't connect to server, Error #" << WSAGetLastError() << std::endl;
-		closesocket(this->udpSocket);
-		WSACleanup();
-		return;
-	}
+	// 	std::cerr << "Can't connect to server, Error #" << WSAGetLastError() << std::endl;
+	// 	closesocket(this->udpSocket);
+	// 	WSACleanup();
+	// 	return;
+	// }
 
 }
 
@@ -90,16 +90,16 @@ void UDPClient::connectSocket(){
 void UDPClient::UDPRequest(char* reqMessage, char* recvBuff){
 	
 	
-	// Send request (reqMessage) to server 
-	int sendResult = sent(this->udpSocket, reqMessage, sizeof(reqMessage), 0);
-	if(sendResult == SOCKET_ERROR){
+	// // Send request (reqMessage) to server 
+	// int sendResult = sent(this->udpSocket, reqMessage, sizeof(reqMessage), 0);
+	// if(sendResult == SOCKET_ERROR){
 		
-		std::cerr << "Send failed: Error #" << WSAGetLastError() << std::endl;
-		closesocket(this->udpSocket)
-		WSACleanup();
-		return;
+	// 	std::cerr << "Send failed: Error #" << WSAGetLastError() << std::endl;
+	// 	closesocket(this->udpSocket)
+	// 	WSACleanup();
+	// 	return;
 		
-	}
+	// }
 	
 }
 
@@ -112,17 +112,17 @@ void UDPClient::UDPRequest(char* reqMessage, char* recvBuff){
 void UDPClient::UDPReceive(char* recvBuff){
 
 	
-	// Receive reply of server (recvBuff)
-	this->recvResult = recv(this->udpSocket, recvBuff, sizeof(recvBuff), 0);
-	if (this->recvResult > 0){
-		continue;
-	}		
-	else if(this->recvResult == 0){
-		std::cerr << "Connection closed" << std::endl;
-	}
-	else{
-		std::cerr << "receive failed with error" << WSAGetLastError() << std::endl;
-	}
+	// // Receive reply of server (recvBuff)
+	// this->recvResult = recv(this->udpSocket, recvBuff, sizeof(recvBuff), 0);
+	// if (this->recvResult > 0){
+	// 	continue;
+	// }		
+	// else if(this->recvResult == 0){
+	// 	std::cerr << "Connection closed" << std::endl;
+	// }
+	// else{
+	// 	std::cerr << "receive failed with error" << WSAGetLastError() << std::endl;
+	// }
 	
 }
 

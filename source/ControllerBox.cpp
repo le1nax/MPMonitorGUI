@@ -17,23 +17,22 @@ void ControllerBox::createSerial() {
 
 
 
-	// Creating serial handle to read serial port defined in serialPort
-	this->hSerial = CreateFile(this->serialPort,
-								GENERIC_READ | GENERIC_WRITE,
-								0,
-								0
-								OPEN_EXISTING,
-								FILE_ATTRIBUTE_NORMAL,
-								0);
-	if (this->hSerial == INVALID_HANDLE_VALUE) {
-		if (GetLastError() == ERROR_FILE_NOT_FOUND) {
-			std::cerr << "File was not found, ERROR # " << GetLastError() << std::endl;
-			return;
-		}
+	// // Creating serial handle to read serial port defined in serialPort
+	// this->hSerial = CreateFile(this->serialPort,
+	// 							GENERIC_READ | GENERIC_WRITE,
+	// 							0,
+	// 							0
+	// 							OPEN_EXISTING,
+	// 							FILE_ATTRIBUTE_NORMAL,
+	// 							0);
+	// if (this->hSerial == INVALID_HANDLE_VALUE) {
+	// 	if (GetLastError() == ERROR_FILE_NOT_FOUND) {
+	// 		std::cerr << "File was not found, ERROR # " << GetLastError() << std::endl;
+	// 		return;
+	// 	}
 
-		std::cerr << "Error while creating serial handle, Error # " << GetLastError() << std::endl;
-		return;
-	}
+	// 	std::cerr << "Error while creating serial handle, Error # " << GetLastError() << std::endl;
+	// 	return;
 
 	// Set parameters for serial handle (baud rate, byte size, stop bits, parity)
 	DCB dcbSerialParameters = {0};
@@ -47,8 +46,8 @@ void ControllerBox::createSerial() {
 
 	dcbSerialParameters.BaudRate = 1000000; //This is no standard baud rate --> should be fixed
 	dcbSerialParameters.ByteSize = 8;
-	dcbSerialParameters.StopBits = ;
-	dcbSerialParameters.Parity = ;
+	// dcbSerialParameters.StopBits = ;
+	// dcbSerialParameters.Parity = ;
 
 	if (!SetCommState(hSerial, &dcbSerialParameters)) {
 
@@ -59,10 +58,10 @@ void ControllerBox::createSerial() {
 }
 
 
-list<std::string> ControllerBox::availablePorts() {
+std::vector<std::string> ControllerBox::availablePorts() {
 
 	char lpTargetPath[5000]; // buffer to store the path of the COMPORTS
-	list<std::string> ports;
+	std::vector<std::string> ports;
 
 
 	for (int i = 0; i < 255; i++) // checking ports from COM0 to COM255

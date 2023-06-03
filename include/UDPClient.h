@@ -1,3 +1,4 @@
+#include <windows.h>
 #include <winsock2.h>
 #include <string>
 #pragma comment(lib, "Ws2_32.lib")
@@ -16,8 +17,9 @@ public:
 	std::string getIPAdress();
 	int getPort();
 	int recvResult;
-	void UDPRequest(char* reqMessage);
+	void UDPRequest(char* reqMessage, char* recvBuff);
 	void UDPReceive(char* recvBuff);
+	std::string getIPAddress();
 	
 protected:
 private:
