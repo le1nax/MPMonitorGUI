@@ -2,7 +2,7 @@
 cmake_minimum_required (VERSION 3.17)
 
 # Name of your project.
-project(BasicGuiExample CXX)
+project(BasicGui CXX)
 
 #set module path
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
