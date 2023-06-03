@@ -1,1 +1,1 @@
- C:/msys64/mingw64/lib/libglfw3.dll.a "C:/src/vcpkg/packages/imgui_x86-windows/debug/lib/imguid.lib" -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 
+ "C:/src/vcpkg/packages/glfw3_x64-windows/debug/lib/glfw3dll.lib" "C:/src/vcpkg/packages/imgui_x64-windows/debug/lib/imguid.lib" -lws2_32 -lsocket -lnsl -pthread -lpthread -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 

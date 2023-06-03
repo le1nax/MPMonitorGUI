@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Repositories/Medit/MAseminar/ONNO/main.cpp" "CMakeFiles/BasicApp.dir/main.cpp.obj" "gcc" "CMakeFiles/BasicApp.dir/main.cpp.obj.d"
-  "C:/Repositories/Medit/MAseminar/ONNO/source/ControllerBox.cpp" "CMakeFiles/BasicApp.dir/source/ControllerBox.cpp.obj" "gcc" "CMakeFiles/BasicApp.dir/source/ControllerBox.cpp.obj.d"
+  "C:/Users/eva-h/Documents/Uni/2nd Semester/Medit Seminar/MPMonitorGUI/MPMonitorGUI/main.cpp" "CMakeFiles/BasicApp.dir/main.cpp.obj" "gcc" "CMakeFiles/BasicApp.dir/main.cpp.obj.d"
+  "C:/Users/eva-h/Documents/Uni/2nd Semester/Medit Seminar/MPMonitorGUI/MPMonitorGUI/source/ControllerBox.cpp" "CMakeFiles/BasicApp.dir/source/ControllerBox.cpp.obj" "gcc" "CMakeFiles/BasicApp.dir/source/ControllerBox.cpp.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

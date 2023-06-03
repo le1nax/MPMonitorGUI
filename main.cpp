@@ -1,4 +1,4 @@
-﻿#include <gui_application.hpp>
+﻿/*#include <gui_application.hpp>
 
 // This is our main application class. Inherit from gui_application.
 class my_app : public gui_application
@@ -40,3 +40,4 @@ private:
 // If we include 'gui_main.hpp' afterwards this class will get executed. Do not add a main method if you use this header.
 #define ENTRY_POINT my_app
 #include <gui_main.hpp>
+*/

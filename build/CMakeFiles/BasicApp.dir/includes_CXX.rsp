@@ -1,1 +1,1 @@
--IC:/Repositories/Medit/MAseminar/ONNO/../lib -isystem "C:/src/vcpkg/packages/imgui_x86-windows/include"
+-I"C:/Users/eva-h/Documents/Uni/2nd Semester/Medit Seminar/MPMonitorGUI/MPMonitorGUI/../lib" -isystem "C:/src/vcpkg/packages/glfw3_x64-windows/include" -isystem "C:/src/vcpkg/packages/imgui_x64-windows/include"

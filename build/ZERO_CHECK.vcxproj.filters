@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <CustomBuild Include="C:\Repositories\Medit\MAseminar\ONNO\build\CMakeFiles\c5515300c3731eb746be3aba558a3d7b\generate.stamp.rule">
+    <CustomBuild Include="C:\Users\eva-h\Documents\Uni\2nd Semester\Medit Seminar\MPMonitorGUI\MPMonitorGUI\build\CMakeFiles\43bee367698a5a0a88f28d71142873d7\generate.stamp.rule">
       <Filter>CMake Rules</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="CMake Rules">
-      <UniqueIdentifier>{88E0CA5A-6DAC-38C8-A6D4-7AE3FFED124B}</UniqueIdentifier>
+      <UniqueIdentifier>{93802492-29BA-3DEF-B705-0F75EBBCE9E4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

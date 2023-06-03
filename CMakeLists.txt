@@ -19,16 +19,17 @@ message("Generating project ${CMAKE_PROJECT_NAME} ${VERSION_MAJOR}.${VERSION_MIN
 
 
 #setup with PkgConfig
-include(FindPkgConfig)
-if(NOT PKG_CONFIG_FOUND)
-    MESSAGE(FATAL_ERROR "No PKG_CONFIG Found")
-endif()
+#include(FindPkgConfig)
+#if(NOT PKG_CONFIG_FOUND)
+#    MESSAGE(FATAL_ERROR "No PKG_CONFIG Found")
+#endif()
 
 
 # Find the required libs from your package manager (vcpkg).
 # find_package(glad CONFIG REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
 find_package(imgui CONFIG REQUIRED)
+find_package(Threads REQUIRED)
 
 
 # target_link_libraries(${PROJECT_NAME} PRIVATE
@@ -45,7 +46,7 @@ add_executable(
  "source/ControllerBox.cpp")
 
 # Link the GUI libraries into the executable.
-target_link_libraries(BasicApp PUBLIC glfw imgui::imgui)
+target_link_libraries(BasicApp PUBLIC glfw imgui::imgui Threads::Threads ws2_32 -lsocket -lnsl -pthread)
 
 # Add the folder with 'gui_application.hpp' and 'gui_main.hpp' to the include path.
 # This way we can '#include<gui_application.hpp>'.

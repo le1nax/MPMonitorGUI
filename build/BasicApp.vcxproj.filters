@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\Repositories\Medit\MAseminar\ONNO\main.cpp">
+    <ClCompile Include="C:\Users\eva-h\Documents\Uni\2nd Semester\Medit Seminar\MPMonitorGUI\MPMonitorGUI\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Repositories\Medit\MAseminar\ONNO\source\ControllerBox.cpp">
+    <ClCompile Include="C:\Users\eva-h\Documents\Uni\2nd Semester\Medit Seminar\MPMonitorGUI\MPMonitorGUI\source\ControllerBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Repositories\Medit\MAseminar\ONNO\CMakeLists.txt" />
+    <CustomBuild Include="C:\Users\eva-h\Documents\Uni\2nd Semester\Medit Seminar\MPMonitorGUI\MPMonitorGUI\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{4F48DBDC-8FDA-3C7C-BD30-45A2840ED443}</UniqueIdentifier>
+      <UniqueIdentifier>{57AEEA25-A8C0-39A2-AFA0-7818FA75870C}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
