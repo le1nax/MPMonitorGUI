@@ -1,3 +1,3 @@
-C:/Users/eva-h/Documents/Uni/2nd Semester/Medit Seminar/MPMonitorGUI/MPMonitorGUI/build/CMakeFiles/BasicApp.dir
-C:/Users/eva-h/Documents/Uni/2nd Semester/Medit Seminar/MPMonitorGUI/MPMonitorGUI/build/CMakeFiles/edit_cache.dir
-C:/Users/eva-h/Documents/Uni/2nd Semester/Medit Seminar/MPMonitorGUI/MPMonitorGUI/build/CMakeFiles/rebuild_cache.dir
+C:/Repositories/Medit/MAseminar/ONNO/build/CMakeFiles/BasicApp.dir
+C:/Repositories/Medit/MAseminar/ONNO/build/CMakeFiles/edit_cache.dir
+C:/Repositories/Medit/MAseminar/ONNO/build/CMakeFiles/rebuild_cache.dir

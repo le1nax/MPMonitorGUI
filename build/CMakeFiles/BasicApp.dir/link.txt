@@ -1,3 +1,3 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\BasicApp.dir/objects.a
-C:\mingw64\bin\ar.exe qc CMakeFiles\BasicApp.dir/objects.a @CMakeFiles\BasicApp.dir\objects1.rsp
-C:\mingw64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\BasicApp.dir/objects.a -Wl,--no-whole-archive -o BasicApp.exe -Wl,--out-implib,libBasicApp.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\BasicApp.dir\linkLibs.rsp
+C:\Users\danie\AppData\Local\Programs\Python\Python37\Lib\site-packages\cmake\data\bin\cmake.exe -E rm -f CMakeFiles\BasicApp.dir/objects.a
+C:\msys64\mingw64\bin\ar.exe qc CMakeFiles\BasicApp.dir/objects.a @CMakeFiles\BasicApp.dir\objects1.rsp
+C:\msys64\mingw64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\BasicApp.dir/objects.a -Wl,--no-whole-archive -o BasicApp.exe -Wl,--out-implib,libBasicApp.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\BasicApp.dir\linkLibs.rsp

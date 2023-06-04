@@ -1,6 +1,8 @@
 #pragma once
 #include <Windows.h>
 #include <string>
+#include <iostream>
+#include <vector>
 
 class ControllerBox {
 public:
@@ -9,7 +11,7 @@ public:
 private:
 	HANDLE hSerial;
 	std::string serialPort;
-	std::string availablePorts();
+	std::vector<std::string> availablePorts();
 	void createSerial();
 	void run();
 

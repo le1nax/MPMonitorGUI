@@ -44,19 +44,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "C:\Program Files\CMake\bin\cmake.exe"
+CMAKE_COMMAND = C:\Users\danie\AppData\Local\Programs\Python\Python37\Lib\site-packages\cmake\data\bin\cmake.exe
 
 # The command to remove a file.
-RM = "C:\Program Files\CMake\bin\cmake.exe" -E rm -f
+RM = C:\Users\danie\AppData\Local\Programs\Python\Python37\Lib\site-packages\cmake\data\bin\cmake.exe -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "C:\Users\eva-h\Documents\Uni\2nd Semester\Medit Seminar\MPMonitorGUI\MPMonitorGUI"
+CMAKE_SOURCE_DIR = C:\Repositories\Medit\MAseminar\ONNO
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "C:\Users\eva-h\Documents\Uni\2nd Semester\Medit Seminar\MPMonitorGUI\MPMonitorGUI\build"
+CMAKE_BINARY_DIR = C:\Repositories\Medit\MAseminar\ONNO\build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -80,14 +80,14 @@ clean: CMakeFiles/BasicApp.dir/clean
 CMakeFiles/BasicApp.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BasicApp.dir\build.make CMakeFiles/BasicApp.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BasicApp.dir\build.make CMakeFiles/BasicApp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="C:\Users\eva-h\Documents\Uni\2nd Semester\Medit Seminar\MPMonitorGUI\MPMonitorGUI\build\CMakeFiles" --progress-num=1,2,3 "Built target BasicApp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Repositories\Medit\MAseminar\ONNO\build\CMakeFiles --progress-num=1,2,3 "Built target BasicApp"
 .PHONY : CMakeFiles/BasicApp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/BasicApp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\eva-h\Documents\Uni\2nd Semester\Medit Seminar\MPMonitorGUI\MPMonitorGUI\build\CMakeFiles" 3
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Repositories\Medit\MAseminar\ONNO\build\CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/BasicApp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\eva-h\Documents\Uni\2nd Semester\Medit Seminar\MPMonitorGUI\MPMonitorGUI\build\CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Repositories\Medit\MAseminar\ONNO\build\CMakeFiles 0
 .PHONY : CMakeFiles/BasicApp.dir/rule
 
 # Convenience name for target.
