@@ -5,6 +5,9 @@
 #include <WS2tcpip.h>
 #include <system_error>
 #include <string>
+#include <vector>
+#include <bitset>
+#include <cstddef>
 #include <iostream>
 #include <algorithm> //for std::reverse in a code example, to be deleted later on
 
@@ -22,6 +25,7 @@ class WSASession {
 class UDPSocket {
     private:
         SOCKET sock;
+        WSASession Session;
     public:
         UDPSocket();
         ~UDPSocket();

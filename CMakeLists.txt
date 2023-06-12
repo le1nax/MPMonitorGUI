@@ -46,7 +46,8 @@ add_executable(
  "source/ControllerBox.cpp")
 
 # Link the GUI libraries into the executable.
-target_link_libraries(BasicApp PUBLIC glfw imgui::imgui Threads::Threads ws2_32 -lsocket -lnsl -pthread)
+target_link_libraries(BasicApp PUBLIC glfw imgui::imgui Threads::Threads ws2_32 -pthread)
+#target_link_libraries(BasicApp PUBLIC glfw imgui::imgui Threads::Threads ws2_32 -lsocket -lnsl -pthread)
 
 # Add the folder with 'gui_application.hpp' and 'gui_main.hpp' to the include path.
 # This way we can '#include<gui_application.hpp>'.

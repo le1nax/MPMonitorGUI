@@ -6,20 +6,20 @@
 // MPUPDMonitor::MPUPDMonitor(std::string ipAddress){
 
 
-	this->pathToFile = "temp";
+	// this->pathToFile = "temp";
 	// Assign IP address
-	if(ipAddress != ""){
-		this->ipAddress = ipAddress;
-	}
-	else{
-		std::cerr << "Empty IP Address, " << ipAddress << std::endl;
-	}
+	// if(ipAddress != ""){
+	// 	this->ipAddress = ipAddress;
+	// }
+	// else{
+	// 	std::cerr << "Empty IP Address, " << ipAddress << std::endl;
+	// }
 	// Create UDPClient
 	// this->client = UDPClient(this->ipAddress, this->port);
 	// Send and Receive Association Request
-	this->Association();
+	// this->Association();
 	// Receive MDSCreateEventReport and Send MDSCreateEventResult
-	this->MDSCreateEvent();
+	// this->MDSCreateEvent();
 	// Send Extended PollData Requests cycled every second
 	
 // 	// Start running (PollRequest + Receive Data)
@@ -30,12 +30,12 @@
 // void MPUPDMonitor::Association(){
 
 	// Send AssociationRequest and receive the Association Result message
-	this->SendWaveAssociationRequest();
+	//this->SendWaveAssociationRequest();
 	// Receive MDSCreateEventReport
 	// client->UDPReceive(this->recvBuf);
 	// Send MDSCreateEvent Result message
 	// this->ProcessPacket(recvBuf, client->recvResult); // recvResult is the length of the received Package
-}
+//}
 
 
 
