@@ -2,9 +2,11 @@
 #include "include/MPMonitor.h"
 #include "include/MPUDPMonitor.h"
 #include "include/UDPClient.h"
+#include <iostream>
 
 
 int main(int argc, char *argv[])
 {
-    //Connect via lan
+
+    return 0;
 }

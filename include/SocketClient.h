@@ -13,10 +13,14 @@ class SocketClient : public UDPSocket {
     private: 
         void establishLanConnection();
         void SendWaveAssociationRequest();
-        void ProcessPacket(std::vector<std::byte>);
+        void ProcessPacket(std::vector<std::byte> bytes);
+        void sendBytes(std::vector<std::byte> bytes);
 
-        std::vector<std::byte> readassocbuffer;
-        std::vector<std::byte> readmdsconnectbuffer;
+        std::vector<std::byte> m_readassocbuffer;
+        std::vector<std::byte> m_readmdsconnectbuffer;
+        std::string m_remoteIPtarget = "";
+        unsigned short m_port = 0; 
+        //sockaddr_in m_sa_remoteIPtarget
 
         /// @todo make threads
         void SendCycledExtendedPollDataRequest();

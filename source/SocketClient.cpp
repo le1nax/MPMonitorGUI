@@ -1,4 +1,5 @@
 #include "../include/SocketClient.h"
+#include <iostream>
 
 using namespace std;
 
@@ -7,9 +8,17 @@ SocketClient::SocketClient() : UDPSocket()
 
 }
 
+void SocketClient::sendBytes(vector<std::byte> bytes)
+{
+     ///@todo prüfen ob das funktioniert
+    size_t len = bytes.size();
+    char* charBytes = reinterpret_cast<char*>(bytes.data()); 
+    SendTo(m_remoteIPtarget, m_port, charBytes, len);
+}
+
 void SocketClient::SendWaveAssociationRequest()
 {
-
+        
 }
 
 void SocketClient::ProcessPacket(std::vector<std::byte>)
