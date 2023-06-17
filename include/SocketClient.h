@@ -27,5 +27,9 @@ class SocketClient : public UDPSocket {
         void SendCycledExtendedPollWaveDataRequest();
         void RecheckMDSAttributes();
         void KeepConnectionAlive();
+        void BeginReceive(/************************************************************************/);
+        void ReceiveCallback(std::size_t bytesReceived);
 
 };
+
+#endif

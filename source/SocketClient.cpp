@@ -1,5 +1,6 @@
 #include "../include/SocketClient.h"
 #include <iostream>
+#include <thread>
 
 using namespace std;
 
@@ -46,9 +47,12 @@ void SocketClient::establishLanConnection()
                     // _MPudpclient.ByteArrayToFile(path, readassocbuffer, readassocbuffer.GetLength(0));
                     //Console.WriteLine("Receiving SOC buffer");
 
-            //readmdsconnectbuffer = _MPudpclient.Receive(ref _MPudpclient.m_remoteIPtarget);
-                    // _MPudpclient.ByteArrayToFile(path, readmdsconnectbuffer, readmdsconnectbuffer.GetLength(0));
-                    // //Console.WriteLine("Receiving ARRAY from buffer");
+	//	try //corresponds to line 509 in Program.cs
+	//	{
+	
+		//_MPudpclient.Connect(_MPudpclient.m_remoteIPtarget);
+		//new udpstate aka client und ip mit client=_mpudpclient und remoteIP=_MPudpclient.m_remoteIPtarget
+				//_MPudpclient.Connect(_MPudpclient.m_remoteIPtarget);
 
             //Send MDSCreateEventResult message
                     //_MPudpclient.ProcessPacket(readmdsconnectbuffer);
@@ -62,7 +66,121 @@ void SocketClient::establishLanConnection()
 
                     //WaitForSeconds(1);
 
-                   
+		//create string path to "_Philips_MPrawoutput.txt" in the current directory
+				//string path = Path.Combine(Directory.GetCurrentDirectory(), Globals.pathFile+ "_Philips_MPrawoutput.txt"); //IB
+
+
+		//Receive AssociationResult message (aka SOC buffer) and MDSCreateEventReport message
+			//readassocbuffer = RecvFrom();
+				// _MPudpclient.ByteArrayToFile(path, readassocbuffer, readassocbuffer.GetLength(0));
+
+
+		//Receive ARRAY from buffer
+			//readmdsconnectbuffer = _MPudpclient.Receive(ref _MPudpclient.m_remoteIPtarget);
+				// _MPudpclient.ByteArrayToFile(path, readmdsconnectbuffer, readmdsconnectbuffer.GetLength(0));
+
+
+		//Send MDSCreateEventResult message
+				//_MPudpclient.ProcessPacket(readmdsconnectbuffer);
+
+
+		//Send Extended PollData Requests cycled every second
+				//Task.Run(() => _MPudpclient.SendCycledExtendedPollDataRequest(nInterval));
+
+
+		/*if (nWaveformSet != 0)
+		{
+			_MPudpclient.GetRTSAPriorityListRequest();
+			if (nWaveformSet != 11) 
+
+						//what is nwaveformset? why 11? possible reasons with 11 in guide:
+
+						//header information p.30: The protocol_id field contains ID and version information.
+						//It can be used to define different service access points. Data Export uses the ID 0x11.
+
+						//The StringFormat describes how strings are encoded. The IntelliVue monitor uses unicode encoding.
+						//typedef u_16 StringFormat; #define STRFMT_UNICODE_NT 11
+
+						//Num 11 Placeholder for Vuelink Flex Text
+						//Label: NLS_VUELINK_FLX1_NPS_TEXT_NUM11 
+
+						//alert code NOM_EVT_EXT_DEV_AL_CODE_11
+
+						//AbortSessionData
+						//0x11 0x01 0x03
+
+
+			{
+				_MPudpclient.SetRTSAPriorityList(nWaveformSet); //wave object priority list specifies processing order of wave objects/data
+			}
+
+			Task.Run(() => _MPudpclient.SendCycledExtendedPollWaveDataRequest(nInterval)); //method executed asynchronously in the background thread pool thread
+
+						//The (cycled, repetitive) request aims to retrieve waveform data (a sequence of values that represent a waveform or signal) and may encompass 
+						//additional info or extended data associated with the waveforms (metadata, timestamps, measurement parameters, etc)
+						
+						//By using Task.Run(), the given code snippet creates a new task that runs the lambda expression in a separate background thread. 
+						//It enables the code to run asynchronously, allowing other tasks or operations to continue without waiting for the completion of the specified method.
+
+						//(parameters) => {expression}
+						//Lambda expressions are often used in situations where a short, inline function is required. 
+						//Instead of declaring a separate method or delegate, a lambda expression allows you to define the functionality right at the point where it is needed.
+
+						//in c++: 	std::thread([&]() { _MPudpclient.SendCycledExtendedPollWaveDataRequest(nInterval); }).detach();
+		}*/
+
+
+////////////////////////////////////////////////  :))  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+		//Recheck MDS Attributes	//Task.Run(() => _MPudpclient.RecheckMDSAttributes(nInterval));				
+		std::thread recheckMDSAttributesThread([&]() {	
+			//RecheckMDSAttributes(nInterval);
+			RecheckMDSAttributes();
+
+		});
+		recheckMDSAttributesThread.detach(); //allows the thread to continue executing independently, without requiring synchronization or joining with the parent thread
+
+				//lambda functions in C++:	[capture-list](parameters) -> return-type { function-body }
+				//capture-list being the variables from the enclosing scope that you want to have accessible within the lambda function, can be captured by value, reference, or a mix of both
+
+				//possibly [&] instead of [this] --> & indicates that you want to capture all variables from the enclosing scope by reference, 
+				//this for capturing all the class members by ref so you can work w the class members within the lambda body as if you were inside a member function of the class
+
+
+		//Keep Connection Alive		//Task.Run(() => _MPudpclient.KeepConnectionAlive(nInterval));
+		std::thread keepConnectionAliveThread([&]() {
+			//KeepConnectionAlive(nInterval);
+			KeepConnectionAlive();
+		});
+		keepConnectionAliveThread.detach();
+
+
+		//Receive PollDataResponse message / Receive poll data		//_MPudpclient.BeginReceive(new AsyncCallback(ReceiveCallback), state);
+		std::thread receiveThread([&]() {
+    		//BeginReceive(ReceiveCallback, state); //initiates the asynchronous receiving of data, ReceiveCallback() as the callback fct to be executed whenever data is received
+		});
+		receiveThread.detach();
+
+				//It's important to note that the ReceiveCallback function should be implemented in a way that it can handle multiple invocations and 
+				//process each packet of data independently. The function should not rely on any assumptions about the order or timing of packet arrivals, 
+				//as they can occur in an unpredictable manner due to the asynchronous nature of the UDP communication.
+
+
+////////////////////////////////////////////////  :))  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+	// 	} catch (Exception ex) {
+	//			Console.WriteLine("Error opening/writing to UDP port :: " + ex.Message, "Error!");
+	//          Console.Beep();
+	//	} 
+	
+	// ... //
+
+
+
+
+
 
 //     try
 //     {
