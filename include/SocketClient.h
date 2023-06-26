@@ -3,7 +3,14 @@
 
 #include "Socket.h"
 
+#define BUFFERSIZE 1024
+
 //
+struct UdpState {
+    SocketClient state_client;
+    sockaddr_in state_ip;
+};
+
 class SocketClient : public UDPSocket {
 
     public:
@@ -20,15 +27,17 @@ class SocketClient : public UDPSocket {
         std::vector<std::byte> m_readmdsconnectbuffer;
         std::string m_remoteIPtarget = "";
         unsigned short m_port = 0; 
-        //sockaddr_in m_sa_remoteIPtarget
+        sockaddr_in m_sa_remoteIPtarget;
+        char buffer[BUFFERSIZE];
+        UdpState udpState; //current state of the client for the asynchronous receiving of data
 
         /// @todo make threads
         void SendCycledExtendedPollDataRequest();
         void SendCycledExtendedPollWaveDataRequest();
         void RecheckMDSAttributes();
         void KeepConnectionAlive();
-        void BeginReceive(/************************************************************************/);
-        void ReceiveCallback(std::size_t bytesReceived);
+        void BeginReceive();
+        static void ReceiveCallback(std::uint32_t errorCode, std::uint32_t bytesReceived, LPWSAOVERLAPPED overlapped, std::uint32_t flags);
 
 };
 

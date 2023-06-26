@@ -6,6 +6,9 @@ using namespace std;
 
 SocketClient::SocketClient() : UDPSocket()
 {
+	///////////////////////////get sockaddr_in m_remoteIP from std::string m_remoteIPtarget
+
+	memset(buffer, 0, sizeof(buffer)); //clear the buffer
 
 }
 
@@ -35,6 +38,57 @@ void SocketClient::SendCycledExtendedPollDataRequest()
 void SocketClient::SendCycledExtendedPollWaveDataRequest()
 {
 
+}
+
+void SocketClient::BeginReceive() {
+
+	UdpState temp_client_state;
+	temp_client_state.state_ip = m_sa_remoteIPtarget;
+	temp_client_state.state_client = this;
+
+	sockaddr_in temp_sa = RecvFrom(m_sa_remoteIPtarget, buffer);
+	
+
+
+	//....
+}
+
+
+void SocketClient::ReceiveCallback(std::uint32_t errorCode, std::uint32_t bytesReceived, LPWSAOVERLAPPED overlapped, std::uint32_t flags)
+{
+	/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    if (errorCode == 0)
+    {
+        // Data received successfully, process it
+        if (bytesReceived > 0)
+        {
+            // Retrieve the buffer from the overlapped structure
+            char* buffer = reinterpret_cast<char*>(overlapped->Pointer);
+
+			// Data received successfully, process it
+			if (bytesReceived > 0)
+			{
+				// Convert buffer to std::vector<byte> if needed
+				std::vector<byte> data(buffer, buffer + bytesReceived);
+
+				// Write data to file
+				ByteArrayToFile(path, data.data(), bytesReceived);
+
+				// Process data
+				ReadData(data);
+			}
+        }
+    }
+    else
+    {
+        std::cout << "Receive error: " << errorCode << std::endl;
+		// Handle receive error
+		// ...
+    }*/
+
+    // Continue receiving data
+    //BeginReceive();
 }
 
 void SocketClient::establishLanConnection() 
@@ -159,6 +213,8 @@ void SocketClient::establishLanConnection()
 		//Receive PollDataResponse message / Receive poll data		//_MPudpclient.BeginReceive(new AsyncCallback(ReceiveCallback), state);
 		std::thread receiveThread([&]() {
     		//BeginReceive(ReceiveCallback, state); //initiates the asynchronous receiving of data, ReceiveCallback() as the callback fct to be executed whenever data is received
+			BeginReceive();
+
 		});
 		receiveThread.detach();
 
