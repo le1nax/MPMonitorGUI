@@ -1,6 +1,7 @@
 #ifndef SOCKET_H
 #define SOCKET_H
 
+#include "AvaObj.h"
 #include <Winsock2.h>
 #include <WS2tcpip.h>
 #include <system_error>
@@ -26,6 +27,7 @@ class UDPSocket {
     private:
         SOCKET sock;
         WSASession Session;
+        char* data;
     public:
         UDPSocket();
         ~UDPSocket();

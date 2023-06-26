@@ -65,12 +65,13 @@ sockaddr_in UDPSocket::RecvFrom(char* buffer, int len, int flags = 0) {
     sockaddr_in from; //sender's address information
     int size = sizeof(from);
 
+
     //receive data from sock and store it in buffer
-    int ret = recvfrom(sock, buffer, len, flags, reinterpret_cast<SOCKADDR*>(&from), &size);
-    if (ret < 0)
+    int bytes_recieved = recvfrom(sock, buffer, len, flags, reinterpret_cast<SOCKADDR*>(&from), &size);
+    if (bytes_recieved < 0)
         throw std::system_error(WSAGetLastError(), std::system_category(), "recvfrom failed");
 
-    buffer[ret] = 0; //make the buffer zero terminated, marking end of string
+    buffer[bytes_recieved] = 0; //make the buffer zero terminated, marking end of string
     return from;
 }
 

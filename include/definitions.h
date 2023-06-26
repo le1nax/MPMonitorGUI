@@ -6,12 +6,91 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <map>
+#include <memory>
+#include <cstring>
 
 template<typename... Ts>
 std::vector<std::byte> make_bytes(Ts&&... args) noexcept {
 return{std::byte(std::forward<Ts>(args))...};
 }
+
+/// @todo testen
+unsigned short ReadByteValuesFromBuffer(const char* buffer, size_t bufferSize, size_t startIndex, size_t numBytesToRead)
+{
+    if (startIndex >= bufferSize)
+    {
+        std::cout << "Error: Invalid starting index." << std::endl;
+        return;
+    }
+    if (startIndex + numBytesToRead > bufferSize)
+    {
+        std::cout << "Error: Insufficient buffer size." << std::endl;
+        return;
+    }
+    unsigned short value;
+    std::memcpy(&value, buffer + startIndex, numBytesToRead);
+    return value;
+}
+
+int BinaryCodedDecimalToInteger(int value)
+        {
+            if (value != 0xFF)
+            {
+                int lowerNibble = value & 0x0F;
+                int upperNibble = value >> 4;
+
+                int multipleOfOne = lowerNibble;
+                int multipleOfTen = upperNibble * 10;
+
+                return (multipleOfOne + multipleOfTen);
+            }
+            else return 0;
+        }
+
+/// @todo testen
+char* ReadBytesFromBuffer(const char* buffer, size_t bufferSize, size_t startIndex, size_t numBytesToRead)
+{
+    if (startIndex >= bufferSize)
+    {
+        std::cout << "Error: Invalid starting index." << std::endl;
+        return;
+    }
+    if (startIndex + numBytesToRead > bufferSize)
+    {
+        std::cout << "Error: Insufficient buffer size." << std::endl;
+        return;
+    }
+    char* read_buffer;
+    std::memcpy(read_buffer, buffer + startIndex, numBytesToRead);
+    return read_buffer;
+}
+
+        //Date and Time
+        const int NOM_ATTR_TIME_ABS = 0x987;
+        //Sample Period
+        const int NOM_ATTR_TIME_PD_SAMP = 0x98d;
+        //Relative Time
+        const int NOM_ATTR_TIME_REL = 0x98f;
+        //Absolute Time Stamp
+        const int NOM_ATTR_TIME_STAMP_ABS = 0x990;
+        //Relative Time Stamp
+        const int NOM_ATTR_TIME_STAMP_REL = 0x991;
+        //Patient Date of Birth
+        const int NOM_ATTR_PT_DOB = 0x958;
+        //Patient ID
+        const int NOM_ATTR_PT_ID = 0x95a;
+        //Family Name
+        const int NOM_ATTR_PT_NAME_FAMILY = 0x95c;
+        //Given Name
+        const int NOM_ATTR_PT_NAME_GIVEN = 0x95d;
+
+//ROapdus
+    const unsigned char ROIV_APDU = 1;
+    const unsigned char RORS_APDU = 2;
+    const unsigned char ROER_APDU = 3;
+    const unsigned char RORLS_APDU = 5;
 
 auto aarq_msg = make_bytes(
     0x0D, 0xEC, 0x05, 0x08, 0x13, 0x01, 0x00, 0x16, 0x01, 0x02, 0x80, 0x00, 0x14, 0x02, 0x00, 0x02,

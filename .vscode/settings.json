@@ -49,6 +49,7 @@
         "cinttypes": "cpp",
         "typeinfo": "cpp",
         "bitset": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "fstream": "cpp"
     }
 }
