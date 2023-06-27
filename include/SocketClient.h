@@ -11,6 +11,7 @@ struct UdpState {
     sockaddr_in state_ip;
 };
 
+
 class SocketClient : public UDPSocket {
 
     public:
@@ -36,8 +37,8 @@ class SocketClient : public UDPSocket {
         void SendCycledExtendedPollWaveDataRequest();
         void RecheckMDSAttributes();
         void KeepConnectionAlive();
-        void BeginReceive();
-        static void ReceiveCallback(std::uint32_t errorCode, std::uint32_t bytesReceived, LPWSAOVERLAPPED overlapped, std::uint32_t flags);
+        void BeginReceive(int flags = 0);
+        static void CALLBACK ReceiveCallback(DWORD errorCode, DWORD numBytesReceived /*cbTransferred*/, LPWSAOVERLAPPED overlapped, DWORD flags)
 
 };
 

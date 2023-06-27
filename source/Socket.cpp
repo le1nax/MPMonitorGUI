@@ -24,6 +24,7 @@ UDPSocket::UDPSocket() {
     sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
     if (sock == INVALID_SOCKET)
         throw std::system_error(WSAGetLastError(), std::system_category(), "Error opening socket");
+        //std::cerr << "Failed to create socket. Error: " << WSAGetLastError() << std::endl;
 }
 
 
@@ -33,7 +34,7 @@ UDPSocket::~UDPSocket() {
 
 
 /// @todo error handling
-void UDPSocket::SendTo(const std::string& address_string, unsigned short port, const char* buffer, int flags = 0) {
+void UDPSocket::SendTo(const std::string& address_string, unsigned short port, const char* buffer, LPWSAOVERLAPPED overlapped, int flags = 0) {
     //send data provided in buffer to receiver address and port
 
     sockaddr_in remoteIP; //receiver address
@@ -65,7 +66,7 @@ void UDPSocket::SendTo(const std::string& address_string, unsigned short port, c
 
 
 /// @todo error handling
-void UDPSocket::SendTo(sockaddr_in& remoteIP, const char* buffer, int flags = 0) {
+void UDPSocket::SendTo(sockaddr_in& remoteIP, const char* buffer, LPWSAOVERLAPPED overlapped, int flags = 0) {
     //send data provided in buffer to receiver address
 
     int result = WSASendTo(
@@ -92,8 +93,8 @@ void UDPSocket::SendTo(sockaddr_in& remoteIP, const char* buffer, int flags = 0)
 
 
 /// @todo error handling
-/// @todo ByteArrayToFile and ReadData in case of overlap -- will that actually happen here, at all? Can we just leave it?
-sockaddr_in UDPSocket::RecvFrom(sockaddr_in remoteIP, char* buffer, int flags = 0) {
+/// @todo ByteArrayToFile and ReadData in case of overlap -- will that actually happen here, at all? Can we just leave it out?
+int UDPSocket::RecvFrom(sockaddr_in remoteIP, char* buffer, LPWSAOVERLAPPED overlapped, int flags = 0, LPWSAOVERLAPPED_COMPLETION_ROUTINE callback = NULL) {
 //receive data into buffer from remote sender address
 
     int remoteIPlen = sizeof(remoteIP);
@@ -107,7 +108,7 @@ sockaddr_in UDPSocket::RecvFrom(sockaddr_in remoteIP, char* buffer, int flags = 
 					reinterpret_cast<sockaddr*>(&remoteIP), 	        // sockaddr* lpFrom
 					reinterpret_cast<LPINT>(&remoteIPlen),         		// LPINT lpFromlen
 					reinterpret_cast<LPWSAOVERLAPPED>(&overlapped), 	// LPWSAOVERLAPPED lpOverlapped
-					NULL                                       			// LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine
+					callback                                       			// LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine
 				);
 	if (result == SOCKET_ERROR) {
 		int errorCode = WSAGetLastError();
@@ -119,41 +120,8 @@ sockaddr_in UDPSocket::RecvFrom(sockaddr_in remoteIP, char* buffer, int flags = 
         }
 	}
 
-    // Wait for the receive operation to complete
-    std::uint32_t numBytesTransferred;
-    if (WSAGetOverlappedResult(
-            sock,                                               // SOCKET s
-            reinterpret_cast<LPWSAOVERLAPPED>(&overlapped),     // LPWSAOVERLAPPED lpOverlapped
-            reinterpret_cast<LPDWORD>(&numBytesTransferred),    // LPDWORD lpcbTransfer
-            TRUE,                                               // BOOL fWait -- whether the function should wait until the overlapped operation is completed (true = wait, false = retrive results immediately)
-            reinterpret_cast<LPDWORD>(&flags)))                 // LPDWORD lpdwFlags
-    {
-        // Data received successfully, process it
-        if (numBytesTransferred > 0)
-        {
-            // Convert buffer to std::vector<byte> if needed
-            std::vector<byte> data(buffer, buffer + numBytesTransferred);
-
-            // Write data to file
-            //////////////////////////////ByteArrayToFile(path, data.data(), numBytesTransferred);
-
-            // Process data
-            //////////////////////////////ReadData(data); 
-        }
-    }
-    else
-    {
-        // Receive operation failed
-        std::uint32_t errorCode = WSAGetLastError();
-        if (errorCode != WSA_IO_PENDING) //WSA_IO_PENDING = overlapped operation is still in progress
-        {
-            // Handle error
-            std::cout << "Receive error: " << errorCode << std::endl;
-        }
-    }
-
     //////////////////////////////idk if that's necessary here: buffer[result] = 0; //make the buffer zero terminated, marking end of string
-    return remoteIP;
+    return result;
 }
 
 

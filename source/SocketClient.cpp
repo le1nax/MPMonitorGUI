@@ -17,7 +17,7 @@ void SocketClient::sendBytes(vector<std::byte> bytes)
      ///@todo prüfen ob das funktioniert
     size_t len = bytes.size();
     char* charBytes = reinterpret_cast<char*>(bytes.data()); 
-    SendTo(m_remoteIPtarget, m_port, charBytes, len);
+    //SendTo(m_remoteIPtarget, m_port, charBytes, len);///////////////////////////////////////////////////////////// use of old SendTo function, not compatible anymore
 }
 
 void SocketClient::SendWaveAssociationRequest()
@@ -40,56 +40,92 @@ void SocketClient::SendCycledExtendedPollWaveDataRequest()
 
 }
 
-void SocketClient::BeginReceive() {
+void SocketClient::BeginReceive(int flags = 0) {
 
 	UdpState temp_client_state;
 	temp_client_state.state_ip = m_sa_remoteIPtarget;
-	temp_client_state.state_client = this;
+	temp_client_state.state_client = this;	
 
-	sockaddr_in temp_sa = RecvFrom(m_sa_remoteIPtarget, buffer);
-	
-
-
-	//....
-}
+	WSAOVERLAPPED overlapped{};	
+	memset(&overlapped, 0, sizeof(WSAOVERLAPPED));
+	overlapped.hEvent = reinterpret_cast<HANDLE>(&temp_client_state); //= reinterpret_cast<HANDLE>(new UdpState{ sock, m_sa_remoteIPtarget });
 
 
-void SocketClient::ReceiveCallback(std::uint32_t errorCode, std::uint32_t bytesReceived, LPWSAOVERLAPPED overlapped, std::uint32_t flags)
-{
-	/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	int receiveResult = RecvFrom(temp_client_state.state_ip, temp_client_state.state_client.buffer, &overlapped, flags, ReceiveCallback);
+	if (receiveResult == SOCKET_ERROR)
+	{
+		if (WSAGetLastError() != WSA_IO_PENDING)
+		{
+			std::cerr << "Failed to initiate receive. Error: " << WSAGetLastError() << std::endl;
+			delete reinterpret_cast<UdpState*>(overlapped.hEvent);
+			closesocket(sock);
+			return;
+		}
+	}
 
-    if (errorCode == 0)
+	// Wait for the receive operation to complete
+    if (WSAGetOverlappedResult(
+            sock,                                               // SOCKET s
+            reinterpret_cast<LPWSAOVERLAPPED>(&overlapped),     // LPWSAOVERLAPPED lpOverlapped
+            reinterpret_cast<LPDWORD>(&numBytesReceived),    	// LPDWORD lpcbTransfer
+            TRUE,                                               // BOOL fWait -- whether the function should wait until the overlapped operation is completed (true = wait, false = retrive results immediately)
+            reinterpret_cast<LPDWORD>(&flags)))                 // LPDWORD lpdwFlags
     {
         // Data received successfully, process it
-        if (bytesReceived > 0)
+        if (numBytesReceived > 0)
         {
-            // Retrieve the buffer from the overlapped structure
-            char* buffer = reinterpret_cast<char*>(overlapped->Pointer);
-
-			// Data received successfully, process it
-			if (bytesReceived > 0)
-			{
-				// Convert buffer to std::vector<byte> if needed
-				std::vector<byte> data(buffer, buffer + bytesReceived);
-
-				// Write data to file
-				ByteArrayToFile(path, data.data(), bytesReceived);
-
-				// Process data
-				ReadData(data);
-			}
+			// Receive operation completed successfully
+			ReceiveCallback(0, numBytesReceived, &overlapped); //go and process data
         }
     }
     else
     {
-        std::cout << "Receive error: " << errorCode << std::endl;
-		// Handle receive error
-		// ...
-    }*/
+        // Receive operation failed
+        std::uint32_t errorCode = WSAGetLastError();
+        if (errorCode != WSA_IO_PENDING) //WSA_IO_PENDING = overlapped operation is still in progress
+        {
+            // Handle error
+            std::cout << "Receive error: " << errorCode << std::endl;
+        }
+    }
 
-    // Continue receiving data
-    //BeginReceive();
+	// Clean up resources
+	delete reinterpret_cast<UdpState*>(overlapped.hEvent);
 }
+
+
+/// @todo error handling
+void CALLBACK SocketClient::ReceiveCallback(DWORD errorCode, DWORD numBytesReceived /*cbTransferred*/, LPWSAOVERLAPPED overlapped, DWORD flags = 0)
+{
+    if (errorCode == 0) // && numBytesReceived > 0)
+    {
+        //std::string receivedData(buffer, numBytesReceived); //read the number of bytes received from the buffer into receivedData
+
+        // Do something with the receivedData ////////////////////////////////////////////////////////
+
+///////////////////// OR ////////////////////////
+
+		// Retrieve the buffer from the overlapped structure
+		char* buffer = reinterpret_cast<char*>(overlapped->Pointer);
+
+		// Convert buffer to std::vector<byte> if needed
+		std::vector<std::byte> data(buffer, buffer + numBytesReceived);
+
+		// Write data to file
+		////////ByteArrayToFile(path, data.data(), numBytesReceived);
+
+		// Process data
+		////////ReadData(data);
+
+    }
+    else
+    {
+        std::cerr << "ReceiveCallback error: " << errorCode << std::endl;
+        // Handle the error
+        // ... //
+    }
+}
+
 
 void SocketClient::establishLanConnection() 
 {
