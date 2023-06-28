@@ -1,6 +1,10 @@
 #include "../include/SocketClient.h"
 #include <iostream>
+#include <fstream>
+#include <string>
 #include <thread>
+#include <sstream>
+#include <vector>
 
 using namespace std;
 
@@ -95,27 +99,27 @@ void SocketClient::BeginReceive(int flags = 0) {
 
 
 /// @todo error handling
+/// @todo add path_to_file
+/// @todo version A (as is now, with string) or B (commented out, with bytes)?
 void CALLBACK SocketClient::ReceiveCallback(DWORD errorCode, DWORD numBytesReceived /*cbTransferred*/, LPWSAOVERLAPPED overlapped, DWORD flags = 0)
 {
-    if (errorCode == 0) // && numBytesReceived > 0)
+    if (errorCode == 0) 
     {
-        //std::string receivedData(buffer, numBytesReceived); //read the number of bytes received from the buffer into receivedData
+		UdpState udpState = *static_cast<UdpState*>(overlapped->hEvent);
+				//or pointer? //UdpState* udpState = reinterpret_cast<UdpState*>(overlapped->hEvent);
 
-        // Do something with the receivedData ////////////////////////////////////////////////////////
-
-///////////////////// OR ////////////////////////
-
-		// Retrieve the buffer from the overlapped structure
-		char* buffer = reinterpret_cast<char*>(overlapped->Pointer);
+		//read the number of bytes received from the buffer into receivedData
+        std::string receivedData(udpState.state_client.buffer, numBytesReceived); 
 
 		// Convert buffer to std::vector<byte> if needed
-		std::vector<std::byte> data(buffer, buffer + numBytesReceived);
+	// B: std::vector<std::byte> data_bytes(udpState.state_client.buffer, udpState.state_client.buffer + numBytesReceived);
+
+	//im cs code: string path = Path.Combine(Directory.GetCurrentDirectory(),Globals.pathFile+"_Philips_MPrawoutput.txt");
+		std::string path_to_file = ""; //////////////////////////////////////////////////
 
 		// Write data to file
-		////////ByteArrayToFile(path, data.data(), numBytesReceived);
-
-		// Process data
-		////////ReadData(data);
+		bool writing_to_file_successful = ByteArrayToFile(path_to_file, receivedData);
+	// B: bool writing_to_file_successful2 = ByteArrayToFile(path_to_file, data_bytes, numBytesReceived);
 
     }
     else
@@ -124,6 +128,69 @@ void CALLBACK SocketClient::ReceiveCallback(DWORD errorCode, DWORD numBytesRecei
         // Handle the error
         // ... //
     }
+}
+
+
+bool SocketClient::ByteArrayToFile(const std::string& path_to_file, const std::string& bytes_string)
+{
+    try
+    {
+        // Open file for writing
+        std::ofstream outFile(path_to_file, std::ios::app);
+        if (outFile.is_open())
+        {
+            // Write data to file
+            outFile << bytes_string << std::endl;
+
+            // Close file stream
+            outFile.close();
+
+            return true;
+        }
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << "Exception caught in process: " << e.what() << std::endl;
+    }
+
+    // Error occurred, return false
+    return false;
+}
+
+
+bool SocketClient::ByteArrayToFile(const std::string& path_to_file, const std::vector<std::byte>& data_bytes, uint32_t numBytesReceived)
+{
+    try
+    {
+        // Open file for writing
+        std::ofstream outFile(path_to_file, std::ios::app);
+        if (outFile.is_open())
+        {
+            // Convert byte array to hex string representation
+            std::stringstream data_to_string;
+            for (int i = 0; i < numBytesReceived; i++)
+            {
+                data_to_string << std::hex << static_cast<int>(data_bytes[i]);
+                if (i != numBytesReceived - 1) data_to_string << "-";
+            }
+            std::string datastr = data_to_string.str();
+
+            // Write data to file
+            outFile << datastr << std::endl;
+
+            // Close file stream
+            outFile.close();
+
+            return true;
+        }
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << "Exception caught in process: " << e.what() << std::endl;
+    }
+
+    // Error occurred, return false
+    return false;
 }
 
 
@@ -248,8 +315,7 @@ void SocketClient::establishLanConnection()
 
 		//Receive PollDataResponse message / Receive poll data		//_MPudpclient.BeginReceive(new AsyncCallback(ReceiveCallback), state);
 		std::thread receiveThread([&]() {
-    		//BeginReceive(ReceiveCallback, state); //initiates the asynchronous receiving of data, ReceiveCallback() as the callback fct to be executed whenever data is received
-			BeginReceive();
+			BeginReceive(); //receive data asynchronously
 
 		});
 		receiveThread.detach();
