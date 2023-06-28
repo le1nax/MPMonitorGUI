@@ -35,8 +35,10 @@ class SocketClient : public UDPSocket {
         /// @todo make threads
         void SendCycledExtendedPollDataRequest();
         void SendCycledExtendedPollWaveDataRequest();
-        void RecheckMDSAttributes();
-        void KeepConnectionAlive();
+        void RecheckMDSAttributes(int nInterval = 0);
+        void SendMDSPollDataRequest();
+        void KeepConnectionAlive(int nInterval = 0);
+        void SendMDSCreateEventResult();
         void BeginReceive(int flags = 0);
         static void CALLBACK ReceiveCallback(DWORD errorCode, DWORD numBytesReceived /*cbTransferred*/, LPWSAOVERLAPPED overlapped, DWORD flags);
         static bool ByteArrayToFile(const std::string& filename, const std::string& bytes_string);

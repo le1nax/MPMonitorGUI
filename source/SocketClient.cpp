@@ -194,6 +194,54 @@ bool SocketClient::ByteArrayToFile(const std::string& path_to_file, const std::v
 }
 
 
+void SocketClient::RecheckMDSAttributes(int nInterval = 0)
+{
+	int nMillisecond = 6 * 1000;
+    if (nMillisecond != 0 && nInterval > 1000)
+    {
+        while (true)
+        {
+            SendMDSPollDataRequest();
+
+            std::this_thread::sleep_for(std::chrono::milliseconds(nMillisecond));
+
+        }
+    }
+}
+
+
+void SocketClient::SendMDSPollDataRequest()
+{
+
+
+
+}
+
+
+void SocketClient::KeepConnectionAlive(int nInterval = 0)
+{
+	int nMillisecond = 6 * 1000;
+    if (nMillisecond != 0 && nInterval > 1000)
+    {
+        while (true)
+        {
+            SendMDSCreateEventResult();
+
+            std::this_thread::sleep_for(std::chrono::milliseconds(nMillisecond));
+
+        }
+    }
+}
+
+
+void SocketClient::SendMDSCreateEventResult()
+{
+
+
+	
+}
+
+
 void SocketClient::establishLanConnection() 
 {
     //  try
@@ -289,11 +337,14 @@ void SocketClient::establishLanConnection()
 
 ////////////////////////////////////////////////  :))  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+		/// @todo add where nInterval is actually coming from
+		int nInterval = 0;
+
 
 		//Recheck MDS Attributes	//Task.Run(() => _MPudpclient.RecheckMDSAttributes(nInterval));				
 		std::thread recheckMDSAttributesThread([&]() {	
 			//RecheckMDSAttributes(nInterval);
-			RecheckMDSAttributes();
+			RecheckMDSAttributes(nInterval);
 
 		});
 		recheckMDSAttributesThread.detach(); //allows the thread to continue executing independently, without requiring synchronization or joining with the parent thread
@@ -308,7 +359,7 @@ void SocketClient::establishLanConnection()
 		//Keep Connection Alive		//Task.Run(() => _MPudpclient.KeepConnectionAlive(nInterval));
 		std::thread keepConnectionAliveThread([&]() {
 			//KeepConnectionAlive(nInterval);
-			KeepConnectionAlive();
+			KeepConnectionAlive(nInterval);
 		});
 		keepConnectionAliveThread.detach();
 
@@ -316,7 +367,6 @@ void SocketClient::establishLanConnection()
 		//Receive PollDataResponse message / Receive poll data		//_MPudpclient.BeginReceive(new AsyncCallback(ReceiveCallback), state);
 		std::thread receiveThread([&]() {
 			BeginReceive(); //receive data asynchronously
-
 		});
 		receiveThread.detach();
 
