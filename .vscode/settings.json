@@ -50,9 +50,18 @@
         "typeinfo": "cpp",
         "bitset": "cpp",
         "map": "cpp",
+<<<<<<< HEAD
         "fstream": "cpp",
         "ctime": "cpp",
         "iomanip": "cpp",
+=======
+        "ctime": "cpp",
+        "ratio": "cpp",
+        "semaphore": "cpp",
+        "stop_token": "cpp",
+        "thread": "cpp",
+        "fstream": "cpp",
+>>>>>>> c44f226206c10cceffb3d3a85991ef11b6058a7b
         "sstream": "cpp"
     }
 }

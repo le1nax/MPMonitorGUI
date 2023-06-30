@@ -3,8 +3,15 @@
 
 #include "Socket.h"
 
+#define BUFFERSIZE 1024
 
 //
+struct UdpState {
+    SocketClient state_client;
+    sockaddr_in state_ip;
+};
+
+
 class SocketClient : public UDPSocket {
 
     public:
@@ -20,26 +27,10 @@ class SocketClient : public UDPSocket {
         std::vector<std::byte> m_readassocbuffer;
         std::vector<std::byte> m_readmdsconnectbuffer;
         std::string m_remoteIPtarget = "";
-        std::string m_strTimestamp = "";
-        std::string m_DeviceID= "";
-        std::string m_idlabelstring = "";
-        std::vector<NumericValResult> m_NumericValList;
-        std::vector<std::string> m_NumValHeaders;
-        uint16_t m_port = 0; 
-        uint32_t m_baseRelativeTime= 0;
-        uint16_t m_actiontype= 0;
-        uint16_t m_obpollhandle = 0;
-        uint32_t m_idlabelhandle = 0;
-        uint32_t m_dataexportset = 1;
-        uint32_t m_csvexportset = 1;
-        std::vector<IDLabel> m_IDLabelList;
-        std::vector<SaCalibData16> m_SaCalibDataSpecList;
-        std::vector<ScaleRangeSpec16> m_ScaleRangeSpecList;
-        std::vector<SaSpec> m_SaSpecList;
-        std::vector<WaveValResult> m_WaveValResultList;
-        tm m_baseDateTime{};
-        tm GetAbsoluteTimeFromBCDFormat(char* bcdtimebuffer);
-        //sockaddr_in m_sa_remoteIPtarget
+        unsigned short m_port = 0; 
+        sockaddr_in m_sa_remoteIPtarget;
+        char buffer[BUFFERSIZE];
+        UdpState udpState; //current state of the client for the asynchronous receiving of data
 
         /// @todo make threads
         void CheckLinkedPollPacketActionType(char* buffer);
@@ -68,10 +59,16 @@ class SocketClient : public UDPSocket {
         void CheckPollPacketActionType(char* buffer);
         void SendCycledExtendedPollDataRequest();
         void SendCycledExtendedPollWaveDataRequest();
-        void RecheckMDSAttributes();
-        void KeepConnectionAlive();
         void ExportDataToCSV();
         void SaveNumericValueList();
-        void AddIDLabelToList()
+        void AddIDLabelToList();
+        void RecheckMDSAttributes(int nInterval = 0);
+        void SendMDSPollDataRequest();
+        void KeepConnectionAlive(int nInterval = 0);
+        void SendMDSCreateEventResult();
+        void BeginReceive(int flags = 0);
+        static void CALLBACK ReceiveCallback(DWORD errorCode, DWORD numBytesReceived /*cbTransferred*/, LPWSAOVERLAPPED overlapped, DWORD flags);
+        static bool ByteArrayToFile(const std::string& filename, const std::string& bytes_string);
+        static bool ByteArrayToFile(const std::string& path_to_file, const std::vector<std::byte>& data_bytes, uint32_t numBytesReceived);
 
 };
