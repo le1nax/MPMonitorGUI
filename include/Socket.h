@@ -7,6 +7,7 @@
 #include <system_error>
 #include <string>
 #include <vector>
+#include <memory>
 #include <bitset>
 #include <cstddef>
 #include <iostream>
