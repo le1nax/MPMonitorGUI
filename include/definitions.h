@@ -143,6 +143,29 @@ int BinaryCodedDecimalToInteger(int value)
             else return 0;
         }
 
+double FloattypeToValue(uint32_t fvalue)
+{
+    double value = 0;
+    if (fvalue != FLOATTYPE_NAN)
+    {
+        int exponentbits = static_cast<int>(fvalue >> 24);
+        int mantissabits = static_cast<int>(fvalue << 8);
+        mantissabits = (mantissabits >> 8);
+
+        signed char signedexponentbits = static_cast<signed char>(exponentbits); // Get Two's complement signed byte
+        double exponent = static_cast<double>(signedexponentbits);
+
+        double mantissa = mantissabits;
+        value = mantissa * std::pow(10.0, exponent);
+
+        return value;
+    }
+    else
+    {
+        return static_cast<double>(fvalue);
+    }
+}
+
 /// @todo testen
 char* ReadBytesFromBuffer(const char* buffer, size_t startIndex, size_t numBytesToRead)
 {
@@ -183,6 +206,12 @@ char* ReadBytesFromBuffer(const char* buffer, size_t startIndex, size_t numBytes
         //Given Name
         constexpr int NOM_ATTR_PT_NAME_GIVEN = 0x95d;
 
+        constexpr int FLOATTYPE_NAN = 0x007FFFFF;
+        constexpr int FLOATTYPE_NRes = 0x800000;
+        constexpr int FLOATTYPE_POSITIVE_INFINITY = 0x7FFFFE;
+        constexpr int FLOATTYPE_NEGATIVE_INFINITY = 0x800002;
+
+
 //ROapdus
     constexpr unsigned char ROIV_APDU = 1;
     constexpr unsigned char RORS_APDU = 2;
@@ -215,6 +244,236 @@ char* ReadBytesFromBuffer(const char* buffer, size_t startIndex, size_t numBytes
         constexpr int NOM_ATTR_SA_VAL_OBS = 0x96e;
         //Scale and Range Specification
         constexpr int NOM_ATTR_SCALE_SPECN_I16 = 0x96f;
+
+     enum class Commands : uint16_t
+        {
+            CMD_EVENT_REPORT = 0,
+            CMD_CONFIRMED_EVENT_REPORT = 1,
+            CMD_GET = 3,
+            CMD_SET = 4,
+            CMD_CONFIRMED_SET = 5,
+            CMD_CONFIRMED_ACTION = 7
+        };
+
+    enum class RemoteOperationHeader : uint16_t
+        {
+            ROIV_APDU = 1,
+            //request/command from client (PC)
+            RORS_APDU = 2,
+            //single frame result from monitor except error
+            ROER_APDU = 3,
+            //remote operation error
+            ROLRS_APDU = 5
+            //e.g. Single Poll Linked Result
+        }
+    
+    enum class AttributeIDs : uint16_t
+        {
+            //Device P-Alarm List
+            NOM_ATTR_AL_MON_P_AL_LIST = 0x902,
+            //Device T-Alarm List
+            NOM_ATTR_AL_MON_T_AL_LIST = 0x904,
+            //Altitude
+            NOM_ATTR_ALTITUDE = 0x90c,
+            //Application Area
+            NOM_ATTR_AREA_APPL = 0x90d,
+            //Color
+            NOM_ATTR_COLOR = 0x911,
+            //Device Alert Condition
+            NOM_ATTR_DEV_AL_COND = 0x916,
+            //Display Resolution
+            NOM_ATTR_DISP_RES = 0x917,
+            //Visual Grid
+            NOM_ATTR_GRID_VIS_I16 = 0x91a,
+            //Association Invoke Id
+            NOM_ATTR_ID_ASSOC_NO = 0x91d,
+            //Bed Label
+            NOM_ATTR_ID_BED_LABEL = 0x91e,
+            //Object Handle
+            NOM_ATTR_ID_HANDLE = 0x921,
+            //Label
+            NOM_ATTR_ID_LABEL = 0x924,
+            //Label String
+            NOM_ATTR_ID_LABEL_STRING = 0x927,
+            //System Model
+            NOM_ATTR_ID_MODEL = 0x928,
+            //Product Specification
+            NOM_ATTR_ID_PROD_SPECN = 0x92d,
+            //Object Type
+            NOM_ATTR_ID_TYPE = 0x92f,
+            //Line Frequency
+            NOM_ATTR_LINE_FREQ = 0x935,
+            //System Localization
+            NOM_ATTR_LOCALIZN = 0x937,
+            //Metric Info Label
+            NOM_ATTR_METRIC_INFO_LABEL = 0x93c,
+            //Metric Info Label String
+            NOM_ATTR_METRIC_INFO_LABEL_STR = 0x93d,
+            //Metric Specification
+            NOM_ATTR_METRIC_SPECN = 0x93f,
+            //Metric State
+            NOM_ATTR_METRIC_STAT = 0x940,
+            //Measure Mode
+            NOM_ATTR_MODE_MSMT = 0x945,
+            //Operating Mode
+            NOM_ATTR_MODE_OP = 0x946,
+            //Nomenclature Version
+            NOM_ATTR_NOM_VERS = 0x948,
+            //Compound Numeric Observed Value
+            NOM_ATTR_NU_CMPD_VAL_OBS = 0x94b,
+            //Numeric Observed Value
+            NOM_ATTR_NU_VAL_OBS = 0x950,
+            //Patient BSA
+            NOM_ATTR_PT_BSA = 0x956,
+            //Pat Demo State
+            NOM_ATTR_PT_DEMOG_ST = 0x957,
+            //Patient Date of Birth
+            NOM_ATTR_PT_DOB = 0x958,
+            //Patient ID
+            NOM_ATTR_PT_ID = 0x95a,
+            //Family Name
+            NOM_ATTR_PT_NAME_FAMILY = 0x95c,
+            //Given Name
+            NOM_ATTR_PT_NAME_GIVEN = 0x95d,
+            //Patient Sex
+            NOM_ATTR_PT_SEX = 0x961,
+            //Patient Type
+            NOM_ATTR_PT_TYPE = 0x962,
+            //Sample Array Calibration Specification
+            NOM_ATTR_SA_CALIB_I16 = 0x964,
+            //Compound Sample Array Observed Value
+            NOM_ATTR_SA_CMPD_VAL_OBS = 0x967,
+            //Sample Array Physiological Range
+            NOM_ATTR_SA_RANGE_PHYS_I16 = 0x96a,
+            //Sample Array Specification
+            NOM_ATTR_SA_SPECN = 0x96d,
+            //Sample Array Observed Value
+            NOM_ATTR_SA_VAL_OBS = 0x96e,
+            //Scale and Range Specification
+            NOM_ATTR_SCALE_SPECN_I16 = 0x96f,
+            //Safety Standard
+            NOM_ATTR_STD_SAFETY = 0x982,
+            //System ID
+            NOM_ATTR_SYS_ID = 0x984,
+            //System Specification
+            NOM_ATTR_SYS_SPECN = 0x985,
+            //System Type
+            NOM_ATTR_SYS_TYPE = 0x986,
+            //Date and Time
+            NOM_ATTR_TIME_ABS = 0x987,
+            //Sample Period
+            NOM_ATTR_TIME_PD_SAMP = 0x98d,
+            //Relative Time
+            NOM_ATTR_TIME_REL = 0x98f,
+            //Absolute Time Stamp
+            NOM_ATTR_TIME_STAMP_ABS = 0x990,
+            //Relative Time Stamp
+            NOM_ATTR_TIME_STAMP_REL = 0x991,
+            //Unit Code
+            NOM_ATTR_UNIT_CODE = 0x996,
+            //Enumeration Observed Value
+            NOM_ATTR_VAL_ENUM_OBS = 0x99e,
+            //MDS Status
+            NOM_ATTR_VMS_MDS_STAT = 0x9a7,
+            //Patient Age
+            NOM_ATTR_PT_AGE = 0x9d8,
+            //Patient Height
+            NOM_ATTR_PT_HEIGHT = 0x9dc,
+            //Patient Weight
+            NOM_ATTR_PT_WEIGHT = 0x9df,
+            //Sample Array Fixed Values Specification
+            NOM_ATTR_SA_FIXED_VAL_SPECN = 0xa16,
+            //Patient Paced Mode
+            NOM_ATTR_PT_PACED_MODE = 0xa1e,
+            //Internal Patient ID
+            NOM_ATTR_PT_ID_INT = 0xf001,
+            //Private Attribute
+            NOM_SAT_O2_TONE_FREQ = 0xf008,
+            //Private Attribute
+            NOM_ATTR_CMPD_REF_LIST = 0xf009,
+            //IP Address Information
+            NOM_ATTR_NET_ADDR_INFO = 0xf100,
+            //Protocol Support
+            NOM_ATTR_PCOL_SUPPORT = 0xf101,
+            //Notes1
+            NOM_ATTR_PT_NOTES1 = 0xf129,
+            //Notes2
+            NOM_ATTR_PT_NOTES2 = 0xf12a,
+            //Time for Periodic Polling
+            NOM_ATTR_TIME_PD_POLL = 0xf13e,
+            //Patient BSA Formula
+            NOM_ATTR_PT_BSA_FORMULA = 0xf1ec,
+            //Mds General System Info
+            NOM_ATTR_MDS_GEN_INFO = 0xf1fa,
+            //no of prioritized objects for poll request
+            NOM_ATTR_POLL_OBJ_PRIO_NUM = 0xf228,
+            //Numeric Object Priority List
+            NOM_ATTR_POLL_NU_PRIO_LIST = 0xf239,
+            //Wave Object Priority List
+            NOM_ATTR_POLL_RTSA_PRIO_LIST = 0xf23a,
+            //Metric Modality
+            NOM_ATTR_METRIC_MODALITY = 0xf294,
+            //The attributes are arranged in the following attribute groups:
+            //Alert Monitor Group
+            NOM_ATTR_GRP_AL_MON = 0x801,
+            //Metric Observed Value Group
+            NOM_ATTR_GRP_METRIC_VAL_OBS = 0x803,
+            //Patient Demographics Attribute Group
+            NOM_ATTR_GRP_PT_DEMOG = 0x807,
+            //System Application Attribute Group
+            NOM_ATTR_GRP_SYS_APPL = 0x80a,
+            //System Identification Attribute Group
+            NOM_ATTR_GRP_SYS_ID = 0x80b,
+            //System Production Attribute Group
+            NOM_ATTR_GRP_SYS_PROD = 0x80c,
+            //VMO Dynamic Attribute Group
+            NOM_ATTR_GRP_VMO_DYN = 0x810,
+            //VMO Static Attribute Group
+            NOM_ATTR_GRP_VMO_STATIC = 0x811
+        }
+
+    enum class WavesIDLabels : uint32_t
+        {
+            NLS_NOM_ECG_ELEC_POTL = 0x00020100,
+            NLS_NOM_ECG_ELEC_POTL_I = 0x00020101,
+            NLS_NOM_ECG_ELEC_POTL_II = 0x00020102,
+            NLS_NOM_ECG_ELEC_POTL_III = 0x0002013D,
+            NLS_NOM_ECG_ELEC_POTL_AVR = 0x0002013E,
+            NLS_NOM_ECG_ELEC_POTL_AVL = 0x0002013F,
+            NLS_NOM_ECG_ELEC_POTL_AVF = 0x00020140,
+            NLS_NOM_ECG_ELEC_POTL_V1 = 0x00020103,
+            NLS_NOM_ECG_ELEC_POTL_V2 = 0x00020104,
+            NLS_NOM_ECG_ELEC_POTL_V3 = 0x00020105,
+            NLS_NOM_ECG_ELEC_POTL_V4 = 0x00020106,
+            NLS_NOM_ECG_ELEC_POTL_V5 = 0x00020107,
+            NLS_NOM_ECG_ELEC_POTL_V6 = 0x00020108,
+            NLS_NOM_PULS_OXIM_PLETH = 0x00024BB4,
+            NLS_NOM_PULS_OXIM_SAT_O2 = 0x00024BB8,
+            NLS_NOM_PULS_OXIM_PULS_RATE = 0x00024822,
+            NLS_NOM_PRESS_BLD_ART = 0x00024A10,
+            NLS_NOM_PRESS_BLD_ART_ABP = 0x00024A14,
+            NLS_NOM_PRESS_BLD_VEN_CENT = 0x00024A44,
+            NLS_NOM_RESP = 0x00025000,
+            NLS_NOM_AWAY_CO2 = 0x000250AC,
+            NLS_NOM_PRESS_AWAY = 0x000250F0,
+            NLS_NOM_FLOW_AWAY = 0x000250D4,
+            NLS_EEG_NAMES_EEG_CHAN1_LBL = 0x800F5401,
+            NLS_EEG_NAMES_EEG_CHAN2_LBL = 0x800F5402,
+            NLS_EEG_NAMES_EEG_CHAN3_LBL = 0x800F5432,
+            NLS_EEG_NAMES_EEG_CHAN4_LBL = 0x800F5434,
+            NLS_NOM_PRESS_INTRA_CRAN = 0x00025808,
+            NLS_NOM_PRESS_INTRA_CRAN_2 = 0x0002F0B8,
+            NLS_NOM_TEMP_BLD = 0x0002E014,
+            NLS_VUELINK_FLX1_NPS_TEXT_WAVE1 = 0x80AAF001,
+            NLS_VUELINK_FLX1_NPS_TEXT_WAVE2 = 0x80AAF003,
+            NLS_VUELINK_FLX1_NPS_TEXT_WAVE3 = 0x80AAF005,
+            NLS_VUELINK_FLX1_NPS_TEXT_WAVE4 = 0x80AAF007,
+            NLS_VUELINK_FLX1_NPS_TEXT_WAVE5 = 0x80AAF009,
+            NLS_VUELINK_FLX1_NPS_TEXT_WAVE6 = 0x80AAF00B,
+            NLS_VUELINK_FLX1_NPS_TEXT_WAVE7 = 0x80AAF00D,
+            NLS_VUELINK_FLX1_NPS_TEXT_WAVE8 = 0x80AAF00F
+
+        }
 
 enum class AlertSource : uint16_t
         {

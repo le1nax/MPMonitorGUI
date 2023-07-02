@@ -362,7 +362,6 @@ void SocketClient::DecodeAvaObjects(unique_ptr<AvaObj> avaobject, char* buffer)
                     default:
                         // unknown attribute -> do nothing
                         break;
-
                 }
             }
 }
@@ -377,7 +376,8 @@ void SocketClient::ReadNumericObservationValue(char* buffer)
     NumObjectValue.state = htons(Read16ByteValuesFromBuffer(buffer, 0));
     NumObjectValue.unit_code = htons(Read16ByteValuesFromBuffer(buffer, 0));
     NumObjectValue.value = htonl(ReadByteValuesFromBuffer(buffer, 3*uInt16Size, 2*uInt16Size));
-    double value = NumObjectValue.value;
+    ///@todo test float type to value
+    double value = FloattypeToValue(NumObjectValue.value);
     string physiostring_id;
     ///@todo exception handling 
     AlertSource physio_id = AlertSource(NumObjectValue.physio_id);
@@ -474,7 +474,7 @@ void SocketClient::ReadIDLabelString(char* buffer)
             StringMP strmp;
 
             strmp.length = htons(Read16ByteValuesFromBuffer(buffer, 0));
-            //strmp.value1 = correctendianshortus(binreader5.ReadUInt16());
+            //strmp.value1 = htons(binreader5.ReadUInt16());
             char* stringval = ReadBytesFromBuffer(buffer, uInt16Size, strmp.length);
 
             string label = Utf8ToString(stringval);
@@ -519,18 +519,18 @@ void SocketClient::ReadWaveSaObservationValueObject(char* avaattribobjects)
     }
 
 void SocketClient::ReadWaveSaObservationValue(char* buffer)
-        {
-            SaObsValue WaveSaObjectValue;
-            WaveSaObjectValue.physio_id = htons(Read16ByteValuesFromBuffer(buffer, 0));
-            WaveSaObjectValue.state = htons(Read16ByteValuesFromBuffer(buffer, uInt16Size));
-            WaveSaObjectValue.length = htons(Read16ByteValuesFromBuffer(buffer, 2*uInt16Size));
+    {
+        SaObsValue WaveSaObjectValue;
+        WaveSaObjectValue.physio_id = htons(Read16ByteValuesFromBuffer(buffer, 0));
+        WaveSaObjectValue.state = htons(Read16ByteValuesFromBuffer(buffer, uInt16Size));
+        WaveSaObjectValue.length = htons(Read16ByteValuesFromBuffer(buffer, 2*uInt16Size));
 
-            int wavevalobjectslength = WaveSaObjectValue.length;
-            char* WaveValObjects = ReadBytesFromBuffer(buffer, 3*uInt16Size, wavevalobjectslength);
+        int wavevalobjectslength = WaveSaObjectValue.length;
+        char* WaveValObjects = ReadBytesFromBuffer(buffer, 3*uInt16Size, wavevalobjectslength);
 
-            AlertSource physio_id = AlertSource(WaveSaObjectValue.physio_id);
-            string physiostring_id = "";
-            if(physio_id == AlertSource::NOM_METRIC_NOS)
+        AlertSource physio_id = AlertSource(WaveSaObjectValue.physio_id);
+        string physiostring_id = "";
+        if(physio_id == AlertSource::NOM_METRIC_NOS)
             {
                IDLabel cIDLabel;
                //cIDLabel = m_IDLabelList.Find(x => x.obpoll_handle == m_obpollhandle);
@@ -562,7 +562,7 @@ void SocketClient::ReadWaveSaObservationValue(char* buffer)
             // WaveVal.SystemLocalTime = strSystemLocalDateTime;
 
             // WaveVal.Timestamp = strDateTime;
-            WaveVal.PhysioID = physio_id;
+            WaveVal.PhysioID = physiostring_id;
             WaveVal.DeviceID = m_DeviceID;
 
             WaveVal.obpoll_handle = m_obpollhandle;
@@ -859,19 +859,47 @@ int SocketClient::DecodePollObjects(PollInfoList* pollobjects, char* packetbuffe
         }
 
 
-void SocketClient::SendCycledExtendedPollDataRequest()
+void SocketClient::SendCycledExtendedPollDataRequest(size_t nInterval)
 {
+    int nmillisecond = nInterval;
+
+            if (nmillisecond != 0)
+            {
+                do
+                {
+                    sendBytes(ext_poll_request_msg);
+                    ///@todo make time variable
+                    std::this_thread::sleep_for(12000ms); 
+
+                }
+                while (true);
+            }
+            else sendBytes(ext_poll_request_msg);
 
 }
 
-void SocketClient::SendCycledExtendedPollWaveDataRequest()
+void SocketClient::SendCycledExtendedPollWaveDataRequest(size_t nInterval)
 {
+    int nmillisecond = nInterval;
+
+            if (nmillisecond != 0)
+            {
+                do
+                {
+                    sendBytes(ext_poll_request_wave_msg);
+                    ///@todo make time variable
+                    std::this_thread::sleep_for(12000ms); 
+                }
+                while (true);
+            }
+            else sendBytes(ext_poll_request_wave_msg);
 
 }
 
 void SocketClient::BeginReceive(int flags = 0) {
 
-	UdpState temp_client_state;
+    ///@todo delete durch uniqueptr hEvent ersetzen (?)
+	UdpState temp_client_state; 
 	temp_client_state.state_ip = m_sa_remoteIPtarget;
 	temp_client_state.state_client = this;	
 
@@ -1027,9 +1055,7 @@ void SocketClient::RecheckMDSAttributes(int nInterval = 0)
         while (true)
         {
             SendMDSPollDataRequest();
-
             std::this_thread::sleep_for(std::chrono::milliseconds(nMillisecond));
-
         }
     }
 }
@@ -1037,9 +1063,7 @@ void SocketClient::RecheckMDSAttributes(int nInterval = 0)
 
 void SocketClient::SendMDSPollDataRequest()
 {
-
-
-
+    sendBytes(poll_mds_request_msg);
 }
 
 
@@ -1051,9 +1075,7 @@ void SocketClient::KeepConnectionAlive(int nInterval = 0)
         while (true)
         {
             SendMDSCreateEventResult();
-
             std::this_thread::sleep_for(std::chrono::milliseconds(nMillisecond));
-
         }
     }
 }
@@ -1061,9 +1083,178 @@ void SocketClient::KeepConnectionAlive(int nInterval = 0)
 
 void SocketClient::SendMDSCreateEventResult()
 {
+    sendBytes(mds_create_resp_msg);
+}
+
+void SocketClient::GetRTSAPriorityListRequest()
+{
+    sendBytes(get_rtsa_prio_msg);
+}
+
+void SocketClient::CreateWaveformSet(size_t nWaveSetType, vector<std::byte> WaveTrtype)
+{
+    switch (nWaveSetType)
+            {
+                case 0:
+                    break;
+                case 1:
+                    WaveTrtype.push_back(static_cast<std::byte>(htons(0x03))); //count
+                    WaveTrtype.push_back(static_cast<std::byte>(htons(0x0C))); //length
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_ECG_ELEC_POTL_II))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_ECG_ELEC_POTL_I))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_ECG_ELEC_POTL_III))));
+                    break;
+                case 2:
+                    WaveTrtype.push_back(static_cast<std::byte>(htons(0x06))); //count
+                    WaveTrtype.push_back(static_cast<std::byte>(htons(0x18))); //length
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_ECG_ELEC_POTL_II))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_PRESS_BLD_ART_ABP))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_PRESS_BLD_ART))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_PULS_OXIM_PLETH))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_PRESS_BLD_VEN_CENT))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_RESP))));
+                    break;
+                case 3:
+                    WaveTrtype.push_back(static_cast<std::byte>(htons(0x03))); //count
+                    WaveTrtype.push_back(static_cast<std::byte>(htons(0x0C))); //length
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_ECG_ELEC_POTL_AVR))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_ECG_ELEC_POTL_AVL))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_ECG_ELEC_POTL_AVF))));
+                    break;
+                case 4:
+                    WaveTrtype.push_back(static_cast<std::byte>(htons(0x03))); //count
+                    WaveTrtype.push_back(static_cast<std::byte>(htons(0x0C))); //length
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_ECG_ELEC_POTL_V1))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_ECG_ELEC_POTL_V2))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_ECG_ELEC_POTL_V3))));
+                    break;
+                case 5:
+                    WaveTrtype.push_back(static_cast<std::byte>(htons(0x03))); //count
+                    WaveTrtype.push_back(static_cast<std::byte>(htons(0x0C))); //length
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_ECG_ELEC_POTL_V4))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_ECG_ELEC_POTL_V5))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_ECG_ELEC_POTL_V6))));
+                    break;
+                case 6:
+                    WaveTrtype.push_back(static_cast<std::byte>(htons(0x04))); //count
+                    WaveTrtype.push_back(static_cast<std::byte>(htons(0x10))); //length
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_EEG_NAMES_EEG_CHAN1_LBL))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_EEG_NAMES_EEG_CHAN2_LBL))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_EEG_NAMES_EEG_CHAN3_LBL))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_EEG_NAMES_EEG_CHAN4_LBL))));
+                    break;
+                case 7:
+                    WaveTrtype.push_back(static_cast<std::byte>(htons(0x02))); //count
+                    WaveTrtype.push_back(static_cast<std::byte>(htons(0x08))); //length
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_PRESS_BLD_ART_ABP))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_PRESS_BLD_ART))));
+                    break;
+                case 8:
+                    WaveTrtype.push_back(static_cast<std::byte>(htons(0x06))); //count
+                    WaveTrtype.push_back(static_cast<std::byte>(htons(0x18))); //length
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_ECG_ELEC_POTL))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_PULS_OXIM_PLETH))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_PRESS_BLD_ART_ABP))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_PRESS_BLD_ART))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_PRESS_BLD_VEN_CENT))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_AWAY_CO2))));
+                    break;
+                case 9:
+                    WaveTrtype.push_back(static_cast<std::byte>(htons(0x06))); //count
+                    WaveTrtype.push_back(static_cast<std::byte>(htons(0x18))); //length
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_ECG_ELEC_POTL_II))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_PRESS_BLD_ART))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_PRESS_INTRA_CRAN))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_PRESS_INTRA_CRAN_2))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_PRESS_BLD_VEN_CENT))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_TEMP_BLD))));
+                    break;
+                case 10:
+                    WaveTrtype.push_back(static_cast<std::byte>(htons(0x04))); //count
+                    WaveTrtype.push_back(static_cast<std::byte>(htons(0x10))); //length
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_VUELINK_FLX1_NPS_TEXT_WAVE1))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_VUELINK_FLX1_NPS_TEXT_WAVE2))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_VUELINK_FLX1_NPS_TEXT_WAVE3))));
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_VUELINK_FLX1_NPS_TEXT_WAVE4))));
+                    break;
+                case 11:
+                    WaveTrtype.push_back(static_cast<std::byte>(htons(0x01))); //count
+                    WaveTrtype.push_back(static_cast<std::byte>(htons(0x18))); //length
+                    WaveTrtype.push_back(static_cast<std::byte>(htonl((uint32_t)(WavesIDLabels::NLS_NOM_PULS_OXIM_PLETH))));
+                    break;
+            }
+}
+
+void SocketClient::SendRTSAPriorityMessage(std::vector<std::byte> WaveTrType)
+{
+    std::vector<std::byte> tempbuffer;
+
+            //Assemble request in reverse order first to calculate lengths
+            //Insert TextIdList
+            for(auto& it : WaveTrType)
+            {   
+                 tempbuffer.push_back(it);
+            }
+
+            unique_ptr<AvaObj> avatype = make_unique<AvaObj>();
+            avatype->attribute_id = uint16_t(AttributeIDs::NOM_ATTR_POLL_RTSA_PRIO_LIST);
+            avatype->length = uint16_t(WaveTrType.size());
+            //avatype.length = (ushort)tempbuffer.Count;
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(avatype->length)));
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(avatype->attribute_id)));
+
+            // AttributeModEntry = { 0x00, 0x00 };
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(0)));
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(0)));
+
+            //byte[] ModListlength = BitConverter.GetBytes(correctendianshortus((ushort)tempbuffer.Count));
+            //byte[] ModListCount = { 0x00, 0x01 };
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(uint16_t(tempbuffer.size()))));
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(1)));
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(0)));
+
+            // byte[] ManagedObjectID = { 0x00, 0x21, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(0x00)));
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(0x00)));
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(0x00)));
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(0x00)));
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(0x00)));
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(0x00)));
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(0x00)));
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(0x00)));
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(0x00)));
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(0x21)));
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(0x00)));
 
 
-	
+            ROIVapdu rovi;
+            rovi.length = uint16_t(tempbuffer.size());
+            rovi.command_type = uint16_t(Commands::CMD_CONFIRMED_SET);
+            rovi.inovke_id = 0x0000;
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(rovi.length)));
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(rovi.command_type)));
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(rovi.inovke_id)));
+
+            ROapdus roap;
+            roap.length = uint16_t(tempbuffer.size());
+            roap.ro_type = uint16_t(RemoteOperationHeader::ROIV_APDU);
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(roap.length)));
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(roap.ro_type)));
+
+            //byte[] Spdu = { 0xE1, 0x00, 0x00, 0x02 };
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(0x02)));
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(0x00)));
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(0x00)));
+            tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(0xE1)));
+
+            sendBytes(tempbuffer);   
+}
+
+void SocketClient::SetRTSAPriorityList(size_t nWaveSetType)
+{
+    std::vector<std::byte> WaveTrType;
+    CreateWaveformSet(nWaveSetType, WaveTrType);
+    SendRTSAPriorityMessage(WaveTrType);
 }
 
 
@@ -1071,6 +1262,9 @@ void SocketClient::establishLanConnection()
 {
     //  try
     //     {
+        int nInterval = 12000;
+        uint16_t nWaveformSet = 12;
+        uint16_t nWavescaleSet = 1;
             SendWaveAssociationRequest();
             //Receive AssociationResult message 
 			///@todo schauen wie viel Buffer space wir brauchen (chapter4 p.29 sagt 1380 ->testen)
@@ -1078,168 +1272,38 @@ void SocketClient::establishLanConnection()
             sockaddr_in addr;
 					//try:
             addr = RecvFrom(readassocbuffer, 1380);
-                    // _MPudpclient.ByteArrayToFile(path, readassocbuffer, readassocbuffer.GetLength(0));
-                    //Console.WriteLine("Receiving SOC buffer");
-					//if(addr = "")
-					//{cout << "address empty">> endl;}		
-					// catch: 
 			//Receive MDSCreateEventReport message
             char readmdsconnectbuffer[1380] = "";
             sockaddr_in addr;
             addr = RecvFrom(readmdsconnectbuffer, 1380);
-            		//readmdsconnectbuffer = _MPudpclient.Receive(ref _MPudpclient.m_remoteIPtarget);
-                    // _MPudpclient.ByteArrayToFile(path, readmdsconnectbuffer, readmdsconnectbuffer.GetLength(0));
-                    // //Console.WriteLine("Receiving ARRAY from buffer");
-
             //Send MDSCreateEventResult message
             ProcessPacket(readmdsconnectbuffer);
 
-            //Send PollDataRequest message
-                    //_MPudpclient.SendPollDataRequest();
+           //Send Extended PollData Requests cycled every second
+           std::thread sendCycledExtendedPollDataRequestThread([&]() {SendCycledExtendedPollDataRequest(nInterval);});
+		    sendCycledExtendedPollDataRequestThread.detach();
+            //WaitForSeconds(1);
+            if (nWaveformSet != 0)
+                {
+                    GetRTSAPriorityListRequest();
+                    if (nWaveformSet != 11)
+                        {
+                            SetRTSAPriorityList(nWaveformSet);
+                        }
+                    std::thread sendCycledExtendedPollWaveDataRequestThread([&]() {SendCycledExtendedPollWaveDataRequest(nInterval);});
+		            sendCycledExtendedPollWaveDataRequestThread.detach();
+                }
 
-                    //Send Extended PollData Requests cycled every second
-                   // Task.Run(() => _MPudpclient.SendCycledExtendedPollDataRequest(nInterval));
-                    //Console.WriteLine("POLL data REQUESTED");
-
-                    //WaitForSeconds(1);
-
-		//create string path to "_Philips_MPrawoutput.txt" in the current directory
-				//string path = Path.Combine(Directory.GetCurrentDirectory(), Globals.pathFile+ "_Philips_MPrawoutput.txt"); //IB
-
-
-		//Receive AssociationResult message (aka SOC buffer) and MDSCreateEventReport message
-			//readassocbuffer = RecvFrom();
-				// _MPudpclient.ByteArrayToFile(path, readassocbuffer, readassocbuffer.GetLength(0));
-
-
-		//Receive ARRAY from buffer
-			//readmdsconnectbuffer = _MPudpclient.Receive(ref _MPudpclient.m_remoteIPtarget);
-				// _MPudpclient.ByteArrayToFile(path, readmdsconnectbuffer, readmdsconnectbuffer.GetLength(0));
-
-
-		//Send MDSCreateEventResult message
-				//_MPudpclient.ProcessPacket(readmdsconnectbuffer);
-
-
-		//Send Extended PollData Requests cycled every second
-				//Task.Run(() => _MPudpclient.SendCycledExtendedPollDataRequest(nInterval));
-
-
-		/*if (nWaveformSet != 0)
-		{
-			_MPudpclient.GetRTSAPriorityListRequest();
-			if (nWaveformSet != 11) 
-
-						//what is nwaveformset? why 11? possible reasons with 11 in guide:
-
-						//header information p.30: The protocol_id field contains ID and version information.
-						//It can be used to define different service access points. Data Export uses the ID 0x11.
-
-						//The StringFormat describes how strings are encoded. The IntelliVue monitor uses unicode encoding.
-						//typedef u_16 StringFormat; #define STRFMT_UNICODE_NT 11
-
-						//Num 11 Placeholder for Vuelink Flex Text
-						//Label: NLS_VUELINK_FLX1_NPS_TEXT_NUM11 
-
-						//alert code NOM_EVT_EXT_DEV_AL_CODE_11
-
-						//AbortSessionData
-						//0x11 0x01 0x03
-
-
-			{
-				_MPudpclient.SetRTSAPriorityList(nWaveformSet); //wave object priority list specifies processing order of wave objects/data
-			}
-
-			Task.Run(() => _MPudpclient.SendCycledExtendedPollWaveDataRequest(nInterval)); //method executed asynchronously in the background thread pool thread
-
-						//The (cycled, repetitive) request aims to retrieve waveform data (a sequence of values that represent a waveform or signal) and may encompass 
-						//additional info or extended data associated with the waveforms (metadata, timestamps, measurement parameters, etc)
-						
-						//By using Task.Run(), the given code snippet creates a new task that runs the lambda expression in a separate background thread. 
-						//It enables the code to run asynchronously, allowing other tasks or operations to continue without waiting for the completion of the specified method.
-
-						//(parameters) => {expression}
-						//Lambda expressions are often used in situations where a short, inline function is required. 
-						//Instead of declaring a separate method or delegate, a lambda expression allows you to define the functionality right at the point where it is needed.
-
-						//in c++: 	std::thread([&]() { _MPudpclient.SendCycledExtendedPollWaveDataRequest(nInterval); }).detach();
-		}*/
-
-
-////////////////////////////////////////////////  :))  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-		/// @todo add where nInterval is actually coming from
-		int nInterval = 0;
-
-
-		//Recheck MDS Attributes	//Task.Run(() => _MPudpclient.RecheckMDSAttributes(nInterval));				
-		std::thread recheckMDSAttributesThread([&]() {	
-			//RecheckMDSAttributes(nInterval);
-			RecheckMDSAttributes(nInterval);
-
-		});
+		std::thread recheckMDSAttributesThread([&]() {RecheckMDSAttributes(nInterval);});
 		recheckMDSAttributesThread.detach(); //allows the thread to continue executing independently, without requiring synchronization or joining with the parent thread
 
-				//lambda functions in C++:	[capture-list](parameters) -> return-type { function-body }
-				//capture-list being the variables from the enclosing scope that you want to have accessible within the lambda function, can be captured by value, reference, or a mix of both
-
-				//possibly [&] instead of [this] --> & indicates that you want to capture all variables from the enclosing scope by reference, 
-				//this for capturing all the class members by ref so you can work w the class members within the lambda body as if you were inside a member function of the class
-
-
-		//Keep Connection Alive		//Task.Run(() => _MPudpclient.KeepConnectionAlive(nInterval));
-		std::thread keepConnectionAliveThread([&]() {
-			//KeepConnectionAlive(nInterval);
-			KeepConnectionAlive(nInterval);
-		});
+		std::thread keepConnectionAliveThread([&]() {KeepConnectionAlive(nInterval);});
 		keepConnectionAliveThread.detach();
 
-
-		//Receive PollDataResponse message / Receive poll data		//_MPudpclient.BeginReceive(new AsyncCallback(ReceiveCallback), state);
-		std::thread receiveThread([&]() {
-			BeginReceive(); //receive data asynchronously
-		});
+		std::thread receiveThread([&]() {BeginReceive();});
 		receiveThread.detach();
-
-				//It's important to note that the ReceiveCallback function should be implemented in a way that it can handle multiple invocations and 
+                //It's important to note that the ReceiveCallback function should be implemented in a way that it can handle multiple invocations and 
 				//process each packet of data independently. The function should not rely on any assumptions about the order or timing of packet arrivals, 
 				//as they can occur in an unpredictable manner due to the asynchronous nature of the UDP communication.
-
-
-////////////////////////////////////////////////  :))  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-	// 	} catch (Exception ex) {
-	//			Console.WriteLine("Error opening/writing to UDP port :: " + ex.Message, "Error!");
-	//          Console.Beep();
-	//	} 
-	
-	// ... //
-
-
-
-
-
-
-//     try
-//     {
-//         WSASession Session; //initialize the windows sockets api session
-//         UDPSocket Socket; //create a udp socket
-        
-//         string data = "hello world"; //define an example string to send
-//         char buffer[100]; //create a buffer to hold received data
-
-//         Socket.SendTo("127.0.0.1", 100, data.c_str(), data.size()); // Send data to IP address and port 100
-//         Socket.RecvFrom(buffer, 100); // Receive data of length 100 into the buffer
-//         cout << buffer; // Output the received data
-//     }
-//     catch (exception &ex) //catch any occurring system errors
-//     {
-//         cout << ex.what();  //print error message
-//     }
-//     char c;
-//     cin >> c; // Wait for user input before exiting
-//}
 }
 
