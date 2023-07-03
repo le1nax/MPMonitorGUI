@@ -3,8 +3,6 @@
 
 #include "Socket.h"
 
-#define BUFFERSIZE 1024
-
 //
 
 
@@ -30,6 +28,7 @@ class SocketClient : public UDPSocket {
         std::vector<std::byte> m_readassocbuffer;
         std::vector<std::byte> m_readmdsconnectbuffer;
         std::string m_remoteIPtarget = "";
+        sockaddr_in m_sa_remoteIPtarget;
         std::string m_strTimestamp = "";
         std::string m_DeviceID= "";
         std::string m_idlabelstring = "";
@@ -49,8 +48,6 @@ class SocketClient : public UDPSocket {
         std::vector<WaveValResult> m_WaveValResultList;
         tm m_baseDateTime{};
         tm GetAbsoluteTimeFromBCDFormat(char* bcdtimebuffer);
-        sockaddr_in m_sa_remoteIPtarget;
-        char buffer[BUFFERSIZE];
 
         /// @todo make threads
         void CheckLinkedPollPacketActionType(char* buffer);
@@ -89,7 +86,7 @@ class SocketClient : public UDPSocket {
         void RecheckMDSAttributes(int nInterval = 0);
         void SendMDSPollDataRequest();
         void KeepConnectionAlive(int nInterval = 0);
-        void BeginReceive(int flags = 0);
+        void Receive(char* buffer, int flags = 0);
         static void CALLBACK ReceiveCallback(DWORD errorCode, DWORD numBytesReceived /*cbTransferred*/, LPWSAOVERLAPPED overlapped, DWORD flags);
         static bool ByteArrayToFile(const std::string& filename, const std::string& bytes_string);
         static bool ByteArrayToFile(const std::string& path_to_file, const std::vector<std::byte>& data_bytes, uint32_t numBytesReceived);

@@ -14,10 +14,17 @@
 
 using namespace std;
 
-/// @todo Konstruktor soll die membervariablen uA ipRemoteTarget initialisieren
+/// @todo Konstruktor soll die membervariablen initialisieren
 SocketClient::SocketClient() : UDPSocket() 
 {
-	///////////////////////////get sockaddr_in m_remoteIP from std::string m_remoteIPtarget
+/////////////////// bind local address to socket
+///////////////////connect remote address to socket
+
+	//get sockaddr_in m_sa_remoteIPtarget from std::string m_remoteIPtarget
+    m_sa_remoteIPtarget.sin_family = AF_INET; //ipv4
+    m_sa_remoteIPtarget.sin_addr.s_addr = htonl(INADDR_ANY); //allows to bind to any available local network interface
+    m_sa_remoteIPtarget.sin_port = htons(m_port); //htons converts port number from host byte order to network byte order
+    inet_pton(AF_INET, m_remoteIPtarget.c_str(), &(m_sa_remoteIPtarget.sin_addr));
 
 	memset(buffer, 0, sizeof(buffer)); //clear the buffer
 
@@ -896,7 +903,8 @@ void SocketClient::SendCycledExtendedPollWaveDataRequest(size_t nInterval)
 
 }
 
-void SocketClient::BeginReceive(int flags = 0) {
+
+void SocketClient::Receive(char* buffer = {}, int flags = 0) {
 
     ///@todo delete durch uniqueptr hEvent ersetzen (?)
 	UdpState temp_client_state; 
@@ -908,7 +916,7 @@ void SocketClient::BeginReceive(int flags = 0) {
 	overlapped.hEvent = reinterpret_cast<HANDLE>(&temp_client_state); //= reinterpret_cast<HANDLE>(new UdpState{ sock, m_sa_remoteIPtarget });
 
 
-	int receiveResult = temp_client_state.state_client.RecvFrom(temp_client_state.state_ip, temp_client_state.state_client.buffer, &overlapped, flags, ReceiveCallback);
+	int receiveResult = temp_client_state.state_client.RecvFrom(temp_client_state.state_ip, buffer, &overlapped, flags, ReceiveCallback);
 	if (receiveResult == SOCKET_ERROR)
 	{
 		if (WSAGetLastError() != WSA_IO_PENDING)
@@ -1265,18 +1273,18 @@ void SocketClient::establishLanConnection()
         int nInterval = 12000;
         uint16_t nWaveformSet = 12;
         uint16_t nWavescaleSet = 1;
+
             SendWaveAssociationRequest();
             //Receive AssociationResult message 
 			///@todo schauen wie viel Buffer space wir brauchen (chapter4 p.29 sagt 1380 ->testen)
-            char readassocbuffer[1380] = ""; 
-            sockaddr_in addr;
 					//try:
-            addr = RecvFrom(readassocbuffer, 1380);
 			//Receive MDSCreateEventReport message
-            char readmdsconnectbuffer[1380] = "";
-            sockaddr_in addr;
-            addr = RecvFrom(readmdsconnectbuffer, 1380);
+            char readassocbuffer[1380] = ""; 
+            Receive(readassocbuffer);
+
             //Send MDSCreateEventResult message
+            char readmdsconnectbuffer[1380] = "";
+            Receive(readmdsconnectbuffer);
             ProcessPacket(readmdsconnectbuffer);
 
            //Send Extended PollData Requests cycled every second
@@ -1300,7 +1308,7 @@ void SocketClient::establishLanConnection()
 		std::thread keepConnectionAliveThread([&]() {KeepConnectionAlive(nInterval);});
 		keepConnectionAliveThread.detach();
 
-		std::thread receiveThread([&]() {BeginReceive();});
+		std::thread receiveThread([&]() {Receive();});
 		receiveThread.detach();
                 //It's important to note that the ReceiveCallback function should be implemented in a way that it can handle multiple invocations and 
 				//process each packet of data independently. The function should not rely on any assumptions about the order or timing of packet arrivals, 
