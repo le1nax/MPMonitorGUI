@@ -897,10 +897,12 @@ void SocketClient::Receive(char* buffer, int flags) {
 
 	WSAOVERLAPPED overlapped{};	
 	memset(&overlapped, 0, sizeof(WSAOVERLAPPED));
-	overlapped.hEvent = reinterpret_cast<HANDLE>(&temp_client_state); //= reinterpret_cast<HANDLE>(new UdpState{ sock, m_sa_remoteIPtarget });
+	overlapped.hEvent = reinterpret_cast<HANDLE>(&m_udpState.state_client);
+
+    /////////////////////////overlapped.hEvent = WSACreateEvent();
 
 
-	int receiveResult = temp_client_state.state_client.RecvFrom(temp_client_state.state_ip, buffer, &overlapped, flags, ReceiveCallback);
+	int receiveResult = m_udpState.state_client.RecvFrom(m_udpState.state_ip, buffer, &overlapped, flags, ReceiveCallback);
 	if (receiveResult == SOCKET_ERROR)
 	{
 		if (WSAGetLastError() != WSA_IO_PENDING)
@@ -916,7 +918,7 @@ void SocketClient::Receive(char* buffer, int flags) {
     if (WSAGetOverlappedResult(
             sock,                                               // SOCKET s
             reinterpret_cast<LPWSAOVERLAPPED>(&overlapped),     // LPWSAOVERLAPPED lpOverlapped
-            reinterpret_cast<LPDWORD>(&temp_client_state.state_client.numBytesReceived),    	// LPDWORD lpcbTransfer
+            reinterpret_cast<LPDWORD>(&m_udpState.state_client.numBytesReceived),    	// LPDWORD lpcbTransfer
             TRUE,                                               // BOOL fWait -- whether the function should wait until the overlapped operation is completed (true = wait, false = retrive results immediately)
             reinterpret_cast<LPDWORD>(&flags)))                 // LPDWORD lpdwFlags
     {
@@ -924,7 +926,7 @@ void SocketClient::Receive(char* buffer, int flags) {
         if (numBytesReceived > 0)
         {
 			// Receive operation completed successfully
-			ReceiveCallback(0, temp_client_state.state_client.numBytesReceived, &overlapped); //go and process data
+			ReceiveCallback(0, m_udpState.state_client.numBytesReceived, &overlapped); //go and process data
         }
     }
     else
@@ -946,7 +948,7 @@ void SocketClient::Receive(char* buffer, int flags) {
 /// @todo error handling
 /// @todo add path_to_file
 /// @todo version A (as is now, with string) or B (commented out, with bytes)?
-void CALLBACK SocketClient::ReceiveCallback(DWORD errorCode, DWORD numBytesReceived /*cbTransferred*/, LPWSAOVERLAPPED overlapped, DWORD flags = 0)
+void CALLBACK SocketClient::ReceiveCallback(DWORD errorCode, DWORD numBytesReceived, LPWSAOVERLAPPED overlapped, DWORD flags)
 {
     if (errorCode == 0) 
     {
@@ -954,7 +956,7 @@ void CALLBACK SocketClient::ReceiveCallback(DWORD errorCode, DWORD numBytesRecei
 				//or pointer? //UdpState* udpState = reinterpret_cast<UdpState*>(overlapped->hEvent);
 
 		//read the number of bytes received from the buffer into receivedData
-        std::string receivedData(udpState.state_client.buffer, numBytesReceived); 
+//////////////////std::string receivedData(/*udpState.state_client.*/buffer, numBytesReceived); 
 
 		// Convert buffer to std::vector<byte> if needed
 	// B: std::vector<std::byte> data_bytes(udpState.state_client.buffer, udpState.state_client.buffer + numBytesReceived);
@@ -963,7 +965,7 @@ void CALLBACK SocketClient::ReceiveCallback(DWORD errorCode, DWORD numBytesRecei
 		std::string path_to_file = ""; //////////////////////////////////////////////////
 
 		// Write data to file
-		bool writing_to_file_successful = ByteArrayToFile(path_to_file, receivedData);
+//////////////////bool writing_to_file_successful = ByteArrayToFile(path_to_file, receivedData);
 	// B: bool writing_to_file_successful2 = ByteArrayToFile(path_to_file, data_bytes, numBytesReceived);
 
     }
@@ -1292,7 +1294,9 @@ void SocketClient::establishLanConnection()
 		std::thread keepConnectionAliveThread([&]() {KeepConnectionAlive(nInterval);});
 		keepConnectionAliveThread.detach();
 
-		std::thread receiveThread([&]() {Receive();});
+        char* receivedBuffer;
+
+		std::thread receiveThread([&]() {Receive(receivedBuffer);});
 		receiveThread.detach();
                 //It's important to note that the ReceiveCallback function should be implemented in a way that it can handle multiple invocations and 
 				//process each packet of data independently. The function should not rely on any assumptions about the order or timing of packet arrivals, 
