@@ -173,12 +173,6 @@ tm SocketClient::GetAbsoluteTimeFromBCDFormat(char* bcdtimebuffer)
         }
     
 
-
-void SocketClient::SendMDSCreateEventResult()
-{
-    sendBytes(mds_create_resp_msg);
-}
-
 void SocketClient::CheckPollPacketActionType(char* buffer)
 {
     size_t header_size = 20;
@@ -716,7 +710,7 @@ void SocketClient::ReadSaSpecifications(char* buffer)
 
             //Add to a list of Sample array specification definitions if it's not already present
 
-            auto it = std::find_if(m_SaSpecList.begin(), m_SaSpecList.end(), [&](const IDLabel& x) {
+            auto it = std::find_if(m_SaSpecList.begin(), m_SaSpecList.end(), [&](const SaSpec& x) {
             return x.obpoll_handle == Saspecobj.obpoll_handle;
             });
 
@@ -747,7 +741,7 @@ void SocketClient::ReadSaScaleSpecifications(char* buffer)
 
             //Add to a list of Sample array scale range specification definitions if it's not already present
 
-             auto it = std::find_if(m_ScaleRangeSpecList.begin(), m_ScaleRangeSpecList.end(), [&](const IDLabel& x) {
+             auto it = std::find_if(m_ScaleRangeSpecList.begin(), m_ScaleRangeSpecList.end(), [&](const ScaleRangeSpec16& x) {
             return x.obpoll_handle == ScaleSpec.obpoll_handle;
             });
 
@@ -782,7 +776,7 @@ void SocketClient::ReadSaCalibrationSpecifications(char* buffer)
 
             //Add to a list of Sample array calibration specification definitions if it's not already present
 
-             auto it = std::find_if(m_SaCalibDataSpecList.begin(), m_SaCalibDataSpecList.end(), [&](const IDLabel& x) {
+             auto it = std::find_if(m_SaCalibDataSpecList.begin(), m_SaCalibDataSpecList.end(), [&](const SaCalibData16& x) {
             return x.obpoll_handle == SaCalibData.obpoll_handle;
             });
 
