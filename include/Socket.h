@@ -1,10 +1,11 @@
+#pragma once
 #ifndef SOCKET_H
 #define SOCKET_H
 
 #include "AvaObj.h"
 #include "definitions.h"
-#include <Winsock2.h>
-#include <WS2tcpip.h>
+#include <winsock2.h>
+#include <ws2tcpip.h>
 #include <system_error>
 #include <string>
 #include <Windows.h>
@@ -13,6 +14,8 @@
 #include <bitset>
 #include <cstddef>
 #include <iostream>
+
+#pragma comment(lib, "ws2_32.lib")
 
 #pragma comment(lib, "ws2_32.lib") //link against the Winsock library
 

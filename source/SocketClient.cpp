@@ -622,7 +622,7 @@ void SocketClient::ReadWaveSaObservationValue(char* buffer)
            
             ///@todo schauen ob die beiden Zeilen äquivalten sind
              //Array.Copy(WaveValObjects, WaveVal.Value, wavevalobjectslength);
-            std::copy(WaveValObjects, WaveValObjects + wavevalobjectslength, WaveVal.Value);
+            std::memcpy(reinterpret_cast<void*>(WaveVal.Value), reinterpret_cast<void*>(WaveValObjects), wavevalobjectslength);
 
             //Find the Sample array specification definition that matches the observation sample array size
 
