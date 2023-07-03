@@ -14,7 +14,7 @@
 using namespace std;
 
 /// @todo Konstruktor soll die membervariablen initialisieren
-SocketClient::SocketClient() : UDPSocket() 
+SocketClient::SocketClient() : UDPSocket(), m_udpState(*this)
 {
 /////////////////// bind local address to socket
 ///////////////////connect remote address to socket
@@ -445,10 +445,6 @@ void SocketClient::ReadNumericObservationValue(char* buffer)
             //Console.WriteLine("Unit code: {0}", unit_code);
             //Console.WriteLine("Value: {0}", valuestr);
             //Console.WriteLine();
-}
-void SocketClient::ReadCompoundNumericObsValue(char* buffer)
-{
-    m_idlabelhandle = htons(Read16ByteValuesFromBuffer(buffer, 0));
 }
 
 void SocketClient::ReadCompoundNumericObsValue(char* buffer)
@@ -900,12 +896,10 @@ void SocketClient::SendCycledExtendedPollWaveDataRequest(size_t nInterval)
 }
 
 
-void SocketClient::Receive(char* buffer = {}, int flags = 0) {
+void SocketClient::Receive(char* buffer, int flags) {
 
     ///@todo delete durch uniqueptr hEvent ersetzen (?)
-	UdpState temp_client_state; 
-	temp_client_state.state_ip = m_sa_remoteIPtarget;
-	temp_client_state.state_client = this;	
+	m_udpState.state_ip = m_sa_remoteIPtarget;
 
 	WSAOVERLAPPED overlapped{};	
 	memset(&overlapped, 0, sizeof(WSAOVERLAPPED));
@@ -1051,7 +1045,7 @@ bool SocketClient::ByteArrayToFile(const std::string& path_to_file, const std::v
 }
 
 
-void SocketClient::RecheckMDSAttributes(int nInterval = 0)
+void SocketClient::RecheckMDSAttributes(int nInterval)
 {
 	int nMillisecond = 6 * 1000;
     if (nMillisecond != 0 && nInterval > 1000)
@@ -1071,7 +1065,7 @@ void SocketClient::SendMDSPollDataRequest()
 }
 
 
-void SocketClient::KeepConnectionAlive(int nInterval = 0)
+void SocketClient::KeepConnectionAlive(int nInterval)
 {
 	int nMillisecond = 6 * 1000;
     if (nMillisecond != 0 && nInterval > 1000)
