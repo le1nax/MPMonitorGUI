@@ -17,9 +17,9 @@ class SocketClient : public UDPSocket {
             public: 
                 UdpState(SocketClient& parent) : state_client(parent) {}
             private:
-            friend class SocketClient;
-            SocketClient& state_client;
-            sockaddr_in state_ip;
+                friend class SocketClient;
+                SocketClient& state_client;
+                sockaddr_in state_ip;
         } m_udpState; //current state of the client for the asynchronous receiving of data
         void establishLanConnection();
         void SendWaveAssociationRequest();
