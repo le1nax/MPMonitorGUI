@@ -6,10 +6,6 @@
 #define BUFFERSIZE 1024
 
 //
-struct UdpState {
-    SocketClient state_client;
-    sockaddr_in state_ip;
-};
 
 
 class SocketClient : public UDPSocket {
@@ -19,6 +15,13 @@ class SocketClient : public UDPSocket {
         ~SocketClient() = default;  
 
     private: 
+        class UdpState{
+            private:
+            friend class SocketClient;
+            SocketClient& state_client;
+            sockaddr_in state_ip;
+        };
+        UdpState state; //current state of the client for the asynchronous receiving of data
         void establishLanConnection();
         void SendWaveAssociationRequest();
         void ProcessPacket(char* buffer);
@@ -46,10 +49,8 @@ class SocketClient : public UDPSocket {
         std::vector<WaveValResult> m_WaveValResultList;
         tm m_baseDateTime{};
         tm GetAbsoluteTimeFromBCDFormat(char* bcdtimebuffer);
-        unsigned short m_port = 0; 
         sockaddr_in m_sa_remoteIPtarget;
         char buffer[BUFFERSIZE];
-        UdpState udpState; //current state of the client for the asynchronous receiving of data
 
         /// @todo make threads
         void CheckLinkedPollPacketActionType(char* buffer);

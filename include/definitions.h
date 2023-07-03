@@ -10,8 +10,14 @@
 #include <map>
 #include <memory>
 #include <cstring>
-#include <iconv.h>
+#include <codecvt>
+#include <locale>
 
+
+        constexpr int FLOATTYPE_NAN = 0x007FFFFF;
+        constexpr int FLOATTYPE_NRes = 0x800000;
+        constexpr int FLOATTYPE_POSITIVE_INFINITY = 0x7FFFFE;
+        constexpr int FLOATTYPE_NEGATIVE_INFINITY = 0x800002;
 ///@todo statt const variablen constexpr
 
 template<typename... Ts>
@@ -50,39 +56,12 @@ std::string TrimString(const std::string& inputString) {
 }
 
 std::string Utf8ToString(const std::string& utf8String)
- {
-    std::string outputString;
-    iconv_t converter = iconv_open("UTF-8", "UTF-8");  // Create a UTF-8 to UTF-8 conversion descriptor
-    if (converter == (iconv_t)-1) {
-        std::cerr << "Failed to open iconv converter" << std::endl;
-        return outputString;
-    }
-
-    size_t inputLength = utf8String.length();
-    size_t outputLength = inputLength * 4;  // Allocate enough space for potential expansion during conversion
-    outputString.resize(outputLength);
-
-    char* inputBuffer = const_cast<char*>(utf8String.data());
-    char* outputBuffer = const_cast<char*>(outputString.data());
-
-    size_t inputBytesLeft = inputLength;
-    size_t outputBytesLeft = outputLength;
-
-    // Perform the UTF-8 to UTF-8 conversion
-    size_t result = iconv(converter, &inputBuffer, &inputBytesLeft, &outputBuffer, &outputBytesLeft);
-    if (result == (size_t)-1) {
-        std::cerr << "Failed to convert UTF-8 string" << std::endl;
-        iconv_close(converter);
-        return outputString;
-    }
-
-    // Set the string size based on the actual converted length
-    outputString.resize(outputLength - outputBytesLeft);
-
-    iconv_close(converter);
+{
+    std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+    std::wstring wideString = converter.from_bytes(utf8String);
+    std::string outputString(wideString.begin(), wideString.end());
     return outputString;
 }
-
 
 static inline constexpr size_t uInt16Size = sizeof(unsigned short);
 
@@ -206,10 +185,7 @@ char* ReadBytesFromBuffer(const char* buffer, size_t startIndex, size_t numBytes
         //Given Name
         constexpr int NOM_ATTR_PT_NAME_GIVEN = 0x95d;
 
-        constexpr int FLOATTYPE_NAN = 0x007FFFFF;
-        constexpr int FLOATTYPE_NRes = 0x800000;
-        constexpr int FLOATTYPE_POSITIVE_INFINITY = 0x7FFFFE;
-        constexpr int FLOATTYPE_NEGATIVE_INFINITY = 0x800002;
+
 
 
 //ROapdus
@@ -265,7 +241,7 @@ char* ReadBytesFromBuffer(const char* buffer, size_t startIndex, size_t numBytes
             //remote operation error
             ROLRS_APDU = 5
             //e.g. Single Poll Linked Result
-        }
+        };
     
     enum class AttributeIDs : uint16_t
         {
@@ -430,7 +406,7 @@ char* ReadBytesFromBuffer(const char* buffer, size_t startIndex, size_t numBytes
             NOM_ATTR_GRP_VMO_DYN = 0x810,
             //VMO Static Attribute Group
             NOM_ATTR_GRP_VMO_STATIC = 0x811
-        }
+        };
 
     enum class WavesIDLabels : uint32_t
         {
@@ -473,7 +449,7 @@ char* ReadBytesFromBuffer(const char* buffer, size_t startIndex, size_t numBytes
             NLS_VUELINK_FLX1_NPS_TEXT_WAVE7 = 0x80AAF00D,
             NLS_VUELINK_FLX1_NPS_TEXT_WAVE8 = 0x80AAF00F
 
-        }
+        };
 
 enum class AlertSource : uint16_t
         {
@@ -1158,8 +1134,8 @@ enum class AlertSource : uint16_t
             NOM_RES_AWAY_EXP_TOTAL = 63892,
             NOM_ELAS_LUNG_PAV = 63893,
             NOM_BREATH_RAPID_SHALLOW_INDEX_NORM = 63894
-        }
-        public enum AlarmCodes : UInt16
+        };
+        enum class AlarmCodes : uint16_t
         {
             NOM_EVT_ABSENT = 4,
             NOM_EVT_CONTAM = 14,
@@ -1389,7 +1365,7 @@ enum class AlertSource : uint16_t
             NOM_EVT_SRR_INVALID_CHAN = 61930,
             NOM_EVT_EXT_DEV_DEMO = 62032,
             NOM_EVT_EXT_DEV_MONITORING = 62034
-        }
+        };
 
 auto aarq_msg = make_bytes(
     0x0D, 0xEC, 0x05, 0x08, 0x13, 0x01, 0x00, 0x16, 0x01, 0x02, 0x80, 0x00, 0x14, 0x02, 0x00, 0x02,

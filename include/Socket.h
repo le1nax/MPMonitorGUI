@@ -29,8 +29,8 @@ class UDPSocket {
         SOCKET sock;
         WSASession Session;
 
-        std::uint32_t numBytesSent = 0; //will in the end contain the number of bytes sent
-        std::uint32_t numBytesReceived = 0; //will in the end contain the number of bytes received
+        uint32_t numBytesSent = 0; //will in the end contain the number of bytes sent
+        uint32_t numBytesReceived = 0; //will in the end contain the number of bytes received
 
 
     public:
