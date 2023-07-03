@@ -38,16 +38,12 @@ int main(int argc, char *argv[])
 
         std::string ppgPath;
         std::string ppgFilename;
-        try
-        {
-            ppgPath = argv[1];
-            ppgFilename = argv[2];
-        }
-        catch
-        {
-            ppgPath = "TEST.docx";
-            ppgFilename = "TEST.docx";
-        }
+
+        ppgPath = argv[1];
+        ppgFilename = argv[2];
+
+        //ppgPath = "TEST.docx";
+        //ppgFilename = "TEST.docx";
 
         //var parser = new CommandLineParser(); /////////////////
         //parser.Parse(argv);
