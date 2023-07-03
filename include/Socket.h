@@ -30,7 +30,7 @@ class WSASession {
 
 class UDPSocket {
     protected:
-        WSASocket sock;
+        SOCKET sock;
         WSASession Session;
 
         uint32_t numBytesSent = 0; //will in the end contain the number of bytes sent

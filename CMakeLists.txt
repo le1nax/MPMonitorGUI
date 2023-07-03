@@ -44,7 +44,8 @@ add_executable(
   "main.cpp"
   # other .cpp files go here
  "source/ControllerBox.cpp"
- "source/SocketClient.cpp")
+ "source/SocketClient.cpp"
+ )
 
 # Link the GUI libraries into the executable.
 target_link_libraries(BasicApp PUBLIC glfw imgui::imgui Threads::Threads ws2_32 -pthread)
