@@ -1,13 +1,12 @@
 #include "../include/SocketClient.h"
 #include "../include/AvaObj.h"
-#include "../include/definitions.h"
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <thread>
 #include <sstream>
 #include <vector>
 #include <sstream>
+#include <thread>
 #include <cstdint>
 #include <iomanip>
 #include <algorithm>
@@ -25,9 +24,6 @@ SocketClient::SocketClient() : UDPSocket()
     m_sa_remoteIPtarget.sin_addr.s_addr = htonl(INADDR_ANY); //allows to bind to any available local network interface
     m_sa_remoteIPtarget.sin_port = htons(m_port); //htons converts port number from host byte order to network byte order
     inet_pton(AF_INET, m_remoteIPtarget.c_str(), &(m_sa_remoteIPtarget.sin_addr));
-
-	memset(buffer, 0, sizeof(buffer)); //clear the buffer
-
 }
 
 void SocketClient::sendBytes(vector<std::byte> bytes)

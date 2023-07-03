@@ -2,6 +2,7 @@
 #define SOCKET_H
 
 #include "AvaObj.h"
+#include "definitions.h"
 #include <Winsock2.h>
 #include <WS2tcpip.h>
 #include <system_error>

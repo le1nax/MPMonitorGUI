@@ -14,10 +14,12 @@
 #include <locale>
 
 
-        constexpr int FLOATTYPE_NAN = 0x007FFFFF;
-        constexpr int FLOATTYPE_NRes = 0x800000;
-        constexpr int FLOATTYPE_POSITIVE_INFINITY = 0x7FFFFE;
-        constexpr int FLOATTYPE_NEGATIVE_INFINITY = 0x800002;
+constexpr int FLOATTYPE_NAN = 0x007FFFFF;
+constexpr int FLOATTYPE_NRes = 0x800000;
+constexpr int FLOATTYPE_POSITIVE_INFINITY = 0x7FFFFE;
+constexpr int FLOATTYPE_NEGATIVE_INFINITY = 0x800002;
+
+
 ///@todo statt const variablen constexpr
 
 template<typename... Ts>
