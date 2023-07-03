@@ -1,5 +1,4 @@
 #include "../include/SocketClient.h"
-#include "../include/AvaObj.h"
 #include <iostream>
 #include <fstream>
 #include <string>

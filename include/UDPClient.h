@@ -1,7 +1,7 @@
 #include <windows.h>
 #include <winsock2.h>
 #include <string>
-#pragma comment(lib, "Ws2_32.lib")
+//#pragma comment(lib, "Ws2_32.lib")
 
 
 

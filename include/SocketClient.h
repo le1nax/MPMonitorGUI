@@ -93,3 +93,15 @@ class SocketClient : public UDPSocket {
         static bool ByteArrayToFile(const std::string& path_to_file, const std::vector<std::byte>& data_bytes, uint32_t numBytesReceived);
 
 };
+
+class Program {
+
+    public:
+        Program(SocketClient client);
+        SocketClient m_client;
+        void establishLanConnection();
+
+
+    private: 
+    
+};
