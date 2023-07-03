@@ -908,7 +908,7 @@ void SocketClient::BeginReceive(int flags = 0) {
 	overlapped.hEvent = reinterpret_cast<HANDLE>(&temp_client_state); //= reinterpret_cast<HANDLE>(new UdpState{ sock, m_sa_remoteIPtarget });
 
 
-	int receiveResult = RecvFrom(temp_client_state.state_ip, temp_client_state.state_client.buffer, &overlapped, flags, ReceiveCallback);
+	int receiveResult = temp_client_state.state_client.RecvFrom(temp_client_state.state_ip, temp_client_state.state_client.buffer, &overlapped, flags, ReceiveCallback);
 	if (receiveResult == SOCKET_ERROR)
 	{
 		if (WSAGetLastError() != WSA_IO_PENDING)
@@ -924,7 +924,7 @@ void SocketClient::BeginReceive(int flags = 0) {
     if (WSAGetOverlappedResult(
             sock,                                               // SOCKET s
             reinterpret_cast<LPWSAOVERLAPPED>(&overlapped),     // LPWSAOVERLAPPED lpOverlapped
-            reinterpret_cast<LPDWORD>(&numBytesReceived),    	// LPDWORD lpcbTransfer
+            reinterpret_cast<LPDWORD>(&temp_client_state.state_client.numBytesReceived),    	// LPDWORD lpcbTransfer
             TRUE,                                               // BOOL fWait -- whether the function should wait until the overlapped operation is completed (true = wait, false = retrive results immediately)
             reinterpret_cast<LPDWORD>(&flags)))                 // LPDWORD lpdwFlags
     {
@@ -932,7 +932,7 @@ void SocketClient::BeginReceive(int flags = 0) {
         if (numBytesReceived > 0)
         {
 			// Receive operation completed successfully
-			ReceiveCallback(0, numBytesReceived, &overlapped); //go and process data
+			ReceiveCallback(0, temp_client_state.state_client.numBytesReceived, &overlapped); //go and process data
         }
     }
     else
