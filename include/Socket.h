@@ -38,9 +38,9 @@ class UDPSocket {
         UDPSocket();
         ~UDPSocket();
 
-        uint32_t SendTo(const std::string& address_string, unsigned short port, const char* buffer, LPWSAOVERLAPPED overlapped, int flags = 0);
-        uint32_t SendTo(sockaddr_in& remoteIP, const char* buffer, LPWSAOVERLAPPED overlapped, int flags = 0);
-        int RecvFrom(sockaddr_in remoteIP, char* buffer, uint32_t &numBytesReceived, LPWSAOVERLAPPED overlapped, int flags = 0, LPWSAOVERLAPPED_COMPLETION_ROUTINE callback = NULL);
+        uint32_t SendTo(const std::string& address_string, unsigned short port, const char* buffer, LPWSAOVERLAPPED overlapped, long unsigned int flags = 0);
+        uint32_t SendTo(sockaddr_in& remoteIP, const char* buffer, LPWSAOVERLAPPED overlapped, long unsigned int flags = 0);
+        int RecvFrom(sockaddr_in remoteIP, char* buffer, uint32_t &numBytesReceived, LPWSAOVERLAPPED overlapped, long unsigned int flags = 0, LPWSAOVERLAPPED_COMPLETION_ROUTINE callback = NULL);
         void Bind(sockaddr_in &localIP, unsigned short port); //for associating a local address with the socket
         void Connect(sockaddr_in& remoteIP); //for connecting the socket to the remote address
 };

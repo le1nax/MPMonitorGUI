@@ -20,9 +20,11 @@ WSASession::~WSASession() {
 
 
 UDPSocket::UDPSocket() {
+    
     //AF_INET = IPv4; SOCK_DGRAM = Byte stream for UDP; IPPROTO_UDP = UDP Protocol
     sock = INVALID_SOCKET;
     if (sock == WSASocket(AF_INET, SOCK_DGRAM, IPPROTO_UDP, 0, 0, WSA_FLAG_OVERLAPPED)== INVALID_SOCKET)
+    {
         throw std::system_error(WSAGetLastError(), std::system_category(), "Error opening socket");
     }
    // Fehler
@@ -44,7 +46,7 @@ UDPSocket::~UDPSocket() {
 
 
 /// @todo error handling
-uint32_t UDPSocket::SendTo(const std::string& address_string, unsigned short port, const char* buffer, LPWSAOVERLAPPED overlapped, int flags = 0) {
+uint32_t UDPSocket::SendTo(const std::string& address_string, unsigned short port, const char* buffer, LPWSAOVERLAPPED overlapped, long unsigned int flags) {
     //send data provided in buffer to receiver address and port
 
     sockaddr_in remoteIP; //receiver address
@@ -59,7 +61,7 @@ uint32_t UDPSocket::SendTo(const std::string& address_string, unsigned short por
 					reinterpret_cast<LPWSABUF>(&buffer),          		// LPWSABUF lpBuffers
 					1,                                            		// DWORD dwBufferCount
 					reinterpret_cast<LPDWORD>(&numBytesSent),    		// LPDWORD lpNumberOfBytesSent
-					reinterpret_cast<DWORD>(&flags),            		// DWORD dwFlags
+					reinterpret_cast<DWORD>(flags),            		// DWORD dwFlags
 					reinterpret_cast<const sockaddr*>(&remoteIP),       // const sockaddr* lpTo
                     sizeof(remoteIP),         		                    // int iTolen
 					reinterpret_cast<LPWSAOVERLAPPED>(&overlapped), 	// LPWSAOVERLAPPED lpOverlapped
@@ -80,7 +82,7 @@ uint32_t UDPSocket::SendTo(const std::string& address_string, unsigned short por
 
 
 /// @todo error handling
-uint32_t UDPSocket::SendTo(sockaddr_in& remoteIP, const char* buffer, LPWSAOVERLAPPED overlapped, int flags = 0) {
+uint32_t UDPSocket::SendTo(sockaddr_in& remoteIP, const char* buffer, LPWSAOVERLAPPED overlapped, long unsigned int flags) {
     //send data provided in buffer to receiver address
 
     uint32_t numBytesSent = 0; //will in the end contain the number of bytes sent
@@ -90,7 +92,7 @@ uint32_t UDPSocket::SendTo(sockaddr_in& remoteIP, const char* buffer, LPWSAOVERL
 					reinterpret_cast<LPWSABUF>(&buffer),          		// LPWSABUF lpBuffers
 					1,                                            		// DWORD dwBufferCount
 					reinterpret_cast<LPDWORD>(&numBytesSent),    		// LPDWORD lpNumberOfBytesSent
-					reinterpret_cast<DWORD>(&flags),            		// DWORD dwFlags
+					reinterpret_cast<DWORD>(flags),            		// DWORD dwFlags
 					reinterpret_cast<const sockaddr*>(&remoteIP),       // const sockaddr* lpTo
                     sizeof(remoteIP),         		                    // int iTolen
 					reinterpret_cast<LPWSAOVERLAPPED>(&overlapped), 	// LPWSAOVERLAPPED lpOverlapped
@@ -110,7 +112,7 @@ uint32_t UDPSocket::SendTo(sockaddr_in& remoteIP, const char* buffer, LPWSAOVERL
 }
 
 
-int UDPSocket::RecvFrom(sockaddr_in remoteIP, char* buffer, uint32_t &numBytesReceived, LPWSAOVERLAPPED overlapped, int flags = 0, LPWSAOVERLAPPED_COMPLETION_ROUTINE callback = NULL) {
+int UDPSocket::RecvFrom(sockaddr_in remoteIP, char* buffer, uint32_t &numBytesReceived, LPWSAOVERLAPPED overlapped, long unsigned int flags, LPWSAOVERLAPPED_COMPLETION_ROUTINE callback ) {
 //receive data into buffer from remote sender address
 
     int remoteIPlen = sizeof(remoteIP);
@@ -120,7 +122,7 @@ int UDPSocket::RecvFrom(sockaddr_in remoteIP, char* buffer, uint32_t &numBytesRe
 					reinterpret_cast<LPWSABUF>(&buffer),          		// LPWSABUF lpBuffers
 					1,                                            		// DWORD dwBufferCount
 					reinterpret_cast<LPDWORD>(&numBytesReceived),       // LPDWORD lpNumberOfBytesRecvd
-					reinterpret_cast<LPDWORD>(&flags),            		// LPDWORD lpFlags
+					reinterpret_cast<LPDWORD>(flags),            		// LPDWORD lpFlags
 					reinterpret_cast<sockaddr*>(&remoteIP), 	        // sockaddr* lpFrom
 					reinterpret_cast<LPINT>(&remoteIPlen),         		// LPINT lpFromlen
 					reinterpret_cast<LPWSAOVERLAPPED>(&overlapped), 	// LPWSAOVERLAPPED lpOverlapped
