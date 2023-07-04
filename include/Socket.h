@@ -34,17 +34,13 @@ class UDPSocket {
         SOCKET sock;
         WSASession Session;
 
-        uint32_t numBytesSent = 0; //will in the end contain the number of bytes sent
-        uint32_t numBytesReceived = 0; //will in the end contain the number of bytes received
-
-
     public:
         UDPSocket();
         ~UDPSocket();
 
-        void SendTo(const std::string& address_string, unsigned short port, const char* buffer, LPWSAOVERLAPPED overlapped, int flags = 0);
-        void SendTo(sockaddr_in& remoteIP, const char* buffer, LPWSAOVERLAPPED overlapped, int flags = 0);
-        int RecvFrom(sockaddr_in remoteIP, char* buffer, LPWSAOVERLAPPED overlapped, int flags = 0, LPWSAOVERLAPPED_COMPLETION_ROUTINE callback = NULL);
+        uint32_t SendTo(const std::string& address_string, unsigned short port, const char* buffer, LPWSAOVERLAPPED overlapped, int flags = 0);
+        uint32_t SendTo(sockaddr_in& remoteIP, const char* buffer, LPWSAOVERLAPPED overlapped, int flags = 0);
+        int RecvFrom(sockaddr_in remoteIP, char* buffer, uint32_t &numBytesReceived, LPWSAOVERLAPPED overlapped, int flags = 0, LPWSAOVERLAPPED_COMPLETION_ROUTINE callback = NULL);
         void Bind(sockaddr_in &localIP, unsigned short port); //for associating a local address with the socket
         void Connect(sockaddr_in& remoteIP); //for connecting the socket to the remote address
 };

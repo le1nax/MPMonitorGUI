@@ -21,8 +21,8 @@ WSASession::~WSASession() {
 
 UDPSocket::UDPSocket() {
     //AF_INET = IPv4; SOCK_DGRAM = Byte stream for UDP; IPPROTO_UDP = UDP Protocol
-    sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
-    if (sock == INVALID_SOCKET)
+    sock = INVALID_SOCKET;
+    if (sock == WSASocket(AF_INET, SOCK_DGRAM, IPPROTO_UDP, 0, 0, WSA_FLAG_OVERLAPPED)== INVALID_SOCKET)
         throw std::system_error(WSAGetLastError(), std::system_category(), "Error opening socket");
         //std::cerr << "Failed to create socket. Error: " << WSAGetLastError() << std::endl;
 }
@@ -34,7 +34,7 @@ UDPSocket::~UDPSocket() {
 
 
 /// @todo error handling
-void UDPSocket::SendTo(const std::string& address_string, unsigned short port, const char* buffer, LPWSAOVERLAPPED overlapped, int flags = 0) {
+uint32_t UDPSocket::SendTo(const std::string& address_string, unsigned short port, const char* buffer, LPWSAOVERLAPPED overlapped, int flags = 0) {
     //send data provided in buffer to receiver address and port
 
     sockaddr_in remoteIP; //receiver address
@@ -42,6 +42,8 @@ void UDPSocket::SendTo(const std::string& address_string, unsigned short port, c
     remoteIP.sin_port = htons(port); //port number converted from host byte order to network byte order
     inet_pton(AF_INET, address_string.c_str(), &(remoteIP.sin_addr));
 
+    uint32_t numBytesSent = 0; //will in the end contain the number of bytes sent
+
     int result = WSASendTo(
 					sock,                                       		// SOCKET s
 					reinterpret_cast<LPWSABUF>(&buffer),          		// LPWSABUF lpBuffers
@@ -62,13 +64,17 @@ void UDPSocket::SendTo(const std::string& address_string, unsigned short port, c
             // ...
         }
 	}
+
+    return numBytesSent;
 }
 
 
 /// @todo error handling
-void UDPSocket::SendTo(sockaddr_in& remoteIP, const char* buffer, LPWSAOVERLAPPED overlapped, int flags = 0) {
+uint32_t UDPSocket::SendTo(sockaddr_in& remoteIP, const char* buffer, LPWSAOVERLAPPED overlapped, int flags = 0) {
     //send data provided in buffer to receiver address
 
+    uint32_t numBytesSent = 0; //will in the end contain the number of bytes sent
+
     int result = WSASendTo(
 					sock,                                       		// SOCKET s
 					reinterpret_cast<LPWSABUF>(&buffer),          		// LPWSABUF lpBuffers
@@ -89,12 +95,12 @@ void UDPSocket::SendTo(sockaddr_in& remoteIP, const char* buffer, LPWSAOVERLAPPE
             // ...
         }
 	}
+
+    return numBytesSent;
 }
 
 
-/// @todo error handling
-/// @todo ByteArrayToFile and ReadData in case of overlap -- will that actually happen here, at all? Can we just leave it out?
-int UDPSocket::RecvFrom(sockaddr_in remoteIP, char* buffer, LPWSAOVERLAPPED overlapped, int flags = 0, LPWSAOVERLAPPED_COMPLETION_ROUTINE callback = NULL) {
+int UDPSocket::RecvFrom(sockaddr_in remoteIP, char* buffer, uint32_t &numBytesReceived, LPWSAOVERLAPPED overlapped, int flags = 0, LPWSAOVERLAPPED_COMPLETION_ROUTINE callback = NULL) {
 //receive data into buffer from remote sender address
 
     int remoteIPlen = sizeof(remoteIP);
@@ -108,19 +114,18 @@ int UDPSocket::RecvFrom(sockaddr_in remoteIP, char* buffer, LPWSAOVERLAPPED over
 					reinterpret_cast<sockaddr*>(&remoteIP), 	        // sockaddr* lpFrom
 					reinterpret_cast<LPINT>(&remoteIPlen),         		// LPINT lpFromlen
 					reinterpret_cast<LPWSAOVERLAPPED>(&overlapped), 	// LPWSAOVERLAPPED lpOverlapped
-					callback                                       			// LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine
+					callback                                            // LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine
 				);
 	if (result == SOCKET_ERROR) {
-		int errorCode = WSAGetLastError();
-        if (errorCode != WSA_IO_PENDING)
+        if (WSAGetLastError() != WSA_IO_PENDING)
         {
-            std::cerr << "Failed to start receive operation: " << errorCode << std::endl;
-            // Handle receive error
-            // ...
+            std::cerr << "Failed to initiate receive. Error: " << WSAGetLastError() << std::endl;
+            WSACloseEvent(overlapped->hEvent);
+			closesocket(sock);
+
         }
 	}
 
-    //////////////////////////////idk if that's necessary here: buffer[result] = 0; //make the buffer zero terminated, marking end of string
     return result;
 }
 

@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
         //var parser = new CommandLineParser(); /////////////////
         //parser.Parse(argv);
 
-        program.establishLanConnection();
+        //program.establishLanConnection();
 
 
     }
