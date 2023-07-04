@@ -1,6 +1,6 @@
 #pragma once
-#ifndef SOCKET_H
-#define SOCKET_H
+//#ifndef SOCKET_H
+//#define SOCKET_H
 
 #include "AvaObj.h"
 #include "definitions.h"
@@ -45,4 +45,4 @@ class UDPSocket {
         void Connect(sockaddr_in& remoteIP); //for connecting the socket to the remote address
 };
 
-#endif // SOCKET_H
+//#endif // SOCKET_H
