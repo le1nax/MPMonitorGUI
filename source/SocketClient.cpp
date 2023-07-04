@@ -34,7 +34,8 @@ void SocketClient::sendBytes(vector<std::byte> bytes)
      ///@todo prüfen ob das funktioniert
     size_t len = bytes.size();
     char* charBytes = reinterpret_cast<char*>(bytes.data()); 
-    //SendTo(m_remoteIPtarget, m_port, charBytes, len);///////////////////////////////////////////////////////////// use of old SendTo function, not compatible anymore
+
+    uint32_t numBytesSent = SendTo(m_sa_remoteIPtarget, charBytes, 0);
 }
 
 void SocketClient::SendWaveAssociationRequest()
@@ -902,7 +903,7 @@ void SocketClient::Receive(char* buffer, int flags)
     state.overlapped.hEvent = WSACreateEvent();
     if (state.overlapped.hEvent == WSA_INVALID_EVENT)
     {
-        std::cout << "Fehler beim Erstellen des Ereignisobjekts." << std::endl;
+        std::cout << "hEvent error in Receive()" << std::endl;
         closesocket(sock);
         WSACleanup();
         return;
