@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Socket.h"
-#include "definitions.h"
 
 
 class SocketClient : public UDPSocket {
@@ -46,6 +45,35 @@ class SocketClient : public UDPSocket {
         std::vector<WaveValResult> m_WaveValResultList;
         tm m_baseDateTime{};
         tm GetAbsoluteTimeFromBCDFormat(char* bcdtimebuffer);
+
+        void initMsgs();
+std::vector<std::byte> aarq_ms;
+std::vector<std::byte> aarq_msg_ext_poll;
+std::vector<std::byte> aarq_msg_ext_poll2;
+std::vector<std::byte> aarq_msg_wave_ext_poll;
+std::vector<std::byte> aarq_msg_wave_ext_poll2;
+std::vector<std::byte> mds_create_resp_msg;
+std::vector<std::byte> poll_mds_request_msg;
+std::vector<std::byte> poll_request_msg;
+std::vector<std::byte> poll_request_msg2;
+std::vector<std::byte> poll_request_msg3;
+std::vector<std::byte> poll_request_msg4;
+std::vector<std::byte> ext_poll_request_msg3;
+std::vector<std::byte> ext_poll_request_msg;
+std::vector<std::byte> ext_poll_request_msg2;
+std::vector<std::byte> ext_poll_request_msg4;
+std::vector<std::byte> ext_poll_request_msg5;
+std::vector<std::byte> ext_poll_request_wave_msg3;
+std::vector<std::byte> ext_poll_request_wave_msg;
+std::vector<std::byte> ext_poll_request_wave_msg2;
+std::vector<std::byte> ext_poll_request_alert_msg;
+std::vector<std::byte> get_rtsa_prio_msg;
+std::vector<std::byte> keep_alive_msg;
+std::vector<std::byte> set_rtsa_prio_msg;
+std::vector<std::byte> keep_alive_msg2;
+std::vector<std::byte> rlrq_msg;
+std::vector<std::byte> rlrq_resp_msg;
+std::vector<std::byte> assoc_abort_resp_msg;
 
         /// @todo make threads
         void CheckLinkedPollPacketActionType(char* buffer);

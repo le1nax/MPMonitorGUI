@@ -3,16 +3,12 @@
 #include "AvaObj.h"
 #include "definitions.h"
 
-#include <winsock2.h>
-#include <ws2tcpip.h>
+#include <WinSock2.h>
+#include <WS2tcpip.h>
 #include <system_error>
-#include <string>
 #include <Windows.h>
-#include <vector>
-#include <memory>
 #include <bitset>
 #include <cstddef>
-#include <iostream>
 
 #pragma comment(lib, "ws2_32.lib") //link against the Winsock library
 

@@ -15,5 +15,3 @@
 // 	std::vector<std::string> availablePorts();
 // 	void createSerial();
 // 	void run();
-
-// };
