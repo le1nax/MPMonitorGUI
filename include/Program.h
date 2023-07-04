@@ -1,5 +1,5 @@
 #pragma once
-
+/*
 #include "SocketClient.h"
 
 class Program{
@@ -13,3 +13,4 @@ class Program{
     private: 
     
 };
+*/

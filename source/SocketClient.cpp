@@ -1,5 +1,4 @@
 #include "../include/SocketClient.h"
-#include "../include/AvaObj.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -10,11 +9,15 @@
 #include <cstdint>
 #include <iomanip>
 #include <algorithm>
+#include <WinSock2.h>
+#include <WS2tcpip.h>
+#include <windows.h>
+
 
 using namespace std;
 
 /// @todo Konstruktor soll die membervariablen initialisieren
-SocketClient::SocketClient() : UDPSocket()
+SocketClient::SocketClient() : UDPSocket()//, m_udpState(*this)
 {
 /////////////////// bind local address to socket
 ///////////////////connect remote address to socket
@@ -890,91 +893,131 @@ void SocketClient::SendCycledExtendedPollWaveDataRequest(size_t nInterval)
 }
 
 
-void SocketClient::Receive(char* buffer, int flags) {
+void SocketClient::Receive(char* buffer, int flags)
+{
+    Receive_State state;
+    state.state_ip = m_sa_remoteIPtarget;
+    memset(&state.overlapped, 0, sizeof(WSAOVERLAPPED));
 
-    ///@todo delete durch uniqueptr hEvent ersetzen (?)
-	m_udpState.state_ip = m_sa_remoteIPtarget;
+    state.overlapped.hEvent = WSACreateEvent();
+    if (state.overlapped.hEvent == WSA_INVALID_EVENT)
+    {
+        std::cout << "Fehler beim Erstellen des Ereignisobjekts." << std::endl;
+        closesocket(sock);
+        WSACleanup();
+        return;
+    } 
 
-	WSAOVERLAPPED overlapped{};	
-	memset(&overlapped, 0, sizeof(WSAOVERLAPPED));
-	overlapped.hEvent = reinterpret_cast<HANDLE>(&m_udpState.state_client);
-
-    /////////////////////////overlapped.hEvent = WSACreateEvent();
-
-
-	int receiveResult = m_udpState.state_client.RecvFrom(m_udpState.state_ip, buffer, &overlapped, flags, ReceiveCallback);
+    int receiveResult = RecvFrom(state.state_ip, state.buffer, state.numBytesReceived, &(state.overlapped), flags);
 	if (receiveResult == SOCKET_ERROR)
 	{
 		if (WSAGetLastError() != WSA_IO_PENDING)
 		{
 			std::cerr << "Failed to initiate receive. Error: " << WSAGetLastError() << std::endl;
-			delete reinterpret_cast<UdpState*>(overlapped.hEvent);
+            WSACloseEvent(state.overlapped.hEvent);
 			closesocket(sock);
 			return;
 		}
 	}
 
-	// Wait for the receive operation to complete
+    // Warten auf den Abschluss des Empfangsprozesses
+    DWORD waitResult = WaitForSingleObject(state.overlapped.hEvent, INFINITE); //WSAWaitForMultipleEvents implementiert das gleiche, aber da wir eh die Windows-API nutzen, ist single sinnvoller
+    if (waitResult == WAIT_FAILED)
+    {
+        std::cerr << "Failed to receive. Error: " << WSAGetLastError() << std::endl;
+        WSACloseEvent(state.overlapped.hEvent);
+        closesocket(sock);
+        return;
+    }
+            // ist letztlich nur asynchron dadurch dass Receive im eigenen Thread laeuft. Aber echt-parallel ist der ja auch nicht.
+
+            // Wenn Sie nach dem Empfangen der Daten sofort mit der Verarbeitung beginnen müssen, ohne den Hauptthread zu blockieren, 
+            // dann ist es möglicherweise besser, auf das Warten zu verzichten und die Verarbeitung in der Callback-Routine durchzuführen. 
+            // Wenn jedoch das Blockieren des Hauptthreads bis zum Abschluss des Empfangsprozesses akzeptabel ist und Sie beispielsweise 
+            // auf den Empfang anderer Daten warten möchten, bevor Sie mit der Verarbeitung beginnen, dann ist das Warten durchaus sinnvoll.
+
+
+
+    //falls wir die WSAGetOverlappedResult Abfrage weglassen muessen
+    //if (waitResult == WAIT_OBJECT_0) ReceiveCallback Stuff
+
+
+	// if receiving successful
     if (WSAGetOverlappedResult(
             sock,                                               // SOCKET s
-            reinterpret_cast<LPWSAOVERLAPPED>(&overlapped),     // LPWSAOVERLAPPED lpOverlapped
-            reinterpret_cast<LPDWORD>(&m_udpState.state_client.numBytesReceived),    	// LPDWORD lpcbTransfer
-            TRUE,                                               // BOOL fWait -- whether the function should wait until the overlapped operation is completed (true = wait, false = retrive results immediately)
+            &state.overlapped,                                  // LPWSAOVERLAPPED lpOverlapped
+            reinterpret_cast<LPDWORD>(&state.numBytesReceived), // LPDWORD lpcbTransfer
+            FALSE,                                              // BOOL fWait -- whether the function should wait until the overlapped operation is completed (true = wait, false = retrive results immediately)
             reinterpret_cast<LPDWORD>(&flags)))                 // LPDWORD lpdwFlags
     {
         // Data received successfully, process it
-        if (numBytesReceived > 0)
+        if (state.numBytesReceived > 0)
         {
 			// Receive operation completed successfully
-			ReceiveCallback(0, m_udpState.state_client.numBytesReceived, &overlapped); //go and process data
+			ReceiveCallback(0, state.numBytesReceived, &state.overlapped); //go and process data
         }
     }
     else
     {
         // Receive operation failed
-        std::uint32_t errorCode = WSAGetLastError();
-        if (errorCode != WSA_IO_PENDING) //WSA_IO_PENDING = overlapped operation is still in progress
+        if (WSAGetLastError() != WSA_IO_PENDING) //WSA_IO_PENDING = overlapped operation is still in progress
         {
-            // Handle error
-            std::cout << "Receive error: " << errorCode << std::endl;
+            std::cerr << "Receive error: " << WSAGetLastError() << std::endl;
+            //WSACloseEvent(state.overlapped.hEvent);
+            //closesocket(sock);
+            //return;
+        }
+        else //overlapped operation is still in progress, kann eigentlich nicht passieren durch waitforsingleobject dingens
+        {
+            std::cerr << "Receive operation is still in progress und irgendwas stimmt nicht. Last Error: " << WSAGetLastError() << std::endl;
         }
     }
 
 	// Clean up resources
-	delete reinterpret_cast<UdpState*>(overlapped.hEvent);
+    WSACloseEvent(state.overlapped.hEvent);
 }
 
 
-/// @todo error handling
 /// @todo add path_to_file
-/// @todo version A (as is now, with string) or B (commented out, with bytes)?
 void CALLBACK SocketClient::ReceiveCallback(DWORD errorCode, DWORD numBytesReceived, LPWSAOVERLAPPED overlapped, DWORD flags)
 {
+    //std::unique_ptr<ReceiveState> state = std::make_unique<ReceiveState>(*CONTAINING_RECORD(overlapped, ReceiveState, overlapped));
+
+    Receive_State state = *CONTAINING_RECORD(overlapped, Receive_State, overlapped);
+            //das eine overlapped, um vom member auf die Klasse zu kommen
+            //das andere als memory offset um den Zeiger auf Receive_State zu bekommen
+ 
+            //The purpose of the macro is to obtain a pointer to the containing structure given a pointer to one of its members. 
+            //The specified member is used only to determine the offset of that member within the containing structure.
+
     if (errorCode == 0) 
     {
-		UdpState udpState = *static_cast<UdpState*>(overlapped->hEvent);
-				//or pointer? //UdpState* udpState = reinterpret_cast<UdpState*>(overlapped->hEvent);
-
+/*
 		//read the number of bytes received from the buffer into receivedData
-//////////////////std::string receivedData(/*udpState.state_client.*/buffer, numBytesReceived); 
+        std::string receivedData(*(state.buffer), numBytesReceived); 
 
-		// Convert buffer to std::vector<byte> if needed
-	// B: std::vector<std::byte> data_bytes(udpState.state_client.buffer, udpState.state_client.buffer + numBytesReceived);
+		        // Convert buffer to std::vector<byte> if needed
+	            // B: std::vector<std::byte> data_bytes(udpState.state_client.buffer, udpState.state_client.buffer + numBytesReceived);
 
-	//im cs code: string path = Path.Combine(Directory.GetCurrentDirectory(),Globals.pathFile+"_Philips_MPrawoutput.txt");
+        //im cs code: string path = Path.Combine(Directory.GetCurrentDirectory(),Globals.pathFile+"_Philips_MPrawoutput.txt");
 		std::string path_to_file = ""; //////////////////////////////////////////////////
 
 		// Write data to file
-//////////////////bool writing_to_file_successful = ByteArrayToFile(path_to_file, receivedData);
-	// B: bool writing_to_file_successful2 = ByteArrayToFile(path_to_file, data_bytes, numBytesReceived);
+        bool writing_to_file_successful = ByteArrayToFile(path_to_file, receivedData);
+	            // B: bool writing_to_file_successful2 = ByteArrayToFile(path_to_file, data_bytes, numBytesReceived);
+*/
+        ProcessPacket(state.buffer);
 
     }
     else
     {
-        std::cerr << "ReceiveCallback error: " << errorCode << std::endl;
+        std::cerr << "ReceiveCallback error: " << WSAGetLastError() << std::endl;
         // Handle the error
         // ... //
     }
+
+    //zur Sicherheit. koennte theoretisch weg, weil danach eh in Receive hEvent geclosed wird, aber muesste wieder rein, falls daran mal was geaendert wird
+    WSAResetEvent(state.overlapped.hEvent); 
 }
 
 

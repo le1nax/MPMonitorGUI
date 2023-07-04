@@ -1,16 +1,17 @@
 #pragma once
 
-#define RECV_BUFFER_SIZE (1380) // Maximum message size of Philips Monitor
-#define SEND_BUFFER_SIZE () //
 #include "definitions.h"
+#include "MPMonitor.h"
+
 #include <list>
 #include <string>
 #include <vector>
 #include <cstring>
 #include <stdint.h>
 #include <time.h>
-#include "MPMonitor.h"
 
+#define RECV_BUFFER_SIZE (1380) // Maximum message size of Philips Monitor
+#define SEND_BUFFER_SIZE () //
 
 
 //TODO Make sure the BootP/DHCP server gives an IP address to the monitor --> how to find out the correct IP address?

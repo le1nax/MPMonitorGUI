@@ -7,7 +7,6 @@
 
 //
 
-
 class SocketClient : public UDPSocket {
 
     public:
@@ -15,14 +14,14 @@ class SocketClient : public UDPSocket {
         ~SocketClient() = default;
 
     private: 
-        // class UdpState{
-        //     public: 
-        //         UdpState(SocketClient& parent) : state_client(parent) {}
-        //     private:
-        //         friend class SocketClient;
-        //         SocketClient& state_client;
-        //         sockaddr_in state_ip;
-        // } m_udpState; //current state of the client for the asynchronous receiving of data
+        /*class UdpState{
+            public: 
+                UdpState(SocketClient& parent) : state_client(parent) {}
+            private:
+                friend class SocketClient;
+                SocketClient& state_client;
+                sockaddr_in state_ip;
+        } m_udpState; //current state of the client for the asynchronous receiving of data*/
         void establishLanConnection();
         void SendWaveAssociationRequest();
         void ProcessPacket(char* buffer);
@@ -89,8 +88,33 @@ class SocketClient : public UDPSocket {
         void SendMDSPollDataRequest();
         void KeepConnectionAlive(int nInterval = 0);
         void Receive(char* buffer, int flags = 0);
-        static void CALLBACK ReceiveCallback(DWORD errorCode, DWORD numBytesReceived, LPWSAOVERLAPPED overlapped, DWORD flags = 0);
+        void CALLBACK ReceiveCallback(DWORD errorCode, DWORD numBytesReceived, LPWSAOVERLAPPED overlapped, DWORD flags = 0);
         static bool ByteArrayToFile(const std::string& filename, const std::string& bytes_string);
         static bool ByteArrayToFile(const std::string& path_to_file, const std::vector<std::byte>& data_bytes, uint32_t numBytesReceived);
 
+};
+
+//current state of the client for the asynchronous receiving of data
+class Receive_State 
+{
+    public:
+        Receive_State() = default;
+        ~Receive_State() = default;
+
+        WSAOVERLAPPED overlapped; //noetig um auf hEvent und overlap operation params zuzugreifen
+        char* buffer;
+        sockaddr_in state_ip;
+        uint32_t numBytesReceived;
+};
+
+class Program {
+
+    public:
+        Program(SocketClient client);
+        SocketClient m_client;
+        void establishLanConnection();
+
+
+    private: 
+    
 };
