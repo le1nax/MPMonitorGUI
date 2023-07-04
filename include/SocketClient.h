@@ -131,15 +131,3 @@ class Receive_State
         sockaddr_in state_ip;
         long unsigned int numBytesReceived;
 };
-
-class Program {
-
-    public:
-        Program(SocketClient client);
-        SocketClient m_client;
-        void establishLanConnection();
-
-
-    private: 
-    
-};
