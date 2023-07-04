@@ -1,16 +1,14 @@
 #pragma once
-// #ifndef SOCKET_CLIENT_H
-// #define SOCKET_CLIENT_H
 
 #include "Socket.h"
+#include "definitions.h"
 
-//
 
 class SocketClient : public UDPSocket {
 
     public:
         SocketClient();
-        ~SocketClient() = default;  
+        ~SocketClient() = default;
 
     private: 
         /*class UdpState{
@@ -25,7 +23,6 @@ class SocketClient : public UDPSocket {
         void SendWaveAssociationRequest();
         void ProcessPacket(char* buffer);
         void sendBytes(std::vector<std::byte> bytes);
-
         std::vector<std::byte> m_readassocbuffer;
         std::vector<std::byte> m_readmdsconnectbuffer;
         std::string m_remoteIPtarget = "";
@@ -104,7 +101,7 @@ class Receive_State
         WSAOVERLAPPED overlapped; //noetig um auf hEvent und overlap operation params zuzugreifen
         char* buffer;
         sockaddr_in state_ip;
-        uint32_t numBytesReceived;
+        long unsigned int numBytesReceived;
 };
 
 class Program {

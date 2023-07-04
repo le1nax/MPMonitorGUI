@@ -43,7 +43,9 @@ add_executable(
   BasicApp
   "main.cpp"
   # other .cpp files go here
- "source/ControllerBox.cpp"
+ "source/AvaObj.cpp"
+ "source/Program.cpp"
+ "source/Socket.cpp"
  "source/SocketClient.cpp"
  )
 

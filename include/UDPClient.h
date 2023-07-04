@@ -5,8 +5,6 @@
 #include <string>
 //#pragma comment(lib, "Ws2_32.lib")
 
-
-
 /*
 * Definition of class methods for UDPClient. 
 * Provides a simply UDP socket where a request can be issued to the server and a reply is received.
