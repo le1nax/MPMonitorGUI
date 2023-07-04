@@ -20,11 +20,22 @@ WSASession::~WSASession() {
 
 
 UDPSocket::UDPSocket() {
-    //AF_INET = IPv4; SOCK_DGRAM = Byte stream for UDP; IPPROTO_UDP = UDP Protocol
-    sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
-    if (sock == INVALID_SOCKET)
+    SOCKET socket = INVALID_SOCKET;
+    // TCP-Socket erstellen, mit Overlapped-Semantik
+    if(socket = WSASocket(AF_INET, SOCK_DGRAM, IPPROTO_UDP, 0, 0, WSA_FLAG_OVERLAPPED) == INVALID_SOCKET)
+    {
         throw std::system_error(WSAGetLastError(), std::system_category(), "Error opening socket");
-        //std::cerr << "Failed to create socket. Error: " << WSAGetLastError() << std::endl;
+    }
+   // Fehler
+
+/*
+   I/O
+*/
+//     //AF_INET = IPv4; SOCK_DGRAM = Byte stream for UDP; IPPROTO_UDP = UDP Protocol
+//     sock = WSASocket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+//     if (sock == INVALID_SOCKET)
+//         throw std::system_error(WSAGetLastError(), std::system_category(), "Error opening socket");
+//         //std::cerr << "Failed to create socket. Error: " << WSAGetLastError() << std::endl;
 }
 
 

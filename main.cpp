@@ -1,9 +1,4 @@
-﻿#include "include/ControllerBox.h"
-#include "include/MPMonitor.h"
-#include "include/MPUDPMonitor.h"
-#include "include/UDPClient.h"
-#include "include/Socket.h"
-#include "include/Program.h"
+﻿#include "include/Program.h"
 #include <iostream>
 
 

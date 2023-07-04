@@ -14,7 +14,7 @@
 using namespace std;
 
 /// @todo Konstruktor soll die membervariablen initialisieren
-SocketClient::SocketClient() : UDPSocket(), m_udpState(*this)
+SocketClient::SocketClient() : UDPSocket()
 {
 /////////////////// bind local address to socket
 ///////////////////connect remote address to socket
