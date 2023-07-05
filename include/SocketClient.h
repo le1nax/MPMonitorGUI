@@ -6,7 +6,7 @@
 class SocketClient : public UDPSocket {
 
     public:
-        SocketClient();
+        SocketClient(std::string remoteIPtarget, const unsigned short remotePortTarget);
         ~SocketClient() = default;
         
         void establishLanConnection();
@@ -32,7 +32,7 @@ class SocketClient : public UDPSocket {
         std::string m_idlabelstring = "";
         std::vector<NumericValResult> m_NumericValList;
         std::vector<std::string> m_NumValHeaders;
-        uint16_t m_port = 0; 
+        const unsigned short m_port = 0; 
         uint32_t m_baseRelativeTime= 0;
         uint16_t m_actiontype= 0;
         uint16_t m_obpollhandle = 0;

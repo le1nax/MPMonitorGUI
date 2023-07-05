@@ -176,14 +176,13 @@ void UDPSocket::Bind(sockaddr_in &localIP, unsigned short port) {
 }
 
 
-/// @todo error handling
 void UDPSocket::Connect(sockaddr_in &remoteIP) {
 
     //the last four params are LPWSABUF lpCallerData, LPWSABUF lpCalleeData, LPQOS lpSQOS, LPQOS lpGQOS
     //which can all be NULL if no specific caller data, callee data, and quality of service are required
     int result = WSAConnect(sock, reinterpret_cast<const sockaddr*>(&remoteIP), sizeof(remoteIP), NULL, NULL, NULL, NULL);
     if (result == SOCKET_ERROR) {
-        int error = WSAGetLastError();
-        // Handle error
+        std::cerr << "Failed to connect socket and remote IP target. Error: " << WSAGetLastError() << std::endl;
+        closesocket(sock);
     }
 }

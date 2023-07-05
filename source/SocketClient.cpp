@@ -8,16 +8,19 @@
 using namespace std;
 
 /// @todo Konstruktor soll die membervariablen initialisieren
-SocketClient::SocketClient() : UDPSocket()//, m_udpState(*this)
+SocketClient::SocketClient(std::string remoteIPtarget, const unsigned short remotePortTarget) : 
+        UDPSocket(), m_remoteIPtarget(remoteIPtarget), m_port(remotePortTarget) //, m_udpState(*this)
 {
-///@brief bind local address to socket
-///@brief connect remote address to socket
-
-	//get sockaddr_in m_sa_remoteIPtarget from std::string m_remoteIPtarget
+    // setup remote server address structure
+    memset((void *)&m_sa_remoteIPtarget, '\0', sizeof(struct sockaddr_in));
     m_sa_remoteIPtarget.sin_family = AF_INET; //ipv4
-    m_sa_remoteIPtarget.sin_addr.s_addr = htonl(INADDR_ANY); //allows to bind to any available local network interface
     m_sa_remoteIPtarget.sin_port = htons(m_port); //htons converts port number from host byte order to network byte order
-    inet_pton(AF_INET, m_remoteIPtarget.c_str(), &(m_sa_remoteIPtarget.sin_addr));
+    inet_pton(AF_INET, m_remoteIPtarget.c_str(), &(m_sa_remoteIPtarget.sin_addr)); //corresponds to m_sa_remoteIPtarget.sin_addr.s_addr = inet_addr(m_remoteIPtarget)
+
+    // connect client socket to remote IP and port
+    Connect(m_sa_remoteIPtarget);
+
+    // initialise the different message bytes
     initMsgs();
 }
 
