@@ -49,14 +49,14 @@ long unsigned int UDPSocket::SendTo(sockaddr_in& remoteIP, const char* buffer, l
     std::cout << "sending bytes of size: " << cppString.size() << std::endl;
     long unsigned int numBytesSent = 0; //will in the end contain the number of bytes sent and be returned
 
-    WSAOVERLAPPED overlapped;
-    overlapped.hEvent = WSACreateEvent();
-    if (overlapped.hEvent == WSA_INVALID_EVENT) 
-    {
-        std::cerr << "WSACreateEvent in SendTo() failed with error: " << WSAGetLastError() << std::endl;
-        WSACleanup();
-        return 0;
-    }
+    // WSAOVERLAPPED overlapped;
+    // overlapped.hEvent = WSACreateEvent();
+    // if (overlapped.hEvent == WSA_INVALID_EVENT) 
+    // {
+    //     std::cerr << "WSACreateEvent in SendTo() failed with error: " << WSAGetLastError() << std::endl;
+    //     WSACleanup();
+    //     return 0;
+    // }
 
     int result = WSASendTo(
 					sock,                                       		// SOCKET s
@@ -66,7 +66,7 @@ long unsigned int UDPSocket::SendTo(sockaddr_in& remoteIP, const char* buffer, l
 					reinterpret_cast<DWORD>(flags),            		    // DWORD dwFlags
 					reinterpret_cast<const sockaddr*>(&remoteIP),       // const sockaddr* lpTo
                     sizeof(remoteIP),         		                    // int iTolen
-					reinterpret_cast<LPWSAOVERLAPPED>(&overlapped), 	// LPWSAOVERLAPPED lpOverlapped
+					NULL, 	// LPWSAOVERLAPPED lpOverlapped
 					NULL                                       			// LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine
 				);
 
@@ -76,21 +76,21 @@ long unsigned int UDPSocket::SendTo(sockaddr_in& remoteIP, const char* buffer, l
         if (errorCode != WSA_IO_PENDING)
         {
             std::cerr << "Failed to start send operation: " << errorCode << std::endl;
-            WSACloseEvent(overlapped.hEvent);
+            // WSACloseEvent(overlapped.hEvent);
             closesocket(sock);
             WSACleanup();
             return 0;
         }
 	}
 
-    DWORD temp = WaitForSingleObject(overlapped.hEvent, INFINITE); 
-    if (temp == WAIT_FAILED)
-    {
-        std::cerr << "WaitForSingleObject in SendTo() failed with error: " << WSAGetLastError() << std::endl;
-        WSACloseEvent(overlapped.hEvent);
-        closesocket(sock);
-        return 0;
-    }
+    // DWORD temp = WaitForSingleObject(overlapped.hEvent, INFINITE); 
+    // if (temp == WAIT_FAILED)
+    // {
+    //     std::cerr << "WaitForSingleObject in SendTo() failed with error: " << WSAGetLastError() << std::endl;
+    //     WSACloseEvent(overlapped.hEvent);
+    //     closesocket(sock);
+    //     return 0;
+    // }
 
     /*DWORD temp = WSAWaitForMultipleEvents(1, &overlapped.hEvent, TRUE, INFINITE, TRUE);
     if (temp == WSA_WAIT_FAILED) 
@@ -99,18 +99,18 @@ long unsigned int UDPSocket::SendTo(sockaddr_in& remoteIP, const char* buffer, l
         return 0;
     }*/
 
-    temp = WSAGetOverlappedResult(sock, &overlapped, reinterpret_cast<LPDWORD>(&numBytesSent), FALSE, reinterpret_cast<LPDWORD>(&flags));
-    if (temp == FALSE) 
-    {
-        std::cerr << "WSAGetOverlappedResult in SendTo() failed with error: " << WSAGetLastError() << std::endl;
-        WSACloseEvent(overlapped.hEvent);
-        closesocket(sock);
-        return 0;
-    }
-    else
-    {
-        std::cout << "Number of sent bytes =  " << numBytesSent << std::endl;
-    }
+    // temp = WSAGetOverlappedResult(sock, &overlapped, reinterpret_cast<LPDWORD>(&numBytesSent), FALSE, reinterpret_cast<LPDWORD>(&flags));
+    // if (temp == FALSE) 
+    // {
+    //     std::cerr << "WSAGetOverlappedResult in SendTo() failed with error: " << WSAGetLastError() << std::endl;
+    //     WSACloseEvent(overlapped.hEvent);
+    //     closesocket(sock);
+    //     return 0;
+    // }
+    // else
+    // {
+    //     std::cout << "Number of sent bytes =  " << numBytesSent << std::endl;
+    // }
 
     return numBytesSent;
 }
