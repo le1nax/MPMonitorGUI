@@ -66,22 +66,15 @@ long unsigned int UDPSocket::SendTo(sockaddr_in& remoteIP, const char* buffer, l
         return 0;
     }
 
-    //const char testnormalbuf = &buffer;
-    LPWSABUF testlpwsabuf = reinterpret_cast<LPWSABUF>(&buffer);
-
-    std::cout << "&buffer: " << &buffer << std::endl;
-    std::cout << "LPWSABUF: " << testlpwsabuf << std::endl;
-
-
     int result = WSASendTo(
 					sock,                                       		// SOCKET s
-					testlpwsabuf,          		// LPWSABUF lpBuffers
+					reinterpret_cast<LPWSABUF>(&buffer),          		// LPWSABUF lpBuffers
 					1,                                            		// DWORD dwBufferCount
 					reinterpret_cast<LPDWORD>(&numBytesSent),    		// LPDWORD lpNumberOfBytesSent
 					reinterpret_cast<DWORD>(flags),            		    // DWORD dwFlags
 					reinterpret_cast<const sockaddr*>(&remoteIP),       // const sockaddr* lpTo
                     sizeof(remoteIP),         		                    // int iTolen
-					NULL, 	// LPWSAOVERLAPPED lpOverlapped
+					reinterpret_cast<LPWSAOVERLAPPED>(&overlapped), 	// LPWSAOVERLAPPED lpOverlapped
 					NULL                                       			// LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine
 				);
 
