@@ -4,14 +4,17 @@
 
 WSASession::WSASession() {
     //calling Startup fct with Winsock version 2.2
-    if (WSAStartup(MAKEWORD(2, 2), &data) != 0) {
+    if (WSAStartup(MAKEWORD(2, 2), &data) != 0) 
+    {
         throw std::system_error(WSAGetLastError(), std::system_category(), "WSAStartup Failed");
     }
+    std::cout << "Started WSASession" << std::endl;
 }
 
 
 WSASession::~WSASession() {
     WSACleanup();
+    std::cout << "Closed WSASession" << std::endl;
 }
 
 
@@ -35,11 +38,14 @@ UDPSocket::UDPSocket() {
 //     if (sock == INVALID_SOCKET)
 //         throw std::system_error(WSAGetLastError(), std::system_category(), "Error opening socket");
 //         //std::cerr << "Failed to create socket. Error: " << WSAGetLastError() << std::endl;
+
+    std::cout << "created UDP socket" << std::endl;
 }
 
 
 UDPSocket::~UDPSocket() {
     closesocket(sock);
+    std::cout << "Closed UDP socket" << std::endl;
 }
 
 
@@ -119,6 +125,8 @@ long unsigned int UDPSocket::SendTo(sockaddr_in& remoteIP, const char* buffer, l
     //     std::cout << "Number of sent bytes =  " << numBytesSent << std::endl;
     // }
 
+    std::cout << "sent " << numBytesSent << " bytes of data" << std::endl;
+
     return numBytesSent;
 }
 
@@ -150,11 +158,12 @@ int UDPSocket::RecvFrom(sockaddr_in remoteIP, char* buffer, long unsigned int &n
         }
 	}
 
+    std::cout << "received " << numBytesReceived << " bytes of data" << std::endl;
+
     return result;
 }
 
 
-/// @todo error handling
 void UDPSocket::Bind(sockaddr_in &localIP, unsigned short port) {
     /*
     sockaddr_in add;
@@ -169,9 +178,10 @@ void UDPSocket::Bind(sockaddr_in &localIP, unsigned short port) {
 
     int result = bind(sock, reinterpret_cast<sockaddr*>(&localIP), sizeof(localIP));
 
-    if (result == SOCKET_ERROR) {
-        int error = WSAGetLastError();
-        // Handle error
+    if (result == SOCKET_ERROR)
+    {
+        std::cerr << "Failed to bind socket and local IP target. Error: " << WSAGetLastError() << std::endl;
+        closesocket(sock);
     }
 }
 
@@ -181,7 +191,8 @@ void UDPSocket::Connect(sockaddr_in &remoteIP) {
     //the last four params are LPWSABUF lpCallerData, LPWSABUF lpCalleeData, LPQOS lpSQOS, LPQOS lpGQOS
     //which can all be NULL if no specific caller data, callee data, and quality of service are required
     int result = WSAConnect(sock, reinterpret_cast<const sockaddr*>(&remoteIP), sizeof(remoteIP), NULL, NULL, NULL, NULL);
-    if (result == SOCKET_ERROR) {
+    if (result == SOCKET_ERROR)
+    {
         std::cerr << "Failed to connect socket and remote IP target. Error: " << WSAGetLastError() << std::endl;
         closesocket(sock);
     }

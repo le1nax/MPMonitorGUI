@@ -22,6 +22,8 @@ SocketClient::SocketClient(std::string remoteIPtarget, const unsigned short remo
 
     // initialise the different message bytes
     initMsgs();
+
+    std::cout << "Created and initialised client" << std::endl;
 }
 
 void SocketClient::initMsgs()
@@ -248,6 +250,7 @@ aarq_msg_wave_ext_poll2 =
     0x80, 0x64, 0x80, 0x80, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 );
 
 }
+
 void SocketClient::sendBytes(vector<std::byte> bytes)
 {
      ///@todo prüfen ob das funktioniert
@@ -286,6 +289,8 @@ void SocketClient::ProcessPacket(char* buffer)
                 default:
                     break;
             }
+
+    std::cout << "finished ProcessPacket" << std::endl;
 }
 
 void SocketClient::CheckLinkedPollPacketActionType(char* buffer)
@@ -1226,6 +1231,7 @@ void CALLBACK SocketClient::ReceiveCallback(DWORD errorCode, DWORD numBytesRecei
         bool writing_to_file_successful = ByteArrayToFile(path_to_file, receivedData);
 	            // B: bool writing_to_file_successful2 = ByteArrayToFile(path_to_file, data_bytes, numBytesReceived);
 */
+        std::cout << "now processing packet" << std::endl;
         ProcessPacket(state.buffer);
 
     }
@@ -1567,5 +1573,7 @@ void SocketClient::establishLanConnection()
                 //It's important to note that the ReceiveCallback function should be implemented in a way that it can handle multiple invocations and 
 				//process each packet of data independently. The function should not rely on any assumptions about the order or timing of packet arrivals, 
 				//as they can occur in an unpredictable manner due to the asynchronous nature of the UDP communication.
+    
+    std::cout << "established LAN connection" << std::endl;
 }
 
