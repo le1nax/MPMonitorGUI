@@ -131,4 +131,5 @@ class Receive_State
         char* buffer;
         sockaddr_in state_ip;
         long unsigned int numBytesReceived;
+        long unsigned int numBytesTransferred;
 };

@@ -1167,15 +1167,18 @@ void SocketClient::Receive(char* buffer, int flags)
     //if (waitResult == WAIT_OBJECT_0) ReceiveCallback Stuff
 
 
+    DWORD temp = WSAGetOverlappedResult(
+            sock,                                                   // SOCKET s
+            &state.overlapped,                                      // LPWSAOVERLAPPED lpOverlapped
+            reinterpret_cast<LPDWORD>(&state.numBytesTransferred),  // LPDWORD lpcbTransfer
+            FALSE,                                                  // BOOL fWait -- whether the function should wait until the overlapped operation is completed (true = wait, false = retrive results immediately)
+            reinterpret_cast<LPDWORD>(&flags));                     // LPDWORD lpdwFlags
+
 	// if receiving successful
-    if (WSAGetOverlappedResult(
-            sock,                                               // SOCKET s
-            &state.overlapped,                                  // LPWSAOVERLAPPED lpOverlapped
-            reinterpret_cast<LPDWORD>(&state.numBytesReceived), // LPDWORD lpcbTransfer
-            FALSE,                                              // BOOL fWait -- whether the function should wait until the overlapped operation is completed (true = wait, false = retrive results immediately)
-            reinterpret_cast<LPDWORD>(&flags)))                 // LPDWORD lpdwFlags
+    if (temp == TRUE)                 
     {
-        // Data received successfully, process it
+        state.numBytesReceived += state.numBytesTransferred;
+
         if (state.numBytesReceived > 0)
         {
 			// Receive operation completed successfully
@@ -1187,16 +1190,18 @@ void SocketClient::Receive(char* buffer, int flags)
         // Receive operation failed
         if (WSAGetLastError() != WSA_IO_PENDING) //WSA_IO_PENDING = overlapped operation is still in progress
         {
-            std::cerr << "Receive error: " << WSAGetLastError() << std::endl;
-            //WSACloseEvent(state.overlapped.hEvent);
-            //closesocket(sock);
-            //return;
+            std::cerr << "WSAGetOverlappedResult in RecvFrom() failed with error: " << WSAGetLastError() << std::endl;
+            WSACloseEvent(state.overlapped.hEvent);
+            closesocket(sock);
+            return;
         }
         else //overlapped operation is still in progress, kann eigentlich nicht passieren durch waitforsingleobject dingens
         {
-            std::cerr << "Receive operation is still in progress und irgendwas stimmt nicht. Last Error: " << WSAGetLastError() << std::endl;
+            std::cerr << "Receive operation is still in progress und irgendwas stimmt nicht, weil das eigentlich nicht eintreten koennen sollte. Last Error: " << WSAGetLastError() << std::endl;
         }
     }
+
+    std::cout << "received and processed " << state.numBytesReceived << " Bytes" << std::endl;
 
 	// Clean up resources
     WSACloseEvent(state.overlapped.hEvent);
