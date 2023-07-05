@@ -21,12 +21,11 @@ WSASession::~WSASession() {
 UDPSocket::UDPSocket() {
     
     //AF_INET = IPv4; SOCK_DGRAM = Byte stream for UDP; IPPROTO_UDP = UDP Protocol
-    sock = INVALID_SOCKET;
-    if (sock == WSASocket(AF_INET, SOCK_DGRAM, IPPROTO_UDP, 0, 0, WSA_FLAG_OVERLAPPED)== INVALID_SOCKET)
+    sock = WSASocket(AF_INET, SOCK_DGRAM, IPPROTO_UDP, 0, 0, WSA_FLAG_OVERLAPPED);
+    if (sock == INVALID_SOCKET)
     {
         throw std::system_error(WSAGetLastError(), std::system_category(), "Error opening socket");
     }
-   // Fehler
 
 /*
    I/O
@@ -46,7 +45,8 @@ UDPSocket::~UDPSocket() {
 
 long unsigned int UDPSocket::SendTo(sockaddr_in& remoteIP, const char* buffer, long unsigned int flags) {
     //send data provided in buffer to receiver address
-
+    std::string cppString(buffer);
+    std::cout << "sending bytes of size: " << cppString.size() << std::endl;
     long unsigned int numBytesSent = 0; //will in the end contain the number of bytes sent and be returned
 
     WSAOVERLAPPED overlapped;

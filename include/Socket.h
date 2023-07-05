@@ -24,8 +24,6 @@ class WSASession {
 class UDPSocket {
     protected:
         SOCKET sock;
-        WSASession Session;
-
     public:
         UDPSocket();
         ~UDPSocket();

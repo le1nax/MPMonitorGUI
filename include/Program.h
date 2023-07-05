@@ -5,11 +5,8 @@
 class Program{
 
     public:
-        Program(SocketClient client);
-        SocketClient m_client;
-        void establishLanConnection();
-
-
+        Program();
+ 
     private: 
     
 };

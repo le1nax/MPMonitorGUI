@@ -3,40 +3,31 @@
 #include "include/Program.h"
 
 
-#define REMOTEIP ""
-#define REMOTEPORT 0
+#define REMOTEIP "169.254.0.1"
+#define REMOTEPORT 24105
 
+using namespace std;
 
-int main(int argc, char *argv[])
+int main()
 {
     try
    {
+        unique_ptr<WSASession> Session = make_unique<WSASession>();
         // setup remote server address structure
         sockaddr_in remoteIP;
+        memset((void *)&remoteIP, '\0', sizeof(struct sockaddr_in));
+        
         const std::string s_remoteIP = REMOTEIP;
             //const unsigned short remotePort = REMOTEPORT;
         remoteIP.sin_family = AF_INET; 
             //remoteIP.sin_port = htons(remotePort); 
         inet_pton(AF_INET, s_remoteIP.c_str(), &(remoteIP.sin_addr));
 
-        memset((void *)&remoteIP, '\0', sizeof(struct sockaddr_in));
+        unique_ptr<SocketClient> client = make_unique<SocketClient>();
 
-        WSASession Session;
-        SocketClient client;
-        Program program(client);
-
-        //program.m_client.Connect(&remoteIP);
-        //program.m_client.Connect(reinterpret_cast<const sockaddr*>(&remoteIP)); ///////////////////
-        //program.m_client.Connect((sockaddr)(&remoteIP));
-
-
-        std::cout << "Reading from Philips Monitor..." << std::endl;
-
-        std::string ppgPath;
-        std::string ppgFilename;
-
-        ppgPath = argv[1];
-        ppgFilename = argv[2];
+        client->Connect(remoteIP);
+        // program.m_client.Connect(reinterpret_cast<const sockaddr*>(&remoteIP)); ///////////////////
+        // program.m_client.Connect((sockaddr)(&remoteIP))
 
         //ppgPath = "TEST.docx";
         //ppgFilename = "TEST.docx";
@@ -44,9 +35,7 @@ int main(int argc, char *argv[])
         //var parser = new CommandLineParser(); /////////////////
         //parser.Parse(argv);
 
-        //program.establishLanConnection();
-
-
+        client->establishLanConnection();
     }
     catch (std::exception &ex) //catch any occurring system errors
     {

@@ -10,15 +10,15 @@ using namespace std;
 /// @todo Konstruktor soll die membervariablen initialisieren
 SocketClient::SocketClient() : UDPSocket()//, m_udpState(*this)
 {
-/////////////////// bind local address to socket
-///////////////////connect remote address to socket
+///@brief bind local address to socket
+///@brief connect remote address to socket
 
 	//get sockaddr_in m_sa_remoteIPtarget from std::string m_remoteIPtarget
     m_sa_remoteIPtarget.sin_family = AF_INET; //ipv4
     m_sa_remoteIPtarget.sin_addr.s_addr = htonl(INADDR_ANY); //allows to bind to any available local network interface
     m_sa_remoteIPtarget.sin_port = htons(m_port); //htons converts port number from host byte order to network byte order
     inet_pton(AF_INET, m_remoteIPtarget.c_str(), &(m_sa_remoteIPtarget.sin_addr));
-    
+    initMsgs();
 }
 
 void SocketClient::initMsgs()
@@ -1514,6 +1514,7 @@ void SocketClient::SetRTSAPriorityList(size_t nWaveSetType)
 
 void SocketClient::establishLanConnection() 
 {
+    std::cout << "establishing Lan Connection" << std::endl;
     //  try
     //     {
         int nInterval = 12000;
@@ -1526,7 +1527,9 @@ void SocketClient::establishLanConnection()
 					//try:
 			//Receive MDSCreateEventReport message
             char readassocbuffer[1380] = ""; 
+            std::cout << "readassbuffer" << std::endl;
             Receive(readassocbuffer);
+            std::cout << "end read assbuffer" << std::endl;
 
             //Send MDSCreateEventResult message
             char readmdsconnectbuffer[1380] = "";
