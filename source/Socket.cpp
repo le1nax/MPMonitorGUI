@@ -50,17 +50,20 @@ UDPSocket::~UDPSocket() {
 }
 
 
-long unsigned int UDPSocket::SendTo(sockaddr_in& remoteIP, char* buffer, long unsigned int flags) {
+long unsigned int UDPSocket::SendTo(sockaddr_in& remoteIP, char* buffer, long unsigned int flags) 
+{
     //send data provided in buffer to receiver address
     std::string cppString(buffer);
     std::cout << "sending bytes of size: " << cppString.size() << std::endl;
     long unsigned int numBytesSent = 0; //will in the end contain the number of bytes sent and be returned
     long unsigned int numBytesTransferred = 0; //will in the end contain the number of bytes sent in the overlap
 
+    //create wsabuffer out of buffer
     LPWSABUF wsabuffer;
     wsabuffer->buf = buffer;
     wsabuffer->len = sizeof(buffer);
 
+    //create overlapped structure
     WSAOVERLAPPED overlapped;
     overlapped.hEvent = WSACreateEvent();
     if (overlapped.hEvent == WSA_INVALID_EVENT) 
@@ -133,9 +136,13 @@ int UDPSocket::RecvFrom(sockaddr_in remoteIP, char* buffer, long unsigned int &n
 
     int remoteIPlen = sizeof(remoteIP);
 
+    LPWSABUF wsabuffer;
+    wsabuffer->buf = buffer;
+    wsabuffer->len = sizeof(buffer);
+
     int result = WSARecvFrom(
 					sock,                                       		// SOCKET s
-					reinterpret_cast<LPWSABUF>(&buffer),          		// LPWSABUF lpBuffers
+					wsabuffer,          		                        // LPWSABUF lpBuffers
 					1,                                            		// DWORD dwBufferCount
 					reinterpret_cast<LPDWORD>(&numBytesReceived),       // LPDWORD lpNumberOfBytesRecvd
 					reinterpret_cast<LPDWORD>(flags),            		// LPDWORD lpFlags
