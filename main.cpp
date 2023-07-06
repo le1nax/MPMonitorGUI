@@ -47,7 +47,7 @@ int main()
 
 
 // Function to be executed in the receive thread
-void Receive(SOCKET& serverSocket, SOCKET& clientSocket, LPWSABUF& lpwsabuffer, DWORD& bytesReceived1, DWORD& flags, sockaddr_in& serverAddress, int serverAddressSize) 
+void Receive(SOCKET& serverSocket, SOCKET& clientSocket, LPWSABUF& lpwsabufferClient, LPWSABUF& lpwsabufferServer, DWORD& bytesReceived1, DWORD& flags, sockaddr_in& serverAddress, int serverAddressSize) 
 {
 
     std::cout << "Thread Receive: Starting work" << std::endl;
@@ -55,14 +55,15 @@ void Receive(SOCKET& serverSocket, SOCKET& clientSocket, LPWSABUF& lpwsabuffer, 
     std::chrono::milliseconds duration2(2000); // 5000 = 5 seconds
     std::this_thread::sleep_for(duration2);
 
-    if (WSARecvFrom(clientSocket, lpwsabuffer, 1, &bytesReceived1, &flags,
+    if (WSARecvFrom(clientSocket, lpwsabufferClient, 1, &bytesReceived1, &flags,
                     reinterpret_cast<sockaddr*>(&serverAddress), reinterpret_cast<LPINT>(&serverAddressSize), nullptr, nullptr) == SOCKET_ERROR)
     {
         std::cerr << "WSARecvFrom failed. Error code: " << WSAGetLastError() << std::endl;
         closesocket(serverSocket);
         closesocket(clientSocket);
         WSACleanup();
-        delete lpwsabuffer;
+        delete lpwsabufferClient;
+        delete lpwsabufferServer;
         return;
     }
 
@@ -74,11 +75,11 @@ void Receive(SOCKET& serverSocket, SOCKET& clientSocket, LPWSABUF& lpwsabuffer, 
 
 
 // Function to be executed in the send thread
-void Send(SOCKET& serverSocket, SOCKET& clientSocket, LPWSABUF& lpwsabuffer, DWORD& bytesSent, DWORD& flags, sockaddr_in& clientAddress, int clientAddressSize) 
+void Send(SOCKET& serverSocket, SOCKET& clientSocket, LPWSABUF& lpwsabufferServer, LPWSABUF& lpwsabufferClient, DWORD& bytesSent, DWORD& flags, sockaddr_in& clientAddress, int clientAddressSize) 
 {
     std::cout << "Thread Send: Starting work" << std::endl;
 
-    int resultBytesSent = WSASendTo(serverSocket, lpwsabuffer, 1, &bytesSent, flags,
+    int resultBytesSent = WSASendTo(serverSocket, lpwsabufferServer, 1, &bytesSent, flags,
                 reinterpret_cast<sockaddr*>(&clientAddress), clientAddressSize, nullptr, nullptr);
     if (resultBytesSent == SOCKET_ERROR)
     {
@@ -87,7 +88,8 @@ void Send(SOCKET& serverSocket, SOCKET& clientSocket, LPWSABUF& lpwsabuffer, DWO
         closesocket(serverSocket);
         closesocket(clientSocket);
         WSACleanup();
-        delete lpwsabuffer;
+        delete lpwsabufferServer;
+        delete lpwsabufferClient;
         return;
     } else { std::cout << "Sent " << bytesSent << " Bytes" << std::endl; }
 
@@ -189,13 +191,16 @@ int main()
 
     std::cout << "Server is listening for incoming messages..." << std::endl;
 
+
+    LPWSABUF lpwsabufferClient = new WSABUF(); //std::unique_ptr<WSABUF> wsabuffer = std::make_unique<WSABUF>();
+    LPWSABUF lpwsabufferServer = new WSABUF();
+
     // Buffer for receiving messages
     char buffer1[MAX_BUFFER_SIZE];
-    LPWSABUF lpwsabuffer = new WSABUF(); //std::unique_ptr<WSABUF> wsabuffer = std::make_unique<WSABUF>();
-    lpwsabuffer->buf = buffer1;
-    lpwsabuffer->len = sizeof(buffer1);
-                                         //LPWSABUF lpwsabuffer = wsabuffer.get();
 
+    lpwsabufferClient->buf = buffer1;
+    lpwsabufferClient->len = sizeof(buffer1);
+                //LPWSABUF lpwsabuffer = wsabuffer.get();
 
     DWORD bytesReceived1 = 0;
     DWORD flags = 0;
@@ -219,11 +224,14 @@ int main()
     // ReceiveThread.detach();
 */
 
-    // Receive message from client
+    // Client wants to receive
 	std::thread ReceiveThread([&]() 
     {
-        Receive(serverSocket, clientSocket, lpwsabuffer, bytesReceived1, flags, serverAddress, serverAddressSize);
+        Receive(serverSocket, clientSocket, lpwsabufferClient, lpwsabufferServer, bytesReceived1, flags, serverAddress, serverAddressSize);
     });
+
+
+
 
     // Prepare response
     char buffer2[MAX_BUFFER_SIZE];
@@ -231,8 +239,8 @@ int main()
     std::string response = "Hello from server!";
     strncpy_s(buffer2, response.c_str(), sizeof(buffer2)); //copy string into buffer
 
-    lpwsabuffer->buf = buffer2;
-    lpwsabuffer->len = sizeof(buffer2);
+    lpwsabufferServer->buf = buffer2;
+    lpwsabufferServer->len = sizeof(buffer2);
 
     DWORD bytesSent = 0;
     
@@ -257,10 +265,10 @@ int main()
     // SendThread.detach();
 */
 
-    // Send response back to the client
+    // Server wants to send "response" to the client
 	std::thread SendThread([&]() 
     {
-        Send(serverSocket, clientSocket, lpwsabuffer, bytesSent, flags, clientAddress, clientAddressSize);
+        Send(serverSocket, clientSocket, lpwsabufferServer, lpwsabufferClient, bytesSent, flags, clientAddress, clientAddressSize);
     });
     
 
@@ -275,7 +283,7 @@ int main()
 
 
     // Process received message
-    std::string receivedMessage(lpwsabuffer->buf, bytesReceived1);
+    std::string receivedMessage(lpwsabufferClient->buf, bytesReceived1);
     std::cout << "Received message from client: " << receivedMessage << std::endl;
 
 
@@ -332,7 +340,8 @@ int main()
 */
 
     // Cleanup
-    delete lpwsabuffer;
+    delete lpwsabufferClient;
+    delete lpwsabufferServer;
     closesocket(serverSocket);
     closesocket(clientSocket);
     WSACleanup();
