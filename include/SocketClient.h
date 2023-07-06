@@ -113,11 +113,10 @@ class SocketClient : public UDPSocket {
         void RecheckMDSAttributes(int nInterval = 0);
         void SendMDSPollDataRequest();
         void KeepConnectionAlive(int nInterval = 0);
-        void Receive(char* buffer, int flags = 0);
+        void Receive(char* buffer, size_t len, int flags = 0);
         void CALLBACK ReceiveCallback(DWORD errorCode, DWORD numBytesReceived, LPWSAOVERLAPPED overlapped, DWORD flags = 0);
         static bool ByteArrayToFile(const std::string& filename, const std::string& bytes_string);
         static bool ByteArrayToFile(const std::string& path_to_file, const std::vector<std::byte>& data_bytes, uint32_t numBytesReceived);
-
 };
 
 //current state of the client for the asynchronous receiving of data

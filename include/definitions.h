@@ -19,6 +19,8 @@ constexpr int FLOATTYPE_NRes = 0x800000;
 constexpr int FLOATTYPE_POSITIVE_INFINITY = 0x7FFFFE;
 constexpr int FLOATTYPE_NEGATIVE_INFINITY = 0x800002;
 
+constexpr unsigned int maxbuffersize = 1380;
+
 
 ///@todo statt const variablen constexpr
 

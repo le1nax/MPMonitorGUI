@@ -18,7 +18,7 @@ SocketClient::SocketClient(std::string remoteIPtarget, const unsigned short remo
     inet_pton(AF_INET, m_remoteIPtarget.c_str(), &(m_sa_remoteIPtarget.sin_addr)); //corresponds to m_sa_remoteIPtarget.sin_addr.s_addr = inet_addr(m_remoteIPtarget)
 
     // connect client socket to remote IP and port
-    Connect(m_sa_remoteIPtarget);
+    //Connect(m_sa_remoteIPtarget);
 
     // initialise the different message bytes
     initMsgs();
@@ -248,7 +248,8 @@ aarq_msg_wave_ext_poll2 =
     0x19, 0x2E, 0x11, 0x01, 0x03, 0xC1, 0x29, 0xA0, 0x80, 0xA0, 0x80, 0x30, 0x80, 0x02, 0x01, 0x01,
     0x06, 0x02, 0x51, 0x01, 0x00, 0x00, 0x00, 0x00, 0x61, 0x80, 0x30, 0x80, 0x02, 0x01, 0x01, 0xA0,
     0x80, 0x64, 0x80, 0x80, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 );
-
+    
+    std::cout << "messages initiated" << std::endl;
 }
 
 void SocketClient::sendBytes(vector<std::byte> bytes)
@@ -257,7 +258,7 @@ void SocketClient::sendBytes(vector<std::byte> bytes)
     size_t len = bytes.size();
     char* charBytes = reinterpret_cast<char*>(bytes.data()); 
 
-    uint32_t numBytesSent = SendTo(m_sa_remoteIPtarget, charBytes, 0);
+    uint32_t numBytesSent = SendTo(m_sa_remoteIPtarget, charBytes, len, 0);
 }
 
 void SocketClient::SendWaveAssociationRequest()
@@ -1117,8 +1118,7 @@ void SocketClient::SendCycledExtendedPollWaveDataRequest(size_t nInterval)
 
 }
 
-
-void SocketClient::Receive(char* buffer, int flags)
+void SocketClient::Receive(char* buffer, size_t len, int flags)
 {
     Receive_State state;
     state.state_ip = m_sa_remoteIPtarget;
@@ -1131,9 +1131,11 @@ void SocketClient::Receive(char* buffer, int flags)
         closesocket(sock);
         WSACleanup();
         return;
-    } 
+    }
+    state.numBytesReceived = 0;
+    state.buffer = buffer;
 
-    int receiveResult = RecvFrom(state.state_ip, state.buffer, state.numBytesReceived, &(state.overlapped), flags);
+    int receiveResult = RecvFrom(state.state_ip, state.buffer, len, state.numBytesReceived, &(state.overlapped), flags);
 	if (receiveResult == SOCKET_ERROR)
 	{
 		if (WSAGetLastError() != WSA_IO_PENDING)
@@ -1331,6 +1333,7 @@ void SocketClient::RecheckMDSAttributes(int nInterval)
 
 void SocketClient::SendMDSPollDataRequest()
 {
+    std::cout << "sending poll mds request with " << poll_mds_request_msg.size() << "bytes." << std::endl;
     sendBytes(poll_mds_request_msg);
 }
 
@@ -1351,6 +1354,7 @@ void SocketClient::KeepConnectionAlive(int nInterval)
 
 void SocketClient::SendMDSCreateEventResult()
 {
+    std::cout << "sending" << mds_create_resp_msg.size() << " bytes." << std::endl;
     sendBytes(mds_create_resp_msg);
 }
 
@@ -1540,14 +1544,14 @@ void SocketClient::establishLanConnection()
 			///@todo schauen wie viel Buffer space wir brauchen (chapter4 p.29 sagt 1380 ->testen)
 					//try:
 			//Receive MDSCreateEventReport message
-            char readassocbuffer[1380] = ""; 
+            char readassocbuffer[maxbuffersize]; 
             std::cout << "readassbuffer" << std::endl;
-            Receive(readassocbuffer);
+            Receive(readassocbuffer, maxbuffersize);
             std::cout << "end read assbuffer" << std::endl;
 
             //Send MDSCreateEventResult message
-            char readmdsconnectbuffer[1380] = "";
-            Receive(readmdsconnectbuffer);
+            char readmdsconnectbuffer[maxbuffersize] = "";
+            Receive(readmdsconnectbuffer, maxbuffersize);
             ProcessPacket(readmdsconnectbuffer);
 
            //Send Extended PollData Requests cycled every second
@@ -1573,7 +1577,7 @@ void SocketClient::establishLanConnection()
 
         char* receivedBuffer;
 
-		std::thread receiveThread([&]() {Receive(receivedBuffer);});
+		std::thread receiveThread([&]() {Receive(receivedBuffer, maxbuffersize);});
 		receiveThread.detach();
                 //It's important to note that the ReceiveCallback function should be implemented in a way that it can handle multiple invocations and 
 				//process each packet of data independently. The function should not rely on any assumptions about the order or timing of packet arrivals, 

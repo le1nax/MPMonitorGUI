@@ -28,8 +28,8 @@ class UDPSocket {
         UDPSocket();
         ~UDPSocket();
 
-        long unsigned int SendTo(sockaddr_in& remoteIP, char* buffer, long unsigned int flags = 0);
-        int RecvFrom(sockaddr_in remoteIP, char* buffer, long unsigned int &numBytesReceived, LPWSAOVERLAPPED overlapped, long unsigned int flags = 0, LPWSAOVERLAPPED_COMPLETION_ROUTINE callback = NULL);
+        long unsigned int SendTo(sockaddr_in& remoteIP, char* buffer, size_t len, long unsigned int flags = 0);
+        int RecvFrom(sockaddr_in remoteIP, char* buffer, size_t len, long unsigned int &numBytesReceived, LPWSAOVERLAPPED overlapped, long unsigned int flags = 0, LPWSAOVERLAPPED_COMPLETION_ROUTINE callback = NULL);
         void Bind(sockaddr_in &localIP, unsigned short port); //for associating a local address with the socket, server side
         void Connect(sockaddr_in& remoteIP); //for connecting the socket to the remote address
 };
