@@ -3,6 +3,10 @@
 #include "Socket.h"
 
 
+#define RECEIVEINTERVAL 500 // koennen den receive thread nicht komplett durchlaufen lassen weil wir keinen echten Parallelismus haben
+
+
+
 class SocketClient : public UDPSocket {
 
     public:
@@ -117,6 +121,14 @@ class SocketClient : public UDPSocket {
         void CALLBACK ReceiveCallback(DWORD errorCode, DWORD numBytesReceived, LPWSAOVERLAPPED overlapped, DWORD flags = 0);
         static bool ByteArrayToFile(const std::string& filename, const std::string& bytes_string);
         static bool ByteArrayToFile(const std::string& path_to_file, const std::vector<std::byte>& data_bytes, uint32_t numBytesReceived);
+
+        bool stopThreadRecheckMDSAttributes = false;
+        bool stopThreadKeepConnectionAlive = false;
+        bool stopThreadReceive = false;
+        int m_receiveInterval = RECEIVEINTERVAL;
+        void ThreadRecheckMDSAttributes(int nInterval = 0);
+        void ThreadKeepConnectionAlive(int nInterval = 0);
+        void ThreadReceive(char* receivedBuffer);
 
 };
 

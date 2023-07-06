@@ -136,6 +136,7 @@ int UDPSocket::RecvFrom(sockaddr_in remoteIP, char* buffer, long unsigned int &n
 
     int remoteIPlen = sizeof(remoteIP);
 
+    //create wsabuffer out of buffer
     LPWSABUF wsabuffer;
     wsabuffer->buf = buffer;
     wsabuffer->len = sizeof(buffer);

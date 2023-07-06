@@ -1,6 +1,8 @@
 #include "../include/SocketClient.h"
 #include <sstream>
 #include <thread>
+#include <iostream>
+#include <chrono>
 #include <cstdint>
 #include <iomanip>
 #include <algorithm>
@@ -1565,20 +1567,50 @@ void SocketClient::establishLanConnection()
 		            sendCycledExtendedPollWaveDataRequestThread.detach();
                 }
 
-		std::thread recheckMDSAttributesThread([&]() {RecheckMDSAttributes(nInterval);});
+		std::thread recheckMDSAttributesThread([&]() {ThreadRecheckMDSAttributes(nInterval);});
 		recheckMDSAttributesThread.detach(); //allows the thread to continue executing independently, without requiring synchronization or joining with the parent thread
 
-		std::thread keepConnectionAliveThread([&]() {KeepConnectionAlive(nInterval);});
+		std::thread keepConnectionAliveThread([&]() {ThreadKeepConnectionAlive(nInterval);});
 		keepConnectionAliveThread.detach();
 
         char* receivedBuffer;
 
-		std::thread receiveThread([&]() {Receive(receivedBuffer);});
+		std::thread receiveThread([&]() {ThreadReceive(receivedBuffer);});
 		receiveThread.detach();
-                //It's important to note that the ReceiveCallback function should be implemented in a way that it can handle multiple invocations and 
-				//process each packet of data independently. The function should not rely on any assumptions about the order or timing of packet arrivals, 
-				//as they can occur in an unpredictable manner due to the asynchronous nature of the UDP communication.
-    
-    std::cout << "established LAN connection" << std::endl;
+
+        /// @todo when to stop connection
+
+        // Stop Threads
+        stopThreadRecheckMDSAttributes = true;
+        stopThreadKeepConnectionAlive = true;
+        stopThreadReceive = true;
+}
+
+
+void SocketClient::ThreadRecheckMDSAttributes(int nInterval)
+{
+    while (!stopThreadRecheckMDSAttributes)
+    {
+        RecheckMDSAttributes(nInterval);
+        std::this_thread::sleep_for(std::chrono::milliseconds(nInterval));
+    }
+}
+
+void SocketClient::ThreadKeepConnectionAlive(int nInterval)
+{
+    while (!stopThreadKeepConnectionAlive)
+    {
+        KeepConnectionAlive(nInterval);
+        std::this_thread::sleep_for(std::chrono::milliseconds(nInterval));
+    }
+}
+
+void SocketClient::ThreadReceive(char* receivedBuffer)
+{
+    while (!stopThreadReceive)
+    {
+        Receive(receivedBuffer);
+        std::this_thread::sleep_for(std::chrono::milliseconds(m_receiveInterval));
+    }
 }
 
