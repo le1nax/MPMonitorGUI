@@ -80,35 +80,79 @@ int main()
 
 
 	bool sent = FALSE;
-	bool stop = FALSE;
+	bool recv = FALSE;
 
 	// Enter a loop
 	while (true)
 	{
 
+		// ////////////////////////////////////////////////////////////
+		// //// SERVER RECEIVES via recvfrom
+		// ////////////////////////////////////////////////////////////
+
+		// sockaddr_in clientRecv; // Use to hold the client information (port / ip address)
+		// int clientRecvLength = sizeof(clientRecv); // The size of the client information
+
+		// char buf[MAX_BUFFER_SIZE];
+
+		// if (!recv)
+		// {
+		// 	ZeroMemory(&clientRecv, clientRecvLength); // Clear the client structure
+		// 	ZeroMemory(buf, MAX_BUFFER_SIZE); // Clear the receive buffer
+
+		// 	// Wait for message
+		// 	int bytesIn = recvfrom(serverSocket, buf, MAX_BUFFER_SIZE, 0, (sockaddr*)&clientRecv, &clientRecvLength);
+		// 	if (bytesIn == SOCKET_ERROR)
+		// 	{
+		// 		cout << "Error receiving from client " << WSAGetLastError() << endl;
+		// 		continue;
+		// 	}
+
+		// 	// Display message and client info
+		// 	char clientIp[256]; // Create enough space to convert the address byte array
+		// 	ZeroMemory(clientIp, 256); // to string of characters
+
+		// 	// Convert from byte array to chars
+		// 	inet_ntop(AF_INET, &clientRecv.sin_addr, clientIp, 256);
+
+		// 	// Display the message / who sent it
+		// 	cout << "Message recv from " << clientIp << " : " << buf << endl;
+		
+		// 	recv = TRUE;
+		// }
+
+
+
 		////////////////////////////////////////////////////////////
-		//// SERVER RECEIVES
+		//// SERVER RECEIVES via WSARecvFrom
 		////////////////////////////////////////////////////////////
 
 		sockaddr_in clientRecv; // Use to hold the client information (port / ip address)
 		int clientRecvLength = sizeof(clientRecv); // The size of the client information
 
-		char buf[MAX_BUFFER_SIZE];
+		char buffer1[MAX_BUFFER_SIZE];
+		LPWSABUF lpwsabufferServer = new WSABUF();		
+		lpwsabufferServer->len = sizeof(buffer1);
 
-		while (!stop)
+		DWORD bytesReceived1 = 0;
+		DWORD flags2 = 0;
+
+		if (!recv)
 		{
 			ZeroMemory(&clientRecv, clientRecvLength); // Clear the client structure
-			ZeroMemory(buf, MAX_BUFFER_SIZE); // Clear the receive buffer
+			ZeroMemory(buffer1, MAX_BUFFER_SIZE); // Clear the receive buffer
+			lpwsabufferServer->buf = buffer1;
 
-			// Wait for message
-			int bytesIn = recvfrom(serverSocket, buf, MAX_BUFFER_SIZE, 0, (sockaddr*)&clientRecv, &clientRecvLength);
-			if (bytesIn == SOCKET_ERROR)
+			// Receive from Client
+			if (WSARecvFrom(serverSocket, lpwsabufferServer, 1, &bytesReceived1, &flags2,
+							reinterpret_cast<sockaddr*>(&clientRecv), reinterpret_cast<LPINT>(&clientRecvLength), nullptr, nullptr) == SOCKET_ERROR)
 			{
-				cout << "Error receiving from client " << WSAGetLastError() << endl;
+				std::cerr << "WSARecvFrom failed. Error code: " << WSAGetLastError() << std::endl;
+				closesocket(serverSocket);
+				WSACleanup();
+				delete lpwsabufferServer;
 				continue;
 			}
-
-			if (bytesIn > 0) stop = TRUE;
 
 			// Display message and client info
 			char clientIp[256]; // Create enough space to convert the address byte array
@@ -118,11 +162,13 @@ int main()
 			inet_ntop(AF_INET, &clientRecv.sin_addr, clientIp, 256);
 
 			// Display the message / who sent it
-			cout << "Message recv from " << clientIp << " : " << buf << endl;
+			cout << "Message recv from " << clientIp << " : " << lpwsabufferServer->buf << endl;
 		
+			recv = TRUE;
+			delete lpwsabufferServer;
 		}
 
-		std::chrono::seconds waitTime(1);
+
 
 
 		////////////////////////////////////////////////////////////
@@ -131,6 +177,7 @@ int main()
 
 		if (!sent) {
 			string s("Server sendet was"); //string to send
+			cout << "Server sendet was" << endl;
 
 			char buffer[MAX_BUFFER_SIZE];
 			std::strcpy(buffer, s.c_str());
@@ -150,6 +197,7 @@ int main()
 			}
 
 			sent = TRUE;
+			delete lpwsabuf;
 		}
 
 	}
@@ -157,9 +205,6 @@ int main()
 	////////////////////////////////////////////////////////////
 	//// CLEANUP
 	////////////////////////////////////////////////////////////
-
-	// delete WSA Buffer Pointer
-	// delete lpwsabuf;
 
 	// Close socket
 	closesocket(serverSocket);
