@@ -2,10 +2,7 @@
 
 #include "Socket.h"
 
-
-#define RECEIVEINTERVAL 500 // koennen den receive thread nicht komplett durchlaufen lassen weil wir keinen echten Parallelismus haben
-
-
+#define RECEIVEINTERVAL 500
 
 class SocketClient : public UDPSocket {
 
@@ -14,6 +11,8 @@ class SocketClient : public UDPSocket {
         ~SocketClient() = default;
         
         void establishLanConnection();
+        
+        void sendBytes(std::vector<std::byte> bytes);
 
     private: 
         /*class UdpState{
@@ -26,7 +25,6 @@ class SocketClient : public UDPSocket {
         } m_udpState; //current state of the client for the asynchronous receiving of data*/
         void SendWaveAssociationRequest();
         void ProcessPacket(char* buffer);
-        void sendBytes(std::vector<std::byte> bytes);
         std::vector<std::byte> m_readassocbuffer;
         std::vector<std::byte> m_readmdsconnectbuffer;
         std::string m_remoteIPtarget = "";
@@ -36,7 +34,7 @@ class SocketClient : public UDPSocket {
         std::string m_idlabelstring = "";
         std::vector<NumericValResult> m_NumericValList;
         std::vector<std::string> m_NumValHeaders;
-        const unsigned short m_port = 0; 
+        uint16_t m_port = 0; 
         uint32_t m_baseRelativeTime= 0;
         uint16_t m_actiontype= 0;
         uint16_t m_obpollhandle = 0;
@@ -52,6 +50,8 @@ class SocketClient : public UDPSocket {
         tm GetAbsoluteTimeFromBCDFormat(char* bcdtimebuffer);
 
         void initMsgs();
+
+        public:
         std::vector<std::byte> aarq_ms;
         std::vector<std::byte> aarq_msg_ext_poll;
         std::vector<std::byte> aarq_msg_ext_poll2;
@@ -79,6 +79,8 @@ class SocketClient : public UDPSocket {
         std::vector<std::byte> rlrq_msg;
         std::vector<std::byte> rlrq_resp_msg;
         std::vector<std::byte> assoc_abort_resp_msg;
+
+        private:
 
         /// @todo make threads
         void CheckLinkedPollPacketActionType(char* buffer);
