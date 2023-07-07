@@ -5,16 +5,23 @@
 #include <thread>
 #include <iostream>
 #include <chrono>
+#include <WinSock2.h>
 #include <WS2tcpip.h>
+#include <system_error>
+#include <Windows.h>
+#include <bitset>
+#include <cstddef>
+#include <sstream>
+#include <cstdint>
+#include <iomanip>
+#include <algorithm>
 
-#pragma comment (lib, "ws2_32.lib") // Include the Winsock library (lib) file
+#pragma comment(lib, "ws2_32.lib") //link against the Winsock library
+
 
 
 #define REMOTEIP "169.254.0.1"
 #define REMOTEPORT 24105
-
-#define LOCALIP "127.0.0.1"
-#define LOCALPORT 69696
 
 #define MAX_BUFFER_SIZE 1380
 
@@ -239,72 +246,66 @@ using namespace std;
 //     });
     
 
+// Main entry point into the server
+int main()
+{
+	WSADATA data;
+	WORD version = MAKEWORD(2, 2);
 
-//     // Wait for a specified amount of time
-//     std::chrono::milliseconds duration2(10000); // 5000 = 5 seconds
-//     std::this_thread::sleep_for(duration2);
+	int wsOk = WSAStartup(version, &data);
+	if (wsOk != 0)
+    {
+		cout << "Can't start Winsock! " << wsOk;
+		return -1;
+	}
 
-//     // Wait for both threads to finish their work
-//     //ReceiveThread.join();
-//     SendThread.join();
+	SOCKET in = socket(AF_INET, SOCK_DGRAM, 0);
 
+	// Create a server hint structure for the server
+	sockaddr_in server;
+	server.sin_addr.S_un.S_addr = ADDR_ANY; // Us any IP address available on the machine
+	server.sin_family = AF_INET; // Address format is IPv4
+	server.sin_port = htons(69696); // Convert from little to big endian
 
-//     // Process received message
-//     std::string receivedMessage(lpwsabufferClient->buf, bytesReceived1);
-//     std::cout << "Received message from client: " << receivedMessage << std::endl;
-
-// 
-
-//     // Receive response from server
-//     int serverAddressSize = sizeof(serverAddress);
-//     DWORD bytesReceived2 = 0;
-//     flags = 0;
-//     if (WSARecvFrom(clientSocket, lpwsabuffer, 1, &bytesReceived2, &flags,
-//                     reinterpret_cast<sockaddr*>(&serverAddress), reinterpret_cast<LPINT>(&serverAddressSize), nullptr, nullptr) == SOCKET_ERROR)
-//     {
-//         std::cerr << "WSARecvFrom failed. Error code: " << WSAGetLastError() << std::endl;
-//         closesocket(serverSocket);
-//         closesocket(clientSocket);
-//         WSACleanup();
-//         delete lpwsabuffer;
-//         return -1;
-//     }
-
-//     // Send message to server
-//     char buffer3[MAX_BUFFER_SIZE];
-
-//     std::string message = "Hello from client!";
-//     strncpy_s(buffer3, message.c_str(), sizeof(buffer3));
-
-//     lpwsabuffer->buf = buffer3;
-//     lpwsabuffer->len = sizeof(buffer3);
-
-//     if (WSASendTo(clientSocket, lpwsabuffer, 1, &bytesSent, flags,
-//                   reinterpret_cast<sockaddr*>(&serverAddress), sizeof(serverAddress), nullptr, nullptr) == SOCKET_ERROR)
-//     {
-//         std::cerr << "Send error" << std::endl;
-//         closesocket(serverSocket);
-//         closesocket(clientSocket);
-//         WSACleanup();
-//         delete lpwsabuffer;
-//         return -1;
-//     }
-
-//     std::cout << "Message sent to server" << std::endl;
-
-//     // Process received response
-//     std::string receivedResponse(lpwsabuffer->buf, bytesReceived2);
-//     std::cout << "Received response from server: " << receivedResponse << std::endl;
+	// Try and bind the socket to the IP and port
+	if (bind(in, (sockaddr*)&server, sizeof(server)) == SOCKET_ERROR)
+	{
+		cout << "Can't bind socket! " << WSAGetLastError() << endl;
+		return -1;
+	}
 
 // 
 
-//     // Cleanup
-//     delete lpwsabufferClient;
-//     delete lpwsabufferServer;
-//     closesocket(serverSocket);
-//     closesocket(clientSocket);
-//     WSACleanup();
-//     std::cout << "Closed WSASession" << std::endl;
+	sockaddr_in client; // Use to hold the client information (port / ip address)
+	int clientLength = sizeof(client); // The size of the client information
+
+
+/*
+	// char buf[MAX_BUFFER_SIZE];
+
+	// // Enter a loop
+	// while (true)
+	// {
+	// 	ZeroMemory(&client, clientLength); // Clear the client structure
+	// 	ZeroMemory(buf, MAX_BUFFER_SIZE); // Clear the receive buffer
+
+	// 	// Wait for message
+	// 	int bytesIn = recvfrom(in, buf, MAX_BUFFER_SIZE, 0, (sockaddr*)&client, &clientLength);
+	// 	if (bytesIn == SOCKET_ERROR)
+	// 	{
+	// 		cout << "Error receiving from client " << WSAGetLastError() << endl;
+	// 		continue;
+	// 	}
+
+	// 	// Display message and client info
+	// 	char clientIp[256]; // Create enough space to convert the address byte array
+	// 	ZeroMemory(clientIp, 256); // to string of characters
+
+	// 	// Convert from byte array to chars
+	// 	inet_ntop(AF_INET, &client.sin_addr, clientIp, 256);
+
+// 
+
 
 //     return 0;
 // }
@@ -535,7 +536,12 @@ int main()
     });
 
 
+	while (true)
+	{
+		ZeroMemory(&client, clientLength); // Clear the client structure
+		ZeroMemory(buffer1, MAX_BUFFER_SIZE); // Clear the receive buffer
 
+    	lpwsabufferServer->buf = buffer1;
 
     // Prepare response
     char buffer2[MAX_BUFFER_SIZE];
@@ -657,45 +663,22 @@ int main(int argc, char* argv[]) // We can pass in a command line option!!
 	// INITIALIZE WINSOCK
 	////////////////////////////////////////////////////////////
 
-	// Structure to store the WinSock version. This is filled in
-	// on the call to WSAStartup()
-	WSADATA data;
+		std::cout << "Received " << bytesReceived1 << " Bytes" << std::endl;
 
-	// To start WinSock, the required version must be passed to
-	// WSAStartup(). This server is going to use WinSock version
-	// 2 so I create a word that will store 2 and 2 in hex i.e.
-	// 0x0202
-	WORD version = MAKEWORD(2, 2);
 
-	// Start WinSock
-	int wsOk = WSAStartup(version, &data);
-	if (wsOk != 0)
-	{
-		// Not ok! Get out quickly
-		cout << "Can't start Winsock! " << wsOk;
-		return -1;
-	}
+		// Process received message
+		// std::string receivedMessage(lpwsabufferServer->buf, bytesReceived1); //////////// this line doesn't work
 
-	////////////////////////////////////////////////////////////
-	// CONNECT TO THE SERVER
-	////////////////////////////////////////////////////////////
+		// Display message and client info
+		char clientIp[256]; // Create enough space to convert the address byte array
+		ZeroMemory(clientIp, 256); // to string of characters
 
-	// Create a hint structure for the server
-	sockaddr_in server;
-	server.sin_family = AF_INET; // AF_INET = IPv4 addresses
-	server.sin_port = htons(69696); // Little to big endian conversion
-	inet_pton(AF_INET, "127.0.0.1", &server.sin_addr); // Convert from string to byte array
+		// Convert from byte array to chars
+		inet_ntop(AF_INET, &client.sin_addr, clientIp, 256);
 
-	// Socket creation, note that the socket type is datagram
-	SOCKET out = socket(AF_INET, SOCK_DGRAM, 0);
+		// Display the message / who sent it
+		cout << "Message WSArecv from " << clientIp << " : " << lpwsabufferServer->buf << endl;
 
-	// Write out to that socket
-	string s("gute Stimmung");
-	int sendOk = sendto(out, s.c_str(), s.size() + 1, 0, (sockaddr*)&server, sizeof(server));
-
-	if (sendOk == SOCKET_ERROR)
-	{
-		cout << "That didn't work! " << WSAGetLastError() << endl;
 	}
 
 
@@ -723,7 +706,18 @@ int main(int argc, char* argv[]) // We can pass in a command line option!!
 	// Close the socket
 	closesocket(out);
 
-	// Close down Winsock
+
+    ///////////////////////////////////////////////////////////////////
+    //// CLEANUP
+    ///////////////////////////////////////////////////////////////////
+
+	// delete WSA Buffer Pointer
+	delete lpwsabufferServer;
+
+	// Close socket
+	closesocket(in);
+
+	// Shutdown winsock
 	WSACleanup();
     return 0;
 }

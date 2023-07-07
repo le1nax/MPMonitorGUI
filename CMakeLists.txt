@@ -2,7 +2,7 @@
 cmake_minimum_required (VERSION 3.17)
 
 # Name of your project.
-project(BasicGui CXX)
+project(BasicGuiServerSide CXX)
 
 #set module path
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
@@ -40,19 +40,19 @@ find_package(Threads REQUIRED)
 
 # Add an executable MyApp.exe running the app.
 add_executable(
-  BasicApp
+  BasicGuiServerSide
   "main.cpp"
   # other .cpp files go here
- "source/AvaObj.cpp"
- "source/Program.cpp"
- "source/Socket.cpp"
- "source/SocketClient.cpp"
+ #"source/AvaObj.cpp"
+ #"source/Program.cpp"
+ #"source/Socket.cpp"
+ #"source/SocketClient.cpp"
  )
 
 # Link the GUI libraries into the executable.
-target_link_libraries(BasicApp PUBLIC glfw imgui::imgui Threads::Threads ws2_32 -pthread)
+target_link_libraries(BasicGuiServerSide PUBLIC glfw imgui::imgui Threads::Threads ws2_32 -pthread)
 #target_link_libraries(BasicApp PUBLIC glfw imgui::imgui Threads::Threads ws2_32 -lsocket -lnsl -pthread)
 
 # Add the folder with 'gui_application.hpp' and 'gui_main.hpp' to the include path.
 # This way we can '#include<gui_application.hpp>'.
-target_include_directories(BasicApp PRIVATE "../lib")
+target_include_directories(BasicGuiServerSide PRIVATE "../lib")
