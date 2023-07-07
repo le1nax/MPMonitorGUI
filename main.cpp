@@ -46,7 +46,7 @@ using namespace std;
 //         // std::string output = word;
 //         // std::cout << output; 
 //         // std::cout << '\n';
-//        client->sendBytes(client->mds_create_resp_msg);       
+       client->sendBytes(client->mds_create_resp_msg);       
 //         //client->establishLanConnection();
 //     }
 //     catch (std::exception &ex) //catch any occurring system errors
