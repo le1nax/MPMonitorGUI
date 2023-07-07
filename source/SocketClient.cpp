@@ -258,8 +258,12 @@ void SocketClient::sendBytes(vector<std::byte> bytes)
      ///@todo prüfen ob das funktioniert
     size_t len = bytes.size();
     char* charBytes = reinterpret_cast<char*>(bytes.data()); 
+    string message;
+    for (const auto& byte : bytes) {
+            message += to_string(static_cast<int>(byte));
+         }
 
-    uint32_t numBytesSent = SendTo(m_sa_remoteIPtarget, charBytes, 0);
+    uint32_t numBytesSent = SendTo(m_sa_remoteIPtarget, message, 0);
 }
 
 void SocketClient::SendWaveAssociationRequest()

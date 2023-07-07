@@ -49,6 +49,7 @@ class SocketClient : public UDPSocket {
         tm m_baseDateTime{};
         tm GetAbsoluteTimeFromBCDFormat(char* bcdtimebuffer);
 
+    public:
         void initMsgs();
 
         public:
@@ -80,7 +81,7 @@ class SocketClient : public UDPSocket {
         std::vector<std::byte> rlrq_resp_msg;
         std::vector<std::byte> assoc_abort_resp_msg;
 
-        private:
+    private:
 
         /// @todo make threads
         void CheckLinkedPollPacketActionType(char* buffer);
