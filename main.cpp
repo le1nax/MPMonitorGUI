@@ -26,11 +26,29 @@ using namespace std;
 //    {
 //         unique_ptr<WSASession> Session = make_unique<WSASession>();
 
-//         const std::string s_remoteIP = REMOTEIP;
-//         const unsigned short remotePort = REMOTEPORT;
+//         const std::string s_remoteIP = LOCALIP;
+//         const unsigned short remotePort = LOCALPORT;
 //         unique_ptr<SocketClient> client = make_unique<SocketClient>(s_remoteIP, remotePort);
-
-//         client->establishLanConnection();
+//         // char* charBytes = reinterpret_cast<char*>(client->mds_create_resp_msg.data());
+//         // char* charBytes = reinterpret_cast<char*>(client->mds_create_resp_msg.data());
+//         // uint16_t msgSize = client->mds_create_resp_msg.size();
+//         // char word[msgSize];
+//         // std::memcpy(word, client->mds_create_resp_msg.data(), msgSize);
+//         // Now you can use the charArray as needed
+//         // for (size_t i = 0; i < msgSize; ++i) {
+//         // word[i]  = int(charBytes[i]);
+//         // std::string output = word;
+//         // }
+//         // for (size_t i = 0; i < msgSize; ++i) {
+//         // std::cout << std::hex << static_cast<int>(static_cast<unsigned char>(word[i])) << ' ';
+//         // }
+        
+//         // std::string output = word;
+//         // std::cout << output; 
+//         // std::cout << '\n';
+//         client->sendBytes(client->mds_create_resp_msg);
+        
+//         //client->establishLanConnection();
 //     }
 //     catch (std::exception &ex) //catch any occurring system errors
 //     {
@@ -38,8 +56,6 @@ using namespace std;
 //     }
 //     char c;
 //     std::cin >> c; // Wait for user input before exiting
-
-   
 //     return 0;
 // }
 
@@ -345,17 +361,40 @@ int main(int argc, char* argv[]) // We can pass in a command line option!!
 	// Create a hint structure for the server
 	sockaddr_in server;
 	server.sin_family = AF_INET; // AF_INET = IPv4 addresses
-	server.sin_port = htons(69696); // Little to big endian conversion
-	inet_pton(AF_INET, "127.0.0.1", &server.sin_addr); // Convert from string to byte array
+	server.sin_port = htons(LOCALPORT); // Little to big endian conversion
+	inet_pton(AF_INET, LOCALIP, &server.sin_addr); // Convert from string to byte array
 
 	// Socket creation, note that the socket type is datagram
 	SOCKET out = socket(AF_INET, SOCK_DGRAM, 0);
 
 	// Write out to that socket
 	string s("gute Stimmung");
-	int sendOk = sendto(out, s.c_str(), s.size() + 1, 0, (sockaddr*)&server, sizeof(server));
+    const std::string s_remoteIP = LOCALIP;
+        const unsigned short remotePort = LOCALPORT;
+        unique_ptr<SocketClient> client = make_unique<SocketClient>(s_remoteIP, remotePort);
+        auto vec = client->mds_create_resp_msg; 
+        // char* charBytes = reinterpret_cast<char*>(client->mds_create_resp_msg.data());
+        // char* charBytes = reinterpret_cast<char*>(vec);
 
-	if (sendOk == SOCKET_ERROR)
+        string message;
+        for (const auto& byte : vec) {
+            message += to_string(static_cast<int>(byte));
+         }
+
+
+
+        // uint16_t msgSize = client->mds_create_resp_msg.size();
+        // char word[msgSize];
+        // string sWord(word); 
+        // auto csWord = sWord.c_str();
+        // std::memcpy(word, client->mds_create_resp_msg.data(), msgSize);
+        // std::string message;
+        // for (const auto& byte : client->mds_create_resp_msg) {
+        //     message += static_cast<char>(byte);
+        //  }
+	int sendOk = sendto(out, message.c_str(), message.size(), 0, (sockaddr*)&server, sizeof(server));
+
+	if (sendOk == SOCKET_ERROR) 
 	{
 		cout << "That didn't work! " << WSAGetLastError() << endl;
 	}

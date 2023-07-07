@@ -14,6 +14,7 @@ class SocketClient : public UDPSocket {
         ~SocketClient() = default;
         
         void establishLanConnection();
+        void sendBytes(std::vector<std::byte> bytes);
 
     private: 
         /*class UdpState{
@@ -26,7 +27,6 @@ class SocketClient : public UDPSocket {
         } m_udpState; //current state of the client for the asynchronous receiving of data*/
         void SendWaveAssociationRequest();
         void ProcessPacket(char* buffer);
-        void sendBytes(std::vector<std::byte> bytes);
         std::vector<std::byte> m_readassocbuffer;
         std::vector<std::byte> m_readmdsconnectbuffer;
         std::string m_remoteIPtarget = "";
@@ -51,6 +51,7 @@ class SocketClient : public UDPSocket {
         tm m_baseDateTime{};
         tm GetAbsoluteTimeFromBCDFormat(char* bcdtimebuffer);
 
+    public:
         void initMsgs();
         std::vector<std::byte> aarq_ms;
         std::vector<std::byte> aarq_msg_ext_poll;
@@ -80,6 +81,7 @@ class SocketClient : public UDPSocket {
         std::vector<std::byte> rlrq_resp_msg;
         std::vector<std::byte> assoc_abort_resp_msg;
 
+    private:
         /// @todo make threads
         void CheckLinkedPollPacketActionType(char* buffer);
 
