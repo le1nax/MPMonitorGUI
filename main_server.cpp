@@ -23,6 +23,10 @@ using namespace std;
 // Main entry point into the server
 int main()
 {
+	////////////////////////////////////////////////////////////
+	//// INITIALISATION
+	////////////////////////////////////////////////////////////
+
 	WSADATA data;
 	WORD version = MAKEWORD(2, 2);
 
@@ -33,57 +37,132 @@ int main()
 		return -1;
 	}
 
-	SOCKET in = socket(AF_INET, SOCK_DGRAM, 0);
+	SOCKET serverSocket = socket(AF_INET, SOCK_DGRAM, 0);
 
 	// Create a server hint structure for the server
-	sockaddr_in serverHint;
-	serverHint.sin_addr.S_un.S_addr = ADDR_ANY; // Us any IP address available on the machine
-	serverHint.sin_family = AF_INET; // Address format is IPv4
-	serverHint.sin_port = htons(69696); // Convert from little to big endian
+	sockaddr_in server;
+	server.sin_addr.S_un.S_addr = ADDR_ANY; // Use any IP address available on the machine
+	server.sin_family = AF_INET; // Address format is IPv4
+	server.sin_port = htons(69696); // Convert from little to big endian
 
 	// Try and bind the socket to the IP and port
-	if (bind(in, (sockaddr*)&serverHint, sizeof(serverHint)) == SOCKET_ERROR)
+	if (bind(serverSocket, (sockaddr*)&server, sizeof(server)) == SOCKET_ERROR)
 	{
 		cout << "Can't bind socket! " << WSAGetLastError() << endl;
 		return -1;
 	}
 
-	////////////////////////////////////////////////////////////
-	// MAIN LOOP SETUP AND ENTRY
-	////////////////////////////////////////////////////////////
+	// Create client address structure
+    sockaddr_in clientAddress{};
+    int clientAddressSize = sizeof(clientAddress);
 
-	sockaddr_in client; // Use to hold the client information (port / ip address)
-	int clientLength = sizeof(client); // The size of the client information
+    clientAddress.sin_family = AF_INET;
+    clientAddress.sin_addr.s_addr = inet_addr("127.0.0.1");
+    clientAddress.sin_port = htons(69696);
 
-	char buf[MAX_BUFFER_SIZE];
+    if (clientAddress.sin_addr.s_addr == INADDR_NONE)
+    {
+        std::cerr << "The target ip address entered must be a legal IPv4 address." << std::endl;
+        closesocket(serverSocket);
+        WSACleanup();
+        return -1;
+    }
+
+    // Resolve client hostname
+    if (inet_pton(AF_INET, "127.0.0.1", &(clientAddress.sin_addr)) <= 0)
+    {
+        std::cerr << "Invalid address" << std::endl;
+        closesocket(serverSocket);
+        WSACleanup();
+        return -1;
+    }
+
+
+
+	bool sent = FALSE;
+	bool stop = FALSE;
 
 	// Enter a loop
 	while (true)
 	{
-		ZeroMemory(&client, clientLength); // Clear the client structure
-		ZeroMemory(buf, MAX_BUFFER_SIZE); // Clear the receive buffer
 
-		// Wait for message
-		int bytesIn = recvfrom(in, buf, MAX_BUFFER_SIZE, 0, (sockaddr*)&client, &clientLength);
-		if (bytesIn == SOCKET_ERROR)
+		////////////////////////////////////////////////////////////
+		//// SERVER RECEIVES
+		////////////////////////////////////////////////////////////
+
+		sockaddr_in clientRecv; // Use to hold the client information (port / ip address)
+		int clientRecvLength = sizeof(clientRecv); // The size of the client information
+
+		char buf[MAX_BUFFER_SIZE];
+
+		while (!stop)
 		{
-			cout << "Error receiving from client " << WSAGetLastError() << endl;
-			continue;
+			ZeroMemory(&clientRecv, clientRecvLength); // Clear the client structure
+			ZeroMemory(buf, MAX_BUFFER_SIZE); // Clear the receive buffer
+
+			// Wait for message
+			int bytesIn = recvfrom(serverSocket, buf, MAX_BUFFER_SIZE, 0, (sockaddr*)&clientRecv, &clientRecvLength);
+			if (bytesIn == SOCKET_ERROR)
+			{
+				cout << "Error receiving from client " << WSAGetLastError() << endl;
+				continue;
+			}
+
+			if (bytesIn > 0) stop = TRUE;
+
+			// Display message and client info
+			char clientIp[256]; // Create enough space to convert the address byte array
+			ZeroMemory(clientIp, 256); // to string of characters
+
+			// Convert from byte array to chars
+			inet_ntop(AF_INET, &clientRecv.sin_addr, clientIp, 256);
+
+			// Display the message / who sent it
+			cout << "Message recv from " << clientIp << " : " << buf << endl;
+		
 		}
 
-		// Display message and client info
-		char clientIp[256]; // Create enough space to convert the address byte array
-		ZeroMemory(clientIp, 256); // to string of characters
+		std::chrono::seconds waitTime(1);
 
-		// Convert from byte array to chars
-		inet_ntop(AF_INET, &client.sin_addr, clientIp, 256);
 
-		// Display the message / who sent it
-		cout << "Message recv from " << clientIp << " : " << buf << endl;
+		////////////////////////////////////////////////////////////
+		//// SERVER SENDS
+		////////////////////////////////////////////////////////////
+
+		if (!sent) {
+			string s("Server sendet was"); //string to send
+
+			char buffer[MAX_BUFFER_SIZE];
+			std::strcpy(buffer, s.c_str());
+			
+			LPWSABUF lpwsabuf = new WSABUF();
+			lpwsabuf->buf = buffer;
+			lpwsabuf->len = sizeof(buffer);
+
+			DWORD numBytesSent = 0;
+			DWORD flags = 0;
+
+			int wsaSendOK = WSASendTo(serverSocket, lpwsabuf, 1, reinterpret_cast<LPDWORD>(&numBytesSent), flags,
+						reinterpret_cast<sockaddr*>(&clientRecv), sizeof(clientRecv), nullptr, nullptr);
+			if (wsaSendOK == SOCKET_ERROR)
+			{
+				cout << "WSASendTo didn't work! " << WSAGetLastError() << endl;
+			}
+
+			sent = TRUE;
+		}
+
 	}
 
+	////////////////////////////////////////////////////////////
+	//// CLEANUP
+	////////////////////////////////////////////////////////////
+
+	// delete WSA Buffer Pointer
+	// delete lpwsabuf;
+
 	// Close socket
-	closesocket(in);
+	closesocket(serverSocket);
 
 	// Shutdown winsock
 	WSACleanup();

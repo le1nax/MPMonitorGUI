@@ -20,7 +20,7 @@
 using namespace std;
 
 // Daniels main vom 06.07.
-
+/*
 // int main()
 // {
 //     try
@@ -307,7 +307,7 @@ using namespace std;
 
 //     return 0;
 // }
-
+*/
 
 
 // Evas main vom 06.07.
@@ -785,7 +785,7 @@ int main()
     //// SEND SOMETHING 
     ///////////////////////////////////////////////////////////////////
 
-	string s("gute Stimmung"); //string to send
+	string s("Client sendet was"); //string to send
 
     char buffer[1380];
     std::strcpy(buffer, s.c_str());
@@ -809,6 +809,39 @@ int main()
     ///////////////////////////////////////////////////////////////////
     //// RECEIVE SOMETHING 
     ///////////////////////////////////////////////////////////////////
+
+	sockaddr_in serverRecv; // Use to hold the client information (port / ip address)
+	int serverRecvLength = sizeof(serverRecv); // The size of the client information
+
+	char buf[MAX_BUFFER_SIZE];
+
+    bool stop = FALSE;
+
+    //while (!stop)
+    //{
+        ZeroMemory(&serverRecv, serverRecvLength); // Clear the client structure
+        ZeroMemory(buf, MAX_BUFFER_SIZE); // Clear the receive buffer
+
+        // Wait for message
+        int bytesIn = recvfrom(clientSocket, buf, MAX_BUFFER_SIZE, 0, (sockaddr*)&serverRecv, &serverRecvLength);
+        if (bytesIn == SOCKET_ERROR)
+        {
+            cout << "Error receiving from server " << WSAGetLastError() << endl;
+        }
+
+        if (bytesIn > 0) stop = TRUE;
+
+        // Display message and client info
+        char serverIp[256]; // Create enough space to convert the address byte array
+        ZeroMemory(serverIp, 256); // to string of characters
+
+        // Convert from byte array to chars
+        inet_ntop(AF_INET, &serverRecv.sin_addr, serverIp, 256);
+
+        // Display the message / who sent it
+        cout << "Message recv from " << serverIp << " : " << buf << endl;
+    //}
+
 /*
     // Buffer for receiving messages
     char buffer1[MAX_BUFFER_SIZE];
