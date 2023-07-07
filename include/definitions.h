@@ -22,6 +22,8 @@ constexpr int FLOATTYPE_NEGATIVE_INFINITY = 0x800002;
 
 ///@todo statt const variablen constexpr
 
+static constexpr size_t maxbuffersize = 1380;
+
 template<typename... Ts>
 std::vector<std::byte> make_bytes(Ts&&... args) noexcept {
 return{std::byte(std::forward<Ts>(args))...};

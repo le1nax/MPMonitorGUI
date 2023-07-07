@@ -259,7 +259,7 @@ void SocketClient::sendBytes(vector<std::byte> bytes)
     size_t len = bytes.size();
     char* charBytes = reinterpret_cast<char*>(bytes.data()); 
 
-    uint32_t numBytesSent = SendTo(m_sa_remoteIPtarget, charBytes, 0);
+    uint32_t numBytesSent = SendTo(m_sa_remoteIPtarget, charBytes, len, 0);
 }
 
 void SocketClient::SendWaveAssociationRequest()
@@ -1120,7 +1120,7 @@ void SocketClient::SendCycledExtendedPollWaveDataRequest(size_t nInterval)
 }
 
 
-void SocketClient::Receive(char* buffer, int flags)
+void SocketClient::Receive(char* buffer, size_t buffersize, int flags)
 {
     Receive_State state;
     state.state_ip = m_sa_remoteIPtarget;
@@ -1134,8 +1134,7 @@ void SocketClient::Receive(char* buffer, int flags)
         WSACleanup();
         return;
     } 
-
-    int receiveResult = RecvFrom(state.state_ip, state.buffer, state.numBytesReceived, &(state.overlapped), flags);
+    int receiveResult = RecvFrom(state.state_ip, state.buffer, buffersize, state.numBytesReceived, &(state.overlapped), flags);
 	if (receiveResult == SOCKET_ERROR)
 	{
 		if (WSAGetLastError() != WSA_IO_PENDING)

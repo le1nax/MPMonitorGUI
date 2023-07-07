@@ -14,7 +14,10 @@ class SocketClient : public UDPSocket {
         ~SocketClient() = default;
         
         void establishLanConnection();
-
+        
+        void sendBytes(std::vector<std::byte> bytes);
+        
+        sockaddr_in m_sa_remoteIPtarget;
     private: 
         /*class UdpState{
             public: 
@@ -26,11 +29,9 @@ class SocketClient : public UDPSocket {
         } m_udpState; //current state of the client for the asynchronous receiving of data*/
         void SendWaveAssociationRequest();
         void ProcessPacket(char* buffer);
-        void sendBytes(std::vector<std::byte> bytes);
         std::vector<std::byte> m_readassocbuffer;
         std::vector<std::byte> m_readmdsconnectbuffer;
         std::string m_remoteIPtarget = "";
-        sockaddr_in m_sa_remoteIPtarget;
         std::string m_strTimestamp = "";
         std::string m_DeviceID= "";
         std::string m_idlabelstring = "";
@@ -52,6 +53,7 @@ class SocketClient : public UDPSocket {
         tm GetAbsoluteTimeFromBCDFormat(char* bcdtimebuffer);
 
         void initMsgs();
+        public:
         std::vector<std::byte> aarq_ms;
         std::vector<std::byte> aarq_msg_ext_poll;
         std::vector<std::byte> aarq_msg_ext_poll2;
@@ -79,6 +81,7 @@ class SocketClient : public UDPSocket {
         std::vector<std::byte> rlrq_msg;
         std::vector<std::byte> rlrq_resp_msg;
         std::vector<std::byte> assoc_abort_resp_msg;
+        private:
 
         /// @todo make threads
         void CheckLinkedPollPacketActionType(char* buffer);
@@ -117,7 +120,7 @@ class SocketClient : public UDPSocket {
         void RecheckMDSAttributes(int nInterval = 0);
         void SendMDSPollDataRequest();
         void KeepConnectionAlive(int nInterval = 0);
-        void Receive(char* buffer, int flags = 0);
+        void Receive(char* buffer, size_t buffersize = maxbuffersize, int flags = 0);
         void CALLBACK ReceiveCallback(DWORD errorCode, DWORD numBytesReceived, LPWSAOVERLAPPED overlapped, DWORD flags = 0);
         static bool ByteArrayToFile(const std::string& filename, const std::string& bytes_string);
         static bool ByteArrayToFile(const std::string& path_to_file, const std::vector<std::byte>& data_bytes, uint32_t numBytesReceived);
