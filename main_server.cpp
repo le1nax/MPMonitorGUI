@@ -5,6 +5,19 @@
 #include <thread>
 #include <iostream>
 #include <chrono>
+#include <WinSock2.h>
+#include <WS2tcpip.h>
+#include <system_error>
+#include <Windows.h>
+#include <bitset>
+#include <cstddef>
+#include <sstream>
+#include <cstdint>
+#include <iomanip>
+#include <algorithm>
+
+#pragma comment(lib, "ws2_32.lib") //link against the Winsock library
+
 
 
 #define REMOTEIP "169.254.0.1"
@@ -55,21 +68,70 @@ int main()
 	sockaddr_in client; // Use to hold the client information (port / ip address)
 	int clientLength = sizeof(client); // The size of the client information
 
-	char buf[MAX_BUFFER_SIZE];
 
-	// Enter a loop
+/*
+	// char buf[MAX_BUFFER_SIZE];
+
+	// // Enter a loop
+	// while (true)
+	// {
+	// 	ZeroMemory(&client, clientLength); // Clear the client structure
+	// 	ZeroMemory(buf, MAX_BUFFER_SIZE); // Clear the receive buffer
+
+	// 	// Wait for message
+	// 	int bytesIn = recvfrom(in, buf, MAX_BUFFER_SIZE, 0, (sockaddr*)&client, &clientLength);
+	// 	if (bytesIn == SOCKET_ERROR)
+	// 	{
+	// 		cout << "Error receiving from client " << WSAGetLastError() << endl;
+	// 		continue;
+	// 	}
+
+	// 	// Display message and client info
+	// 	char clientIp[256]; // Create enough space to convert the address byte array
+	// 	ZeroMemory(clientIp, 256); // to string of characters
+
+	// 	// Convert from byte array to chars
+	// 	inet_ntop(AF_INET, &client.sin_addr, clientIp, 256);
+
+	// 	// Display the message / who sent it
+	// 	cout << "Message recv from " << clientIp << " : " << buf << endl;
+	// }
+*/
+
+
+    // Buffer for receiving messages
+    char buffer1[MAX_BUFFER_SIZE];
+    char* buf;
+    int len = MAX_BUFFER_SIZE;
+
+    LPWSABUF lpwsabufferServer = new WSABUF();
+    lpwsabufferServer->len = sizeof(buffer1);
+
+    DWORD bytesReceived1 = 0;
+    DWORD flags = 0;
+
+
 	while (true)
 	{
 		ZeroMemory(&client, clientLength); // Clear the client structure
-		ZeroMemory(buf, MAX_BUFFER_SIZE); // Clear the receive buffer
+		ZeroMemory(buffer1, MAX_BUFFER_SIZE); // Clear the receive buffer
 
-		// Wait for message
-		int bytesIn = recvfrom(in, buf, MAX_BUFFER_SIZE, 0, (sockaddr*)&client, &clientLength);
-		if (bytesIn == SOCKET_ERROR)
+    	lpwsabufferServer->buf = buffer1;
+
+
+		// Receive from Server
+		if (WSARecvFrom(in, lpwsabufferServer, 1, &bytesReceived1, &flags,
+						reinterpret_cast<sockaddr*>(&client), reinterpret_cast<LPINT>(&clientLength), nullptr, nullptr) == SOCKET_ERROR)
 		{
-			cout << "Error receiving from client " << WSAGetLastError() << endl;
+			std::cerr << "WSARecvFrom failed. Error code: " << WSAGetLastError() << std::endl;
 			continue;
 		}
+
+		std::cout << "Received " << bytesReceived1 << " Bytes" << std::endl;
+
+
+		// Process received message
+		// std::string receivedMessage(lpwsabufferServer->buf, bytesReceived1); //////////// this line doesn't work
 
 		// Display message and client info
 		char clientIp[256]; // Create enough space to convert the address byte array
@@ -79,8 +141,18 @@ int main()
 		inet_ntop(AF_INET, &client.sin_addr, clientIp, 256);
 
 		// Display the message / who sent it
-		cout << "Message recv from " << clientIp << " : " << buf << endl;
+		cout << "Message WSArecv from " << clientIp << " : " << lpwsabufferServer->buf << endl;
+
 	}
+
+
+
+    ///////////////////////////////////////////////////////////////////
+    //// CLEANUP
+    ///////////////////////////////////////////////////////////////////
+
+	// delete WSA Buffer Pointer
+	delete lpwsabufferServer;
 
 	// Close socket
 	closesocket(in);
