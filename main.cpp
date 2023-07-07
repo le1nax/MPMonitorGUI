@@ -5,8 +5,9 @@
 #include <thread>
 #include <iostream>
 #include <chrono>
+#include <WS2tcpip.h>
 
-#pragma comment (lib, "ws2_32.lib")
+#pragma comment (lib, "ws2_32.lib") // Include the Winsock library (lib) file
 
 
 #define REMOTEIP "169.254.0.1"
