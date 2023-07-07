@@ -23,9 +23,9 @@ using namespace std;
 // int main()
 // {
 //     try
+
 //    {
 //         unique_ptr<WSASession> Session = make_unique<WSASession>();
-
 //         const std::string s_remoteIP = LOCALIP;
 //         const unsigned short remotePort = LOCALPORT;
 //         unique_ptr<SocketClient> client = make_unique<SocketClient>(s_remoteIP, remotePort);
@@ -42,12 +42,10 @@ using namespace std;
 //         // for (size_t i = 0; i < msgSize; ++i) {
 //         // std::cout << std::hex << static_cast<int>(static_cast<unsigned char>(word[i])) << ' ';
 //         // }
-        
 //         // std::string output = word;
 //         // std::cout << output; 
 //         // std::cout << '\n';
-//         client->sendBytes(client->mds_create_resp_msg);
-        
+//        client->sendBytes(client->mds_create_resp_msg);       
 //         //client->establishLanConnection();
 //     }
 //     catch (std::exception &ex) //catch any occurring system errors
