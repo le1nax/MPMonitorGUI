@@ -20,7 +20,7 @@
 using namespace std;
 
 // Daniels main vom 06.07.
-/*
+
 // int main()
 // {
 //     try
@@ -307,7 +307,7 @@ using namespace std;
 
 //     return 0;
 // }
-*/
+
 
 
 // Evas main vom 06.07.
