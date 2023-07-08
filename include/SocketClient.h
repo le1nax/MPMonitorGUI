@@ -21,7 +21,7 @@ class SocketClient : public UDPSocket {
     private: 
      void sendBytes(std::vector<std::byte> bytes);
      void AlternativeReceive(char* buffer, size_t buffersize = maxbuffersize, int flags = 0);
-     void Receive(char* buffer, size_t buffersize = maxbuffersize, int flags = 0);
+    //  void Receive(char* buffer, size_t buffersize = maxbuffersize, int flags = 0);
         /*class UdpState{
             public: 
                 UdpState(SocketClient& parent) : state_client(parent) {}
