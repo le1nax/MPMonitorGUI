@@ -147,16 +147,19 @@ int UDPSocket::RecvFrom(sockaddr_in remoteIP, char* buffer, size_t buffersize, l
     wsabuffer->buf = buffer;
     wsabuffer->len = buffersize;
 
+    sockaddr_in serverRecv; // Use to hold the client information (port / ip address)
+	int serverRecvLength = sizeof(serverRecv); // The size of the client information
+
     int result = WSARecvFrom(
 					sock,                                       		// SOCKET s
 					wsabuffer,          		                        // LPWSABUF lpBuffers
 					1,                                            		// DWORD dwBufferCount
 					reinterpret_cast<LPDWORD>(&numBytesReceived),       // LPDWORD lpNumberOfBytesRecvd
 					reinterpret_cast<LPDWORD>(flags),            		// LPDWORD lpFlags
-					reinterpret_cast<sockaddr*>(&remoteIP), 	        // sockaddr* lpFrom
+					reinterpret_cast<sockaddr*>(&serverRecv), 	        // sockaddr* lpFrom
 					reinterpret_cast<LPINT>(&remoteIPlen),         		// LPINT lpFromlen
-					reinterpret_cast<LPWSAOVERLAPPED>(&overlapped), 	// LPWSAOVERLAPPED lpOverlapped
-					callback                                            // LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine
+					nullptr, 	// LPWSAOVERLAPPED lpOverlapped
+					nullptr                                            // LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine
 				);
 
 	if (result == SOCKET_ERROR) {

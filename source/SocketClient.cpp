@@ -20,12 +20,17 @@ SocketClient::SocketClient(std::string remoteIPtarget, const unsigned short remo
     inet_pton(AF_INET, m_remoteIPtarget.c_str(), &(m_sa_remoteIPtarget.sin_addr)); //corresponds to m_sa_remoteIPtarget.sin_addr.s_addr = inet_addr(m_remoteIPtarget)
 
     // connect client socket to remote IP and port
-    Connect(m_sa_remoteIPtarget);
+   // Connect(m_sa_remoteIPtarget);
 
     // initialise the different message bytes
     initMsgs();
 
     std::cout << "Created and initialised client" << std::endl;
+}
+
+SOCKET SocketClient::getSocket()
+{
+    return sock;
 }
 
 void SocketClient::initMsgs()
@@ -1119,11 +1124,50 @@ void SocketClient::SendCycledExtendedPollWaveDataRequest(size_t nInterval)
 
 }
 
+void SocketClient::AlternativeReceive(char* buffer1, size_t buffersize, int flags)
+{
+     sockaddr_in serverRecv; // Use to hold the client information (port / ip address)
+	int serverRecvLength = sizeof(serverRecv); // The size of the client information
+
+	// char buffer1[maxbuffersize];
+    LPWSABUF lpwsabufferClient = new WSABUF();
+
+    lpwsabufferClient->buf = buffer1;
+    lpwsabufferClient->len = buffersize;
+
+    DWORD bytesReceived1 = 0;
+    DWORD flags2 = 0;
+    if (WSARecvFrom(sock, lpwsabufferClient, 1, &bytesReceived1, &flags2,
+                    reinterpret_cast<sockaddr*>(&serverRecv), reinterpret_cast<LPINT>(&serverRecvLength), nullptr, nullptr) == SOCKET_ERROR)
+    {
+        std::cerr << "WSARecvFrom failed. Error code: " << WSAGetLastError() << std::endl;
+        closesocket(sock);
+        WSACleanup();
+        delete lpwsabufferClient;
+    }
+
+    // // Display message and client info
+    // char serverIp[256]; // Create enough space to convert the address byte array
+    // ZeroMemory(serverIp, 256); // to string of characters
+
+    // // Convert from byte array to chars
+    // inet_ntop(AF_INET, &serverRecv.sin_addr, serverIp, 256);
+
+    // Display the message / who sent it
+    cout << "Message recv: " << lpwsabufferClient->buf << endl;
+
+    delete lpwsabufferClient;
+
+}
 
 void SocketClient::Receive(char* buffer, size_t buffersize, int flags)
 {
     Receive_State state;
-    state.state_ip = m_sa_remoteIPtarget;
+    sockaddr_in serverRecv;
+    int serverRecvSize = sizeof(serverRecv);
+    ZeroMemory(&serverRecv, serverRecvSize); // Clear the client structure
+	ZeroMemory(buffer, buffersize); // Clear the receive buffer
+    state.state_ip = serverRecv;
     memset(&state.overlapped, 0, sizeof(WSAOVERLAPPED));
 
     state.overlapped.hEvent = WSACreateEvent();
@@ -1134,7 +1178,8 @@ void SocketClient::Receive(char* buffer, size_t buffersize, int flags)
         WSACleanup();
         return;
     } 
-    int receiveResult = RecvFrom(state.state_ip, state.buffer, buffersize, state.numBytesReceived, &(state.overlapped), flags);
+    int receiveResult = RecvFrom(state.state_ip, state.buffer, buffersize, state.numBytesReceived, NULL, flags);
+    // int receiveResult = RecvFrom(state.state_ip, state.buffer, buffersize, state.numBytesReceived, &(state.overlapped), flags);
 	if (receiveResult == SOCKET_ERROR)
 	{
 		if (WSAGetLastError() != WSA_IO_PENDING)

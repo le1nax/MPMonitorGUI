@@ -14,11 +14,14 @@ class SocketClient : public UDPSocket {
         ~SocketClient() = default;
         
         void establishLanConnection();
-        
-        void sendBytes(std::vector<std::byte> bytes);
+        SOCKET getSocket();
         
         sockaddr_in m_sa_remoteIPtarget;
+        
     private: 
+     void sendBytes(std::vector<std::byte> bytes);
+     void AlternativeReceive(char* buffer, size_t buffersize = maxbuffersize, int flags = 0);
+     void Receive(char* buffer, size_t buffersize = maxbuffersize, int flags = 0);
         /*class UdpState{
             public: 
                 UdpState(SocketClient& parent) : state_client(parent) {}
@@ -120,7 +123,6 @@ class SocketClient : public UDPSocket {
         void RecheckMDSAttributes(int nInterval = 0);
         void SendMDSPollDataRequest();
         void KeepConnectionAlive(int nInterval = 0);
-        void Receive(char* buffer, size_t buffersize = maxbuffersize, int flags = 0);
         void CALLBACK ReceiveCallback(DWORD errorCode, DWORD numBytesReceived, LPWSAOVERLAPPED overlapped, DWORD flags = 0);
         static bool ByteArrayToFile(const std::string& filename, const std::string& bytes_string);
         static bool ByteArrayToFile(const std::string& path_to_file, const std::vector<std::byte>& data_bytes, uint32_t numBytesReceived);
