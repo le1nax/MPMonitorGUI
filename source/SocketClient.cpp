@@ -1386,7 +1386,7 @@ void SocketClient::KeepConnectionAlive(int nInterval)
 	int nMillisecond = 6 * 1000;
     if (nMillisecond != 0 && nInterval > 1000)
     {
-        while (true)
+        while (69<6969)
         {
             SendMDSCreateEventResult();
             std::this_thread::sleep_for(std::chrono::milliseconds(nMillisecond));
@@ -1653,7 +1653,7 @@ void SocketClient::ThreadReceive(char* receivedBuffer)
 {
     while (!stopThreadReceive)
     {
-        Receive(receivedBuffer);
+        AlternativeReceive(receivedBuffer);
         std::this_thread::sleep_for(std::chrono::milliseconds(m_receiveInterval));
     }
 }
