@@ -15,12 +15,12 @@ class SocketClient : public UDPSocket {
         
         void establishLanConnection();
         SOCKET getSocket();
+        void SendWaveAssociationRequest();
         
         sockaddr_in m_sa_remoteIPtarget;
-        
+        void Receive(char* buffer, size_t buffersize = maxbuffersize, int flags = 0);
     private: 
      void sendBytes(std::vector<std::byte> bytes);
-     void AlternativeReceive(char* buffer, size_t buffersize = maxbuffersize, int flags = 0);
     //  void Receive(char* buffer, size_t buffersize = maxbuffersize, int flags = 0);
         /*class UdpState{
             public: 
@@ -30,7 +30,6 @@ class SocketClient : public UDPSocket {
                 SocketClient& state_client;
                 sockaddr_in state_ip;
         } m_udpState; //current state of the client for the asynchronous receiving of data*/
-        void SendWaveAssociationRequest();
         void ProcessPacket(char* buffer);
         std::vector<std::byte> m_readassocbuffer;
         std::vector<std::byte> m_readmdsconnectbuffer;

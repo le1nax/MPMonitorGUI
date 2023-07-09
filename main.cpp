@@ -9,6 +9,8 @@
 #include <imgui.h>
 #include <stdio.h>
 
+#include <imgui.h>
+
 
 #pragma comment (lib, "ws2_32.lib")
 
@@ -22,38 +24,38 @@
 
 using namespace std;
 
-int main(int, char**)
-{
-    // IMGUI_CHECKVERSION();
-    // ImGui::CreateContext();
-    // ImGuiIO& io = ImGui::GetIO();
+// int main(int, char**)
+// {
+//     IMGUI_CHECKVERSION();
+//     // ImGui::CreateContext();
+//     // ImGuiIO& io = ImGui::GetIO();
 
 
-    // // Build atlas
-    // unsigned char* tex_pixels = nullptr;
-    // int tex_w, tex_h;
-    // io.Fonts->GetTexDataAsRGBA32(&tex_pixels, &tex_w, &tex_h);
+//     // // Build atlas
+//     // unsigned char* tex_pixels = nullptr;
+//     // int tex_w, tex_h;
+//     // io.Fonts->GetTexDataAsRGBA32(&tex_pixels, &tex_w, &tex_h);
 
-    // for (int n = 0; n < 20; n++)
-    // {
-    //     printf("NewFrame() %d\n", n);
-    //     io.DisplaySize = ImVec2(1920, 1080);
-    //     io.DeltaTime = 1.0f / 60.0f;
-    //     ImGui::NewFrame();
+//     // for (int n = 0; n < 20; n++)
+//     // {
+//     //     printf("NewFrame() %d\n", n);
+//     //     io.DisplaySize = ImVec2(1920, 1080);
+//     //     io.DeltaTime = 1.0f / 60.0f;
+//     //     ImGui::NewFrame();
 
-    //     static float f = 0.0f;
-    //     ImGui::Text("Hello, world!");
-    //     ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
-    //     ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
-    //     ImGui::ShowDemoWindow(nullptr);
+//     //     static float f = 0.0f;
+//     //     ImGui::Text("Hello, world!");
+//     //     ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
+//     //     ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+//     //     ImGui::ShowDemoWindow(nullptr);
 
-    //     ImGui::Render();
-    // }
+//     //     ImGui::Render();
+//     // }
 
-    // printf("DestroyContext()\n");
-    // ImGui::DestroyContext();
-    return 0;
-}
+//     // printf("DestroyContext()\n");
+//     // ImGui::DestroyContext();
+//     return 0;
+// }
 
 // int main()
 // {
@@ -65,7 +67,7 @@ int main(int, char**)
 //         const unsigned short remotePort = REMOTEPORT;
 //         unique_ptr<SocketClient> client = make_unique<SocketClient>(s_remoteIP, remotePort);
 
-//         client->establishLanConnection();
+        // client->establishLanConnection();
 //     }
 //     catch (std::exception &ex) //catch any occurring system errors
 //     {
@@ -76,4 +78,29 @@ int main(int, char**)
 
 //     return 0;
 // }
+
+int main()
+{
+    try
+   {
+        unique_ptr<WSASession> Session = make_unique<WSASession>();
+
+        const std::string s_remoteIP = LOCALIP;
+        const unsigned short remotePort = LOCALPORT;
+        unique_ptr<SocketClient> client = make_unique<SocketClient>(s_remoteIP, remotePort);
+
+        client->SendWaveAssociationRequest();
+        std::cout << "sent" << std::endl;
+        // std::cin.get();// Wait for user input before exiting
+        char buffer[maxbuffersize];
+        std::cout << "begin receive" << std::endl;
+        client->Receive(buffer);
+    }
+    catch (std::exception &ex) //catch any occurring system errors
+    {
+        std::cout << ex.what();  //print error message
+    }
+    return 0;
+}
+
 

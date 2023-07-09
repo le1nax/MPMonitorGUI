@@ -12,7 +12,18 @@ using namespace std;
 /// @todo Konstruktor soll die membervariablen initialisieren
 SocketClient::SocketClient(std::string remoteIPtarget, const unsigned short remotePortTarget) : 
         UDPSocket(), m_remoteIPtarget(remoteIPtarget), m_port(remotePortTarget) //, m_udpState(*this)
-{
+ {
+//     struct sockaddr_in RecvAddr;
+//     RecvAddr.sin_family = AF_INET;
+//     RecvAddr.sin_port = htons(m_port);
+//     RecvAddr.sin_addr.s_addr = htonl(INADDR_ANY);
+
+//     if (bind(sock, (SOCKADDR *) & RecvAddr, sizeof (RecvAddr)) != 0) {
+//         /* Bind to the socket failed */
+//         wprintf(L"bind failed with error: %ld\n", WSAGetLastError());
+//         closesocket(sock);
+//         WSACleanup();
+//     }
     // setup remote server address structure
     memset((void *)&m_sa_remoteIPtarget, '\0', sizeof(struct sockaddr_in));
     m_sa_remoteIPtarget.sin_family = AF_INET; //ipv4
@@ -1124,134 +1135,109 @@ void SocketClient::SendCycledExtendedPollWaveDataRequest(size_t nInterval)
 
 }
 
-void SocketClient::AlternativeReceive(char* buffer1, size_t buffersize, int flags)
+void SocketClient::Receive(char* buffer1, size_t buffersize, int flags)
 {
-     sockaddr_in serverRecv; // Use to hold the client information (port / ip address)
-	int serverRecvLength = sizeof(serverRecv); // The size of the client information
+    Receive_State state;
+    WSADATA wsaData;
+    WSABUF DataBuf;
+    
+    struct sockaddr_in SenderAddr;
+    int SenderAddrSize = sizeof (SenderAddr);
+    state.state_ip = SenderAddr;
 
-	// char buffer1[maxbuffersize];
-    LPWSABUF lpwsabufferClient = new WSABUF();
+    char RecvBuf[buffersize];
+    int BufLen = buffersize;
+    state.buffer = RecvBuf;
+    DWORD BytesRecv = 0;
+    DWORD Flags = 0;
 
-    lpwsabufferClient->buf = buffer1;
-    lpwsabufferClient->len = buffersize;
+    int err = 0;
+    int rc;
+    int retval = 0;
+    
+    // Make sure the Overlapped struct is zeroed out
+    SecureZeroMemory((PVOID) &state.overlapped, sizeof(WSAOVERLAPPED) );
 
-    DWORD bytesReceived1 = 0;
-    DWORD flags2 = 0;
-    if (WSARecvFrom(sock, lpwsabufferClient, 1, &bytesReceived1, &flags2,
-                    reinterpret_cast<sockaddr*>(&serverRecv), reinterpret_cast<LPINT>(&serverRecvLength), nullptr, nullptr) == SOCKET_ERROR)
-    {
-        std::cerr << "WSARecvFrom failed. Error code: " << WSAGetLastError() << std::endl;
-        closesocket(sock);
+    // Create an event handle and setup the overlapped structure.
+    state.overlapped.hEvent = WSACreateEvent();
+    if (state.overlapped.hEvent == NULL) {
+        wprintf(L"WSACreateEvent failed with error: %d\n", WSAGetLastError());
         WSACleanup();
-        delete lpwsabufferClient;
+        return;
     }
+    
 
-    // // Display message and client info
-    // char serverIp[256]; // Create enough space to convert the address byte array
-    // ZeroMemory(serverIp, 256); // to string of characters
+    m_sa_remoteIPtarget.sin_family = AF_INET;
+    m_sa_remoteIPtarget.sin_port = htons(m_port);
+    m_sa_remoteIPtarget.sin_addr.s_addr = htonl(INADDR_ANY);
+    
+    std::string targetip = m_remoteIPtarget; 
+    inet_pton(AF_INET, targetip.c_str(), &(m_sa_remoteIPtarget.sin_addr));
 
-    // // Convert from byte array to chars
-    // inet_ntop(AF_INET, &serverRecv.sin_addr, serverIp, 256);
+    DataBuf.len = BufLen;
+    DataBuf.buf = RecvBuf;
 
-    // Display the message / who sent it
-    cout << "Message recv: " << lpwsabufferClient->buf << endl;
+    wprintf(L"Listening for incoming datagrams on port=%d\n", m_port);
+    rc = WSARecvFrom(sock,
+                      &DataBuf,
+                      1,
+                      &BytesRecv,
+                      &Flags,
+                      (SOCKADDR *) & SenderAddr,
+                      &SenderAddrSize, &state.overlapped, NULL);
 
-    delete lpwsabufferClient;
+    if (rc != 0) {
+        err = WSAGetLastError();
+        if (err != WSA_IO_PENDING) {
+            wprintf(L"WSARecvFrom failed with error: %ld\n", err);
+            WSACloseEvent(state.overlapped.hEvent);
+            closesocket(sock);
+            WSACleanup();
+            return;
+        }
+        else {
+            rc = WSAWaitForMultipleEvents(1, &state.overlapped.hEvent, TRUE, INFINITE, TRUE);
+            if (rc == WSA_WAIT_FAILED) {
+                wprintf(L"WSAWaitForMultipleEvents failed with error: %d\n", WSAGetLastError());
+                retval = 1;
+            }
 
+            rc = WSAGetOverlappedResult(sock, &state.overlapped, &BytesRecv,
+                                FALSE, &Flags);
+            if (rc == FALSE) {
+                wprintf(L"WSArecvFrom failed with error: %d\n", WSAGetLastError());
+                retval = 1;
+            }
+            else{
+                state.numBytesReceived += state.numBytesTransferred;
+
+                if (state.numBytesReceived > 0)
+                {
+			        // Receive operation completed successfully
+			        ReceiveCallback(0, state.numBytesReceived, &state.overlapped); //go and process data
+                }
+                wprintf(L"Number of received bytes = %d\n", BytesRecv);
+            }
+                
+            wprintf(L"Finished receiving. Closing socket.\n");
+            cout << "Message recv: " << DataBuf.buf << endl;
+        }
+        
+    }
+    //---------------------------------------------
+    // When the application is finished receiving, close the socket.
+
+    WSACloseEvent(state.overlapped.hEvent);
+    closesocket(sock);
+    wprintf(L"Exiting.\n");
+
+    //---------------------------------------------
+    // Clean up and quit.
+    WSACleanup();
+    return;
 }
 
-// void SocketClient::Receive(char* buffer, size_t buffersize, int flags)
-// {
-//     Receive_State state;
-//     sockaddr_in serverRecv;
-//     int serverRecvSize = sizeof(serverRecv);
-//     ZeroMemory(&serverRecv, serverRecvSize); // Clear the client structure
-// 	ZeroMemory(buffer, buffersize); // Clear the receive buffer
-//     state.state_ip = serverRecv;
-//     memset(&state.overlapped, 0, sizeof(WSAOVERLAPPED));
 
-//     state.overlapped.hEvent = WSACreateEvent();
-//     if (state.overlapped.hEvent == WSA_INVALID_EVENT)
-//     {
-//         std::cout << "hEvent error in Receive()" << std::endl;
-//         closesocket(sock);
-//         WSACleanup();
-//         return;
-//     } 
-//     int receiveResult = RecvFrom(state.state_ip, state.buffer, buffersize, state.numBytesReceived, NULL, flags);
-//     // int receiveResult = RecvFrom(state.state_ip, state.buffer, buffersize, state.numBytesReceived, &(state.overlapped), flags);
-// 	if (receiveResult == SOCKET_ERROR)
-// 	{
-// 		if (WSAGetLastError() != WSA_IO_PENDING)
-// 		{
-// 			std::cerr << "Failed to initiate receive. Error: " << WSAGetLastError() << std::endl;
-//             WSACloseEvent(state.overlapped.hEvent);
-// 			closesocket(sock);
-// 			return;
-// 		}
-// 	}
-
-//     // Warten auf den Abschluss des Empfangsprozesses
-//     DWORD waitResult = WaitForSingleObject(state.overlapped.hEvent, INFINITE); //WSAWaitForMultipleEvents implementiert das gleiche, aber da wir eh die Windows-API nutzen, ist single sinnvoller
-//     if (waitResult == WAIT_FAILED)
-//     {
-//         std::cerr << "Failed to receive. Error: " << WSAGetLastError() << std::endl;
-//         WSACloseEvent(state.overlapped.hEvent);
-//         closesocket(sock);
-//         return;
-//     }
-//             // ist letztlich nur asynchron dadurch dass Receive im eigenen Thread laeuft. Aber echt-parallel ist der ja auch nicht.
-
-//             // Wenn Sie nach dem Empfangen der Daten sofort mit der Verarbeitung beginnen müssen, ohne den Hauptthread zu blockieren, 
-//             // dann ist es möglicherweise besser, auf das Warten zu verzichten und die Verarbeitung in der Callback-Routine durchzuführen. 
-//             // Wenn jedoch das Blockieren des Hauptthreads bis zum Abschluss des Empfangsprozesses akzeptabel ist und Sie beispielsweise 
-//             // auf den Empfang anderer Daten warten möchten, bevor Sie mit der Verarbeitung beginnen, dann ist das Warten durchaus sinnvoll.
-
-
-
-//     //falls wir die WSAGetOverlappedResult Abfrage weglassen muessen
-//     //if (waitResult == WAIT_OBJECT_0) ReceiveCallback Stuff
-
-
-//     DWORD temp = WSAGetOverlappedResult(
-//             sock,                                                   // SOCKET s
-//             &state.overlapped,                                      // LPWSAOVERLAPPED lpOverlapped
-//             reinterpret_cast<LPDWORD>(&state.numBytesTransferred),  // LPDWORD lpcbTransfer
-//             FALSE,                                                  // BOOL fWait -- whether the function should wait until the overlapped operation is completed (true = wait, false = retrive results immediately)
-//             reinterpret_cast<LPDWORD>(&flags));                     // LPDWORD lpdwFlags
-
-// 	// if receiving successful
-//     if (temp == TRUE)                 
-//     {
-//         state.numBytesReceived += state.numBytesTransferred;
-
-//         if (state.numBytesReceived > 0)
-//         {
-// 			// Receive operation completed successfully
-// 			ReceiveCallback(0, state.numBytesReceived, &state.overlapped); //go and process data
-//         }
-//     }
-//     else
-//     {
-//         // Receive operation failed
-//         if (WSAGetLastError() != WSA_IO_PENDING) //WSA_IO_PENDING = overlapped operation is still in progress
-//         {
-//             std::cerr << "WSAGetOverlappedResult in RecvFrom() failed with error: " << WSAGetLastError() << std::endl;
-//             WSACloseEvent(state.overlapped.hEvent);
-//             closesocket(sock);
-//             return;
-//         }
-//         else //overlapped operation is still in progress, kann eigentlich nicht passieren durch waitforsingleobject dingens
-//         {
-//             std::cerr << "Receive operation is still in progress und irgendwas stimmt nicht, weil das eigentlich nicht eintreten koennen sollte. Last Error: " << WSAGetLastError() << std::endl;
-//         }
-//     }
-
-//     std::cout << "received and processed " << state.numBytesReceived << " Bytes" << std::endl;
-
-// 	// Clean up resources
-//     WSACloseEvent(state.overlapped.hEvent);
-// }
 
 
 /// @todo add path_to_file
@@ -1588,12 +1574,12 @@ void SocketClient::establishLanConnection()
 			//Receive MDSCreateEventReport message
             char readassocbuffer[1380] = ""; 
             std::cout << "readassbuffer" << std::endl;
-            AlternativeReceive(readassocbuffer);
+            Receive(readassocbuffer);
             std::cout << "end read assbuffer" << std::endl;
 
             //Send MDSCreateEventResult message
             char readmdsconnectbuffer[1380] = "";
-            AlternativeReceive(readmdsconnectbuffer);
+            Receive(readmdsconnectbuffer);
             ProcessPacket(readmdsconnectbuffer);
 
            //Send Extended PollData Requests cycled every second
@@ -1653,7 +1639,7 @@ void SocketClient::ThreadReceive(char* receivedBuffer)
 {
     while (!stopThreadReceive)
     {
-        AlternativeReceive(receivedBuffer);
+        Receive(receivedBuffer);
         std::this_thread::sleep_for(std::chrono::milliseconds(m_receiveInterval));
     }
 }
