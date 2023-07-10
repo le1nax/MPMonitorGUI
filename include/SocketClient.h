@@ -53,6 +53,7 @@ class SocketClient : public UDPSocket {
         std::vector<WaveValResult> m_WaveValResultList;
         tm m_baseDateTime{};
         tm GetAbsoluteTimeFromBCDFormat(char* bcdtimebuffer);
+        void AddTmMillseconds(tm& time, double millisecs);
 
         void initMsgs();
         public:
@@ -103,6 +104,8 @@ class SocketClient : public UDPSocket {
         void ReadSaCalibrationSpecifications(char* buffer);
         void ReadWaveSaObservationValue(char* buffer);
         
+        std::string GetPacketTimestamp(char* header, uint16_t headersize);
+        tm GetAbsoluteTimeFromRelativeTimestamp(uint32_t currentRelativeTime);
         void DecodeAvaObjects(std::unique_ptr<AvaObj> avaObj, char* buffer);
         void PollPacketDecoder(char* packetbuffer, size_t headersize);
         void ParseMDSCreateEventReport(char* buffer);
