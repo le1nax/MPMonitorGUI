@@ -630,7 +630,7 @@ void SocketClient::PollPacketDecoder(char* packetbuffer, size_t headersize)
 
         /* if (m_dataexportset == 2) ExportNumValListToJSON("Numeric");
         if (m_dataexportset == 3) ExportNumValListToMQTT("Numeric"); */
-        
+
         if (m_dataexportset != 3)
         {
             ExportDataToCSV();
@@ -648,9 +648,8 @@ void SocketClient::ExportDataToCSV()
     switch (m_csvexportset)
     {
         case 1:
-        SaveNumericValueList();
-        break;
-        ///@todo 
+            SaveNumericValueList();
+            break;
         case 2:
             SaveNumericValueListRows();
             break;
@@ -952,7 +951,6 @@ void SocketClient::ExportWaveToCSV()
             if (WavValResult.PhysioID == "NOM_PLETH")
             {
                 std::string WavValID = WavValResult.PhysioID + "WaveExport.csv";
-                    
                 std::string pathcsv = std::filesystem::current_path().string() + "\\_Philips_" + WavValID;
     
                 int wavvalarraylength = sizeof(WavValResult.Value);
@@ -985,7 +983,7 @@ void SocketClient::ExportWaveToCSV()
                     msb = ConvertToByte(msbval);
 
                     unsigned char data[] = { msb, lsb };
-                    if (IsLittleEndian()) std::reverse(data, data + 2);
+                    if (IsLittleEndian()) std::reverse(data, data + 2); //2 is size of data
 
                     int16_t Waveval = static_cast<short>((data[1] << 8) | data[0]); // corresponds to double Waveval = BitConverter.ToInt16(data, 0);
 
@@ -1013,11 +1011,15 @@ void SocketClient::ExportWaveToCSV()
 }
 
 void SocketClient::SaveNumericValueList()
-    {
+{
     if (m_NumericValList.empty() != 0)
     {
-        ///@todo
+        ///@todo filename
         //string pathcsv = Path.Combine(Directory.GetCurrentDirectory(),Program.Globals.pathFile + "_Philips_MPDataExport.csv"); //IB
+
+        std::string pathFile = "<path to file>"; // Replace with the desired file path
+        std::filesystem::path fspathcsv = std::filesystem::current_path() / (pathFile + "_Philips_MPDataExport.csv");
+        std::string pathcsv = fspathcsv.string();
 
         for(auto& it : m_NumericValList)
         {
@@ -1039,7 +1041,7 @@ void SocketClient::SaveNumericValueList()
         // ExportNumValListToCSVFile(pathcsv, m_strbuildvalues);
         // m_NumericValList.RemoveRange(0, m_NumericValList.Count);
     }
-    }
+}
 
 void SocketClient::DecodeAvaObjects(unique_ptr<AvaObj> avaobject, char* buffer)
 {
