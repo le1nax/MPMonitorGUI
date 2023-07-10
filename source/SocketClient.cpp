@@ -657,11 +657,104 @@ void SocketClient::ExportDataToCSV()
         case 2:
             SaveNumericValueListRows();
             break;
-        // case 3:
-        //     SaveNumericValueListConsolidatedCSV();
-        //     break;
+        case 3:
+            SaveNumericValueListConsolidatedCSV();
+            break;
         default:
             break;
+    }
+}
+
+
+void SocketClient::WriteNumericHeadersListConsolidatedCSV()
+{
+    if (m_NumValHeaders.size() != 0 && m_transmissionstart)
+    {
+        std::ostringstream csvBuilder;
+
+/// @todo path file name
+        std::string pathFile = "<path to file>"; // Replace with the desired file path
+        std::filesystem::path pathcsv = std::filesystem::current_path() / (pathFile + "_Philips_MPDataExport.csv");
+
+        uint32_t firstelementreltimestamp = std::stoi(m_NumericValList[0].Relativetimestamp);
+
+        for (size_t i = 0; i < m_NumValHeaders.size(); i++)
+        {
+            uint32_t elementreltime = std::stoi(m_NumericValList[i].Relativetimestamp);
+            if (elementreltime == firstelementreltimestamp)
+            {
+                csvBuilder << (m_NumValHeaders[i]);
+                csvBuilder << (',');
+            }
+            else
+            {
+                std::string csvstring = csvBuilder.str();
+
+                csvstring.insert(0, ",");
+                csvstring.insert(0, "SystemLocalTime");
+                csvstring.insert(0, ",");
+                csvstring.insert(0, "RelativeTime");
+                csvstring.insert(0, ",");
+                csvstring.insert(0, "Time");
+
+                csvstring = std::regex_replace(csvstring, std::regex(",,+"), ","); // Replace multiple consecutive commas with a single one (may occur in case of missing values)
+                csvstring += '\n';
+
+                ExportNumValListToCSVFile(pathcsv.string(), csvstring);
+
+                csvBuilder.clear();
+                m_NumValHeaders.erase(m_NumValHeaders.begin(), m_NumValHeaders.begin() + i);
+                m_transmissionstart = false;
+            }
+        }
+    }
+}
+
+
+void SocketClient::SaveNumericValueListConsolidatedCSV()
+{
+    // This method saves all numeric data with the same relative time attribute to a list in memory till
+    // the next data with a different relative time attribute arrives, only then the first set gets exported
+
+    if (!m_NumericValList.empty())
+    {
+        std::ostringstream csvBuilder;
+
+        WriteNumericHeadersListConsolidatedCSV();
+
+/// @todo path file name
+        std::string pathFile = "<path to file>"; // Replace with the desired file path
+        std::filesystem::path pathcsv = std::filesystem::current_path() / (pathFile + "_Philips_MPDataExport.csv");
+
+        uint32_t firstelementreltimestamp = std::stoi(m_NumericValList[0].Relativetimestamp);
+
+        for (size_t i = 0; i < m_NumericValList.size(); i++)
+        {
+            uint32_t elementreltime = std::stoi(m_NumericValList[i].Relativetimestamp);
+            if (elementreltime == firstelementreltimestamp)
+            {
+                AppendToCSVBuilder(csvBuilder, m_NumericValList[i].Timestamp, m_NumericValList[i].Relativetimestamp, m_NumericValList[i].SystemLocalTime, std::stod(m_NumericValList[i].Value));
+                csvBuilder << ',';
+            }
+            else
+            {
+                std::string csvstring = csvBuilder.str();
+
+                csvstring.insert(0, ",");
+                csvstring.insert(0, m_NumericValList[0].SystemLocalTime);
+                csvstring.insert(0, ",");
+                csvstring.insert(0, m_NumericValList[0].Relativetimestamp);
+                csvstring.insert(0, ",");
+                csvstring.insert(0, m_NumericValList[0].Timestamp);
+
+                csvstring = std::regex_replace(csvstring, std::regex(",,+"), ","); // Replace multiple consecutive commas with a single one (may occur in case of missing values)
+                csvstring += '\n';
+
+                ExportNumValListToCSVFile(pathcsv.string(), csvstring);
+                csvBuilder.clear();
+                m_NumericValList.erase(m_NumericValList.begin(), m_NumericValList.begin() + i);
+            }
+        }
     }
 }
 

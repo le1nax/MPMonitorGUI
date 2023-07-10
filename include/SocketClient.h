@@ -61,6 +61,9 @@ class SocketClient : public UDPSocket {
         void AppendToCSVBuilder(std::ostringstream& csvBuilder, const std::string& timestamp, const std::string& relativetimestamp, const std::string& systemLocalTime, double waveval);        tm m_baseDateTime{};
         void SaveNumericValueListRows();
         void WriteNumericHeadersList();
+        void SaveNumericValueListConsolidatedCSV();
+        void WriteNumericHeadersListConsolidatedCSV();
+        bool m_transmissionstart = TRUE;
         tm GetAbsoluteTimeFromBCDFormat(char* bcdtimebuffer);
         void AddTmMillseconds(tm& time, double millisecs);
 
