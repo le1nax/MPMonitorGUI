@@ -627,22 +627,19 @@ void SocketClient::PollPacketDecoder(char* packetbuffer, size_t headersize)
         }
         }
         }
-        /*  
-         if (m_dataexportset == 2) ExportNumValListToJSON("Numeric");
-        if (m_dataexportset == 3) ExportNumValListToMQTT("Numeric");
-        */
+
+        /* if (m_dataexportset == 2) ExportNumValListToJSON("Numeric");
+        if (m_dataexportset == 3) ExportNumValListToMQTT("Numeric"); */
+        
         if (m_dataexportset != 3)
         {
-        ///@todo
-        // ExportDataToCSV();
-        // ExportWaveToCSV();
+            ExportDataToCSV();
+            ExportWaveToCSV();
         }
+        
         //clear memory
-
-        ///@todo
-       // m_WaveValResultList.RemoveRange(0, m_WaveValResultList.Count);
+        m_WaveValResultList.clear();
     }
-
 }
 
 
