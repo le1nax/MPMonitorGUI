@@ -10,6 +10,7 @@
 #include <filesystem>
 #include <cmath>
 #include <vector>
+#include <regex>
 
 using namespace std;
 
@@ -653,14 +654,75 @@ void SocketClient::ExportDataToCSV()
         SaveNumericValueList();
         break;
         ///@todo 
-        // case 2:
-        //     SaveNumericValueListRows();
-        //     break;
+        case 2:
+            SaveNumericValueListRows();
+            break;
         // case 3:
         //     SaveNumericValueListConsolidatedCSV();
         //     break;
-        // default:
-        //     break;
+        default:
+            break;
+    }
+}
+
+
+void SocketClient::WriteNumericHeadersList()
+{
+    if (!m_NumericValList.empty())
+    {
+        std::ostringstream csvBuilder;
+
+/// @todo path file name
+        std::string pathFile = "<path to file>"; // Replace with the desired file path
+        std::filesystem::path pathcsv = std::filesystem::current_path() / (pathFile + "_Philips_MPDataExport.csv");
+
+        csvBuilder << "Time" << ',';
+        csvBuilder << "RelativeTime" << ',';
+        csvBuilder << "SystemLocalTime" << ',';
+
+        for (size_t i = 0; i < m_NumericValList.size(); i++) csvBuilder << m_NumericValList[i].PhysioID << ',';
+
+        std::string headers = csvBuilder.str();
+        headers.erase(headers.length() - 1, 1);  // Remove the trailing comma
+        headers = std::regex_replace(headers, std::regex(",,+"), ","); // Replace multiple consecutive commas with a single comma (may occur in case of missing values)
+        headers += '\n';
+
+        ExportNumValListToCSVFile(pathcsv.string(), headers);
+
+        csvBuilder.clear();
+        m_NumValHeaders.clear();
+    }
+}
+
+
+
+void SocketClient::SaveNumericValueListRows()
+{                
+    if (!m_NumericValList.empty())
+    {
+        std::ostringstream csvBuilder;
+
+        WriteNumericHeadersList();
+
+/// @todo path file name
+        std::string pathFile = "<path to file>"; // Replace with the desired file path
+        std::filesystem::path pathcsv = std::filesystem::current_path() / (pathFile + "_Philips_MPDataExport.csv");
+
+        // Append the first NumericValResult to csvBuilder
+        AppendToCSVBuilder(csvBuilder, m_NumericValList[0].Timestamp, m_NumericValList[0].Relativetimestamp, m_NumericValList[0].SystemLocalTime, std::stod(m_NumericValList[0].Value));
+
+        // Append the remaining NumericValResults to m_strbuildvalues
+        for (size_t i = 1; i < m_NumericValList.size(); i++)
+        {
+            csvBuilder << ",";
+            AppendToCSVBuilder(csvBuilder, m_NumericValList[i].Timestamp, m_NumericValList[i].Relativetimestamp, m_NumericValList[i].SystemLocalTime, std::stod(m_NumericValList[i].Value));
+        }
+
+        csvBuilder << '\n';
+
+        ExportNumValListToCSVFile(pathcsv.string(), csvBuilder.str());
+        csvBuilder.str("");
+        m_NumericValList.clear();
     }
 }
 
