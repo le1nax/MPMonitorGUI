@@ -6,6 +6,10 @@
 #include <cstdint>
 #include <iomanip>
 #include <algorithm>
+#include <string>
+#include <filesystem>
+#include <cmath>
+#include <vector>
 
 using namespace std;
 
@@ -440,94 +444,290 @@ void SocketClient::CheckPollPacketActionType(char* buffer)
 }
 
 void SocketClient::PollPacketDecoder(char* packetbuffer, size_t headersize)
-    {
-        size_t packetsize = sizeof(packetbuffer);
+{
+    size_t packetsize = sizeof(packetbuffer);
 
-        char* packetdata = ReadBytesFromBuffer(packetbuffer, headersize, packetsize-headersize);
+    char* packetdata = ReadBytesFromBuffer(packetbuffer, headersize, packetsize-headersize);
 
-        ///@todo 
-        //m_strTimestamp = GetPacketTimestamp(header);
+    ///@todo 
+    //m_strTimestamp = GetPacketTimestamp(header);
 
-        //DateTime dtDateTime = DateTime.Now;
-        // uint currentRelativeTime = UInt32.Parse(m_strTimestamp);
-        // DateTime dtDateTime = GetAbsoluteTimeFromRelativeTimestamp(currentRelativeTime);
+    //DateTime dtDateTime = DateTime.Now;
+    // uint currentRelativeTime = UInt32.Parse(m_strTimestamp);
+    // DateTime dtDateTime = GetAbsoluteTimeFromRelativeTimestamp(currentRelativeTime);
 
-        // string strDateTime = dtDateTime.ToString("dd-MM-yyyy HH:mm:ss.fff", CultureInfo.InvariantCulture);
-        //Console.WriteLine("Time:{0}", strDateTime);
-        //Console.WriteLine("Time:{0}", m_strTimestamp);
+    // string strDateTime = dtDateTime.ToString("dd-MM-yyyy HH:mm:ss.fff", CultureInfo.InvariantCulture);
+    //Console.WriteLine("Time:{0}", strDateTime);
+    //Console.WriteLine("Time:{0}", m_strTimestamp);
 
 
-        //ParsePacketType
+    //ParsePacketType
 
-        PollInfoList* pollobjects;
+    PollInfoList* pollobjects;
 
-        int scpollobjectscount = DecodePollObjects(pollobjects, packetdata);
+    int scpollobjectscount = DecodePollObjects(pollobjects, packetdata);
 
-        if (scpollobjectscount > 0)
+    if (scpollobjectscount > 0)
+        {
+            for (int i = 0; i < scpollobjectscount; i++)
             {
-                for (int i = 0; i < scpollobjectscount; i++)
+
+                SingleContextPoll* scpoll;
+                int obpollobjectscount = DecodeSingleContextPollObjects(scpoll, pollobjects->scpollarray);
+
+                if (obpollobjectscount > 0)
                 {
-
-                    SingleContextPoll* scpoll;
-                    int obpollobjectscount = DecodeSingleContextPollObjects(scpoll, pollobjects->scpollarray);
-
-                    if (obpollobjectscount > 0)
+                    for (int j = 0; j < obpollobjectscount; j++)
                     {
-                        for (int j = 0; j < obpollobjectscount; j++)
+
+                        ObservationPoll* obpollobject;
+                        int avaobjectscount = DecodeObservationPollObjects(obpollobject, scpoll->obpollobjectsarray);
+
+                        if (avaobjectscount > 0)
                         {
 
-                            ObservationPoll* obpollobject;
-                            int avaobjectscount = DecodeObservationPollObjects(obpollobject, scpoll->obpollobjectsarray);
-
-                            if (avaobjectscount > 0)
+                            for (int k = 0; k < avaobjectscount; k++)
                             {
-
-                                for (int k = 0; k < avaobjectscount; k++)
-                                {
-                                    DecodeAvaObjects(move(make_unique<AvaObj>()), obpollobject->avaobjectsarray);
-                                }
-
+                                DecodeAvaObjects(move(make_unique<AvaObj>()), obpollobject->avaobjectsarray);
                             }
+
                         }
                     }
                 }
-                /*
-                if (m_dataexportset == 2) ExportNumValListToJSON("Numeric");
-                if (m_dataexportset == 3) ExportNumValListToMQTT("Numeric");
-                */
-                if (m_dataexportset != 3)
-                {
-                    ///@todo
-                    // ExportDataToCSV();
-                    // ExportWaveToCSV();
-                }
-                //clear memory
-
-                ///@todo
-               // m_WaveValResultList.RemoveRange(0, m_WaveValResultList.Count);
             }
+            /*
+            if (m_dataexportset == 2) ExportNumValListToJSON("Numeric");
+            if (m_dataexportset == 3) ExportNumValListToMQTT("Numeric");
+            */
+            if (m_dataexportset != 3)
+            {
+                ///@todo
+                // ExportDataToCSV();
+                // ExportWaveToCSV();
+            }
+            //clear memory
 
-    }
+            ///@todo
+            // m_WaveValResultList.RemoveRange(0, m_WaveValResultList.Count);
+        }
+
+}
 
 
 void SocketClient::ExportDataToCSV()
+{
+    switch (m_csvexportset)
+    {
+        case 1:
+            SaveNumericValueList();
+            break;
+            ///@todo 
+        // case 2:
+        //     SaveNumericValueListRows();
+        //     break;
+        // case 3:
+        //     SaveNumericValueListConsolidatedCSV();
+        //     break;
+        // default:
+        //     break;
+    }
+}
+
+
+int SocketClient::CreateMask(int significantbits)
+{
+    //set the corresponding bits in the mask by performing bitwise OR operations with the bit shift (1 << i)
+    int mask = 0;
+
+    for (int i = 0; i < significantbits; i++) mask |= (1 << i); //|= bitwise OR operation 
+
+    return mask;
+}
+
+
+unsigned char SocketClient::ConvertToByte(int value)
+{
+    if (value >= 0 && value <= 255)
+    {
+        return static_cast<unsigned char>(value);
+    }
+    else if (value < 0)
+    {
+        return 0;
+    }
+    else
+    {
+        return 255;
+    }
+}
+
+
+bool SocketClient::IsLittleEndian()
+{
+    unsigned int value = 0x01;
+    unsigned char* bytePtr = reinterpret_cast<unsigned char*>(&value);
+    return (bytePtr[0] == 0x01);
+}
+
+
+double SocketClient::CalibrateSaValue(double Waveval, SaCalibData16 sacalibdata)
+{
+    if (!std::isnan(Waveval))
+    {
+        if (sacalibdata.lower_scaled_value != sacalibdata.upper_scaled_value)
         {
-            switch (m_csvexportset)
+            double prop = (Waveval - sacalibdata.lower_scaled_value) / static_cast<double>(sacalibdata.upper_scaled_value - sacalibdata.lower_scaled_value);
+            double value = sacalibdata.lower_absolute_value + (prop * (sacalibdata.upper_absolute_value - sacalibdata.lower_absolute_value));
+            value = round(value * 100) / 100; // Round to 2 decimal places
+            return value;
+        }
+        else
+        {
+            return Waveval; // If upper and lower scaled value is the same
+        }
+    }
+    else
+    {
+        return Waveval;
+    }
+}
+
+
+double SocketClient::ScaleRangeSaValue(double Waveval, ScaleRangeSpec16 sascaledata)
+{
+    if (!std::isnan(Waveval))
+    {
+        double prop = 0;
+        double value = 0;
+        double Wavevalue = Waveval;
+
+        // Check if value is out of range
+        if (Waveval > sascaledata.upper_scaled_value)
+            Waveval = sascaledata.upper_scaled_value;
+        if (Waveval < sascaledata.lower_scaled_value)
+            Waveval = sascaledata.lower_scaled_value;
+
+        // Get proportion from scaled values
+        if (sascaledata.upper_scaled_value != sascaledata.lower_scaled_value)
+        {
+            prop = (Waveval - sascaledata.lower_scaled_value) / static_cast<double>(sascaledata.upper_scaled_value - sascaledata.lower_scaled_value);
+        }
+        if (sascaledata.upper_absolute_value != sascaledata.lower_absolute_value)
+        {
+            value = sascaledata.lower_absolute_value + (prop * (sascaledata.upper_absolute_value - sascaledata.lower_absolute_value));
+            value = round(value * 100) / 100; // Round to 2 decimal places
+        }
+        else
+        {
+            return Waveval; // If upper and lower absolute value is NaN
+        }
+
+        Wavevalue = value;
+        return Wavevalue;
+    }
+    else
+    {
+        return Waveval;
+    }
+}
+
+
+void SocketClient::ExportNumValListToCSVFile(const std::string& filePath, const std::string& data)
+{
+    std::ofstream outputFile(filePath);
+    if (outputFile)
+    {
+        outputFile << data;
+        outputFile.close();
+        std::cout << "Data exported to CSV file successfully." << std::endl;
+    }
+    else
+    {
+        std::cerr << "Failed to open output file." << std::endl;
+    }
+}
+
+
+void SocketClient::AppendToCSVBuilder(std::ostringstream& csvBuilder, const std::string& timestamp, const std::string& relativetimestamp, const std::string& systemLocalTime, double waveval)
+{
+    csvBuilder << timestamp << ',';
+    csvBuilder << relativetimestamp << ',';
+    csvBuilder << systemLocalTime << ',';
+    csvBuilder << waveval << ',';
+    csvBuilder << '\n';
+}
+
+
+void SocketClient::ExportWaveToCSV()
+{
+    int wavevallistcount = m_WaveValResultList.size();
+    
+    if (wavevallistcount != 0)
+    {
+        for(auto& WavValResult : m_WaveValResultList)
+        {
+            if (WavValResult.PhysioID == "NOM_PLETH")
             {
-                case 1:
-                    SaveNumericValueList();
-                    break;
-                    ///@todo 
-                // case 2:
-                //     SaveNumericValueListRows();
-                //     break;
-                // case 3:
-                //     SaveNumericValueListConsolidatedCSV();
-                //     break;
-                // default:
-                //     break;
+                std::string WavValID = WavValResult.PhysioID + "WaveExport.csv";
+                    
+                std::string pathcsv = std::filesystem::current_path().string() + "\\_Philips_" + WavValID;
+    
+                int wavvalarraylength = sizeof(WavValResult.Value);
+
+                std::ostringstream csvBuilder;
+
+                for (int i = 0; i < wavvalarraylength; i++)
+                {
+                    //Data sample size is 16 bits, but the significant bits represent actual sample value
+
+                    //Read both data bytes into msb and lsb
+                    unsigned char msb = WavValResult.Value[i];
+                    unsigned char lsb = WavValResult.Value[i+1];
+
+                    int msbval = msb;
+                    
+                    //mask depends on no. of significant bits
+                    //int mask = 0x3FFF; //mask for 14 bits
+                    int mask = CreateMask(static_cast<int>(WavValResult.saSpecData.significant_bits));
+
+                    //int shift = (m_sample_size-8);
+                    int msbshift = (msb << 8);
+
+                    if (WavValResult.saSpecData.SaFlags < 0x4000)
+                    {
+                        msbval = (msbshift & mask);
+                        msbval = (msbval >> 8);
+                    }
+                    else msbval = msb;
+                    msb = ConvertToByte(msbval);
+
+                    unsigned char data[] = { msb, lsb };
+                    if (IsLittleEndian()) std::reverse(data, data + 2);
+
+                    int16_t Waveval = static_cast<short>((data[1] << 8) | data[0]); // corresponds to double Waveval = BitConverter.ToInt16(data, 0);
+
+                    if (WavValResult.saSpecData.SaFlags != 0x2000 && m_calibratewavevalues == true)
+                    {
+                        Waveval = CalibrateSaValue(Waveval, WavValResult.saCalibData);
+                        //Using scale and range specification by default, values are different from optional SaCalibData
+                        Waveval = ScaleRangeSaValue(Waveval, WavValResult.ScaleRangeSpec16);
+                    }
+    
+                    std::string WavevalString = std::to_string(Waveval);
+
+                    AppendToCSVBuilder(csvBuilder, WavValResult.Timestamp, WavValResult.Relativetimestamp, WavValResult.SystemLocalTime, Waveval);
+
+                }
+
+                ExportNumValListToCSVFile(pathcsv, csvBuilder.str());
+
             }
         }
+
+        m_WaveValResultList.erase(m_WaveValResultList.begin(), m_WaveValResultList.begin() + wavevallistcount);
+
+    }
+}
 
 void SocketClient::SaveNumericValueList()
         {
@@ -864,11 +1064,10 @@ void SocketClient::ReadWaveSaObservationValue(char* buffer)
 
             }
 
-            WaveVal.Value = wavevalobjectslength;
-           
-            ///@todo schauen ob die beiden Zeilen äquivalten sind
-             //Array.Copy(WaveValObjects, WaveVal.Value, wavevalobjectslength);
-            std::memcpy(reinterpret_cast<void*>(WaveVal.Value), reinterpret_cast<void*>(WaveValObjects), wavevalobjectslength);
+            WaveVal.Value = std::vector<uint8_t>(wavevalobjectslength);
+
+            std::copy(WaveValObjects, WaveValObjects + wavevalobjectslength, WaveVal.Value.begin());
+
 
             //Find the Sample array specification definition that matches the observation sample array size
 

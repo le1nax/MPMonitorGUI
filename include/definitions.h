@@ -1497,7 +1497,7 @@ struct GlbHandle
 		std::string Relativetimestamp;
 		std::string SystemLocalTime;
 		std::string PhysioID;
-		uint8_t Value;
+		std::vector<uint8_t> Value;
 		std::string DeviceID;
 		uint16_t obpoll_handle;
 		SaSpec saSpecData;

@@ -51,7 +51,14 @@ class SocketClient : public UDPSocket {
         std::vector<ScaleRangeSpec16> m_ScaleRangeSpecList;
         std::vector<SaSpec> m_SaSpecList;
         std::vector<WaveValResult> m_WaveValResultList;
-        tm m_baseDateTime{};
+        int CreateMask(int significantbits);
+        unsigned char ConvertToByte(int value);
+        bool IsLittleEndian();
+        bool m_calibratewavevalues;
+        double CalibrateSaValue(double Waveval, SaCalibData16 sacalibdata);
+        double ScaleRangeSaValue(double Waveval, ScaleRangeSpec16 sascaledata);
+        void ExportNumValListToCSVFile(const std::string& filePath, const std::string& data);
+        void AppendToCSVBuilder(std::ostringstream& csvBuilder, const std::string& timestamp, const std::string& relativetimestamp, const std::string& systemLocalTime, double waveval);        tm m_baseDateTime{};
         tm GetAbsoluteTimeFromBCDFormat(char* bcdtimebuffer);
 
         void initMsgs();
@@ -114,6 +121,7 @@ class SocketClient : public UDPSocket {
         void SendCycledExtendedPollDataRequest(size_t nInterval);
         void SendCycledExtendedPollWaveDataRequest(size_t nInterval);
         void ExportDataToCSV();
+        void ExportWaveToCSV();
         void CreateWaveformSet(size_t nWaveSetType, std::vector<std::byte> WaveTrtype);
         void GetRTSAPriorityListRequest();
         void SetRTSAPriorityList(size_t nWaveSetType);
