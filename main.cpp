@@ -57,50 +57,50 @@ using namespace std;
 //     return 0;
 // }
 
-// int main()
-// {
-//     try
-//    {
-//         unique_ptr<WSASession> Session = make_unique<WSASession>();
-
-//         const std::string s_remoteIP = REMOTEIP;
-//         const unsigned short remotePort = REMOTEPORT;
-//         unique_ptr<SocketClient> client = make_unique<SocketClient>(s_remoteIP, remotePort);
-
-        // client->establishLanConnection();
-//     }
-//     catch (std::exception &ex) //catch any occurring system errors
-//     {
-//         std::cout << ex.what();  //print error message
-//     }
-
-//     std::cin.get();
-
-//     return 0;
-// }
-
 int main()
 {
     try
    {
         unique_ptr<WSASession> Session = make_unique<WSASession>();
 
-        const std::string s_remoteIP = LOCALIP;
-        const unsigned short remotePort = LOCALPORT;
+        const std::string s_remoteIP = REMOTEIP;
+        const unsigned short remotePort = REMOTEPORT;
         unique_ptr<SocketClient> client = make_unique<SocketClient>(s_remoteIP, remotePort);
 
-        client->SendWaveAssociationRequest();
-        std::cout << "sent" << std::endl;
-        // std::cin.get();// Wait for user input before exiting
-        char buffer[maxbuffersize];
-        std::cout << "begin receive" << std::endl;
-        client->Receive(buffer);
+        client->establishLanConnection();
     }
     catch (std::exception &ex) //catch any occurring system errors
     {
         std::cout << ex.what();  //print error message
     }
+
+    std::cin.get();
+
     return 0;
 }
+
+// int main()
+// {
+//     try
+//    {
+//         unique_ptr<WSASession> Session = make_unique<WSASession>();
+
+//         const std::string s_remoteIP = LOCALIP;
+//         const unsigned short remotePort = LOCALPORT;
+//         unique_ptr<SocketClient> client = make_unique<SocketClient>(s_remoteIP, remotePort);
+
+//         client->SendWaveAssociationRequest();
+//         std::cout << "sent" << std::endl;
+//         // std::cin.get();// Wait for user input before exiting
+//         char buffer[maxbuffersize];
+//         std::cout << "begin receive" << std::endl;
+//         client->Receive(buffer);
+//     }
+//     catch (std::exception &ex) //catch any occurring system errors
+//     {
+//         std::cout << ex.what();  //print error message
+//     }
+//     return 0;
+// }
 
 

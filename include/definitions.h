@@ -7,11 +7,13 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <map>
 #include <memory>
 #include <cstring>
 #include <codecvt>
 #include <locale>
+#include <iomanip>
 
 
 constexpr int FLOATTYPE_NAN = 0x007FFFFF;
@@ -109,6 +111,25 @@ static size_t ReadByteValuesFromBuffer(const char* buffer, size_t startIndex, si
     } catch(...) {
         std::throw_with_nested(std::runtime_error("Failed to read: " + *buffer));
     }
+}
+
+static std::string formatTm(const struct tm& timeInfo) {
+    std::ostringstream oss;
+
+    oss << std::setfill('0');  // Set fill character to '0'
+
+    // Format date components: dd-MM-yyyy
+    oss << std::setw(2) << timeInfo.tm_mday << "-"
+        << std::setw(2) << (timeInfo.tm_mon + 1) << "-"
+        << std::setw(4) << (timeInfo.tm_year + 1900) << " ";
+
+    // Format time components: HH:mm:ss.fff
+    oss << std::setw(2) << timeInfo.tm_hour << ":"
+        << std::setw(2) << timeInfo.tm_min << ":"
+        << std::setw(2) << timeInfo.tm_sec << "."
+        << std::setw(3) << 0 << std::setfill('0');  // Fill milliseconds with '0'
+
+    return oss.str();
 }
 
 static int BinaryCodedDecimalToInteger(int value)
@@ -1720,6 +1741,16 @@ struct GlbHandle
     };
 
 
+
+    struct PollMdibDataReply
+    {
+        uint16_t poll_number;
+        uint32_t rel_time_stamp;
+        tm abs_time_stamp;
+        ObjectType type;
+        uint16_t polled_attr_grp;
+    };
+
     struct SinglePollLinkedPacketResult
     {
 		
@@ -1727,7 +1758,7 @@ struct GlbHandle
          ROapdus remoteop_hdr;
          RORLSapdu remoteop_cmd;
          ActionResult action_result;
-         //PollMdibDataReply mdib_data;
+         PollMdibDataReply mdib_data;
          PollInfoList pollinfo_list; //null placeholder
 
     };
@@ -1750,7 +1781,7 @@ struct GlbHandle
          ROapdus remoteop_hdr;
          RORSapdu remoteop_cmd;
          ActionResult action_result;
-         //PollMdibDataReply mdib_data;
+         PollMdibDataReply mdib_data;
          PollInfoList pollinfo_list; //null placeholder
 
     };

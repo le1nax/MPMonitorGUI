@@ -60,6 +60,7 @@ class SocketClient : public UDPSocket {
         void ExportNumValListToCSVFile(const std::string& filePath, const std::string& data);
         void AppendToCSVBuilder(std::ostringstream& csvBuilder, const std::string& timestamp, const std::string& relativetimestamp, const std::string& systemLocalTime, double waveval);        tm m_baseDateTime{};
         tm GetAbsoluteTimeFromBCDFormat(char* bcdtimebuffer);
+        void AddTmMillseconds(tm& time, double millisecs);
 
         void initMsgs();
         public:
@@ -110,6 +111,8 @@ class SocketClient : public UDPSocket {
         void ReadSaCalibrationSpecifications(char* buffer);
         void ReadWaveSaObservationValue(char* buffer);
         
+        std::string GetPacketTimestamp(char* header, uint16_t headersize);
+        tm GetAbsoluteTimeFromRelativeTimestamp(uint32_t currentRelativeTime);
         void DecodeAvaObjects(std::unique_ptr<AvaObj> avaObj, char* buffer);
         void PollPacketDecoder(char* packetbuffer, size_t headersize);
         void ParseMDSCreateEventReport(char* buffer);
