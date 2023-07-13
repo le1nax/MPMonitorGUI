@@ -6,7 +6,7 @@
 #define RECEIVEINTERVAL 500 // koennen den receive thread nicht komplett durchlaufen lassen weil wir keinen echten Parallelismus haben
 
 
-
+/// @brief The SocketClient class is derived from the UDPSocket class and implements the UDP client connecting to the patient monitor and processing the received data
 class SocketClient : public UDPSocket {
 
     public:

@@ -14,6 +14,9 @@
 
 using namespace std;
 
+/// @brief Constructor of class SocketClient
+/// @param remoteIPtarget the IP address to send to
+/// @param remotePortTarget the port of the target address
 /// @todo Konstruktor soll die membervariablen initialisieren
 SocketClient::SocketClient(std::string remoteIPtarget, const unsigned short remotePortTarget) : 
     UDPSocket(), m_remoteIPtarget(remoteIPtarget), m_port(remotePortTarget) //, m_udpState(*this)
@@ -44,11 +47,14 @@ SocketClient::SocketClient(std::string remoteIPtarget, const unsigned short remo
     std::cout << "Created and initialised client" << std::endl;
 }
 
+/// @brief a getter method for the SOCKET sock
+/// @return the SOCKET sock
 SOCKET SocketClient::getSocket()
 {
     return sock;
 }
 
+/// @brief a method to initialise the possible messages with their corresponding bytes
 void SocketClient::initMsgs()
 {
     aarq_ms = make_bytes(
@@ -274,6 +280,8 @@ aarq_msg_wave_ext_poll2 =
 
 }
 
+/// @brief a method to send the specified bytes to the target address by putting them in a buffer and sending them via SendTO()
+/// @param bytes the bytes to be sent
 void SocketClient::sendBytes(vector<std::byte> bytes)
 {
      ///@todo prüfen ob das funktioniert
@@ -283,11 +291,14 @@ void SocketClient::sendBytes(vector<std::byte> bytes)
     uint32_t numBytesSent = SendTo(m_sa_remoteIPtarget, charBytes, len, 0);
 }
 
+/// @brief a method that sends a Wave Association Request by sending the corresponding bytes via sendBytes()
 void SocketClient::SendWaveAssociationRequest()
 {
     sendBytes(aarq_msg_wave_ext_poll2);
 }
 
+/// @brief the method that is called whenever data is received from the monitor to categorise, decode and process the received data
+/// @param buffer the buffer with the received data
 void SocketClient::ProcessPacket(char* buffer)
 {
     //size_t session_head_size = sizeof(4bytes)
@@ -316,6 +327,8 @@ void SocketClient::ProcessPacket(char* buffer)
     std::cout << "finished ProcessPacket" << std::endl;
 }
 
+/// @brief a method that is called as part of the ProcessPacket() function to further categorise, decode and process the received data
+/// @param buffer the buffer with the receieved data
 void SocketClient::CheckLinkedPollPacketActionType(char* buffer)
 {
         char* header = ReadBytesFromBuffer(buffer, 0, 22);
@@ -335,6 +348,9 @@ void SocketClient::CheckLinkedPollPacketActionType(char* buffer)
         }
 }
 
+/// @todo doxygen
+/// @brief a method that is called as part of the ProcessPacket() function to further categorise, decode and process the received data
+/// @param buffer the buffer with the receieved data
 void SocketClient::ParseMDSCreateEventReport(char* buffer)
 {
     //size_t header_size = sizeof(34bytes)
@@ -356,6 +372,8 @@ void SocketClient::ParseMDSCreateEventReport(char* buffer)
 
 }
 
+
+/// @todo doxygen 
 void SocketClient::DecodeMDSAttribObjects(unique_ptr<AvaObj> avaobject, char* attriblistobjects_buffer, size_t avaObjCount)
 {
 
@@ -391,11 +409,15 @@ void SocketClient::DecodeMDSAttribObjects(unique_ptr<AvaObj> avaobject, char* at
     }
 }
 
+
+/// @todo doxygen
 void SocketClient::GetBaselineRelativeTimestamp(char* bcdtimebuffer)
 {
     m_baseRelativeTime = htons(int(ReadByteValuesFromBuffer(bcdtimebuffer, 0, sizeof(bcdtimebuffer))));
 }
 
+
+/// @todo doxygen
 tm SocketClient::GetAbsoluteTimeFromBCDFormat(char* bcdtimebuffer)
     {
         ///@todo vielleicht anderen struct als tm benutzen
@@ -424,6 +446,7 @@ tm SocketClient::GetAbsoluteTimeFromBCDFormat(char* bcdtimebuffer)
     }
     
 
+/// @todo doxygen
 void SocketClient::CheckPollPacketActionType(char* buffer)
 {
     size_t header_size = 20;
@@ -444,6 +467,8 @@ void SocketClient::CheckPollPacketActionType(char* buffer)
 
 }
 
+
+/// @todo doxygen
 std::string SocketClient::GetPacketTimestamp(char* header, uint16_t headersize)
 {
     int pollmdibdatareplysize = 20;
@@ -519,6 +544,8 @@ std::string SocketClient::GetPacketTimestamp(char* header, uint16_t headersize)
     return strRelativeTime;
 }
 
+
+/// @todo doxygen
 tm SocketClient::GetAbsoluteTimeFromRelativeTimestamp(uint32_t currentRelativeTime)
 {
     double ElapsedTimeMilliseconds = abs(((double)currentRelativeTime - (double)m_baseRelativeTime) * 125 / 1000);
@@ -529,6 +556,8 @@ tm SocketClient::GetAbsoluteTimeFromRelativeTimestamp(uint32_t currentRelativeTi
     return dtDateTime;
 }
 
+
+/// @todo doxygen
 void SocketClient::AddTmMillseconds(tm& timeInfo, double milliseconds) 
 {
     // Convert milliseconds to seconds
@@ -576,6 +605,8 @@ void SocketClient::AddTmMillseconds(tm& timeInfo, double milliseconds)
     // (e.g., tm_wday, tm_yday, tm_isdst)
 }
 
+
+/// @todo doxygen
 void SocketClient::PollPacketDecoder(char* packetbuffer, size_t headersize)
     {
     size_t packetsize = sizeof(packetbuffer);
@@ -643,6 +674,7 @@ void SocketClient::PollPacketDecoder(char* packetbuffer, size_t headersize)
 }
 
 
+/// @brief a method to export the data to a csv file in different formats depending on the value of m_csvexportset
 void SocketClient::ExportDataToCSV()
 {
     switch (m_csvexportset)
@@ -662,6 +694,7 @@ void SocketClient::ExportDataToCSV()
 }
 
 
+/// @brief a method to write the headers for the csv file of the exported data at transmission start
 void SocketClient::WriteNumericHeadersListConsolidatedCSV()
 {
     if (m_NumValHeaders.size() != 0 && m_transmissionstart)
@@ -707,6 +740,7 @@ void SocketClient::WriteNumericHeadersListConsolidatedCSV()
 }
 
 
+/// @brief a method to write the numeric values for the csv file of the exported data
 void SocketClient::SaveNumericValueListConsolidatedCSV()
 {
     // This method saves all numeric data with the same relative time attribute to a list in memory till
@@ -755,6 +789,7 @@ void SocketClient::SaveNumericValueListConsolidatedCSV()
 }
 
 
+/// @brief a method to write the headers for the csv file of the exported data
 void SocketClient::WriteNumericHeadersList()
 {
     if (!m_NumericValList.empty())
@@ -784,7 +819,7 @@ void SocketClient::WriteNumericHeadersList()
 }
 
 
-
+/// @brief one case of ExportDataToCSV which is to export the data to a csv file in different formats depending on the value of m_csvexportset
 void SocketClient::SaveNumericValueListRows()
 {                
     if (!m_NumericValList.empty())
@@ -816,6 +851,9 @@ void SocketClient::SaveNumericValueListRows()
 }
 
 
+/// @brief a method to create a mask for only the significant bits, here mainly for creating a mask for the msb
+/// @param significantbits the significant bits
+/// @return the mask
 int SocketClient::CreateMask(int significantbits)
 {
     //set the corresponding bits in the mask by performing bitwise OR operations with the bit shift (1 << i)
@@ -827,6 +865,9 @@ int SocketClient::CreateMask(int significantbits)
 }
 
 
+/// @brief a method to convert int to unsigned char
+/// @param value the int value to be converted
+/// @return the unsgined char
 unsigned char SocketClient::ConvertToByte(int value)
 {
     if (value >= 0 && value <= 255)
@@ -844,6 +885,8 @@ unsigned char SocketClient::ConvertToByte(int value)
 }
 
 
+/// @brief a method to check if data is in little endian format
+/// @return true if it is little endian
 bool SocketClient::IsLittleEndian()
 {
     unsigned int value = 0x01;
@@ -852,6 +895,10 @@ bool SocketClient::IsLittleEndian()
 }
 
 
+/// @brief a method to calibrate the received wave values according to SaCalibData16
+/// @param Waveval the wave value to be calibrated
+/// @param sacalibdata the calibration parameters
+/// @return the calibrated Wave value
 double SocketClient::CalibrateSaValue(double Waveval, SaCalibData16 sacalibdata)
 {
     if (!std::isnan(Waveval))
@@ -875,6 +922,10 @@ double SocketClient::CalibrateSaValue(double Waveval, SaCalibData16 sacalibdata)
 }
 
 
+/// @brief a method to scale the received wave values according to ScaleRangeSpec16
+/// @param Waveval the wave value to be scaled
+/// @param sascaledata the scaling parameters
+/// @return the scaled wave value
 double SocketClient::ScaleRangeSaValue(double Waveval, ScaleRangeSpec16 sascaledata)
 {
     if (!std::isnan(Waveval))
@@ -914,6 +965,9 @@ double SocketClient::ScaleRangeSaValue(double Waveval, ScaleRangeSpec16 sascaled
 }
 
 
+/// @brief a method to export numeric and wave data to the csv file
+/// @param filePath the file path to the csv file
+/// @param data the data to be exported
 void SocketClient::ExportNumValListToCSVFile(const std::string& filePath, const std::string& data)
 {
     std::ofstream outputFile(filePath);
@@ -930,6 +984,12 @@ void SocketClient::ExportNumValListToCSVFile(const std::string& filePath, const 
 }
 
 
+/// @brief a method for adding to the CSVBuilder for exporting data to a csv file
+/// @param csvBuilder the CSVBuilder
+/// @param timestamp the timestamp to be exported
+/// @param relativetimestamp the relativetimestamp to be exported
+/// @param systemLocalTime the systemLocalTime to be exported
+/// @param waveval the wavevalue to be exported
 void SocketClient::AppendToCSVBuilder(std::ostringstream& csvBuilder, const std::string& timestamp, const std::string& relativetimestamp, const std::string& systemLocalTime, double waveval)
 {
     csvBuilder << timestamp << ',';
@@ -940,6 +1000,7 @@ void SocketClient::AppendToCSVBuilder(std::ostringstream& csvBuilder, const std:
 }
 
 
+/// @brief a method to export wave data to a csv file
 void SocketClient::ExportWaveToCSV()
 {
     int wavevallistcount = m_WaveValResultList.size();
@@ -1010,6 +1071,8 @@ void SocketClient::ExportWaveToCSV()
     }
 }
 
+
+/// @brief one case of ExportDataToCSV which is to export the data to a csv file in different formats depending on the value of m_csvexportset
 void SocketClient::SaveNumericValueList()
 {
     if (m_NumericValList.empty() != 0)
@@ -1043,6 +1106,8 @@ void SocketClient::SaveNumericValueList()
     }
 }
 
+
+/// @todo doxygen
 void SocketClient::DecodeAvaObjects(unique_ptr<AvaObj> avaobject, char* buffer)
 {
     avaobject->attribute_id = htons(Read16ByteValuesFromBuffer(buffer, 0));
@@ -1093,10 +1158,17 @@ void SocketClient::DecodeAvaObjects(unique_ptr<AvaObj> avaobject, char* buffer)
         }
     }
 }
+
+
+/// @todo doxygen
 void SocketClient::ReadIDLabel(char* buffer)
 {
     m_idlabelhandle = htons(Read16ByteValuesFromBuffer(buffer, 0));
 }
+
+
+/// @brief a method to read numeric observation values from the buffer
+/// @param buffer the buffer
 void SocketClient::ReadNumericObservationValue(char* buffer)
 {
     NuObsValue NumObjectValue;
@@ -1172,6 +1244,8 @@ void SocketClient::ReadNumericObservationValue(char* buffer)
     //Console.WriteLine();
 }
 
+
+/// @todo doxygen
 void SocketClient::ReadCompoundNumericObsValue(char* buffer)
     {
 
@@ -1193,6 +1267,8 @@ void SocketClient::ReadCompoundNumericObsValue(char* buffer)
 
     }
 
+
+/// @todo doxygen
 void SocketClient::ReadIDLabelString(char* buffer)
     {
     StringMP strmp;
@@ -1209,6 +1285,8 @@ void SocketClient::ReadIDLabelString(char* buffer)
     AddIDLabelToList();
     }
 
+
+/// @todo doxygen
 void SocketClient::AddIDLabelToList()
     {
     IDLabel cIDLabel;
@@ -1237,11 +1315,16 @@ void SocketClient::AddIDLabelToList()
     }
     }
 
+
+/// @todo doxygen
 void SocketClient::ReadWaveSaObservationValueObject(char* avaattribobjects)
     {
     ReadWaveSaObservationValue(avaattribobjects);
     }
 
+
+/// @brief a method to read wave observation values from the buffer
+/// @param buffer the buffer
 void SocketClient::ReadWaveSaObservationValue(char* buffer)
     {
     SaObsValue WaveSaObjectValue;
@@ -1408,6 +1491,8 @@ void SocketClient::ReadWaveSaObservationValue(char* buffer)
 
     }
 
+
+/// @todo doxygen
 void SocketClient::ReadCompoundWaveSaObservationValue(char* buffer)
 {
         SaObsValueCmp WaveSaObjectValueCmp;
@@ -1427,6 +1512,9 @@ void SocketClient::ReadCompoundWaveSaObservationValue(char* buffer)
         }
         }
 }
+
+
+/// @todo doxygen
 void SocketClient::ReadSaSpecifications(char* buffer)
 {
         SaSpec Saspecobj;
@@ -1457,6 +1545,9 @@ void SocketClient::ReadSaSpecifications(char* buffer)
         }
 }
 
+
+/// @brief a method to read the Scaling Specifications from the buffer and set them for scaling later
+/// @param buffer the buffer
 void SocketClient::ReadSaScaleSpecifications(char* buffer)
 {
         ScaleRangeSpec16 ScaleSpec;
@@ -1488,6 +1579,10 @@ void SocketClient::ReadSaScaleSpecifications(char* buffer)
         }
         
 }
+
+
+/// @brief a method to read the Calibration Specifications from the buffer and set them for calibrating later
+/// @param buffer the buffer
 void SocketClient::ReadSaCalibrationSpecifications(char* buffer)
 {
         SaCalibData16 SaCalibData;
@@ -1524,6 +1619,7 @@ void SocketClient::ReadSaCalibrationSpecifications(char* buffer)
 }
 
 
+/// @todo doxygen
 int SocketClient::DecodeSingleContextPollObjects(SingleContextPoll* scpoll, char* buffer)
 {
     scpoll->context_id = htons(Read16ByteValuesFromBuffer(buffer, 0));
@@ -1541,6 +1637,8 @@ int SocketClient::DecodeSingleContextPollObjects(SingleContextPoll* scpoll, char
         return obpollobjectscount;
 }
 
+
+/// @todo doxygen
 int SocketClient::DecodeObservationPollObjects(ObservationPoll* obpollobject, char* buffer)
 {
     obpollobject->obj_handle = htons(Read16ByteValuesFromBuffer(buffer, 0));
@@ -1565,7 +1663,7 @@ int SocketClient::DecodeObservationPollObjects(ObservationPoll* obpollobject, ch
 }
 
 
-
+/// @todo doxygen
 int SocketClient::DecodePollObjects(PollInfoList* pollobjects, char* packetbuffer)
     {
         pollobjects->count = htons(Read16ByteValuesFromBuffer(packetbuffer, 0));
@@ -1582,6 +1680,8 @@ int SocketClient::DecodePollObjects(PollInfoList* pollobjects, char* packetbuffe
     }
 
 
+/// @brief a method for the thread that repeatedly sends an extended poll data request
+/// @param nInterval the time interval between polls
 void SocketClient::SendCycledExtendedPollDataRequest(size_t nInterval)
 {
     int nmillisecond = nInterval;
@@ -1601,6 +1701,9 @@ void SocketClient::SendCycledExtendedPollDataRequest(size_t nInterval)
 
 }
 
+
+/// @brief a method for the thread that repeatedly sends an extended poll wave data request
+/// @param nInterval the time interval between polls
 void SocketClient::SendCycledExtendedPollWaveDataRequest(size_t nInterval)
 {
     int nmillisecond = nInterval;
@@ -1619,6 +1722,11 @@ void SocketClient::SendCycledExtendedPollWaveDataRequest(size_t nInterval)
 
 }
 
+
+/// @brief a method for receiving data from the server
+/// @param buffer1 the buffer that contains the data
+/// @param buffersize the size of the buffer
+/// @param flags the flags to set for the base WSARecvFrom function
 void SocketClient::Receive(char* buffer1, size_t buffersize, int flags)
 {
     Receive_State state;
@@ -1725,6 +1833,12 @@ void SocketClient::Receive(char* buffer1, size_t buffersize, int flags)
 
 
 /// @todo add path_to_file
+
+/// @brief the Callback function to be called whenever a data packet has been received to process the data
+/// @param errorCode the error code from the receive operation
+/// @param numBytesReceived the number of bytes received
+/// @param overlapped the WSAOverlapped structure from the receive function
+/// @param flags the flags from the WSARecvFrom function
 void CALLBACK SocketClient::ReceiveCallback(DWORD errorCode, DWORD numBytesReceived, LPWSAOVERLAPPED overlapped, DWORD flags)
 {
     //std::unique_ptr<ReceiveState> state = std::make_unique<ReceiveState>(*CONTAINING_RECORD(overlapped, ReceiveState, overlapped));
@@ -1768,6 +1882,10 @@ void CALLBACK SocketClient::ReceiveCallback(DWORD errorCode, DWORD numBytesRecei
 }
 
 
+/// @brief a method to write the received data bytes to a file for logging
+/// @param path_to_file the path to the file
+/// @param bytes_string the bytes in string format
+/// @return true if no error occurred
 bool SocketClient::ByteArrayToFile(const std::string& path_to_file, const std::string& bytes_string)
 {
     try
@@ -1795,6 +1913,11 @@ bool SocketClient::ByteArrayToFile(const std::string& path_to_file, const std::s
 }
 
 
+/// @brief a method to write the received data bytes to a file for logging
+/// @param path_to_file the path to the file
+/// @param data_bytes the bytes in form of a vector of std::bytes
+/// @param numBytesReceived the number of bytes received
+/// @return true if no errors occurred
 bool SocketClient::ByteArrayToFile(const std::string& path_to_file, const std::vector<std::byte>& data_bytes, uint32_t numBytesReceived)
 {
     try
@@ -1831,6 +1954,8 @@ bool SocketClient::ByteArrayToFile(const std::string& path_to_file, const std::v
 }
 
 
+/// @brief a method for repeatedly rechecking the monitors MDS attributes
+/// @param nInterval the time interval between polls
 void SocketClient::RecheckMDSAttributes(int nInterval)
 {
 	int nMillisecond = 6 * 1000;
@@ -1845,12 +1970,15 @@ void SocketClient::RecheckMDSAttributes(int nInterval)
 }
 
 
+/// @brief a method for sending an MDS poll data request message
 void SocketClient::SendMDSPollDataRequest()
 {
     sendBytes(poll_mds_request_msg);
 }
 
 
+/// @brief a method for repeatedly sending an MDSCreateEventResult so that the monitor keeps the connection alive
+/// @param nInterval the time interval between sends
 void SocketClient::KeepConnectionAlive(int nInterval)
 {
 	int nMillisecond = 6 * 1000;
@@ -1865,16 +1993,21 @@ void SocketClient::KeepConnectionAlive(int nInterval)
 }
 
 
+/// @brief a method for sending an MDSCreateEvent message
 void SocketClient::SendMDSCreateEventResult()
 {
     sendBytes(mds_create_resp_msg);
 }
 
+
+/// @brief a method for sending a request to receive an RTSA priority list
 void SocketClient::GetRTSAPriorityListRequest()
 {
     sendBytes(get_rtsa_prio_msg);
 }
 
+
+/// @todo doxygen
 void SocketClient::CreateWaveformSet(size_t nWaveSetType, vector<std::byte> WaveTrtype)
 {
     switch (nWaveSetType)
@@ -1969,6 +2102,8 @@ void SocketClient::CreateWaveformSet(size_t nWaveSetType, vector<std::byte> Wave
         }
 }
 
+
+/// @todo doxygen
 void SocketClient::SendRTSAPriorityMessage(std::vector<std::byte> WaveTrType)
 {
     std::vector<std::byte> tempbuffer;
@@ -2034,6 +2169,8 @@ void SocketClient::SendRTSAPriorityMessage(std::vector<std::byte> WaveTrType)
         sendBytes(tempbuffer);   
 }
 
+
+/// @todo doxygen
 void SocketClient::SetRTSAPriorityList(size_t nWaveSetType)
 {
     std::vector<std::byte> WaveTrType;
@@ -2042,6 +2179,7 @@ void SocketClient::SetRTSAPriorityList(size_t nWaveSetType)
 }
 
 
+/// @brief a method to establish a LAN connection to the monitor, keep the connection alive and exchange data
 void SocketClient::establishLanConnection() 
 {
     std::cout << "establishing Lan Connection" << std::endl;
@@ -2101,6 +2239,8 @@ void SocketClient::establishLanConnection()
 }
 
 
+/// @brief the thread that repeatedly rechecks the MDS attributes
+/// @param nInterval the time interval
 void SocketClient::ThreadRecheckMDSAttributes(int nInterval)
 {
     while (!stopThreadRecheckMDSAttributes)
@@ -2110,6 +2250,9 @@ void SocketClient::ThreadRecheckMDSAttributes(int nInterval)
     }
 }
 
+
+/// @brief the thread that repeatedly makes sue the monitor keeps the connection alive
+/// @param nInterval the time interval
 void SocketClient::ThreadKeepConnectionAlive(int nInterval)
 {
     while (!stopThreadKeepConnectionAlive)
@@ -2119,6 +2262,9 @@ void SocketClient::ThreadKeepConnectionAlive(int nInterval)
     }
 }
 
+
+/// @brief the thread tha trepeatedly calls the Receive function to receive answers and wave and numeric data from the monitor
+/// @param receivedBuffer the buffer to pass to the Receive function
 void SocketClient::ThreadReceive(char* receivedBuffer)
 {
     while (!stopThreadReceive)

@@ -1,5 +1,6 @@
 #pragma once
 
+/// @brief The AvaObj (AVA = Attribute Value Assertion) class implements the object attributes for the different objects such as Numeric, Wave, System or Alert Monitor Objects
 class AvaObj
     {
         public:

@@ -12,6 +12,7 @@
 
 #pragma comment(lib, "ws2_32.lib") //link against the Winsock library
 
+/// @brief The WSASession class is used to start and close the WSA (Winsock API) session.
 class WSASession {
     public:
         WSASession();
@@ -21,6 +22,7 @@ class WSASession {
 };
 
 
+/// @brief The UDPSocket class is the UDP client and server base class implementing the basic functions for sending, receiving, binding, and connecting between server and client.
 class UDPSocket {
     protected:
         SOCKET sock;
