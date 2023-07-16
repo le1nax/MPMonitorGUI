@@ -6,7 +6,11 @@
 #include <cstdint>
 #include <iomanip>
 #include <algorithm>
-#include <sstream>
+#include <string>
+#include <filesystem>
+#include <cmath>
+#include <vector>
+#include <regex>
 
 using namespace std;
 
@@ -631,50 +635,399 @@ void SocketClient::PollPacketDecoder(char* packetbuffer, size_t headersize)
         }
         }
         }
-        /*  
-         if (m_dataexportset == 2) ExportNumValListToJSON("Numeric");
-        if (m_dataexportset == 3) ExportNumValListToMQTT("Numeric");
-        */
+
+        /* if (m_dataexportset == 2) ExportNumValListToJSON("Numeric");
+        if (m_dataexportset == 3) ExportNumValListToMQTT("Numeric"); */
+
         if (m_dataexportset != 3)
         {
-        ///@todo
-        // ExportDataToCSV();
-        // ExportWaveToCSV();
+            ExportDataToCSV();
+            ExportWaveToCSV();
         }
+        
         //clear memory
-
-        ///@todo
-       // m_WaveValResultList.RemoveRange(0, m_WaveValResultList.Count);
+        m_WaveValResultList.clear();
     }
-
-    }
+}
 
 
 void SocketClient::ExportDataToCSV()
-    {
+{
     switch (m_csvexportset)
     {
         case 1:
-        SaveNumericValueList();
-        break;
-        ///@todo 
-        // case 2:
-        //     SaveNumericValueListRows();
-        //     break;
-        // case 3:
-        //     SaveNumericValueListConsolidatedCSV();
-        //     break;
-        // default:
-        //     break;
+            SaveNumericValueList();
+            break;
+        case 2:
+            SaveNumericValueListRows();
+            break;
+        case 3:
+            SaveNumericValueListConsolidatedCSV();
+            break;
+        default:
+            break;
     }
+}
+
+
+void SocketClient::WriteNumericHeadersListConsolidatedCSV()
+{
+    if (m_NumValHeaders.size() != 0 && m_transmissionstart)
+    {
+        std::ostringstream csvBuilder;
+
+/// @todo path file name
+        std::string pathFile = "<path to file>"; // Replace with the desired file path
+        std::filesystem::path pathcsv = std::filesystem::current_path() / (pathFile + "_Philips_MPDataExport.csv");
+
+        uint32_t firstelementreltimestamp = std::stoi(m_NumericValList[0].Relativetimestamp);
+
+        for (size_t i = 0; i < m_NumValHeaders.size(); i++)
+        {
+            uint32_t elementreltime = std::stoi(m_NumericValList[i].Relativetimestamp);
+            if (elementreltime == firstelementreltimestamp)
+            {
+                csvBuilder << (m_NumValHeaders[i]);
+                csvBuilder << (',');
+            }
+            else
+            {
+                std::string csvstring = csvBuilder.str();
+
+                csvstring.insert(0, ",");
+                csvstring.insert(0, "SystemLocalTime");
+                csvstring.insert(0, ",");
+                csvstring.insert(0, "RelativeTime");
+                csvstring.insert(0, ",");
+                csvstring.insert(0, "Time");
+
+                csvstring = std::regex_replace(csvstring, std::regex(",,+"), ","); // Replace multiple consecutive commas with a single one (may occur in case of missing values)
+                csvstring += '\n';
+
+                ExportNumValListToCSVFile(pathcsv.string(), csvstring);
+
+                csvBuilder.clear();
+                m_NumValHeaders.erase(m_NumValHeaders.begin(), m_NumValHeaders.begin() + i);
+                m_transmissionstart = false;
+            }
+        }
     }
+}
+
+
+void SocketClient::SaveNumericValueListConsolidatedCSV()
+{
+    // This method saves all numeric data with the same relative time attribute to a list in memory till
+    // the next data with a different relative time attribute arrives, only then the first set gets exported
+
+    if (!m_NumericValList.empty())
+    {
+        std::ostringstream csvBuilder;
+
+        WriteNumericHeadersListConsolidatedCSV();
+
+/// @todo path file name
+        std::string pathFile = "<path to file>"; // Replace with the desired file path
+        std::filesystem::path pathcsv = std::filesystem::current_path() / (pathFile + "_Philips_MPDataExport.csv");
+
+        uint32_t firstelementreltimestamp = std::stoi(m_NumericValList[0].Relativetimestamp);
+
+        for (size_t i = 0; i < m_NumericValList.size(); i++)
+        {
+            uint32_t elementreltime = std::stoi(m_NumericValList[i].Relativetimestamp);
+            if (elementreltime == firstelementreltimestamp)
+            {
+                AppendToCSVBuilder(csvBuilder, m_NumericValList[i].Timestamp, m_NumericValList[i].Relativetimestamp, m_NumericValList[i].SystemLocalTime, std::stod(m_NumericValList[i].Value));
+                csvBuilder << ',';
+            }
+            else
+            {
+                std::string csvstring = csvBuilder.str();
+
+                csvstring.insert(0, ",");
+                csvstring.insert(0, m_NumericValList[0].SystemLocalTime);
+                csvstring.insert(0, ",");
+                csvstring.insert(0, m_NumericValList[0].Relativetimestamp);
+                csvstring.insert(0, ",");
+                csvstring.insert(0, m_NumericValList[0].Timestamp);
+
+                csvstring = std::regex_replace(csvstring, std::regex(",,+"), ","); // Replace multiple consecutive commas with a single one (may occur in case of missing values)
+                csvstring += '\n';
+
+                ExportNumValListToCSVFile(pathcsv.string(), csvstring);
+                csvBuilder.clear();
+                m_NumericValList.erase(m_NumericValList.begin(), m_NumericValList.begin() + i);
+            }
+        }
+    }
+}
+
+
+void SocketClient::WriteNumericHeadersList()
+{
+    if (!m_NumericValList.empty())
+    {
+        std::ostringstream csvBuilder;
+
+/// @todo path file name
+        std::string pathFile = "<path to file>"; // Replace with the desired file path
+        std::filesystem::path pathcsv = std::filesystem::current_path() / (pathFile + "_Philips_MPDataExport.csv");
+
+        csvBuilder << "Time" << ',';
+        csvBuilder << "RelativeTime" << ',';
+        csvBuilder << "SystemLocalTime" << ',';
+
+        for (size_t i = 0; i < m_NumericValList.size(); i++) csvBuilder << m_NumericValList[i].PhysioID << ',';
+
+        std::string headers = csvBuilder.str();
+        headers.erase(headers.length() - 1, 1);  // Remove the trailing comma
+        headers = std::regex_replace(headers, std::regex(",,+"), ","); // Replace multiple consecutive commas with a single comma (may occur in case of missing values)
+        headers += '\n';
+
+        ExportNumValListToCSVFile(pathcsv.string(), headers);
+
+        csvBuilder.clear();
+        m_NumValHeaders.clear();
+    }
+}
+
+
+
+void SocketClient::SaveNumericValueListRows()
+{                
+    if (!m_NumericValList.empty())
+    {
+        std::ostringstream csvBuilder;
+
+        WriteNumericHeadersList();
+
+/// @todo path file name
+        std::string pathFile = "<path to file>"; // Replace with the desired file path
+        std::filesystem::path pathcsv = std::filesystem::current_path() / (pathFile + "_Philips_MPDataExport.csv");
+
+        // Append the first NumericValResult to csvBuilder
+        AppendToCSVBuilder(csvBuilder, m_NumericValList[0].Timestamp, m_NumericValList[0].Relativetimestamp, m_NumericValList[0].SystemLocalTime, std::stod(m_NumericValList[0].Value));
+
+        // Append the remaining NumericValResults to m_strbuildvalues
+        for (size_t i = 1; i < m_NumericValList.size(); i++)
+        {
+            csvBuilder << ",";
+            AppendToCSVBuilder(csvBuilder, m_NumericValList[i].Timestamp, m_NumericValList[i].Relativetimestamp, m_NumericValList[i].SystemLocalTime, std::stod(m_NumericValList[i].Value));
+        }
+
+        csvBuilder << '\n';
+
+        ExportNumValListToCSVFile(pathcsv.string(), csvBuilder.str());
+        csvBuilder.str("");
+        m_NumericValList.clear();
+    }
+}
+
+
+int SocketClient::CreateMask(int significantbits)
+{
+    //set the corresponding bits in the mask by performing bitwise OR operations with the bit shift (1 << i)
+    int mask = 0;
+
+    for (int i = 0; i < significantbits; i++) mask |= (1 << i); //|= bitwise OR operation 
+
+    return mask;
+}
+
+
+unsigned char SocketClient::ConvertToByte(int value)
+{
+    if (value >= 0 && value <= 255)
+    {
+        return static_cast<unsigned char>(value);
+    }
+    else if (value < 0)
+    {
+        return 0;
+    }
+    else
+    {
+        return 255;
+    }
+}
+
+
+bool SocketClient::IsLittleEndian()
+{
+    unsigned int value = 0x01;
+    unsigned char* bytePtr = reinterpret_cast<unsigned char*>(&value);
+    return (bytePtr[0] == 0x01);
+}
+
+
+double SocketClient::CalibrateSaValue(double Waveval, SaCalibData16 sacalibdata)
+{
+    if (!std::isnan(Waveval))
+    {
+        if (sacalibdata.lower_scaled_value != sacalibdata.upper_scaled_value)
+        {
+            double prop = (Waveval - sacalibdata.lower_scaled_value) / static_cast<double>(sacalibdata.upper_scaled_value - sacalibdata.lower_scaled_value);
+            double value = sacalibdata.lower_absolute_value + (prop * (sacalibdata.upper_absolute_value - sacalibdata.lower_absolute_value));
+            value = round(value * 100) / 100; // Round to 2 decimal places
+            return value;
+        }
+        else
+        {
+            return Waveval; // If upper and lower scaled value is the same
+        }
+    }
+    else
+    {
+        return Waveval;
+    }
+}
+
+
+double SocketClient::ScaleRangeSaValue(double Waveval, ScaleRangeSpec16 sascaledata)
+{
+    if (!std::isnan(Waveval))
+    {
+        double prop = 0;
+        double value = 0;
+        double Wavevalue = Waveval;
+
+        // Check if value is out of range
+        if (Waveval > sascaledata.upper_scaled_value)
+            Waveval = sascaledata.upper_scaled_value;
+        if (Waveval < sascaledata.lower_scaled_value)
+            Waveval = sascaledata.lower_scaled_value;
+
+        // Get proportion from scaled values
+        if (sascaledata.upper_scaled_value != sascaledata.lower_scaled_value)
+        {
+            prop = (Waveval - sascaledata.lower_scaled_value) / static_cast<double>(sascaledata.upper_scaled_value - sascaledata.lower_scaled_value);
+        }
+        if (sascaledata.upper_absolute_value != sascaledata.lower_absolute_value)
+        {
+            value = sascaledata.lower_absolute_value + (prop * (sascaledata.upper_absolute_value - sascaledata.lower_absolute_value));
+            value = round(value * 100) / 100; // Round to 2 decimal places
+        }
+        else
+        {
+            return Waveval; // If upper and lower absolute value is NaN
+        }
+
+        Wavevalue = value;
+        return Wavevalue;
+    }
+    else
+    {
+        return Waveval;
+    }
+}
+
+
+void SocketClient::ExportNumValListToCSVFile(const std::string& filePath, const std::string& data)
+{
+    std::ofstream outputFile(filePath);
+    if (outputFile)
+    {
+        outputFile << data;
+        outputFile.close();
+        std::cout << "Data exported to CSV file successfully." << std::endl;
+    }
+    else
+    {
+        std::cerr << "Failed to open output file." << std::endl;
+    }
+}
+
+
+void SocketClient::AppendToCSVBuilder(std::ostringstream& csvBuilder, const std::string& timestamp, const std::string& relativetimestamp, const std::string& systemLocalTime, double waveval)
+{
+    csvBuilder << timestamp << ',';
+    csvBuilder << relativetimestamp << ',';
+    csvBuilder << systemLocalTime << ',';
+    csvBuilder << waveval << ',';
+    csvBuilder << '\n';
+}
+
+
+void SocketClient::ExportWaveToCSV()
+{
+    int wavevallistcount = m_WaveValResultList.size();
+    
+    if (wavevallistcount != 0)
+    {
+        for(auto& WavValResult : m_WaveValResultList)
+        {
+            if (WavValResult.PhysioID == "NOM_PLETH")
+            {
+                std::string WavValID = WavValResult.PhysioID + "WaveExport.csv";
+                std::string pathcsv = std::filesystem::current_path().string() + "\\_Philips_" + WavValID;
+    
+                int wavvalarraylength = sizeof(WavValResult.Value);
+
+                std::ostringstream csvBuilder;
+
+                for (int i = 0; i < wavvalarraylength; i++)
+                {
+                    //Data sample size is 16 bits, but the significant bits represent actual sample value
+
+                    //Read both data bytes into msb and lsb
+                    unsigned char msb = WavValResult.Value[i];
+                    unsigned char lsb = WavValResult.Value[i+1];
+
+                    int msbval = msb;
+                    
+                    //mask depends on no. of significant bits
+                    //int mask = 0x3FFF; //mask for 14 bits
+                    int mask = CreateMask(static_cast<int>(WavValResult.saSpecData.significant_bits));
+
+                    //int shift = (m_sample_size-8);
+                    int msbshift = (msb << 8);
+
+                    if (WavValResult.saSpecData.SaFlags < 0x4000)
+                    {
+                        msbval = (msbshift & mask);
+                        msbval = (msbval >> 8);
+                    }
+                    else msbval = msb;
+                    msb = ConvertToByte(msbval);
+
+                    unsigned char data[] = { msb, lsb };
+                    if (IsLittleEndian()) std::reverse(data, data + 2); //2 is size of data
+
+                    int16_t Waveval = static_cast<short>((data[1] << 8) | data[0]); // corresponds to double Waveval = BitConverter.ToInt16(data, 0);
+
+                    if (WavValResult.saSpecData.SaFlags != 0x2000 && m_calibratewavevalues == true)
+                    {
+                        Waveval = CalibrateSaValue(Waveval, WavValResult.saCalibData);
+                        //Using scale and range specification by default, values are different from optional SaCalibData
+                        Waveval = ScaleRangeSaValue(Waveval, WavValResult.ScaleRangeSpec16);
+                    }
+    
+                    std::string WavevalString = std::to_string(Waveval);
+
+                    AppendToCSVBuilder(csvBuilder, WavValResult.Timestamp, WavValResult.Relativetimestamp, WavValResult.SystemLocalTime, Waveval);
+
+                }
+
+                ExportNumValListToCSVFile(pathcsv, csvBuilder.str());
+
+            }
+        }
+
+        m_WaveValResultList.erase(m_WaveValResultList.begin(), m_WaveValResultList.begin() + wavevallistcount);
+
+    }
+}
 
 void SocketClient::SaveNumericValueList()
-    {
+{
     if (m_NumericValList.empty() != 0)
     {
-        ///@todo
+        ///@todo filename
         //string pathcsv = Path.Combine(Directory.GetCurrentDirectory(),Program.Globals.pathFile + "_Philips_MPDataExport.csv"); //IB
+
+        std::string pathFile = "<path to file>"; // Replace with the desired file path
+        std::filesystem::path fspathcsv = std::filesystem::current_path() / (pathFile + "_Philips_MPDataExport.csv");
+        std::string pathcsv = fspathcsv.string();
 
         for(auto& it : m_NumericValList)
         {
@@ -696,7 +1049,7 @@ void SocketClient::SaveNumericValueList()
         // ExportNumValListToCSVFile(pathcsv, m_strbuildvalues);
         // m_NumericValList.RemoveRange(0, m_NumericValList.Count);
     }
-    }
+}
 
 void SocketClient::DecodeAvaObjects(unique_ptr<AvaObj> avaobject, char* buffer)
 {
@@ -1004,11 +1357,10 @@ void SocketClient::ReadWaveSaObservationValue(char* buffer)
 
         }
 
-        WaveVal.Value = wavevalobjectslength;
-       
-        ///@todo schauen ob die beiden Zeilen äquivalten sind
-         //Array.Copy(WaveValObjects, WaveVal.Value, wavevalobjectslength);
-        std::memcpy(reinterpret_cast<void*>(WaveVal.Value), reinterpret_cast<void*>(WaveValObjects), wavevalobjectslength);
+            WaveVal.Value = std::vector<uint8_t>(wavevalobjectslength);
+
+            std::copy(WaveValObjects, WaveValObjects + wavevalobjectslength, WaveVal.Value.begin());
+
 
         //Find the Sample array specification definition that matches the observation sample array size
 
