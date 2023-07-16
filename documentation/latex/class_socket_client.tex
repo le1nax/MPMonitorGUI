@@ -23,13 +23,13 @@ Inheritance diagram for Socket\+Client\+:\begin{figure}[H]
 \mbox{\hyperlink{class_socket_client_ae839cd8b58cb070012264f47e686744c}{\texorpdfstring{$\sim$}{\string~}\+Socket\+Client}} ()=default
 \item 
 void \mbox{\hyperlink{class_socket_client_ae3962f762b411e9b4bf06be013c3c9f1}{establish\+Lan\+Connection}} ()
-\begin{DoxyCompactList}\small\item\em A method to establish a LAN connection to the monitor, keep the connection alive and exchange data \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em A method to establish a LAN connection to the monitor, keep the connection alive and exchange data. \end{DoxyCompactList}\item 
 SOCKET \mbox{\hyperlink{class_socket_client_a0294a111cf7bee7e06ab1199f7ccddd5}{get\+Socket}} ()
 \begin{DoxyCompactList}\small\item\em a getter method for the SOCKET sock \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_socket_client_a157ed622da08c9e6f55e34e9d27c41bb}{Send\+Wave\+Association\+Request}} ()
 \begin{DoxyCompactList}\small\item\em Sendet Assiation Request. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{class_socket_client_a6cfc5eab3b471703c4a63de20013d5bc}{Receive}} (char \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t buffersize=maxbuffersize, int flags=0)
-\begin{DoxyCompactList}\small\item\em A method for receiving data from the server \end{DoxyCompactList}\end{DoxyCompactItemize}
+void \mbox{\hyperlink{class_socket_client_a6cfc5eab3b471703c4a63de20013d5bc}{Receive}} (char \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t buffersize=\mbox{\hyperlink{definitions_8h_a62ad1596044c3dac9b3ac5a6f0deff8d}{maxbuffersize}}, int flags=0)
+\begin{DoxyCompactList}\small\item\em A method for receiving data from the server. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_u_d_p_socket}{UDPSocket}}}
 \begin{DoxyCompactItemize}
 \item 
@@ -40,11 +40,11 @@ void \mbox{\hyperlink{class_socket_client_a6cfc5eab3b471703c4a63de20013d5bc}{Rec
 SOCKET \mbox{\hyperlink{class_u_d_p_socket_aba7d584e75564a4ba4b7fddb479abee1}{get\+Socket}} ()
 \begin{DoxyCompactList}\small\item\em a getter method to get the socket \end{DoxyCompactList}\item 
 long unsigned int \mbox{\hyperlink{class_u_d_p_socket_aeccce2a68cc6405a78415551c21e06d7}{Send\+To}} (sockaddr\+\_\+in \&remote\+IP, char \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t buffersize, long unsigned int flags=0)
-\begin{DoxyCompactList}\small\item\em A method that calls the WSASend\+To function for sending to the monitor \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em A method that calls the WSASend\+To function for sending to the monitor. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{class_u_d_p_socket_ae14d059981edd54ea45378687ba0861f}{Recv\+From}} (sockaddr\+\_\+in remote\+IP, char \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t buffersize, long unsigned int \&num\+Bytes\+Received, LPWSAOVERLAPPED overlapped, long unsigned int flags=0, LPWSAOVERLAPPED\+\_\+\+COMPLETION\+\_\+\+ROUTINE callback=NULL)
-\begin{DoxyCompactList}\small\item\em A method that calls the WSARecv\+From function to receive data from the monitor \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em A method that calls the WSARecv\+From function to receive data from the monitor. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_u_d_p_socket_a167ae3a1fd089f7e3d0644dd03044d7b}{Bind}} (sockaddr\+\_\+in \&local\+IP, unsigned short port)
-\begin{DoxyCompactList}\small\item\em A method for associating a local address with the socket on the server side \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em A method for associating a local address with the socket on the server side. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_u_d_p_socket_a83253acb737a2409be60e2dd8350f46e}{Connect}} (sockaddr\+\_\+in \&remote\+IP)
 \begin{DoxyCompactList}\small\item\em A method for connecting the socket to the remote address. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
@@ -106,6 +106,191 @@ std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_a14a44cd2a
 \item 
 std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_a616e44574262eadc3dfa4675d131324a}{assoc\+\_\+abort\+\_\+resp\+\_\+msg}}
 \end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_socket_client_a4d7263d3b373ca4535cd0ebd8404c69e}{send\+Bytes}} (std\+::vector$<$ std\+::byte $>$ bytes)
+\begin{DoxyCompactList}\small\item\em A method to send the specified bytes to the target address by putting them in a buffer and sending them via Send\+TO() \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a0685bceb1589dda27924dc056570a7a1}{Process\+Packet}} (char \texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em Processes all incoming types of data protocols. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_socket_client_a7bfd117f07b25a2ab74e82b117bfb43c}{Create\+Mask}} (int significantbits)
+\begin{DoxyCompactList}\small\item\em A method to create a mask for only the significant bits, here mainly for creating a mask for the msb. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{class_socket_client_a4d8a208369c7080bc471a54384ab4ad7}{Convert\+To\+Byte}} (int value)
+\begin{DoxyCompactList}\small\item\em A method to convert int to unsigned char. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_socket_client_a5ee8ec1e5409055dac62b91750ef7da3}{Is\+Little\+Endian}} ()
+\begin{DoxyCompactList}\small\item\em A method to check if data is in little endian format. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_socket_client_af157e5b6ae6ed17807c88c2836239850}{Calibrate\+Sa\+Value}} (double Waveval, \mbox{\hyperlink{struct_sa_calib_data16}{Sa\+Calib\+Data16}} sacalibdata)
+\begin{DoxyCompactList}\small\item\em A method to calibrate the received wave values according to \doxylink{struct_sa_calib_data16}{Sa\+Calib\+Data16}. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_socket_client_a623eb07199b41e95cefac18f61327185}{Scale\+Range\+Sa\+Value}} (double Waveval, \mbox{\hyperlink{struct_scale_range_spec16}{Scale\+Range\+Spec16}} sascaledata)
+\begin{DoxyCompactList}\small\item\em A method to scale the received wave values according to \doxylink{struct_scale_range_spec16}{Scale\+Range\+Spec16}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a0a3e4a70dbd14f8f5e00cd6a02d571b3}{Export\+Num\+Val\+List\+To\+CSVFile}} (const std\+::string \&file\+Path, const std\+::string \&data)
+\begin{DoxyCompactList}\small\item\em A method to export numeric and wave data to the csv file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a9631e1f417936f7cfaece242a9156bba}{Append\+To\+CSVBuilder}} (std\+::ostringstream \&csv\+Builder, const std\+::string \&timestamp, const std\+::string \&relativetimestamp, const std\+::string \&system\+Local\+Time, double waveval)
+\begin{DoxyCompactList}\small\item\em A method for adding to the CSVBuilder for exporting data to a csv file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_aa0b6d1f9400f9c844df189a23156c079}{Save\+Numeric\+Value\+List\+Rows}} ()
+\item 
+void \mbox{\hyperlink{class_socket_client_a6e1541bf075b3b64031dc534c28339af}{Write\+Numeric\+Headers\+List}} ()
+\begin{DoxyCompactList}\small\item\em A method to write the headers for the csv file of the exported data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a817a64f6a66db3b347dc885edfe88c92}{Save\+Numeric\+Value\+List\+Consolidated\+CSV}} ()
+\begin{DoxyCompactList}\small\item\em A method to write the numeric values for the csv file of the exported data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a54a9fe05c2e57daf8d46bb183cc2c0a8}{Write\+Numeric\+Headers\+List\+Consolidated\+CSV}} ()
+\begin{DoxyCompactList}\small\item\em A method to write the headers for the csv file of the exported data at transmission start. \end{DoxyCompactList}\item 
+tm \mbox{\hyperlink{class_socket_client_a0168710b16154dfa3e3db26fd692a714}{Get\+Absolute\+Time\+From\+BCDFormat}} (char \texorpdfstring{$\ast$}{*}bcdtimebuffer)
+\item 
+void \mbox{\hyperlink{class_socket_client_a0c44e516b72e44ebb1ba166932fab7c5}{Add\+Tm\+Millseconds}} (tm \&time, double millisecs)
+\item 
+void \mbox{\hyperlink{class_socket_client_a3cb21cf1a1709e329c7254ad22d73f2e}{init\+Msgs}} ()
+\begin{DoxyCompactList}\small\item\em A method to initialise the possible messages with their corresponding bytes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a9eec243c4918e7a71c7aaaa492594957}{Check\+Linked\+Poll\+Packet\+Action\+Type}} (char \texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em A method that is called as part of the \doxylink{class_socket_client_a0685bceb1589dda27924dc056570a7a1}{Process\+Packet()} function to further categorise, decode and process the received data. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_socket_client_afe5e218da3078eaaff6a522d8f1ac98a}{Decode\+Poll\+Objects}} (\mbox{\hyperlink{struct_poll_info_list}{Poll\+Info\+List}} \texorpdfstring{$\ast$}{*}pollobjects, char \texorpdfstring{$\ast$}{*}packetbuffer)
+\begin{DoxyCompactList}\small\item\em If a packet is identified as a Poll\+Object, it is decoded in this function. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_socket_client_acb7b543430d602fb8a47bcf122aaebe4}{Decode\+Single\+Context\+Poll\+Objects}} (\mbox{\hyperlink{struct_single_context_poll}{Single\+Context\+Poll}} \texorpdfstring{$\ast$}{*}scpoll, char \texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em If a packet is identified as a Single\+Context\+Poll\+Object, it is decoded in this function. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_socket_client_a7489e003d18ad052bdbf385dc2b1bcc7}{Decode\+Observation\+Poll\+Objects}} (\mbox{\hyperlink{struct_observation_poll}{Observation\+Poll}} \texorpdfstring{$\ast$}{*}scpoll, char \texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em If a packet is identified as a Single\+Context\+Poll\+Object, it is decoded in this function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a1a48f0c50045adb2df122bac2e8b2bc9}{Read\+IDLabel}} (char \texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em Reads the \doxylink{struct_i_d_label}{IDLabel} of a Buffer\+Object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_ab3e591d94c533d291d854f94b443f0a7}{Read\+Numeric\+Observation\+Value}} (char \texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em A method to read numeric observation values from the buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_ae524e90b1fbf498324be67e15ebb7441}{Read\+Compound\+Numeric\+Obs\+Value}} (char \texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em A method to read compound numeric observation values from the buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a6876609336f3ae74992b9e13bac9d9ac}{Read\+IDLabel\+String}} (char \texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em Reads the \doxylink{struct_i_d_label}{IDLabel} of a Buffer\+Object and adds it to a list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_ae49ada1078c7336330e570835d92056e}{Read\+Wave\+Sa\+Observation\+Value\+Object}} (char \texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em A method to read numerical observation values from the buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a324bc0ccfe839aaddc96b27349fd8826}{Read\+Compound\+Wave\+Sa\+Observation\+Value}} (char \texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em A method to read wave observation values from the buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a68569e23c8b3299a29a4652e76d8a3fe}{Read\+Sa\+Specifications}} (char \texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em Reads the Sa\+Specification from a given buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_ace0f3a08d7ef1959428c911d213691bb}{Read\+Sa\+Scale\+Specifications}} (char \texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em A method to read the Scaling Specifications from the buffer and set them for scaling later. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a3e0f253ca00ac5c97e8aa907284e1097}{Read\+Sa\+Calibration\+Specifications}} (char \texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em A method to read the Calibration Specifications from the buffer and set them for calibrating later. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_afcd9db208be211ef295a11284137ed02}{Read\+Wave\+Sa\+Observation\+Value}} (char \texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em This method reads the Wave\+Sa\+Observation Values from a given buffer. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_socket_client_a9d241186d44672699d1a7b536a7fa67a}{Get\+Packet\+Timestamp}} (char \texorpdfstring{$\ast$}{*}header, uint16\+\_\+t headersize)
+\begin{DoxyCompactList}\small\item\em This function gets the Timestamp from which the measurement was taken. \end{DoxyCompactList}\item 
+tm \mbox{\hyperlink{class_socket_client_a87c59fc9d711a6892ccd0a0320d7c74e}{Get\+Absolute\+Time\+From\+Relative\+Timestamp}} (uint32\+\_\+t current\+Relative\+Time)
+\begin{DoxyCompactList}\small\item\em Converts a given relative timestamp into tm format. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_afb9cba529b53dfbd1014f993cecbc580}{Decode\+Ava\+Objects}} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_ava_obj}{Ava\+Obj}} $>$ ava\+Obj, char \texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em Decodes the Ava\+Objects. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a67172065a09c78492f4635bea8e1a678}{Poll\+Packet\+Decoder}} (char \texorpdfstring{$\ast$}{*}packetbuffer, size\+\_\+t headersize)
+\begin{DoxyCompactList}\small\item\em Wrapper function to process an identified Poll\+Packet. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a606a34e47948002ab0da660cae7e5387}{Parse\+MDSCreate\+Event\+Report}} (char \texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em A method that is called as part of the \doxylink{class_socket_client_a0685bceb1589dda27924dc056570a7a1}{Process\+Packet()} function to further categorise, decode and process the received data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_ae5ba70a270d42bf9745e79497cefa8fe}{Get\+Baseline\+Relative\+Timestamp}} (char \texorpdfstring{$\ast$}{*}timebuffer)
+\begin{DoxyCompactList}\small\item\em gets the realtive timestamp from a given buffer \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a796a16d693abdbf6536731dbb1b9207d}{Decode\+MDSAttrib\+Objects}} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_ava_obj}{Ava\+Obj}} $>$ avaobj, char \texorpdfstring{$\ast$}{*}attriblistobjects\+\_\+buffer, size\+\_\+t count)
+\begin{DoxyCompactList}\small\item\em Decodes a buffer which was identified to hold MDSAttributes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_ae5e6a670b7bdf58155cce2815ba7d204}{Send\+MDSCreate\+Event\+Result}} ()
+\begin{DoxyCompactList}\small\item\em A method for sending an MDSCreate\+Event message. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_aeebbddac0352909a7772193b095c85ce}{Check\+Poll\+Packet\+Action\+Type}} (char \texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em Identifies the Action\+Type from a given Poll\+Packet. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a273f71de35f9605380fa9a6fb3d3220d}{Send\+RTSAPriority\+Message}} (std\+::vector$<$ std\+::byte $>$ Wave\+Tr\+Type)
+\begin{DoxyCompactList}\small\item\em sends the RTSAPriority\+Message \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a0e1a7c44072c870915d746872492a542}{Send\+Cycled\+Extended\+Poll\+Data\+Request}} (size\+\_\+t n\+Interval)
+\begin{DoxyCompactList}\small\item\em A method for the thread that repeatedly sends an extended poll data request. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a4f28ce2bad93e3a3cc34edaf4b815d10}{Send\+Cycled\+Extended\+Poll\+Wave\+Data\+Request}} (size\+\_\+t n\+Interval)
+\begin{DoxyCompactList}\small\item\em A method for the thread that repeatedly sends an extended poll wave data request. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a41fb9659994c0a7aa19620cd8d671759}{Export\+Data\+To\+CSV}} ()
+\begin{DoxyCompactList}\small\item\em A method to export the data to a csv file in different formats depending on the value of m\+\_\+csvexportset. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a0f629e397e5899ebe0f0621ba753d82f}{Export\+Wave\+To\+CSV}} ()
+\begin{DoxyCompactList}\small\item\em A method to export wave data to a csv file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a958cd86656961e6662d5497db37f84d7}{Create\+Waveform\+Set}} (size\+\_\+t n\+Wave\+Set\+Type, std\+::vector$<$ std\+::byte $>$ Wave\+Trtype)
+\begin{DoxyCompactList}\small\item\em Determines the Waveform\+Set to be extracted, based on the user inputs. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_ac804932ef7741b9a97d3869890019541}{Get\+RTSAPriority\+List\+Request}} ()
+\begin{DoxyCompactList}\small\item\em A method for sending a request to receive an RTSA priority list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_ac11bd5de6f5950c8d76df508df5ecbe0}{Set\+RTSAPriority\+List}} (size\+\_\+t n\+Wave\+Set\+Type)
+\begin{DoxyCompactList}\small\item\em sets the RTSA Priority List based on the user input \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_ac0392359d722168aa39fd3791a68b8a2}{Save\+Numeric\+Value\+List}} ()
+\begin{DoxyCompactList}\small\item\em one case of Export\+Data\+To\+CSV which is to export the data to a csv file in different formats depending on the value of m\+\_\+csvexportset \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a0e0f3829d0f0c29e1693741d53b1d56e}{Add\+IDLabel\+To\+List}} ()
+\begin{DoxyCompactList}\small\item\em adds the \doxylink{struct_i_d_label}{IDLabel} to the m\+\_\+obpollhandle \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_aa869f960877d33a1b6dc57dc68c75c5c}{Recheck\+MDSAttributes}} (int n\+Interval=0)
+\begin{DoxyCompactList}\small\item\em A method for repeatedly rechecking the monitors MDS attributes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_add419180d06942d202435e03ccdf1f0e}{Send\+MDSPoll\+Data\+Request}} ()
+\begin{DoxyCompactList}\small\item\em A method for sending an MDS poll data request message. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a537146057b3c27487f4b6d2039e60012}{Keep\+Connection\+Alive}} (int n\+Interval=0)
+\begin{DoxyCompactList}\small\item\em A method for repeatedly sending an MDSCreate\+Event\+Result so that the monitor keeps the connection alive. \end{DoxyCompactList}\item 
+void CALLBACK \mbox{\hyperlink{class_socket_client_a895e7fa61a7aa7ed861667bf1e866a19}{Receive\+Callback}} (DWORD error\+Code, DWORD num\+Bytes\+Received, LPWSAOVERLAPPED overlapped, DWORD flags=0)
+\begin{DoxyCompactList}\small\item\em the Callback function to be called whenever a data packet has been received to process the data \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a99c031a8b2280d524245bd16e2ccdc05}{Thread\+Recheck\+MDSAttributes}} (int n\+Interval=0)
+\begin{DoxyCompactList}\small\item\em the thread that repeatedly rechecks the MDS attributes \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a3eaea5b577cb9108239f7458c2fd6f78}{Thread\+Keep\+Connection\+Alive}} (int n\+Interval=0)
+\begin{DoxyCompactList}\small\item\em the thread that repeatedly makes sue the monitor keeps the connection alive \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_aa73e2440f43a32c791e8faca08f3ee0c}{Thread\+Receive}} (char \texorpdfstring{$\ast$}{*}received\+Buffer)
+\begin{DoxyCompactList}\small\item\em the thread tha trepeatedly calls the Receive function to receive answers and wave and numeric data from the monitor \end{DoxyCompactList}\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_socket_client_acee5dd82e2750175a61b2ccd2a6b3b7d}{get\+Last\+Message}} ()
+\begin{DoxyCompactList}\small\item\em Logging. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{class_socket_client_a49cb67d5bf92ead01c2c57fde651ab4b}{Byte\+Array\+To\+File}} (const std\+::string \&filename, const std\+::string \&bytes\+\_\+string)
+\begin{DoxyCompactList}\small\item\em A method to write the received data bytes to a file for logging. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{class_socket_client_a3129c9412df69db8bd4710f1ccd6ec67}{Byte\+Array\+To\+File}} (const std\+::string \&path\+\_\+to\+\_\+file, const std\+::vector$<$ std\+::byte $>$ \&data\+\_\+bytes, uint32\+\_\+t num\+Bytes\+Received)
+\begin{DoxyCompactList}\small\item\em A method to write the received data bytes to a file for logging. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_socket_client_a200bf87f9762e8424c74fc014465ccbd}{m\+\_\+last\+Msg}}
+\item 
+size\+\_\+t \mbox{\hyperlink{class_socket_client_a82723ec025dbb0aaa947cfd760ce3caa}{last\+Msg\+Size}} = 0
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_a3eba51aeb2b8c0abaa29a074625b9751}{m\+\_\+readassocbuffer}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_a0121bb9f1e934b40ac4913141f1052c4}{m\+\_\+readmdsconnectbuffer}}
+\item 
+std\+::string \mbox{\hyperlink{class_socket_client_a423286f12932d5380a1e20c55212b796}{m\+\_\+remote\+IPtarget}} = \"{}\"{}
+\item 
+std\+::string \mbox{\hyperlink{class_socket_client_a816551908b8b07ea392f31883ed2e532}{m\+\_\+str\+Timestamp}} = \"{}\"{}
+\item 
+std\+::string \mbox{\hyperlink{class_socket_client_a86ce6b8305a45bda7e73f4be6d3b931a}{m\+\_\+\+Device\+ID}} = \"{}\"{}
+\item 
+std\+::string \mbox{\hyperlink{class_socket_client_afad8e608b2391e32b51ea4f7b303f8b7}{m\+\_\+idlabelstring}} = \"{}\"{}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_numeric_val_result}{Numeric\+Val\+Result}} $>$ \mbox{\hyperlink{class_socket_client_a9d9dc25a73aa40d3de9101072d1e4280}{m\+\_\+\+Numeric\+Val\+List}}
+\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{class_socket_client_a9d388ed8a1f2339891081ee0efada79b}{m\+\_\+\+Num\+Val\+Headers}}
+\item 
+const unsigned short \mbox{\hyperlink{class_socket_client_aad2f1d880c7f1aa93ef56c3fd915e762}{m\+\_\+port}} = 0
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_socket_client_a28e33ed1a6225b9cce2b3e204dcdf025}{m\+\_\+base\+Relative\+Time}} = 0
+\item 
+uint16\+\_\+t \mbox{\hyperlink{class_socket_client_a9aaa9fc4a647f38aacaa3e25a3b6e7b7}{m\+\_\+actiontype}} = 0
+\item 
+uint16\+\_\+t \mbox{\hyperlink{class_socket_client_af85fa502a7600e87a3885cb3a87473b5}{m\+\_\+obpollhandle}} = 0
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_socket_client_a6da92a61484c5dafa1a45a6fd835a17c}{m\+\_\+idlabelhandle}} = 0
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_socket_client_abb89f0c4553e29be9832024800929b4a}{m\+\_\+dataexportset}} = 1
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_socket_client_a4524dfd64361626f3b3760a1456be0be}{m\+\_\+csvexportset}} = 1
+\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_i_d_label}{IDLabel}} $>$ \mbox{\hyperlink{class_socket_client_ac7d1a8054dd26bde3bc46c1af26cc048}{m\+\_\+\+IDLabel\+List}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_sa_calib_data16}{Sa\+Calib\+Data16}} $>$ \mbox{\hyperlink{class_socket_client_a0a0f04be6a0ace2dfa56b66dca185f88}{m\+\_\+\+Sa\+Calib\+Data\+Spec\+List}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_scale_range_spec16}{Scale\+Range\+Spec16}} $>$ \mbox{\hyperlink{class_socket_client_a14dd00f14f810b12186a2ddad5bdd36c}{m\+\_\+\+Scale\+Range\+Spec\+List}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_sa_spec}{Sa\+Spec}} $>$ \mbox{\hyperlink{class_socket_client_ae7023d9aaa9345fdb4213f2dfdfb7127}{m\+\_\+\+Sa\+Spec\+List}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_wave_val_result}{Wave\+Val\+Result}} $>$ \mbox{\hyperlink{class_socket_client_a610153cc85dcb0caea4f43b2d0f6c253}{m\+\_\+\+Wave\+Val\+Result\+List}}
+\item 
+bool \mbox{\hyperlink{class_socket_client_a3a32eb040a63fc5d66dceefe226e2032}{m\+\_\+calibratewavevalues}}
+\item 
+tm \mbox{\hyperlink{class_socket_client_a13cceef53864410b937ff54c49dd3a5c}{m\+\_\+base\+Date\+Time}} \{\}
+\item 
+bool \mbox{\hyperlink{class_socket_client_a3a53985ffad121ddbcc5708c3f7d5744}{m\+\_\+transmissionstart}} = TRUE
+\item 
+bool \mbox{\hyperlink{class_socket_client_a2cceadeaeacf989d05c412d0d8f2c2ad}{stop\+Thread\+Recheck\+MDSAttributes}} = false
+\item 
+bool \mbox{\hyperlink{class_socket_client_a6b1fc6d7b60b68f36c3fe01d2cfa2e5c}{stop\+Thread\+Keep\+Connection\+Alive}} = false
+\item 
+bool \mbox{\hyperlink{class_socket_client_a8d04619a2ab6c4cf26654d2f60d37cf8}{stop\+Thread\+Receive}} = false
+\item 
+int \mbox{\hyperlink{class_socket_client_a7f39762f769cc2988caf25a9788a23af}{m\+\_\+receive\+Interval}} = \mbox{\hyperlink{_socket_client_8h_a8682a8bde66a6aab34c56b6e7dfb43a3}{RECEIVEINTERVAL}}
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
 \doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_u_d_p_socket}{UDPSocket}}}
 \begin{DoxyCompactItemize}
@@ -146,6 +331,308 @@ Constructor of class \doxylink{class_socket_client}{Socket\+Client}.
 
 
 \doxysubsection{Member Function Documentation}
+\Hypertarget{class_socket_client_a0e0f3829d0f0c29e1693741d53b1d56e}\label{class_socket_client_a0e0f3829d0f0c29e1693741d53b1d56e} 
+\index{SocketClient@{SocketClient}!AddIDLabelToList@{AddIDLabelToList}}
+\index{AddIDLabelToList@{AddIDLabelToList}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{AddIDLabelToList()}{AddIDLabelToList()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Add\+IDLabel\+To\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+adds the \doxylink{struct_i_d_label}{IDLabel} to the m\+\_\+obpollhandle 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000030}{Todo}}]doxygen \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_a0c44e516b72e44ebb1ba166932fab7c5}\label{class_socket_client_a0c44e516b72e44ebb1ba166932fab7c5} 
+\index{SocketClient@{SocketClient}!AddTmMillseconds@{AddTmMillseconds}}
+\index{AddTmMillseconds@{AddTmMillseconds}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{AddTmMillseconds()}{AddTmMillseconds()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Add\+Tm\+Millseconds (\begin{DoxyParamCaption}\item[{tm \&}]{time\+Info,  }\item[{double}]{milliseconds }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000013}{Todo}}]doxygen \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_a9631e1f417936f7cfaece242a9156bba}\label{class_socket_client_a9631e1f417936f7cfaece242a9156bba} 
+\index{SocketClient@{SocketClient}!AppendToCSVBuilder@{AppendToCSVBuilder}}
+\index{AppendToCSVBuilder@{AppendToCSVBuilder}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{AppendToCSVBuilder()}{AppendToCSVBuilder()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Append\+To\+CSVBuilder (\begin{DoxyParamCaption}\item[{std\+::ostringstream \&}]{csv\+Builder,  }\item[{const std\+::string \&}]{timestamp,  }\item[{const std\+::string \&}]{relativetimestamp,  }\item[{const std\+::string \&}]{system\+Local\+Time,  }\item[{double}]{waveval }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method for adding to the CSVBuilder for exporting data to a csv file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em csv\+Builder} & the CSVBuilder \\
+\hline
+{\em timestamp} & the timestamp to be exported \\
+\hline
+{\em relativetimestamp} & the relativetimestamp to be exported \\
+\hline
+{\em system\+Local\+Time} & the system\+Local\+Time to be exported \\
+\hline
+{\em waveval} & the wavevalue to be exported \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_socket_client_a49cb67d5bf92ead01c2c57fde651ab4b}\label{class_socket_client_a49cb67d5bf92ead01c2c57fde651ab4b} 
+\index{SocketClient@{SocketClient}!ByteArrayToFile@{ByteArrayToFile}}
+\index{ByteArrayToFile@{ByteArrayToFile}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ByteArrayToFile()}{ByteArrayToFile()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Socket\+Client\+::\+Byte\+Array\+To\+File (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename,  }\item[{const std\+::string \&}]{bytes\+\_\+string }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+A method to write the received data bytes to a file for logging. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path\+\_\+to\+\_\+file} & the path to the file \\
+\hline
+{\em bytes\+\_\+string} & the bytes in string format \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if no error occurred 
+\end{DoxyReturn}
+\Hypertarget{class_socket_client_a3129c9412df69db8bd4710f1ccd6ec67}\label{class_socket_client_a3129c9412df69db8bd4710f1ccd6ec67} 
+\index{SocketClient@{SocketClient}!ByteArrayToFile@{ByteArrayToFile}}
+\index{ByteArrayToFile@{ByteArrayToFile}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ByteArrayToFile()}{ByteArrayToFile()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Socket\+Client\+::\+Byte\+Array\+To\+File (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path\+\_\+to\+\_\+file,  }\item[{const std\+::vector$<$ std\+::byte $>$ \&}]{data\+\_\+bytes,  }\item[{uint32\+\_\+t}]{num\+Bytes\+Received }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+A method to write the received data bytes to a file for logging. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path\+\_\+to\+\_\+file} & the path to the file \\
+\hline
+{\em data\+\_\+bytes} & the bytes in form of a vector of std\+::bytes \\
+\hline
+{\em num\+Bytes\+Received} & the number of bytes received \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if no errors occurred 
+\end{DoxyReturn}
+\Hypertarget{class_socket_client_af157e5b6ae6ed17807c88c2836239850}\label{class_socket_client_af157e5b6ae6ed17807c88c2836239850} 
+\index{SocketClient@{SocketClient}!CalibrateSaValue@{CalibrateSaValue}}
+\index{CalibrateSaValue@{CalibrateSaValue}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{CalibrateSaValue()}{CalibrateSaValue()}}
+{\footnotesize\ttfamily double Socket\+Client\+::\+Calibrate\+Sa\+Value (\begin{DoxyParamCaption}\item[{double}]{Waveval,  }\item[{\mbox{\hyperlink{struct_sa_calib_data16}{Sa\+Calib\+Data16}}}]{sacalibdata }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method to calibrate the received wave values according to \doxylink{struct_sa_calib_data16}{Sa\+Calib\+Data16}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Waveval} & the wave value to be calibrated \\
+\hline
+{\em sacalibdata} & the calibration parameters \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the calibrated Wave value 
+\end{DoxyReturn}
+\Hypertarget{class_socket_client_a9eec243c4918e7a71c7aaaa492594957}\label{class_socket_client_a9eec243c4918e7a71c7aaaa492594957} 
+\index{SocketClient@{SocketClient}!CheckLinkedPollPacketActionType@{CheckLinkedPollPacketActionType}}
+\index{CheckLinkedPollPacketActionType@{CheckLinkedPollPacketActionType}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{CheckLinkedPollPacketActionType()}{CheckLinkedPollPacketActionType()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Check\+Linked\+Poll\+Packet\+Action\+Type (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method that is called as part of the \doxylink{class_socket_client_a0685bceb1589dda27924dc056570a7a1}{Process\+Packet()} function to further categorise, decode and process the received data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & the buffer with the receieved data \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_socket_client_aeebbddac0352909a7772193b095c85ce}\label{class_socket_client_aeebbddac0352909a7772193b095c85ce} 
+\index{SocketClient@{SocketClient}!CheckPollPacketActionType@{CheckPollPacketActionType}}
+\index{CheckPollPacketActionType@{CheckPollPacketActionType}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{CheckPollPacketActionType()}{CheckPollPacketActionType()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Check\+Poll\+Packet\+Action\+Type (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Identifies the Action\+Type from a given Poll\+Packet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & The Buffer to read from ~\newline
+\\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000010}{Todo}}]doxygen \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_a4d8a208369c7080bc471a54384ab4ad7}\label{class_socket_client_a4d8a208369c7080bc471a54384ab4ad7} 
+\index{SocketClient@{SocketClient}!ConvertToByte@{ConvertToByte}}
+\index{ConvertToByte@{ConvertToByte}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ConvertToByte()}{ConvertToByte()}}
+{\footnotesize\ttfamily unsigned char Socket\+Client\+::\+Convert\+To\+Byte (\begin{DoxyParamCaption}\item[{int}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method to convert int to unsigned char. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & the int value to be converted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the unsgined char 
+\end{DoxyReturn}
+\Hypertarget{class_socket_client_a7bfd117f07b25a2ab74e82b117bfb43c}\label{class_socket_client_a7bfd117f07b25a2ab74e82b117bfb43c} 
+\index{SocketClient@{SocketClient}!CreateMask@{CreateMask}}
+\index{CreateMask@{CreateMask}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{CreateMask()}{CreateMask()}}
+{\footnotesize\ttfamily int Socket\+Client\+::\+Create\+Mask (\begin{DoxyParamCaption}\item[{int}]{significantbits }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method to create a mask for only the significant bits, here mainly for creating a mask for the msb. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em significantbits} & the significant bits \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the mask 
+\end{DoxyReturn}
+\Hypertarget{class_socket_client_a958cd86656961e6662d5497db37f84d7}\label{class_socket_client_a958cd86656961e6662d5497db37f84d7} 
+\index{SocketClient@{SocketClient}!CreateWaveformSet@{CreateWaveformSet}}
+\index{CreateWaveformSet@{CreateWaveformSet}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{CreateWaveformSet()}{CreateWaveformSet()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Create\+Waveform\+Set (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{n\+Wave\+Set\+Type,  }\item[{std\+::vector$<$ std\+::byte $>$}]{Wave\+Trtype }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Determines the Waveform\+Set to be extracted, based on the user inputs. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+Wave\+Set\+Type} & The wavetype to be written on \\
+\hline
+{\em Wave\+Trtype} & Userinput which kind of Wave\+Set should be extracted\\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000041}{Todo}}]doxygen \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_afb9cba529b53dfbd1014f993cecbc580}\label{class_socket_client_afb9cba529b53dfbd1014f993cecbc580} 
+\index{SocketClient@{SocketClient}!DecodeAvaObjects@{DecodeAvaObjects}}
+\index{DecodeAvaObjects@{DecodeAvaObjects}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{DecodeAvaObjects()}{DecodeAvaObjects()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Decode\+Ava\+Objects (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_ava_obj}{Ava\+Obj}} $>$}]{ava\+Obj,  }\item[{char \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Decodes the Ava\+Objects. 
+
+This includes all observation values. 
+\begin{DoxyParams}{Parameters}
+{\em ava\+Obj} & An Ava\+Object to write on \\
+\hline
+{\em buffer} & The Buffer to read from ~\newline
+\\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000023}{Todo}}]doxygen \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_a796a16d693abdbf6536731dbb1b9207d}\label{class_socket_client_a796a16d693abdbf6536731dbb1b9207d} 
+\index{SocketClient@{SocketClient}!DecodeMDSAttribObjects@{DecodeMDSAttribObjects}}
+\index{DecodeMDSAttribObjects@{DecodeMDSAttribObjects}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{DecodeMDSAttribObjects()}{DecodeMDSAttribObjects()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Decode\+MDSAttrib\+Objects (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_ava_obj}{Ava\+Obj}} $>$}]{avaobj,  }\item[{char \texorpdfstring{$\ast$}{*}}]{attriblistobjects\+\_\+buffer,  }\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Decodes a buffer which was identified to hold MDSAttributes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em avaobj} & a unique\+\_\+ptr to an \doxylink{class_ava_obj}{Ava\+Obj} to write on \\
+\hline
+{\em attriblistobjects\+\_\+buffer} & The Buffer to read from \\
+\hline
+{\em count} & the amount of \doxylink{struct_ava}{Ava} Objects\\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000005}{Todo}}]doxygen \end{DoxyRefDesc}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000006}{Todo}}]sizeof 2 bytes per ava\+Obj\+Count \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_a7489e003d18ad052bdbf385dc2b1bcc7}\label{class_socket_client_a7489e003d18ad052bdbf385dc2b1bcc7} 
+\index{SocketClient@{SocketClient}!DecodeObservationPollObjects@{DecodeObservationPollObjects}}
+\index{DecodeObservationPollObjects@{DecodeObservationPollObjects}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{DecodeObservationPollObjects()}{DecodeObservationPollObjects()}}
+{\footnotesize\ttfamily int Socket\+Client\+::\+Decode\+Observation\+Poll\+Objects (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_observation_poll}{Observation\+Poll}} \texorpdfstring{$\ast$}{*}}]{obpollobject,  }\item[{char \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+If a packet is identified as a Single\+Context\+Poll\+Object, it is decoded in this function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scpoll} & \doxylink{struct_observation_poll}{Observation\+Poll} to write on \\
+\hline
+{\em buffer} & Buffer, that contains the \doxylink{struct_observation_poll}{Observation\+Poll} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns the amount of Poll\+Objects in the \doxylink{struct_observation_poll}{Observation\+Poll}
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000036}{Todo}}]doxygen \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_afe5e218da3078eaaff6a522d8f1ac98a}\label{class_socket_client_afe5e218da3078eaaff6a522d8f1ac98a} 
+\index{SocketClient@{SocketClient}!DecodePollObjects@{DecodePollObjects}}
+\index{DecodePollObjects@{DecodePollObjects}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{DecodePollObjects()}{DecodePollObjects()}}
+{\footnotesize\ttfamily int Socket\+Client\+::\+Decode\+Poll\+Objects (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_poll_info_list}{Poll\+Info\+List}} \texorpdfstring{$\ast$}{*}}]{pollobjects,  }\item[{char \texorpdfstring{$\ast$}{*}}]{packetbuffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+If a packet is identified as a Poll\+Object, it is decoded in this function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pollobjects} & List with Poll\+Objects to write on \\
+\hline
+{\em packetbuffer} & Buffer, that contains the Pollobj \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns the amount of Poll\+Objects in the list
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000037}{Todo}}]doxygen \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_acb7b543430d602fb8a47bcf122aaebe4}\label{class_socket_client_acb7b543430d602fb8a47bcf122aaebe4} 
+\index{SocketClient@{SocketClient}!DecodeSingleContextPollObjects@{DecodeSingleContextPollObjects}}
+\index{DecodeSingleContextPollObjects@{DecodeSingleContextPollObjects}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{DecodeSingleContextPollObjects()}{DecodeSingleContextPollObjects()}}
+{\footnotesize\ttfamily int Socket\+Client\+::\+Decode\+Single\+Context\+Poll\+Objects (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_single_context_poll}{Single\+Context\+Poll}} \texorpdfstring{$\ast$}{*}}]{scpoll,  }\item[{char \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+If a packet is identified as a Single\+Context\+Poll\+Object, it is decoded in this function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scpoll} & Struct to write on \\
+\hline
+{\em buffer} & Buffer, that contains the \doxylink{struct_single_context_poll}{Single\+Context\+Poll} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns the amount of Poll\+Objects in the \doxylink{struct_single_context_poll}{Single\+Context\+Poll}
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000035}{Todo}}]doxygen \end{DoxyRefDesc}
 \Hypertarget{class_socket_client_ae3962f762b411e9b4bf06be013c3c9f1}\label{class_socket_client_ae3962f762b411e9b4bf06be013c3c9f1} 
 \index{SocketClient@{SocketClient}!establishLanConnection@{establishLanConnection}}
 \index{establishLanConnection@{establishLanConnection}!SocketClient@{SocketClient}}
@@ -154,7 +641,7 @@ Constructor of class \doxylink{class_socket_client}{Socket\+Client}.
 
 
 
-A method to establish a LAN connection to the monitor, keep the connection alive and exchange data 
+A method to establish a LAN connection to the monitor, keep the connection alive and exchange data. 
 
 \begin{DoxyRefDesc}{Todo}
 \item[\mbox{\hyperlink{todo__todo000044}{Todo}}]schauen wie viel Buffer space wir brauchen (chapter4 p.\+29 sagt 1380 -\/\texorpdfstring{$>$}{>}testen) \end{DoxyRefDesc}
@@ -162,6 +649,141 @@ A method to establish a LAN connection to the monitor, keep the connection alive
 
 \begin{DoxyRefDesc}{Todo}
 \item[\mbox{\hyperlink{todo__todo000045}{Todo}}]when to stop connection \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_a41fb9659994c0a7aa19620cd8d671759}\label{class_socket_client_a41fb9659994c0a7aa19620cd8d671759} 
+\index{SocketClient@{SocketClient}!ExportDataToCSV@{ExportDataToCSV}}
+\index{ExportDataToCSV@{ExportDataToCSV}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ExportDataToCSV()}{ExportDataToCSV()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Export\+Data\+To\+CSV (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method to export the data to a csv file in different formats depending on the value of m\+\_\+csvexportset. 
+
+\Hypertarget{class_socket_client_a0a3e4a70dbd14f8f5e00cd6a02d571b3}\label{class_socket_client_a0a3e4a70dbd14f8f5e00cd6a02d571b3} 
+\index{SocketClient@{SocketClient}!ExportNumValListToCSVFile@{ExportNumValListToCSVFile}}
+\index{ExportNumValListToCSVFile@{ExportNumValListToCSVFile}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ExportNumValListToCSVFile()}{ExportNumValListToCSVFile()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Export\+Num\+Val\+List\+To\+CSVFile (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+Path,  }\item[{const std\+::string \&}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method to export numeric and wave data to the csv file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Path} & the file path to the csv file \\
+\hline
+{\em data} & the data to be exported \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_socket_client_a0f629e397e5899ebe0f0621ba753d82f}\label{class_socket_client_a0f629e397e5899ebe0f0621ba753d82f} 
+\index{SocketClient@{SocketClient}!ExportWaveToCSV@{ExportWaveToCSV}}
+\index{ExportWaveToCSV@{ExportWaveToCSV}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ExportWaveToCSV()}{ExportWaveToCSV()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Export\+Wave\+To\+CSV (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method to export wave data to a csv file. 
+
+\Hypertarget{class_socket_client_a0168710b16154dfa3e3db26fd692a714}\label{class_socket_client_a0168710b16154dfa3e3db26fd692a714} 
+\index{SocketClient@{SocketClient}!GetAbsoluteTimeFromBCDFormat@{GetAbsoluteTimeFromBCDFormat}}
+\index{GetAbsoluteTimeFromBCDFormat@{GetAbsoluteTimeFromBCDFormat}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{GetAbsoluteTimeFromBCDFormat()}{GetAbsoluteTimeFromBCDFormat()}}
+{\footnotesize\ttfamily tm Socket\+Client\+::\+Get\+Absolute\+Time\+From\+BCDFormat (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{bcdtimebuffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em bcdtimebuffer} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+~\newline
+ 
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000008}{Todo}}]doxygen \end{DoxyRefDesc}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000009}{Todo}}]vielleicht anderen struct als tm benutzen \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_a87c59fc9d711a6892ccd0a0320d7c74e}\label{class_socket_client_a87c59fc9d711a6892ccd0a0320d7c74e} 
+\index{SocketClient@{SocketClient}!GetAbsoluteTimeFromRelativeTimestamp@{GetAbsoluteTimeFromRelativeTimestamp}}
+\index{GetAbsoluteTimeFromRelativeTimestamp@{GetAbsoluteTimeFromRelativeTimestamp}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{GetAbsoluteTimeFromRelativeTimestamp()}{GetAbsoluteTimeFromRelativeTimestamp()}}
+{\footnotesize\ttfamily tm Socket\+Client\+::\+Get\+Absolute\+Time\+From\+Relative\+Timestamp (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{current\+Relative\+Time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Converts a given relative timestamp into tm format. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Relative\+Time} & the relative timestamp in uint32\+\_\+t \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns the absolut timestamp in tm format
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000012}{Todo}}]doxygen \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_ae5ba70a270d42bf9745e79497cefa8fe}\label{class_socket_client_ae5ba70a270d42bf9745e79497cefa8fe} 
+\index{SocketClient@{SocketClient}!GetBaselineRelativeTimestamp@{GetBaselineRelativeTimestamp}}
+\index{GetBaselineRelativeTimestamp@{GetBaselineRelativeTimestamp}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{GetBaselineRelativeTimestamp()}{GetBaselineRelativeTimestamp()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Get\+Baseline\+Relative\+Timestamp (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{bcdtimebuffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+gets the realtive timestamp from a given buffer 
+
+
+\begin{DoxyParams}{Parameters}
+{\em timebuffer} & the buffer to get the timestamp from\\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000007}{Todo}}]doxygen \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_acee5dd82e2750175a61b2ccd2a6b3b7d}\label{class_socket_client_acee5dd82e2750175a61b2ccd2a6b3b7d} 
+\index{SocketClient@{SocketClient}!getLastMessage@{getLastMessage}}
+\index{getLastMessage@{getLastMessage}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{getLastMessage()}{getLastMessage()}}
+{\footnotesize\ttfamily char \texorpdfstring{$\ast$}{*} Socket\+Client\+::get\+Last\+Message (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Logging. 
+
+\Hypertarget{class_socket_client_a9d241186d44672699d1a7b536a7fa67a}\label{class_socket_client_a9d241186d44672699d1a7b536a7fa67a} 
+\index{SocketClient@{SocketClient}!GetPacketTimestamp@{GetPacketTimestamp}}
+\index{GetPacketTimestamp@{GetPacketTimestamp}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{GetPacketTimestamp()}{GetPacketTimestamp()}}
+{\footnotesize\ttfamily std\+::string Socket\+Client\+::\+Get\+Packet\+Timestamp (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{header,  }\item[{uint16\+\_\+t}]{headersize }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+This function gets the Timestamp from which the measurement was taken. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em header} & The buffer to read from \\
+\hline
+{\em headersize} & the size of the header to read from \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns the string with the timestamp
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000011}{Todo}}]doxygen \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_ac804932ef7741b9a97d3869890019541}\label{class_socket_client_ac804932ef7741b9a97d3869890019541} 
+\index{SocketClient@{SocketClient}!GetRTSAPriorityListRequest@{GetRTSAPriorityListRequest}}
+\index{GetRTSAPriorityListRequest@{GetRTSAPriorityListRequest}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{GetRTSAPriorityListRequest()}{GetRTSAPriorityListRequest()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Get\+RTSAPriority\+List\+Request (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method for sending a request to receive an RTSA priority list. 
+
 \Hypertarget{class_socket_client_a0294a111cf7bee7e06ab1199f7ccddd5}\label{class_socket_client_a0294a111cf7bee7e06ab1199f7ccddd5} 
 \index{SocketClient@{SocketClient}!getSocket@{getSocket}}
 \index{getSocket@{getSocket}!SocketClient@{SocketClient}}
@@ -175,15 +797,285 @@ a getter method for the SOCKET sock
 \begin{DoxyReturn}{Returns}
 the membervariable SOCKET sock 
 \end{DoxyReturn}
+\Hypertarget{class_socket_client_a3cb21cf1a1709e329c7254ad22d73f2e}\label{class_socket_client_a3cb21cf1a1709e329c7254ad22d73f2e} 
+\index{SocketClient@{SocketClient}!initMsgs@{initMsgs}}
+\index{initMsgs@{initMsgs}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{initMsgs()}{initMsgs()}}
+{\footnotesize\ttfamily void Socket\+Client\+::init\+Msgs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method to initialise the possible messages with their corresponding bytes. 
+
+\Hypertarget{class_socket_client_a5ee8ec1e5409055dac62b91750ef7da3}\label{class_socket_client_a5ee8ec1e5409055dac62b91750ef7da3} 
+\index{SocketClient@{SocketClient}!IsLittleEndian@{IsLittleEndian}}
+\index{IsLittleEndian@{IsLittleEndian}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{IsLittleEndian()}{IsLittleEndian()}}
+{\footnotesize\ttfamily bool Socket\+Client\+::\+Is\+Little\+Endian (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method to check if data is in little endian format. 
+
+\begin{DoxyReturn}{Returns}
+true if it is little endian 
+\end{DoxyReturn}
+\Hypertarget{class_socket_client_a537146057b3c27487f4b6d2039e60012}\label{class_socket_client_a537146057b3c27487f4b6d2039e60012} 
+\index{SocketClient@{SocketClient}!KeepConnectionAlive@{KeepConnectionAlive}}
+\index{KeepConnectionAlive@{KeepConnectionAlive}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{KeepConnectionAlive()}{KeepConnectionAlive()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Keep\+Connection\+Alive (\begin{DoxyParamCaption}\item[{int}]{n\+Interval = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method for repeatedly sending an MDSCreate\+Event\+Result so that the monitor keeps the connection alive. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+Interval} & the time interval between sends \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_socket_client_a606a34e47948002ab0da660cae7e5387}\label{class_socket_client_a606a34e47948002ab0da660cae7e5387} 
+\index{SocketClient@{SocketClient}!ParseMDSCreateEventReport@{ParseMDSCreateEventReport}}
+\index{ParseMDSCreateEventReport@{ParseMDSCreateEventReport}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ParseMDSCreateEventReport()}{ParseMDSCreateEventReport()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Parse\+MDSCreate\+Event\+Report (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method that is called as part of the \doxylink{class_socket_client_a0685bceb1589dda27924dc056570a7a1}{Process\+Packet()} function to further categorise, decode and process the received data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & the buffer with the receieved data \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_socket_client_a67172065a09c78492f4635bea8e1a678}\label{class_socket_client_a67172065a09c78492f4635bea8e1a678} 
+\index{SocketClient@{SocketClient}!PollPacketDecoder@{PollPacketDecoder}}
+\index{PollPacketDecoder@{PollPacketDecoder}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{PollPacketDecoder()}{PollPacketDecoder()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Poll\+Packet\+Decoder (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{packetbuffer,  }\item[{size\+\_\+t}]{headersize }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Wrapper function to process an identified Poll\+Packet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em packetbuffer} & the given buffer to read from \\
+\hline
+{\em headersize} & the headersize, which is used to determine from which bufferindex to read from\\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000014}{Todo}}]doxygen \end{DoxyRefDesc}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000015}{Todo}}]\end{DoxyRefDesc}
+\Hypertarget{class_socket_client_a0685bceb1589dda27924dc056570a7a1}\label{class_socket_client_a0685bceb1589dda27924dc056570a7a1} 
+\index{SocketClient@{SocketClient}!ProcessPacket@{ProcessPacket}}
+\index{ProcessPacket@{ProcessPacket}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ProcessPacket()}{ProcessPacket()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Process\+Packet (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Processes all incoming types of data protocols. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & char array with the sent bytes\\
+\hline
+\end{DoxyParams}
+the method that is called whenever data is received from the monitor to categorise, decode and process the received data 
+\begin{DoxyParams}{Parameters}
+{\em buffer} & the buffer with the received data \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_socket_client_ae524e90b1fbf498324be67e15ebb7441}\label{class_socket_client_ae524e90b1fbf498324be67e15ebb7441} 
+\index{SocketClient@{SocketClient}!ReadCompoundNumericObsValue@{ReadCompoundNumericObsValue}}
+\index{ReadCompoundNumericObsValue@{ReadCompoundNumericObsValue}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ReadCompoundNumericObsValue()}{ReadCompoundNumericObsValue()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Read\+Compound\+Numeric\+Obs\+Value (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method to read compound numeric observation values from the buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & buffer to read from\\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000028}{Todo}}]doxygen \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_a324bc0ccfe839aaddc96b27349fd8826}\label{class_socket_client_a324bc0ccfe839aaddc96b27349fd8826} 
+\index{SocketClient@{SocketClient}!ReadCompoundWaveSaObservationValue@{ReadCompoundWaveSaObservationValue}}
+\index{ReadCompoundWaveSaObservationValue@{ReadCompoundWaveSaObservationValue}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ReadCompoundWaveSaObservationValue()}{ReadCompoundWaveSaObservationValue()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Read\+Compound\+Wave\+Sa\+Observation\+Value (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method to read wave observation values from the buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & The Buffer to read from ~\newline
+\\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000033}{Todo}}]doxygen \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_a1a48f0c50045adb2df122bac2e8b2bc9}\label{class_socket_client_a1a48f0c50045adb2df122bac2e8b2bc9} 
+\index{SocketClient@{SocketClient}!ReadIDLabel@{ReadIDLabel}}
+\index{ReadIDLabel@{ReadIDLabel}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ReadIDLabel()}{ReadIDLabel()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Read\+IDLabel (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Reads the \doxylink{struct_i_d_label}{IDLabel} of a Buffer\+Object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & The Buffer to read from ~\newline
+\\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000024}{Todo}}]doxygen \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_a6876609336f3ae74992b9e13bac9d9ac}\label{class_socket_client_a6876609336f3ae74992b9e13bac9d9ac} 
+\index{SocketClient@{SocketClient}!ReadIDLabelString@{ReadIDLabelString}}
+\index{ReadIDLabelString@{ReadIDLabelString}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ReadIDLabelString()}{ReadIDLabelString()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Read\+IDLabel\+String (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Reads the \doxylink{struct_i_d_label}{IDLabel} of a Buffer\+Object and adds it to a list. 
+
+\doxylink{class_socket_client_a0e0f3829d0f0c29e1693741d53b1d56e}{buffer buffer to read from }
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000029}{Todo}}]doxygen \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_ab3e591d94c533d291d854f94b443f0a7}\label{class_socket_client_ab3e591d94c533d291d854f94b443f0a7} 
+\index{SocketClient@{SocketClient}!ReadNumericObservationValue@{ReadNumericObservationValue}}
+\index{ReadNumericObservationValue@{ReadNumericObservationValue}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ReadNumericObservationValue()}{ReadNumericObservationValue()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Read\+Numeric\+Observation\+Value (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method to read numeric observation values from the buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & buffer to read from \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000025}{Todo}}]test float type to value \end{DoxyRefDesc}
+
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000026}{Todo}}]exception handling \end{DoxyRefDesc}
+
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000027}{Todo}}]time \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_a3e0f253ca00ac5c97e8aa907284e1097}\label{class_socket_client_a3e0f253ca00ac5c97e8aa907284e1097} 
+\index{SocketClient@{SocketClient}!ReadSaCalibrationSpecifications@{ReadSaCalibrationSpecifications}}
+\index{ReadSaCalibrationSpecifications@{ReadSaCalibrationSpecifications}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ReadSaCalibrationSpecifications()}{ReadSaCalibrationSpecifications()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Read\+Sa\+Calibration\+Specifications (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method to read the Calibration Specifications from the buffer and set them for calibrating later. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & buffer to read from \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_socket_client_ace0f3a08d7ef1959428c911d213691bb}\label{class_socket_client_ace0f3a08d7ef1959428c911d213691bb} 
+\index{SocketClient@{SocketClient}!ReadSaScaleSpecifications@{ReadSaScaleSpecifications}}
+\index{ReadSaScaleSpecifications@{ReadSaScaleSpecifications}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ReadSaScaleSpecifications()}{ReadSaScaleSpecifications()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Read\+Sa\+Scale\+Specifications (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method to read the Scaling Specifications from the buffer and set them for scaling later. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & The Buffer to read from ~\newline
+ \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_socket_client_a68569e23c8b3299a29a4652e76d8a3fe}\label{class_socket_client_a68569e23c8b3299a29a4652e76d8a3fe} 
+\index{SocketClient@{SocketClient}!ReadSaSpecifications@{ReadSaSpecifications}}
+\index{ReadSaSpecifications@{ReadSaSpecifications}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ReadSaSpecifications()}{ReadSaSpecifications()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Read\+Sa\+Specifications (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Reads the Sa\+Specification from a given buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & Read\+Wave\+Sa\+Observation\+Value\\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000034}{Todo}}]doxygen \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_afcd9db208be211ef295a11284137ed02}\label{class_socket_client_afcd9db208be211ef295a11284137ed02} 
+\index{SocketClient@{SocketClient}!ReadWaveSaObservationValue@{ReadWaveSaObservationValue}}
+\index{ReadWaveSaObservationValue@{ReadWaveSaObservationValue}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ReadWaveSaObservationValue()}{ReadWaveSaObservationValue()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Read\+Wave\+Sa\+Observation\+Value (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+This method reads the Wave\+Sa\+Observation Values from a given buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & The Buffer to read from ~\newline
+ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000032}{Todo}}]\end{DoxyRefDesc}
+\Hypertarget{class_socket_client_ae49ada1078c7336330e570835d92056e}\label{class_socket_client_ae49ada1078c7336330e570835d92056e} 
+\index{SocketClient@{SocketClient}!ReadWaveSaObservationValueObject@{ReadWaveSaObservationValueObject}}
+\index{ReadWaveSaObservationValueObject@{ReadWaveSaObservationValueObject}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ReadWaveSaObservationValueObject()}{ReadWaveSaObservationValueObject()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Read\+Wave\+Sa\+Observation\+Value\+Object (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{avaattribobjects }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method to read numerical observation values from the buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & The Buffer to read from ~\newline
+\\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000031}{Todo}}]doxygen \end{DoxyRefDesc}
 \Hypertarget{class_socket_client_a6cfc5eab3b471703c4a63de20013d5bc}\label{class_socket_client_a6cfc5eab3b471703c4a63de20013d5bc} 
 \index{SocketClient@{SocketClient}!Receive@{Receive}}
 \index{Receive@{Receive}!SocketClient@{SocketClient}}
 \doxysubsubsection{\texorpdfstring{Receive()}{Receive()}}
-{\footnotesize\ttfamily void Socket\+Client\+::\+Receive (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer,  }\item[{size\+\_\+t}]{buffersize = {\ttfamily maxbuffersize},  }\item[{int}]{flags = {\ttfamily 0} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Receive (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer,  }\item[{size\+\_\+t}]{buffersize = {\ttfamily \mbox{\hyperlink{definitions_8h_a62ad1596044c3dac9b3ac5a6f0deff8d}{maxbuffersize}}},  }\item[{int}]{flags = {\ttfamily 0} }\end{DoxyParamCaption})}
 
 
 
-A method for receiving data from the server 
+A method for receiving data from the server. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -194,6 +1086,193 @@ A method for receiving data from the server
 {\em flags} & the flags to set for the base WSARecv\+From function \\
 \hline
 \end{DoxyParams}
+\Hypertarget{class_socket_client_a895e7fa61a7aa7ed861667bf1e866a19}\label{class_socket_client_a895e7fa61a7aa7ed861667bf1e866a19} 
+\index{SocketClient@{SocketClient}!ReceiveCallback@{ReceiveCallback}}
+\index{ReceiveCallback@{ReceiveCallback}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ReceiveCallback()}{ReceiveCallback()}}
+{\footnotesize\ttfamily void CALLBACK Socket\+Client\+::\+Receive\+Callback (\begin{DoxyParamCaption}\item[{DWORD}]{error\+Code,  }\item[{DWORD}]{num\+Bytes\+Received,  }\item[{LPWSAOVERLAPPED}]{overlapped,  }\item[{DWORD}]{flags = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+the Callback function to be called whenever a data packet has been received to process the data 
+
+
+\begin{DoxyParams}{Parameters}
+{\em error\+Code} & the error code from the receive operation \\
+\hline
+{\em num\+Bytes\+Received} & the number of bytes received \\
+\hline
+{\em overlapped} & the WSAOverlapped structure from the receive function \\
+\hline
+{\em flags} & the flags from the WSARecv\+From function\\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000040}{Todo}}]add path\+\_\+to\+\_\+file \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_aa869f960877d33a1b6dc57dc68c75c5c}\label{class_socket_client_aa869f960877d33a1b6dc57dc68c75c5c} 
+\index{SocketClient@{SocketClient}!RecheckMDSAttributes@{RecheckMDSAttributes}}
+\index{RecheckMDSAttributes@{RecheckMDSAttributes}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{RecheckMDSAttributes()}{RecheckMDSAttributes()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Recheck\+MDSAttributes (\begin{DoxyParamCaption}\item[{int}]{n\+Interval = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method for repeatedly rechecking the monitors MDS attributes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+Interval} & the time interval between polls \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_socket_client_ac0392359d722168aa39fd3791a68b8a2}\label{class_socket_client_ac0392359d722168aa39fd3791a68b8a2} 
+\index{SocketClient@{SocketClient}!SaveNumericValueList@{SaveNumericValueList}}
+\index{SaveNumericValueList@{SaveNumericValueList}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{SaveNumericValueList()}{SaveNumericValueList()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Save\+Numeric\+Value\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+one case of Export\+Data\+To\+CSV which is to export the data to a csv file in different formats depending on the value of m\+\_\+csvexportset 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000020}{Todo}}]filename \end{DoxyRefDesc}
+
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000021}{Todo}}]add line \end{DoxyRefDesc}
+
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000022}{Todo}}]\end{DoxyRefDesc}
+\Hypertarget{class_socket_client_a817a64f6a66db3b347dc885edfe88c92}\label{class_socket_client_a817a64f6a66db3b347dc885edfe88c92} 
+\index{SocketClient@{SocketClient}!SaveNumericValueListConsolidatedCSV@{SaveNumericValueListConsolidatedCSV}}
+\index{SaveNumericValueListConsolidatedCSV@{SaveNumericValueListConsolidatedCSV}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{SaveNumericValueListConsolidatedCSV()}{SaveNumericValueListConsolidatedCSV()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Save\+Numeric\+Value\+List\+Consolidated\+CSV (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method to write the numeric values for the csv file of the exported data. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000017}{Todo}}]path file name \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_aa0b6d1f9400f9c844df189a23156c079}\label{class_socket_client_aa0b6d1f9400f9c844df189a23156c079} 
+\index{SocketClient@{SocketClient}!SaveNumericValueListRows@{SaveNumericValueListRows}}
+\index{SaveNumericValueListRows@{SaveNumericValueListRows}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{SaveNumericValueListRows()}{SaveNumericValueListRows()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Save\+Numeric\+Value\+List\+Rows (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000019}{Todo}}]path file name \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_a623eb07199b41e95cefac18f61327185}\label{class_socket_client_a623eb07199b41e95cefac18f61327185} 
+\index{SocketClient@{SocketClient}!ScaleRangeSaValue@{ScaleRangeSaValue}}
+\index{ScaleRangeSaValue@{ScaleRangeSaValue}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ScaleRangeSaValue()}{ScaleRangeSaValue()}}
+{\footnotesize\ttfamily double Socket\+Client\+::\+Scale\+Range\+Sa\+Value (\begin{DoxyParamCaption}\item[{double}]{Waveval,  }\item[{\mbox{\hyperlink{struct_scale_range_spec16}{Scale\+Range\+Spec16}}}]{sascaledata }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method to scale the received wave values according to \doxylink{struct_scale_range_spec16}{Scale\+Range\+Spec16}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Waveval} & the wave value to be scaled \\
+\hline
+{\em sascaledata} & the scaling parameters \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the scaled wave value 
+\end{DoxyReturn}
+\Hypertarget{class_socket_client_a4d7263d3b373ca4535cd0ebd8404c69e}\label{class_socket_client_a4d7263d3b373ca4535cd0ebd8404c69e} 
+\index{SocketClient@{SocketClient}!sendBytes@{sendBytes}}
+\index{sendBytes@{sendBytes}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{sendBytes()}{sendBytes()}}
+{\footnotesize\ttfamily void Socket\+Client\+::send\+Bytes (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::byte $>$}]{bytes }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method to send the specified bytes to the target address by putting them in a buffer and sending them via Send\+TO() 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bytes} & the bytes to be sent ~\newline
+ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000004}{Todo}}]prüfen ob das funktioniert \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_a0e1a7c44072c870915d746872492a542}\label{class_socket_client_a0e1a7c44072c870915d746872492a542} 
+\index{SocketClient@{SocketClient}!SendCycledExtendedPollDataRequest@{SendCycledExtendedPollDataRequest}}
+\index{SendCycledExtendedPollDataRequest@{SendCycledExtendedPollDataRequest}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{SendCycledExtendedPollDataRequest()}{SendCycledExtendedPollDataRequest()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Send\+Cycled\+Extended\+Poll\+Data\+Request (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{n\+Interval }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method for the thread that repeatedly sends an extended poll data request. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+Interval} & the time interval between polls \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000038}{Todo}}]make time variable \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_a4f28ce2bad93e3a3cc34edaf4b815d10}\label{class_socket_client_a4f28ce2bad93e3a3cc34edaf4b815d10} 
+\index{SocketClient@{SocketClient}!SendCycledExtendedPollWaveDataRequest@{SendCycledExtendedPollWaveDataRequest}}
+\index{SendCycledExtendedPollWaveDataRequest@{SendCycledExtendedPollWaveDataRequest}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{SendCycledExtendedPollWaveDataRequest()}{SendCycledExtendedPollWaveDataRequest()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Send\+Cycled\+Extended\+Poll\+Wave\+Data\+Request (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{n\+Interval }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method for the thread that repeatedly sends an extended poll wave data request. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+Interval} & the time interval between polls \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000039}{Todo}}]make time variable \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_ae5e6a670b7bdf58155cce2815ba7d204}\label{class_socket_client_ae5e6a670b7bdf58155cce2815ba7d204} 
+\index{SocketClient@{SocketClient}!SendMDSCreateEventResult@{SendMDSCreateEventResult}}
+\index{SendMDSCreateEventResult@{SendMDSCreateEventResult}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{SendMDSCreateEventResult()}{SendMDSCreateEventResult()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Send\+MDSCreate\+Event\+Result (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method for sending an MDSCreate\+Event message. 
+
+\Hypertarget{class_socket_client_add419180d06942d202435e03ccdf1f0e}\label{class_socket_client_add419180d06942d202435e03ccdf1f0e} 
+\index{SocketClient@{SocketClient}!SendMDSPollDataRequest@{SendMDSPollDataRequest}}
+\index{SendMDSPollDataRequest@{SendMDSPollDataRequest}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{SendMDSPollDataRequest()}{SendMDSPollDataRequest()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Send\+MDSPoll\+Data\+Request (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method for sending an MDS poll data request message. 
+
+\Hypertarget{class_socket_client_a273f71de35f9605380fa9a6fb3d3220d}\label{class_socket_client_a273f71de35f9605380fa9a6fb3d3220d} 
+\index{SocketClient@{SocketClient}!SendRTSAPriorityMessage@{SendRTSAPriorityMessage}}
+\index{SendRTSAPriorityMessage@{SendRTSAPriorityMessage}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{SendRTSAPriorityMessage()}{SendRTSAPriorityMessage()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Send\+RTSAPriority\+Message (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::byte $>$}]{Wave\+Tr\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+sends the RTSAPriority\+Message 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Wave\+Tr\+Type} & a byte vector with the bytes to be send\\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000042}{Todo}}]doxygen \end{DoxyRefDesc}
 \Hypertarget{class_socket_client_a157ed622da08c9e6f55e34e9d27c41bb}\label{class_socket_client_a157ed622da08c9e6f55e34e9d27c41bb} 
 \index{SocketClient@{SocketClient}!SendWaveAssociationRequest@{SendWaveAssociationRequest}}
 \index{SendWaveAssociationRequest@{SendWaveAssociationRequest}!SocketClient@{SocketClient}}
@@ -204,7 +1283,93 @@ A method for receiving data from the server
 
 Sendet Assiation Request. 
 
-A method that sends a Wave Association Request by sending the corresponding bytes via send\+Bytes() 
+A method that sends a Wave Association Request by sending the corresponding bytes via \doxylink{class_socket_client_a4d7263d3b373ca4535cd0ebd8404c69e}{send\+Bytes()} \Hypertarget{class_socket_client_ac11bd5de6f5950c8d76df508df5ecbe0}\label{class_socket_client_ac11bd5de6f5950c8d76df508df5ecbe0} 
+\index{SocketClient@{SocketClient}!SetRTSAPriorityList@{SetRTSAPriorityList}}
+\index{SetRTSAPriorityList@{SetRTSAPriorityList}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{SetRTSAPriorityList()}{SetRTSAPriorityList()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Set\+RTSAPriority\+List (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{n\+Wave\+Set\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+sets the RTSA Priority List based on the user input 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+Wave\+Set\+Type} & The userinput which wavetype should be set\\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000043}{Todo}}]doxygen \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_a3eaea5b577cb9108239f7458c2fd6f78}\label{class_socket_client_a3eaea5b577cb9108239f7458c2fd6f78} 
+\index{SocketClient@{SocketClient}!ThreadKeepConnectionAlive@{ThreadKeepConnectionAlive}}
+\index{ThreadKeepConnectionAlive@{ThreadKeepConnectionAlive}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ThreadKeepConnectionAlive()}{ThreadKeepConnectionAlive()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Thread\+Keep\+Connection\+Alive (\begin{DoxyParamCaption}\item[{int}]{n\+Interval = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+the thread that repeatedly makes sue the monitor keeps the connection alive 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+Interval} & the time interval \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_socket_client_aa73e2440f43a32c791e8faca08f3ee0c}\label{class_socket_client_aa73e2440f43a32c791e8faca08f3ee0c} 
+\index{SocketClient@{SocketClient}!ThreadReceive@{ThreadReceive}}
+\index{ThreadReceive@{ThreadReceive}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ThreadReceive()}{ThreadReceive()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Thread\+Receive (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{received\+Buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+the thread tha trepeatedly calls the Receive function to receive answers and wave and numeric data from the monitor 
+
+
+\begin{DoxyParams}{Parameters}
+{\em received\+Buffer} & the buffer to pass to the Receive function \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_socket_client_a99c031a8b2280d524245bd16e2ccdc05}\label{class_socket_client_a99c031a8b2280d524245bd16e2ccdc05} 
+\index{SocketClient@{SocketClient}!ThreadRecheckMDSAttributes@{ThreadRecheckMDSAttributes}}
+\index{ThreadRecheckMDSAttributes@{ThreadRecheckMDSAttributes}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ThreadRecheckMDSAttributes()}{ThreadRecheckMDSAttributes()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Thread\+Recheck\+MDSAttributes (\begin{DoxyParamCaption}\item[{int}]{n\+Interval = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+the thread that repeatedly rechecks the MDS attributes 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+Interval} & the time interval \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_socket_client_a6e1541bf075b3b64031dc534c28339af}\label{class_socket_client_a6e1541bf075b3b64031dc534c28339af} 
+\index{SocketClient@{SocketClient}!WriteNumericHeadersList@{WriteNumericHeadersList}}
+\index{WriteNumericHeadersList@{WriteNumericHeadersList}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{WriteNumericHeadersList()}{WriteNumericHeadersList()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Write\+Numeric\+Headers\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method to write the headers for the csv file of the exported data. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000018}{Todo}}]path file name \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_a54a9fe05c2e57daf8d46bb183cc2c0a8}\label{class_socket_client_a54a9fe05c2e57daf8d46bb183cc2c0a8} 
+\index{SocketClient@{SocketClient}!WriteNumericHeadersListConsolidatedCSV@{WriteNumericHeadersListConsolidatedCSV}}
+\index{WriteNumericHeadersListConsolidatedCSV@{WriteNumericHeadersListConsolidatedCSV}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{WriteNumericHeadersListConsolidatedCSV()}{WriteNumericHeadersListConsolidatedCSV()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Write\+Numeric\+Headers\+List\+Consolidated\+CSV (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+A method to write the headers for the csv file of the exported data at transmission start. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000016}{Todo}}]path file name \end{DoxyRefDesc}
+
 
 \doxysubsection{Member Data Documentation}
 \Hypertarget{class_socket_client_a5e0ec079306d6048c06abfa415c994a6}\label{class_socket_client_a5e0ec079306d6048c06abfa415c994a6} 
@@ -315,11 +1480,167 @@ A method that sends a Wave Association Request by sending the corresponding byte
 \doxysubsubsection{\texorpdfstring{keep\_alive\_msg2}{keep\_alive\_msg2}}
 {\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::keep\+\_\+alive\+\_\+msg2}
 
+\Hypertarget{class_socket_client_a82723ec025dbb0aaa947cfd760ce3caa}\label{class_socket_client_a82723ec025dbb0aaa947cfd760ce3caa} 
+\index{SocketClient@{SocketClient}!lastMsgSize@{lastMsgSize}}
+\index{lastMsgSize@{lastMsgSize}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{lastMsgSize}{lastMsgSize}}
+{\footnotesize\ttfamily size\+\_\+t Socket\+Client\+::last\+Msg\+Size = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_a9aaa9fc4a647f38aacaa3e25a3b6e7b7}\label{class_socket_client_a9aaa9fc4a647f38aacaa3e25a3b6e7b7} 
+\index{SocketClient@{SocketClient}!m\_actiontype@{m\_actiontype}}
+\index{m\_actiontype@{m\_actiontype}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_actiontype}{m\_actiontype}}
+{\footnotesize\ttfamily uint16\+\_\+t Socket\+Client\+::m\+\_\+actiontype = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_a13cceef53864410b937ff54c49dd3a5c}\label{class_socket_client_a13cceef53864410b937ff54c49dd3a5c} 
+\index{SocketClient@{SocketClient}!m\_baseDateTime@{m\_baseDateTime}}
+\index{m\_baseDateTime@{m\_baseDateTime}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_baseDateTime}{m\_baseDateTime}}
+{\footnotesize\ttfamily tm Socket\+Client\+::m\+\_\+base\+Date\+Time \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_a28e33ed1a6225b9cce2b3e204dcdf025}\label{class_socket_client_a28e33ed1a6225b9cce2b3e204dcdf025} 
+\index{SocketClient@{SocketClient}!m\_baseRelativeTime@{m\_baseRelativeTime}}
+\index{m\_baseRelativeTime@{m\_baseRelativeTime}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_baseRelativeTime}{m\_baseRelativeTime}}
+{\footnotesize\ttfamily uint32\+\_\+t Socket\+Client\+::m\+\_\+base\+Relative\+Time = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_a3a32eb040a63fc5d66dceefe226e2032}\label{class_socket_client_a3a32eb040a63fc5d66dceefe226e2032} 
+\index{SocketClient@{SocketClient}!m\_calibratewavevalues@{m\_calibratewavevalues}}
+\index{m\_calibratewavevalues@{m\_calibratewavevalues}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_calibratewavevalues}{m\_calibratewavevalues}}
+{\footnotesize\ttfamily bool Socket\+Client\+::m\+\_\+calibratewavevalues\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_a4524dfd64361626f3b3760a1456be0be}\label{class_socket_client_a4524dfd64361626f3b3760a1456be0be} 
+\index{SocketClient@{SocketClient}!m\_csvexportset@{m\_csvexportset}}
+\index{m\_csvexportset@{m\_csvexportset}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_csvexportset}{m\_csvexportset}}
+{\footnotesize\ttfamily uint32\+\_\+t Socket\+Client\+::m\+\_\+csvexportset = 1\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_abb89f0c4553e29be9832024800929b4a}\label{class_socket_client_abb89f0c4553e29be9832024800929b4a} 
+\index{SocketClient@{SocketClient}!m\_dataexportset@{m\_dataexportset}}
+\index{m\_dataexportset@{m\_dataexportset}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_dataexportset}{m\_dataexportset}}
+{\footnotesize\ttfamily uint32\+\_\+t Socket\+Client\+::m\+\_\+dataexportset = 1\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_a86ce6b8305a45bda7e73f4be6d3b931a}\label{class_socket_client_a86ce6b8305a45bda7e73f4be6d3b931a} 
+\index{SocketClient@{SocketClient}!m\_DeviceID@{m\_DeviceID}}
+\index{m\_DeviceID@{m\_DeviceID}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_DeviceID}{m\_DeviceID}}
+{\footnotesize\ttfamily std\+::string Socket\+Client\+::m\+\_\+\+Device\+ID = \"{}\"{}\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_a6da92a61484c5dafa1a45a6fd835a17c}\label{class_socket_client_a6da92a61484c5dafa1a45a6fd835a17c} 
+\index{SocketClient@{SocketClient}!m\_idlabelhandle@{m\_idlabelhandle}}
+\index{m\_idlabelhandle@{m\_idlabelhandle}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_idlabelhandle}{m\_idlabelhandle}}
+{\footnotesize\ttfamily uint32\+\_\+t Socket\+Client\+::m\+\_\+idlabelhandle = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_ac7d1a8054dd26bde3bc46c1af26cc048}\label{class_socket_client_ac7d1a8054dd26bde3bc46c1af26cc048} 
+\index{SocketClient@{SocketClient}!m\_IDLabelList@{m\_IDLabelList}}
+\index{m\_IDLabelList@{m\_IDLabelList}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_IDLabelList}{m\_IDLabelList}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{struct_i_d_label}{IDLabel}}$>$ Socket\+Client\+::m\+\_\+\+IDLabel\+List\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_afad8e608b2391e32b51ea4f7b303f8b7}\label{class_socket_client_afad8e608b2391e32b51ea4f7b303f8b7} 
+\index{SocketClient@{SocketClient}!m\_idlabelstring@{m\_idlabelstring}}
+\index{m\_idlabelstring@{m\_idlabelstring}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_idlabelstring}{m\_idlabelstring}}
+{\footnotesize\ttfamily std\+::string Socket\+Client\+::m\+\_\+idlabelstring = \"{}\"{}\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_a200bf87f9762e8424c74fc014465ccbd}\label{class_socket_client_a200bf87f9762e8424c74fc014465ccbd} 
+\index{SocketClient@{SocketClient}!m\_lastMsg@{m\_lastMsg}}
+\index{m\_lastMsg@{m\_lastMsg}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_lastMsg}{m\_lastMsg}}
+{\footnotesize\ttfamily char\texorpdfstring{$\ast$}{*} Socket\+Client\+::m\+\_\+last\+Msg\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_a9d9dc25a73aa40d3de9101072d1e4280}\label{class_socket_client_a9d9dc25a73aa40d3de9101072d1e4280} 
+\index{SocketClient@{SocketClient}!m\_NumericValList@{m\_NumericValList}}
+\index{m\_NumericValList@{m\_NumericValList}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_NumericValList}{m\_NumericValList}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{struct_numeric_val_result}{Numeric\+Val\+Result}}$>$ Socket\+Client\+::m\+\_\+\+Numeric\+Val\+List\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_a9d388ed8a1f2339891081ee0efada79b}\label{class_socket_client_a9d388ed8a1f2339891081ee0efada79b} 
+\index{SocketClient@{SocketClient}!m\_NumValHeaders@{m\_NumValHeaders}}
+\index{m\_NumValHeaders@{m\_NumValHeaders}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_NumValHeaders}{m\_NumValHeaders}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ Socket\+Client\+::m\+\_\+\+Num\+Val\+Headers\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_af85fa502a7600e87a3885cb3a87473b5}\label{class_socket_client_af85fa502a7600e87a3885cb3a87473b5} 
+\index{SocketClient@{SocketClient}!m\_obpollhandle@{m\_obpollhandle}}
+\index{m\_obpollhandle@{m\_obpollhandle}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_obpollhandle}{m\_obpollhandle}}
+{\footnotesize\ttfamily uint16\+\_\+t Socket\+Client\+::m\+\_\+obpollhandle = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_aad2f1d880c7f1aa93ef56c3fd915e762}\label{class_socket_client_aad2f1d880c7f1aa93ef56c3fd915e762} 
+\index{SocketClient@{SocketClient}!m\_port@{m\_port}}
+\index{m\_port@{m\_port}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_port}{m\_port}}
+{\footnotesize\ttfamily const unsigned short Socket\+Client\+::m\+\_\+port = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_a3eba51aeb2b8c0abaa29a074625b9751}\label{class_socket_client_a3eba51aeb2b8c0abaa29a074625b9751} 
+\index{SocketClient@{SocketClient}!m\_readassocbuffer@{m\_readassocbuffer}}
+\index{m\_readassocbuffer@{m\_readassocbuffer}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_readassocbuffer}{m\_readassocbuffer}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::m\+\_\+readassocbuffer\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_a0121bb9f1e934b40ac4913141f1052c4}\label{class_socket_client_a0121bb9f1e934b40ac4913141f1052c4} 
+\index{SocketClient@{SocketClient}!m\_readmdsconnectbuffer@{m\_readmdsconnectbuffer}}
+\index{m\_readmdsconnectbuffer@{m\_readmdsconnectbuffer}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_readmdsconnectbuffer}{m\_readmdsconnectbuffer}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::m\+\_\+readmdsconnectbuffer\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_a7f39762f769cc2988caf25a9788a23af}\label{class_socket_client_a7f39762f769cc2988caf25a9788a23af} 
+\index{SocketClient@{SocketClient}!m\_receiveInterval@{m\_receiveInterval}}
+\index{m\_receiveInterval@{m\_receiveInterval}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_receiveInterval}{m\_receiveInterval}}
+{\footnotesize\ttfamily int Socket\+Client\+::m\+\_\+receive\+Interval = \mbox{\hyperlink{_socket_client_8h_a8682a8bde66a6aab34c56b6e7dfb43a3}{RECEIVEINTERVAL}}\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_a423286f12932d5380a1e20c55212b796}\label{class_socket_client_a423286f12932d5380a1e20c55212b796} 
+\index{SocketClient@{SocketClient}!m\_remoteIPtarget@{m\_remoteIPtarget}}
+\index{m\_remoteIPtarget@{m\_remoteIPtarget}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_remoteIPtarget}{m\_remoteIPtarget}}
+{\footnotesize\ttfamily std\+::string Socket\+Client\+::m\+\_\+remote\+IPtarget = \"{}\"{}\hspace{0.3cm}{\ttfamily [private]}}
+
 \Hypertarget{class_socket_client_aacec48f332055a07a6729c31c38c71f7}\label{class_socket_client_aacec48f332055a07a6729c31c38c71f7} 
 \index{SocketClient@{SocketClient}!m\_sa\_remoteIPtarget@{m\_sa\_remoteIPtarget}}
 \index{m\_sa\_remoteIPtarget@{m\_sa\_remoteIPtarget}!SocketClient@{SocketClient}}
 \doxysubsubsection{\texorpdfstring{m\_sa\_remoteIPtarget}{m\_sa\_remoteIPtarget}}
 {\footnotesize\ttfamily sockaddr\+\_\+in Socket\+Client\+::m\+\_\+sa\+\_\+remote\+IPtarget}
+
+\Hypertarget{class_socket_client_a0a0f04be6a0ace2dfa56b66dca185f88}\label{class_socket_client_a0a0f04be6a0ace2dfa56b66dca185f88} 
+\index{SocketClient@{SocketClient}!m\_SaCalibDataSpecList@{m\_SaCalibDataSpecList}}
+\index{m\_SaCalibDataSpecList@{m\_SaCalibDataSpecList}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_SaCalibDataSpecList}{m\_SaCalibDataSpecList}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{struct_sa_calib_data16}{Sa\+Calib\+Data16}}$>$ Socket\+Client\+::m\+\_\+\+Sa\+Calib\+Data\+Spec\+List\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_ae7023d9aaa9345fdb4213f2dfdfb7127}\label{class_socket_client_ae7023d9aaa9345fdb4213f2dfdfb7127} 
+\index{SocketClient@{SocketClient}!m\_SaSpecList@{m\_SaSpecList}}
+\index{m\_SaSpecList@{m\_SaSpecList}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_SaSpecList}{m\_SaSpecList}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{struct_sa_spec}{Sa\+Spec}}$>$ Socket\+Client\+::m\+\_\+\+Sa\+Spec\+List\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_a14dd00f14f810b12186a2ddad5bdd36c}\label{class_socket_client_a14dd00f14f810b12186a2ddad5bdd36c} 
+\index{SocketClient@{SocketClient}!m\_ScaleRangeSpecList@{m\_ScaleRangeSpecList}}
+\index{m\_ScaleRangeSpecList@{m\_ScaleRangeSpecList}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_ScaleRangeSpecList}{m\_ScaleRangeSpecList}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{struct_scale_range_spec16}{Scale\+Range\+Spec16}}$>$ Socket\+Client\+::m\+\_\+\+Scale\+Range\+Spec\+List\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_a816551908b8b07ea392f31883ed2e532}\label{class_socket_client_a816551908b8b07ea392f31883ed2e532} 
+\index{SocketClient@{SocketClient}!m\_strTimestamp@{m\_strTimestamp}}
+\index{m\_strTimestamp@{m\_strTimestamp}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_strTimestamp}{m\_strTimestamp}}
+{\footnotesize\ttfamily std\+::string Socket\+Client\+::m\+\_\+str\+Timestamp = \"{}\"{}\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_a3a53985ffad121ddbcc5708c3f7d5744}\label{class_socket_client_a3a53985ffad121ddbcc5708c3f7d5744} 
+\index{SocketClient@{SocketClient}!m\_transmissionstart@{m\_transmissionstart}}
+\index{m\_transmissionstart@{m\_transmissionstart}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_transmissionstart}{m\_transmissionstart}}
+{\footnotesize\ttfamily bool Socket\+Client\+::m\+\_\+transmissionstart = TRUE\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_a610153cc85dcb0caea4f43b2d0f6c253}\label{class_socket_client_a610153cc85dcb0caea4f43b2d0f6c253} 
+\index{SocketClient@{SocketClient}!m\_WaveValResultList@{m\_WaveValResultList}}
+\index{m\_WaveValResultList@{m\_WaveValResultList}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_WaveValResultList}{m\_WaveValResultList}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{struct_wave_val_result}{Wave\+Val\+Result}}$>$ Socket\+Client\+::m\+\_\+\+Wave\+Val\+Result\+List\hspace{0.3cm}{\ttfamily [private]}}
 
 \Hypertarget{class_socket_client_a401a88f61c3b90a7a35dc94f3d4b4885}\label{class_socket_client_a401a88f61c3b90a7a35dc94f3d4b4885} 
 \index{SocketClient@{SocketClient}!mds\_create\_resp\_msg@{mds\_create\_resp\_msg}}
@@ -374,4 +1695,22 @@ A method that sends a Wave Association Request by sending the corresponding byte
 \index{set\_rtsa\_prio\_msg@{set\_rtsa\_prio\_msg}!SocketClient@{SocketClient}}
 \doxysubsubsection{\texorpdfstring{set\_rtsa\_prio\_msg}{set\_rtsa\_prio\_msg}}
 {\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::set\+\_\+rtsa\+\_\+prio\+\_\+msg}
+
+\Hypertarget{class_socket_client_a6b1fc6d7b60b68f36c3fe01d2cfa2e5c}\label{class_socket_client_a6b1fc6d7b60b68f36c3fe01d2cfa2e5c} 
+\index{SocketClient@{SocketClient}!stopThreadKeepConnectionAlive@{stopThreadKeepConnectionAlive}}
+\index{stopThreadKeepConnectionAlive@{stopThreadKeepConnectionAlive}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{stopThreadKeepConnectionAlive}{stopThreadKeepConnectionAlive}}
+{\footnotesize\ttfamily bool Socket\+Client\+::stop\+Thread\+Keep\+Connection\+Alive = false\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_a8d04619a2ab6c4cf26654d2f60d37cf8}\label{class_socket_client_a8d04619a2ab6c4cf26654d2f60d37cf8} 
+\index{SocketClient@{SocketClient}!stopThreadReceive@{stopThreadReceive}}
+\index{stopThreadReceive@{stopThreadReceive}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{stopThreadReceive}{stopThreadReceive}}
+{\footnotesize\ttfamily bool Socket\+Client\+::stop\+Thread\+Receive = false\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_socket_client_a2cceadeaeacf989d05c412d0d8f2c2ad}\label{class_socket_client_a2cceadeaeacf989d05c412d0d8f2c2ad} 
+\index{SocketClient@{SocketClient}!stopThreadRecheckMDSAttributes@{stopThreadRecheckMDSAttributes}}
+\index{stopThreadRecheckMDSAttributes@{stopThreadRecheckMDSAttributes}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{stopThreadRecheckMDSAttributes}{stopThreadRecheckMDSAttributes}}
+{\footnotesize\ttfamily bool Socket\+Client\+::stop\+Thread\+Recheck\+MDSAttributes = false\hspace{0.3cm}{\ttfamily [private]}}
 

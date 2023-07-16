@@ -16,8 +16,11 @@ var searchData=
   ['startup_5fmode_13',['startup_mode',['../struct_mdse_user_info_std.html#aeeb5343b2326b76d8731da193972fc28',1,'MdseUserInfoStd']]],
   ['state_14',['state',['../struct_r_o_r_l_sapdu.html#ad1f8741fec843f8b7c1a92047c7a8449',1,'RORLSapdu::state'],['../struct_receive_state.html#a298315eab0ff12b2928814a95f21060f',1,'ReceiveState::state'],['../struct_nu_obs_value.html#a2824d886748d436029d7138ac0303a6b',1,'NuObsValue::state'],['../struct_sa_obs_value.html#a70ca2626163c6d4fe394797e6cb39254',1,'SaObsValue::state']]],
   ['state_5fip_15',['state_ip',['../class_receive___state.html#aab2eabd11f0cd87103752461e6799483',1,'Receive_State']]],
-  ['structure_16',['structure',['../struct_metric_spec.html#a37c3b4a564326ff16c961c70a005488e',1,'MetricSpec']]],
-  ['supported_5faprofiles_17',['supported_aprofiles',['../struct_mdse_user_info_std.html#a9fa7cf97ee3c788c9c2369d612f7849c',1,'MdseUserInfoStd']]],
-  ['system_5ftype_18',['system_type',['../struct_mdse_user_info_std.html#a988181f7244567b5f789e207024a39f8',1,'MdseUserInfoStd']]],
-  ['systemlocaltime_19',['SystemLocalTime',['../struct_numeric_val_result.html#adcf434cb8e73e457e8cff501774d2ba2',1,'NumericValResult::SystemLocalTime'],['../struct_wave_val_result.html#a2281eb6764f65e1e2dd1eb6ee7bdf293',1,'WaveValResult::SystemLocalTime']]]
+  ['stopthreadkeepconnectionalive_16',['stopThreadKeepConnectionAlive',['../class_socket_client.html#a6b1fc6d7b60b68f36c3fe01d2cfa2e5c',1,'SocketClient']]],
+  ['stopthreadreceive_17',['stopThreadReceive',['../class_socket_client.html#a8d04619a2ab6c4cf26654d2f60d37cf8',1,'SocketClient']]],
+  ['stopthreadrecheckmdsattributes_18',['stopThreadRecheckMDSAttributes',['../class_socket_client.html#a2cceadeaeacf989d05c412d0d8f2c2ad',1,'SocketClient']]],
+  ['structure_19',['structure',['../struct_metric_spec.html#a37c3b4a564326ff16c961c70a005488e',1,'MetricSpec']]],
+  ['supported_5faprofiles_20',['supported_aprofiles',['../struct_mdse_user_info_std.html#a9fa7cf97ee3c788c9c2369d612f7849c',1,'MdseUserInfoStd']]],
+  ['system_5ftype_21',['system_type',['../struct_mdse_user_info_std.html#a988181f7244567b5f789e207024a39f8',1,'MdseUserInfoStd']]],
+  ['systemlocaltime_22',['SystemLocalTime',['../struct_numeric_val_result.html#adcf434cb8e73e457e8cff501774d2ba2',1,'NumericValResult::SystemLocalTime'],['../struct_wave_val_result.html#a2281eb6764f65e1e2dd1eb6ee7bdf293',1,'WaveValResult::SystemLocalTime']]]
 ];

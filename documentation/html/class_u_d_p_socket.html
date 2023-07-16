@@ -131,13 +131,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aba7d584e75564a4ba4b7fddb479abee1"><td class="mdescLeft">&#160;</td><td class="mdescRight">a getter method to get the socket  <br /></td></tr>
 <tr class="separator:aba7d584e75564a4ba4b7fddb479abee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeccce2a68cc6405a78415551c21e06d7"><td class="memItemLeft" align="right" valign="top">long unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_d_p_socket.html#aeccce2a68cc6405a78415551c21e06d7">SendTo</a> (sockaddr_in &amp;remoteIP, char *buffer, size_t buffersize, long unsigned int flags=0)</td></tr>
-<tr class="memdesc:aeccce2a68cc6405a78415551c21e06d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that calls the WSASendTo function for sending to the monitor  <br /></td></tr>
+<tr class="memdesc:aeccce2a68cc6405a78415551c21e06d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that calls the WSASendTo function for sending to the monitor.  <br /></td></tr>
 <tr class="separator:aeccce2a68cc6405a78415551c21e06d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae14d059981edd54ea45378687ba0861f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_d_p_socket.html#ae14d059981edd54ea45378687ba0861f">RecvFrom</a> (sockaddr_in remoteIP, char *buffer, size_t buffersize, long unsigned int &amp;numBytesReceived, LPWSAOVERLAPPED overlapped, long unsigned int flags=0, LPWSAOVERLAPPED_COMPLETION_ROUTINE callback=NULL)</td></tr>
-<tr class="memdesc:ae14d059981edd54ea45378687ba0861f"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that calls the WSARecvFrom function to receive data from the monitor  <br /></td></tr>
+<tr class="memdesc:ae14d059981edd54ea45378687ba0861f"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that calls the WSARecvFrom function to receive data from the monitor.  <br /></td></tr>
 <tr class="separator:ae14d059981edd54ea45378687ba0861f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a167ae3a1fd089f7e3d0644dd03044d7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_d_p_socket.html#a167ae3a1fd089f7e3d0644dd03044d7b">Bind</a> (sockaddr_in &amp;localIP, unsigned short port)</td></tr>
-<tr class="memdesc:a167ae3a1fd089f7e3d0644dd03044d7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method for associating a local address with the socket on the server side  <br /></td></tr>
+<tr class="memdesc:a167ae3a1fd089f7e3d0644dd03044d7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method for associating a local address with the socket on the server side.  <br /></td></tr>
 <tr class="separator:a167ae3a1fd089f7e3d0644dd03044d7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83253acb737a2409be60e2dd8350f46e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_d_p_socket.html#a83253acb737a2409be60e2dd8350f46e">Connect</a> (sockaddr_in &amp;remoteIP)</td></tr>
 <tr class="memdesc:a83253acb737a2409be60e2dd8350f46e"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method for connecting the socket to the remote address.  <br /></td></tr>
@@ -217,7 +217,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>A method for associating a local address with the socket on the server side </p>
+<p>A method for associating a local address with the socket on the server side. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">localIP</td><td>the sockaddress_in structure with the local IP address, port and settings of the server address </td></tr>
@@ -330,7 +330,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>A method that calls the WSARecvFrom function to receive data from the monitor </p>
+<p>A method that calls the WSARecvFrom function to receive data from the monitor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">remoteIP</td><td>the remote IP address of the monitor </td></tr>
@@ -385,7 +385,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>A method that calls the WSASendTo function for sending to the monitor </p>
+<p>A method that calls the WSASendTo function for sending to the monitor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">remoteIP</td><td>the remote IP address of the monitor </td></tr>

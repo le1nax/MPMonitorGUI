@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['architecture_5fid_0',['ARCHITECTURE_ID',['../_c_make_c_x_x_compiler_id_8cpp.html#aba35d0d200deaeb06aee95ca297acb28',1,'CMakeCXXCompilerId.cpp']]]
+  ['max_5fbuffer_5fsize_0',['MAX_BUFFER_SIZE',['../main_8cpp.html#ad4d796b98c583d49e83adabd74a63bf6',1,'MAX_BUFFER_SIZE:&#160;main.cpp'],['../main__server_8cpp.html#ad4d796b98c583d49e83adabd74a63bf6',1,'MAX_BUFFER_SIZE:&#160;main_server.cpp']]]
 ];

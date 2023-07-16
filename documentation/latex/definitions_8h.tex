@@ -1416,6 +1416,32 @@ enum class \mbox{\hyperlink{definitions_8h_ad9ea9c753a0a667a0c7ffc657703091f}{Al
 \begin{DoxyCompactItemize}
 \item 
 {\footnotesize template$<$typename... Ts$>$ }\\std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{definitions_8h_ac983c48834d285bf781579dd0adea202}{make\+\_\+bytes}} (Ts \&\&... args) noexcept
+\item 
+static void \mbox{\hyperlink{definitions_8h_a006eb8ee4a63c5d8de066851e8fa76c1}{read\+Bytes\+From\+Array}} (const char \texorpdfstring{$\ast$}{*}array, size\+\_\+t num\+Bytes)
+\item 
+static std\+::string \mbox{\hyperlink{definitions_8h_a3f23d5bde3752bfc43551d89167d454b}{Replace\+Null\+Characters}} (const std\+::string \&input\+String)
+\item 
+static uint16\+\_\+t \mbox{\hyperlink{definitions_8h_a8c1304674ff3ce2e097b6d156a95a801}{Get16bit\+LSBfrom\+UInt}} (uint32\+\_\+t sourcevalue)
+\item 
+static std\+::string \mbox{\hyperlink{definitions_8h_a35de8c99d430876d7cadf616e0f2a7f6}{Trim\+String}} (const std\+::string \&input\+String)
+\item 
+static std\+::string \mbox{\hyperlink{definitions_8h_a3afd0a273ee8552c0105bbfbe314b884}{Utf8\+To\+String}} (const std\+::string \&utf8\+String)
+\item 
+static unsigned long \mbox{\hyperlink{definitions_8h_a7a924ce7c33c05179992965d365f17e9}{Read\+Byte\+Values\+From\+Buffer\+Little\+Endian}} (const char \texorpdfstring{$\ast$}{*}buffer, unsigned long start\+Index, unsigned long num\+Bytes\+To\+Read)
+\begin{DoxyCompactList}\small\item\em Konvertiert einen big-\/endian buffer in einen integer in little endian. \end{DoxyCompactList}\item 
+static unsigned long \mbox{\hyperlink{definitions_8h_ab35bac642be2cdd8df0305e5f9f02ed0}{Read16\+Byte\+Values\+From\+Buffer\+Little\+Endian}} (const char \texorpdfstring{$\ast$}{*}buffer, unsigned long start\+Index)
+\item 
+static std\+::string \mbox{\hyperlink{definitions_8h_a029b22b1e6c1bd4cdae890f7afd3e1c1}{format\+Tm}} (const struct tm \&time\+Info)
+\item 
+static int \mbox{\hyperlink{definitions_8h_a44dd868bf921cf536b7c34658bf95cc0}{Binary\+Coded\+Decimal\+To\+Integer}} (int value)
+\item 
+static double \mbox{\hyperlink{definitions_8h_a34fdca4b4049124634c19eaa6b035efb}{Floattype\+To\+Value}} (uint32\+\_\+t fvalue)
+\item 
+static char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{definitions_8h_a1301dfef2e69c9df57a27cb393b42142}{Read\+Bytes\+From\+Buffer}} (const char \texorpdfstring{$\ast$}{*}array, size\+\_\+t start\+Index, size\+\_\+t num\+Bytes)
+\item 
+static uint16\+\_\+t \mbox{\hyperlink{definitions_8h_a1f46d152886e0ed295b7205287cca79c}{Read16\+Byte\+Values\+From\+Buffer}} (const char \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t start\+Index)
+\item 
+static unsigned long \mbox{\hyperlink{definitions_8h_ad50b5a3ba0056ee1525b754bcc537173}{Read\+Byte\+Values\+From\+Buffer}} (const char \texorpdfstring{$\ast$}{*}buffer, unsigned long start\+Index, unsigned long num\+Bytes\+To\+Read)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
@@ -1427,6 +1453,10 @@ constexpr int \mbox{\hyperlink{definitions_8h_a1d5b7e26641b5277f0e121179596d612}
 constexpr int \mbox{\hyperlink{definitions_8h_aa266c6489df516f02cf2a053589543bf}{FLOATTYPE\+\_\+\+POSITIVE\+\_\+\+INFINITY}} = 0x7\+FFFFE
 \item 
 constexpr int \mbox{\hyperlink{definitions_8h_a40541850a1a2ccc344cb893f87d43ab1}{FLOATTYPE\+\_\+\+NEGATIVE\+\_\+\+INFINITY}} = 0x800002
+\item 
+static constexpr size\+\_\+t \mbox{\hyperlink{definitions_8h_a62ad1596044c3dac9b3ac5a6f0deff8d}{maxbuffersize}} = 2001
+\item 
+static constexpr size\+\_\+t \mbox{\hyperlink{definitions_8h_a066d9e004419bd146b312a280c0cd50a}{u\+Int16\+Size}} = sizeof(unsigned short)
 \item 
 constexpr int \mbox{\hyperlink{definitions_8h_a05853ad25901434ba1538580deb3afcd}{NOM\+\_\+\+ATTR\+\_\+\+TIME\+\_\+\+ABS}} = 0x987
 \item 
@@ -5692,12 +5722,109 @@ NLS\+\_\+\+VUELINK\+\_\+\+FLX1\+\_\+\+NPS\+\_\+\+TEXT\+\_\+\+WAVE8&\\
 
 
 \doxysubsection{Function Documentation}
+\Hypertarget{definitions_8h_a44dd868bf921cf536b7c34658bf95cc0}\label{definitions_8h_a44dd868bf921cf536b7c34658bf95cc0} 
+\index{definitions.h@{definitions.h}!BinaryCodedDecimalToInteger@{BinaryCodedDecimalToInteger}}
+\index{BinaryCodedDecimalToInteger@{BinaryCodedDecimalToInteger}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{BinaryCodedDecimalToInteger()}{BinaryCodedDecimalToInteger()}}
+{\footnotesize\ttfamily static int Binary\+Coded\+Decimal\+To\+Integer (\begin{DoxyParamCaption}\item[{int}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{definitions_8h_a34fdca4b4049124634c19eaa6b035efb}\label{definitions_8h_a34fdca4b4049124634c19eaa6b035efb} 
+\index{definitions.h@{definitions.h}!FloattypeToValue@{FloattypeToValue}}
+\index{FloattypeToValue@{FloattypeToValue}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{FloattypeToValue()}{FloattypeToValue()}}
+{\footnotesize\ttfamily static double Floattype\+To\+Value (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{fvalue }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{definitions_8h_a029b22b1e6c1bd4cdae890f7afd3e1c1}\label{definitions_8h_a029b22b1e6c1bd4cdae890f7afd3e1c1} 
+\index{definitions.h@{definitions.h}!formatTm@{formatTm}}
+\index{formatTm@{formatTm}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{formatTm()}{formatTm()}}
+{\footnotesize\ttfamily static std\+::string format\+Tm (\begin{DoxyParamCaption}\item[{const struct tm \&}]{time\+Info }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{definitions_8h_a8c1304674ff3ce2e097b6d156a95a801}\label{definitions_8h_a8c1304674ff3ce2e097b6d156a95a801} 
+\index{definitions.h@{definitions.h}!Get16bitLSBfromUInt@{Get16bitLSBfromUInt}}
+\index{Get16bitLSBfromUInt@{Get16bitLSBfromUInt}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{Get16bitLSBfromUInt()}{Get16bitLSBfromUInt()}}
+{\footnotesize\ttfamily static uint16\+\_\+t Get16bit\+LSBfrom\+UInt (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{sourcevalue }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
 \Hypertarget{definitions_8h_ac983c48834d285bf781579dd0adea202}\label{definitions_8h_ac983c48834d285bf781579dd0adea202} 
 \index{definitions.h@{definitions.h}!make\_bytes@{make\_bytes}}
 \index{make\_bytes@{make\_bytes}!definitions.h@{definitions.h}}
 \doxysubsubsection{\texorpdfstring{make\_bytes()}{make\_bytes()}}
 {\footnotesize\ttfamily template$<$typename... Ts$>$ \\
 std\+::vector$<$ std\+::byte $>$ make\+\_\+bytes (\begin{DoxyParamCaption}\item[{Ts \&\&...}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+\Hypertarget{definitions_8h_a1f46d152886e0ed295b7205287cca79c}\label{definitions_8h_a1f46d152886e0ed295b7205287cca79c} 
+\index{definitions.h@{definitions.h}!Read16ByteValuesFromBuffer@{Read16ByteValuesFromBuffer}}
+\index{Read16ByteValuesFromBuffer@{Read16ByteValuesFromBuffer}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{Read16ByteValuesFromBuffer()}{Read16ByteValuesFromBuffer()}}
+{\footnotesize\ttfamily static uint16\+\_\+t Read16\+Byte\+Values\+From\+Buffer (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{buffer,  }\item[{size\+\_\+t}]{start\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{definitions_8h_ab35bac642be2cdd8df0305e5f9f02ed0}\label{definitions_8h_ab35bac642be2cdd8df0305e5f9f02ed0} 
+\index{definitions.h@{definitions.h}!Read16ByteValuesFromBufferLittleEndian@{Read16ByteValuesFromBufferLittleEndian}}
+\index{Read16ByteValuesFromBufferLittleEndian@{Read16ByteValuesFromBufferLittleEndian}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{Read16ByteValuesFromBufferLittleEndian()}{Read16ByteValuesFromBufferLittleEndian()}}
+{\footnotesize\ttfamily static unsigned long Read16\+Byte\+Values\+From\+Buffer\+Little\+Endian (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{buffer,  }\item[{unsigned long}]{start\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{definitions_8h_a006eb8ee4a63c5d8de066851e8fa76c1}\label{definitions_8h_a006eb8ee4a63c5d8de066851e8fa76c1} 
+\index{definitions.h@{definitions.h}!readBytesFromArray@{readBytesFromArray}}
+\index{readBytesFromArray@{readBytesFromArray}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{readBytesFromArray()}{readBytesFromArray()}}
+{\footnotesize\ttfamily static void read\+Bytes\+From\+Array (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{array,  }\item[{size\+\_\+t}]{num\+Bytes }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{definitions_8h_a1301dfef2e69c9df57a27cb393b42142}\label{definitions_8h_a1301dfef2e69c9df57a27cb393b42142} 
+\index{definitions.h@{definitions.h}!ReadBytesFromBuffer@{ReadBytesFromBuffer}}
+\index{ReadBytesFromBuffer@{ReadBytesFromBuffer}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{ReadBytesFromBuffer()}{ReadBytesFromBuffer()}}
+{\footnotesize\ttfamily static char \texorpdfstring{$\ast$}{*} Read\+Bytes\+From\+Buffer (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{array,  }\item[{size\+\_\+t}]{start\+Index,  }\item[{size\+\_\+t}]{num\+Bytes }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000002}{Todo}}]testen \end{DoxyRefDesc}
+\Hypertarget{definitions_8h_ad50b5a3ba0056ee1525b754bcc537173}\label{definitions_8h_ad50b5a3ba0056ee1525b754bcc537173} 
+\index{definitions.h@{definitions.h}!ReadByteValuesFromBuffer@{ReadByteValuesFromBuffer}}
+\index{ReadByteValuesFromBuffer@{ReadByteValuesFromBuffer}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{ReadByteValuesFromBuffer()}{ReadByteValuesFromBuffer()}}
+{\footnotesize\ttfamily static unsigned long Read\+Byte\+Values\+From\+Buffer (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{buffer,  }\item[{unsigned long}]{start\+Index,  }\item[{unsigned long}]{num\+Bytes\+To\+Read }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{definitions_8h_a7a924ce7c33c05179992965d365f17e9}\label{definitions_8h_a7a924ce7c33c05179992965d365f17e9} 
+\index{definitions.h@{definitions.h}!ReadByteValuesFromBufferLittleEndian@{ReadByteValuesFromBufferLittleEndian}}
+\index{ReadByteValuesFromBufferLittleEndian@{ReadByteValuesFromBufferLittleEndian}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{ReadByteValuesFromBufferLittleEndian()}{ReadByteValuesFromBufferLittleEndian()}}
+{\footnotesize\ttfamily static unsigned long Read\+Byte\+Values\+From\+Buffer\+Little\+Endian (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{buffer,  }\item[{unsigned long}]{start\+Index,  }\item[{unsigned long}]{num\+Bytes\+To\+Read }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Konvertiert einen big-\/endian buffer in einen integer in little endian. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & \\
+\hline
+{\em start\+Index} & \\
+\hline
+{\em length} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+~\newline
+ 
+\end{DoxyReturn}
+\Hypertarget{definitions_8h_a3f23d5bde3752bfc43551d89167d454b}\label{definitions_8h_a3f23d5bde3752bfc43551d89167d454b} 
+\index{definitions.h@{definitions.h}!ReplaceNullCharacters@{ReplaceNullCharacters}}
+\index{ReplaceNullCharacters@{ReplaceNullCharacters}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{ReplaceNullCharacters()}{ReplaceNullCharacters()}}
+{\footnotesize\ttfamily static std\+::string Replace\+Null\+Characters (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{input\+String }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{definitions_8h_a35de8c99d430876d7cadf616e0f2a7f6}\label{definitions_8h_a35de8c99d430876d7cadf616e0f2a7f6} 
+\index{definitions.h@{definitions.h}!TrimString@{TrimString}}
+\index{TrimString@{TrimString}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{TrimString()}{TrimString()}}
+{\footnotesize\ttfamily static std\+::string Trim\+String (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{input\+String }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{definitions_8h_a3afd0a273ee8552c0105bbfbe314b884}\label{definitions_8h_a3afd0a273ee8552c0105bbfbe314b884} 
+\index{definitions.h@{definitions.h}!Utf8ToString@{Utf8ToString}}
+\index{Utf8ToString@{Utf8ToString}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{Utf8ToString()}{Utf8ToString()}}
+{\footnotesize\ttfamily static std\+::string Utf8\+To\+String (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{utf8\+String }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -5726,6 +5853,14 @@ std\+::vector$<$ std\+::byte $>$ make\+\_\+bytes (\begin{DoxyParamCaption}\item[
 \doxysubsubsection{\texorpdfstring{FLOATTYPE\_POSITIVE\_INFINITY}{FLOATTYPE\_POSITIVE\_INFINITY}}
 {\footnotesize\ttfamily constexpr int FLOATTYPE\+\_\+\+POSITIVE\+\_\+\+INFINITY = 0x7\+FFFFE\hspace{0.3cm}{\ttfamily [constexpr]}}
 
+\Hypertarget{definitions_8h_a62ad1596044c3dac9b3ac5a6f0deff8d}\label{definitions_8h_a62ad1596044c3dac9b3ac5a6f0deff8d} 
+\index{definitions.h@{definitions.h}!maxbuffersize@{maxbuffersize}}
+\index{maxbuffersize@{maxbuffersize}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{maxbuffersize}{maxbuffersize}}
+{\footnotesize\ttfamily constexpr size\+\_\+t maxbuffersize = 2001\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]statt const variablen constexpr \end{DoxyRefDesc}
 \Hypertarget{definitions_8h_a2a54462506dcb02ece5edd0c2cbdc7ee}\label{definitions_8h_a2a54462506dcb02ece5edd0c2cbdc7ee} 
 \index{definitions.h@{definitions.h}!NOM\_ACT\_POLL\_MDIB\_DATA@{NOM\_ACT\_POLL\_MDIB\_DATA}}
 \index{NOM\_ACT\_POLL\_MDIB\_DATA@{NOM\_ACT\_POLL\_MDIB\_DATA}!definitions.h@{definitions.h}}
@@ -5911,4 +6046,10 @@ std\+::vector$<$ std\+::byte $>$ make\+\_\+bytes (\begin{DoxyParamCaption}\item[
 \index{RORS\_APDU@{RORS\_APDU}!definitions.h@{definitions.h}}
 \doxysubsubsection{\texorpdfstring{RORS\_APDU}{RORS\_APDU}}
 {\footnotesize\ttfamily constexpr unsigned char RORS\+\_\+\+APDU = 2\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+\Hypertarget{definitions_8h_a066d9e004419bd146b312a280c0cd50a}\label{definitions_8h_a066d9e004419bd146b312a280c0cd50a} 
+\index{definitions.h@{definitions.h}!uInt16Size@{uInt16Size}}
+\index{uInt16Size@{uInt16Size}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{uInt16Size}{uInt16Size}}
+{\footnotesize\ttfamily constexpr size\+\_\+t u\+Int16\+Size = sizeof(unsigned short)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}}
 

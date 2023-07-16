@@ -357,8 +357,6 @@ void SocketClient::ParseMDSCreateEventReport(char* buffer)
 
 }
 
-
-/// @todo doxygen 
 void SocketClient::DecodeMDSAttribObjects(unique_ptr<AvaObj> avaobject, char* attriblistobjects_buffer, size_t avaObjCount)
 {
 
@@ -395,7 +393,7 @@ void SocketClient::DecodeMDSAttribObjects(unique_ptr<AvaObj> avaobject, char* at
 }
 
 
-/// @todo doxygen
+
 void SocketClient::GetBaselineRelativeTimestamp(char* bcdtimebuffer)
 {
     m_baseRelativeTime = int(ReadByteValuesFromBuffer(bcdtimebuffer, 0, sizeof(bcdtimebuffer)));
@@ -405,7 +403,7 @@ void SocketClient::GetBaselineRelativeTimestamp(char* bcdtimebuffer)
 /// @param bcdtimebuffer 
 /// @return 
 
-/// @todo doxygen
+
 tm SocketClient::GetAbsoluteTimeFromBCDFormat(char* bcdtimebuffer)
     {
         ///@todo vielleicht anderen struct als tm benutzen
@@ -434,7 +432,7 @@ tm SocketClient::GetAbsoluteTimeFromBCDFormat(char* bcdtimebuffer)
     }
     
 
-/// @todo doxygen
+
 void SocketClient::CheckPollPacketActionType(char* buffer)
 {
     size_t header_size = 20;
@@ -456,7 +454,7 @@ void SocketClient::CheckPollPacketActionType(char* buffer)
 }
 
 
-/// @todo doxygen
+
 std::string SocketClient::GetPacketTimestamp(char* header, uint16_t headersize)
 {
     int pollmdibdatareplysize = 20;
@@ -533,7 +531,7 @@ std::string SocketClient::GetPacketTimestamp(char* header, uint16_t headersize)
 }
 
 
-/// @todo doxygen
+
 tm SocketClient::GetAbsoluteTimeFromRelativeTimestamp(uint32_t currentRelativeTime)
 {
     double ElapsedTimeMilliseconds = abs(((double)currentRelativeTime - (double)m_baseRelativeTime) * 125 / 1000);
@@ -545,7 +543,7 @@ tm SocketClient::GetAbsoluteTimeFromRelativeTimestamp(uint32_t currentRelativeTi
 }
 
 
-/// @todo doxygen
+
 void SocketClient::AddTmMillseconds(tm& timeInfo, double milliseconds) 
 {
     // Convert milliseconds to seconds
@@ -594,7 +592,7 @@ void SocketClient::AddTmMillseconds(tm& timeInfo, double milliseconds)
 }
 
 
-/// @todo doxygen
+
 void SocketClient::PollPacketDecoder(char* packetbuffer, size_t headersize)
     {
     size_t packetsize = sizeof(packetbuffer);
@@ -1052,7 +1050,7 @@ void SocketClient::SaveNumericValueList()
 }
 
 
-/// @todo doxygen
+
 void SocketClient::DecodeAvaObjects(unique_ptr<AvaObj> avaobject, char* buffer)
 {
     avaobject->attribute_id = Read16ByteValuesFromBuffer(buffer, 0);
@@ -1105,7 +1103,7 @@ void SocketClient::DecodeAvaObjects(unique_ptr<AvaObj> avaobject, char* buffer)
 }
 
 
-/// @todo doxygen
+
 void SocketClient::ReadIDLabel(char* buffer)
 {
     m_idlabelhandle = Read16ByteValuesFromBuffer(buffer, 0);
@@ -1189,7 +1187,7 @@ void SocketClient::ReadNumericObservationValue(char* buffer)
 }
 
 
-/// @todo doxygen
+
 void SocketClient::ReadCompoundNumericObsValue(char* buffer)
     {
 
@@ -1212,7 +1210,7 @@ void SocketClient::ReadCompoundNumericObsValue(char* buffer)
     }
 
 
-/// @todo doxygen
+
 void SocketClient::ReadIDLabelString(char* buffer)
     {
     StringMP strmp;
@@ -1230,7 +1228,7 @@ void SocketClient::ReadIDLabelString(char* buffer)
     }
 
 
-/// @todo doxygen
+
 void SocketClient::AddIDLabelToList()
     {
     IDLabel cIDLabel;
@@ -1260,7 +1258,7 @@ void SocketClient::AddIDLabelToList()
     }
 
 
-/// @todo doxygen
+
 void SocketClient::ReadWaveSaObservationValueObject(char* avaattribobjects)
     {
     ReadWaveSaObservationValue(avaattribobjects);
@@ -1434,7 +1432,7 @@ void SocketClient::ReadWaveSaObservationValue(char* buffer)
     }
 
 
-/// @todo doxygen
+
 void SocketClient::ReadCompoundWaveSaObservationValue(char* buffer)
 {
         SaObsValueCmp WaveSaObjectValueCmp;
@@ -1456,7 +1454,7 @@ void SocketClient::ReadCompoundWaveSaObservationValue(char* buffer)
 }
 
 
-/// @todo doxygen
+
 void SocketClient::ReadSaSpecifications(char* buffer)
 {
         SaSpec Saspecobj;
@@ -1557,7 +1555,7 @@ void SocketClient::ReadSaCalibrationSpecifications(char* buffer)
 }
 
 
-/// @todo doxygen
+
 int SocketClient::DecodeSingleContextPollObjects(SingleContextPoll* scpoll, char* buffer)
 {
     scpoll->context_id = Read16ByteValuesFromBuffer(buffer, 0);
@@ -1576,7 +1574,7 @@ int SocketClient::DecodeSingleContextPollObjects(SingleContextPoll* scpoll, char
 }
 
 
-/// @todo doxygen
+
 int SocketClient::DecodeObservationPollObjects(ObservationPoll* obpollobject, char* buffer)
 {
     obpollobject->obj_handle = Read16ByteValuesFromBuffer(buffer, 0);
@@ -1601,7 +1599,7 @@ int SocketClient::DecodeObservationPollObjects(ObservationPoll* obpollobject, ch
 }
 
 
-/// @todo doxygen
+
 int SocketClient::DecodePollObjects(PollInfoList* pollobjects, char* packetbuffer)
     {
         pollobjects->count = Read16ByteValuesFromBuffer(packetbuffer, 0);
@@ -1932,7 +1930,7 @@ void SocketClient::GetRTSAPriorityListRequest()
 }
 
 
-/// @todo doxygen
+
 void SocketClient::CreateWaveformSet(size_t nWaveSetType, vector<std::byte> WaveTrtype)
 {
     switch (nWaveSetType)
@@ -2028,7 +2026,7 @@ void SocketClient::CreateWaveformSet(size_t nWaveSetType, vector<std::byte> Wave
 }
 
 
-/// @todo doxygen
+
 void SocketClient::SendRTSAPriorityMessage(std::vector<std::byte> WaveTrType)
 {
     std::vector<std::byte> tempbuffer;
@@ -2096,7 +2094,7 @@ void SocketClient::SendRTSAPriorityMessage(std::vector<std::byte> WaveTrType)
 }
 
 
-/// @todo doxygen
+
 void SocketClient::SetRTSAPriorityList(size_t nWaveSetType)
 {
     std::vector<std::byte> WaveTrType;

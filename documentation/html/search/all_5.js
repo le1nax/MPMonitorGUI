@@ -1,19 +1,11 @@
 var searchData=
 [
-  ['establishlanconnection_0',['establishLanConnection',['../class_socket_client.html#ae3962f762b411e9b4bf06be013c3c9f1',1,'SocketClient']]],
-  ['event_5ftype_1',['event_type',['../struct_event_report_argument.html#af4709aafc5e5e5cfdc00a55455aab89f',1,'EventReportArgument']]],
-  ['eventreport_5fhdr_2',['eventreport_hdr',['../struct_m_d_s_create_even_report.html#a500f36690f468b20fbfde1f6267503a4',1,'MDSCreateEvenReport']]],
-  ['eventreportargument_3',['EventReportArgument',['../struct_event_report_argument.html',1,'']]],
-  ['ext_5fattr_4',['ext_attr',['../struct_poll_profile_ext.html#a985dc2fc114ea97e10051be2c164ce62',1,'PollProfileExt']]],
-  ['ext_5fpoll_5frequest_5falert_5fmsg_5',['ext_poll_request_alert_msg',['../class_socket_client.html#aec1b2861fe5f570a9e9f9647cea40bfe',1,'SocketClient']]],
-  ['ext_5fpoll_5frequest_5fmsg_6',['ext_poll_request_msg',['../class_socket_client.html#afb562154b206a191ba15a073503c7c53',1,'SocketClient']]],
-  ['ext_5fpoll_5frequest_5fmsg2_7',['ext_poll_request_msg2',['../class_socket_client.html#ac9d7911e919881ab8e35abc9236c5223',1,'SocketClient']]],
-  ['ext_5fpoll_5frequest_5fmsg3_8',['ext_poll_request_msg3',['../class_socket_client.html#ae08ba9f954f6f9f527b0d6a9e44b0322',1,'SocketClient']]],
-  ['ext_5fpoll_5frequest_5fmsg4_9',['ext_poll_request_msg4',['../class_socket_client.html#a2c0a2e76b615bccd087eef87737204f6',1,'SocketClient']]],
-  ['ext_5fpoll_5frequest_5fmsg5_10',['ext_poll_request_msg5',['../class_socket_client.html#adac3ee49178f47ca2f369d59c28e0614',1,'SocketClient']]],
-  ['ext_5fpoll_5frequest_5fwave_5fmsg_11',['ext_poll_request_wave_msg',['../class_socket_client.html#acc686c72a1c7faa50f73b32b06f79978',1,'SocketClient']]],
-  ['ext_5fpoll_5frequest_5fwave_5fmsg2_12',['ext_poll_request_wave_msg2',['../class_socket_client.html#adff090000103a5b701e009fadb3a7af8',1,'SocketClient']]],
-  ['ext_5fpoll_5frequest_5fwave_5fmsg3_13',['ext_poll_request_wave_msg3',['../class_socket_client.html#a30985a83e32ef057c5458125f6db3002',1,'SocketClient']]],
-  ['extpolllinkedpacketresult_14',['ExtPollLinkedPacketResult',['../struct_ext_poll_linked_packet_result.html',1,'']]],
-  ['extractnumber_15',['extractNumber',['../main_8cpp.html#a0a4f9306947ea64ca0c0406fd07d47b8',1,'main.cpp']]]
+  ['floattype_5fnan_0',['FLOATTYPE_NAN',['../definitions_8h.html#acd88919e9450a9560020b628c68fef59',1,'definitions.h']]],
+  ['floattype_5fnegative_5finfinity_1',['FLOATTYPE_NEGATIVE_INFINITY',['../definitions_8h.html#a40541850a1a2ccc344cb893f87d43ab1',1,'definitions.h']]],
+  ['floattype_5fnres_2',['FLOATTYPE_NRes',['../definitions_8h.html#a1d5b7e26641b5277f0e121179596d612',1,'definitions.h']]],
+  ['floattype_5fpositive_5finfinity_3',['FLOATTYPE_POSITIVE_INFINITY',['../definitions_8h.html#aa266c6489df516f02cf2a053589543bf',1,'definitions.h']]],
+  ['floattypetovalue_4',['FloattypeToValue',['../definitions_8h.html#a34fdca4b4049124634c19eaa6b035efb',1,'definitions.h']]],
+  ['formattm_5',['formatTm',['../definitions_8h.html#a029b22b1e6c1bd4cdae890f7afd3e1c1',1,'definitions.h']]],
+  ['fraction_6',['fraction',['../struct_absolute_time.html#aa09ed181646f518cfe40ef7715ca262f',1,'AbsoluteTime']]],
+  ['functional_5funits_7',['functional_units',['../struct_mdse_user_info_std.html#a2a2472aea62c68bef2ca46146ed9bf58',1,'MdseUserInfoStd']]]
 ];

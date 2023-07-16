@@ -1090,11 +1090,25 @@ var definitions_8h =
       [ "NLS_VUELINK_FLX1_NPS_TEXT_WAVE7", "definitions_8h.html#a939534065e17395e094ec0605d7205c0a432e05efe47027a827be7163bff10afb", null ],
       [ "NLS_VUELINK_FLX1_NPS_TEXT_WAVE8", "definitions_8h.html#a939534065e17395e094ec0605d7205c0a8c87958ff26447d38b3bce11f0e832dd", null ]
     ] ],
+    [ "BinaryCodedDecimalToInteger", "definitions_8h.html#a44dd868bf921cf536b7c34658bf95cc0", null ],
+    [ "FloattypeToValue", "definitions_8h.html#a34fdca4b4049124634c19eaa6b035efb", null ],
+    [ "formatTm", "definitions_8h.html#a029b22b1e6c1bd4cdae890f7afd3e1c1", null ],
+    [ "Get16bitLSBfromUInt", "definitions_8h.html#a8c1304674ff3ce2e097b6d156a95a801", null ],
     [ "make_bytes", "definitions_8h.html#ac983c48834d285bf781579dd0adea202", null ],
+    [ "Read16ByteValuesFromBuffer", "definitions_8h.html#a1f46d152886e0ed295b7205287cca79c", null ],
+    [ "Read16ByteValuesFromBufferLittleEndian", "definitions_8h.html#ab35bac642be2cdd8df0305e5f9f02ed0", null ],
+    [ "readBytesFromArray", "definitions_8h.html#a006eb8ee4a63c5d8de066851e8fa76c1", null ],
+    [ "ReadBytesFromBuffer", "definitions_8h.html#a1301dfef2e69c9df57a27cb393b42142", null ],
+    [ "ReadByteValuesFromBuffer", "definitions_8h.html#ad50b5a3ba0056ee1525b754bcc537173", null ],
+    [ "ReadByteValuesFromBufferLittleEndian", "definitions_8h.html#a7a924ce7c33c05179992965d365f17e9", null ],
+    [ "ReplaceNullCharacters", "definitions_8h.html#a3f23d5bde3752bfc43551d89167d454b", null ],
+    [ "TrimString", "definitions_8h.html#a35de8c99d430876d7cadf616e0f2a7f6", null ],
+    [ "Utf8ToString", "definitions_8h.html#a3afd0a273ee8552c0105bbfbe314b884", null ],
     [ "FLOATTYPE_NAN", "definitions_8h.html#acd88919e9450a9560020b628c68fef59", null ],
     [ "FLOATTYPE_NEGATIVE_INFINITY", "definitions_8h.html#a40541850a1a2ccc344cb893f87d43ab1", null ],
     [ "FLOATTYPE_NRes", "definitions_8h.html#a1d5b7e26641b5277f0e121179596d612", null ],
     [ "FLOATTYPE_POSITIVE_INFINITY", "definitions_8h.html#aa266c6489df516f02cf2a053589543bf", null ],
+    [ "maxbuffersize", "definitions_8h.html#a62ad1596044c3dac9b3ac5a6f0deff8d", null ],
     [ "NOM_ACT_POLL_MDIB_DATA", "definitions_8h.html#a2a54462506dcb02ece5edd0c2cbdc7ee", null ],
     [ "NOM_ACT_POLL_MDIB_DATA_EXT", "definitions_8h.html#acc9ff47b8f26dcf3a1e5af3a077742bf", null ],
     [ "NOM_ATTR_ID_HANDLE", "definitions_8h.html#a6f0e68a9d1c63c0ad7834a09ba5f18e7", null ],
@@ -1125,5 +1139,6 @@ var definitions_8h =
     [ "ROER_APDU", "definitions_8h.html#a1c18f8f52aef5f0cac26e45be023921e", null ],
     [ "ROIV_APDU", "definitions_8h.html#afe713752035abdacac53d1f1125e3ffa", null ],
     [ "RORLS_APDU", "definitions_8h.html#a1b3eeb453a88eb2ae7ff6e604917a5f0", null ],
-    [ "RORS_APDU", "definitions_8h.html#a2b15ee014e0bacedd65a561ecbdf558b", null ]
+    [ "RORS_APDU", "definitions_8h.html#a2b15ee014e0bacedd65a561ecbdf558b", null ],
+    [ "uInt16Size", "definitions_8h.html#a066d9e004419bd146b312a280c0cd50a", null ]
 ];

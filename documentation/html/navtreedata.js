@@ -52,11 +52,12 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_ava_obj_8cpp.html",
-"definitions_8h.html#a65e33b872d5b1cd91c004aaea9a85ecea125aca14c7d3f2bdb9c96cadc759f3f9",
-"definitions_8h.html#a65e33b872d5b1cd91c004aaea9a85ecea6fe6ada78583821b03f4bbd107224b95",
-"definitions_8h.html#a65e33b872d5b1cd91c004aaea9a85eceacb59841c47dd72568267b82877653c21",
-"definitions_8h.html#ad9ea9c753a0a667a0c7ffc657703091fa34dd62e5b302a1ca3a5e8e7b0ba05935",
-"main_8cpp.html#ae22ee4011e650e92afab53d5e8d616c4"
+"definitions_8h.html#a2632956bd5f14e2e21997dbb006d8072ad5fd4c2eccb31414214350515aa48c61",
+"definitions_8h.html#a65e33b872d5b1cd91c004aaea9a85ecea50b0dd5b0613d307358e7dda9c147831",
+"definitions_8h.html#a65e33b872d5b1cd91c004aaea9a85eceaad6ccde2ee84ee6b54834e72fd9147a8",
+"definitions_8h.html#a939534065e17395e094ec0605d7205c0ac50fe72d0db86e8bc2ea9b54c742a0f6",
+"definitions_8h.html#ad9ea9c753a0a667a0c7ffc657703091faf840c453211a21f5df4f58700726417f",
+"struct_sa_obs_value.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

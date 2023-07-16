@@ -1,14 +1,6 @@
 var searchData=
 [
-  ['idlabel_0',['IDLabel',['../struct_i_d_label.html',1,'']]],
-  ['idlabelhandle_1',['idlabelhandle',['../struct_i_d_label.html#aef7109ab6dceae8e7a5077ade7f15db9',1,'IDLabel']]],
-  ['idlabelstring_2',['idlabelstring',['../struct_i_d_label.html#a50fe823c80a12b74ca62244ac565b702',1,'IDLabel']]],
-  ['increment_3',['increment',['../struct_sa_calib_data16.html#a2bdfbb51d90ea946b1f9bd7136565d7c',1,'SaCalibData16']]],
-  ['info_5farch_4',['info_arch',['../_c_make_c_x_x_compiler_id_8cpp.html#a59647e99d304ed33b15cb284c27ed391',1,'CMakeCXXCompilerId.cpp']]],
-  ['info_5fcompiler_5',['info_compiler',['../_c_make_c_x_x_compiler_id_8cpp.html#a4b0efeb7a5d59313986b3a0390f050f6',1,'CMakeCXXCompilerId.cpp']]],
-  ['info_5flanguage_5fextensions_5fdefault_6',['info_language_extensions_default',['../_c_make_c_x_x_compiler_id_8cpp.html#a0f46a8a39e09d9b803c4766904fd7e99',1,'CMakeCXXCompilerId.cpp']]],
-  ['info_5flanguage_5fstandard_5fdefault_7',['info_language_standard_default',['../_c_make_c_x_x_compiler_id_8cpp.html#a4607cccf070750927b458473ca82c090',1,'CMakeCXXCompilerId.cpp']]],
-  ['info_5fplatform_8',['info_platform',['../_c_make_c_x_x_compiler_id_8cpp.html#a2321403dee54ee23f0c2fa849c60f7d4',1,'CMakeCXXCompilerId.cpp']]],
-  ['inovke_5fid_9',['inovke_id',['../struct_r_o_i_vapdu.html#a45d5917ad3dbb49748b45f02335c05f8',1,'ROIVapdu']]],
-  ['invoke_5fid_10',['invoke_id',['../struct_r_o_r_sapdu.html#af87546429057ddaca6c68845823885da',1,'RORSapdu']]]
+  ['keep_5falive_5fmsg_0',['keep_alive_msg',['../class_socket_client.html#a86bec6b625272160bdc141e7d93a4a50',1,'SocketClient']]],
+  ['keep_5falive_5fmsg2_1',['keep_alive_msg2',['../class_socket_client.html#a29ada0aeb49d140548909b0c73f89b91',1,'SocketClient']]],
+  ['keepconnectionalive_2',['KeepConnectionAlive',['../class_socket_client.html#a537146057b3c27487f4b6d2039e60012',1,'SocketClient']]]
 ];

@@ -100,6 +100,9 @@ $(document).ready(function(){initNavTree('class_socket_client.html',''); initRes
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_socket_client-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">SocketClient Class Reference</div></div>
 </div><!--header-->
@@ -127,7 +130,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae839cd8b58cb070012264f47e686744c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#ae839cd8b58cb070012264f47e686744c">~SocketClient</a> ()=default</td></tr>
 <tr class="separator:ae839cd8b58cb070012264f47e686744c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3962f762b411e9b4bf06be013c3c9f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#ae3962f762b411e9b4bf06be013c3c9f1">establishLanConnection</a> ()</td></tr>
-<tr class="memdesc:ae3962f762b411e9b4bf06be013c3c9f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method to establish a LAN connection to the monitor, keep the connection alive and exchange data  <br /></td></tr>
+<tr class="memdesc:ae3962f762b411e9b4bf06be013c3c9f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method to establish a LAN connection to the monitor, keep the connection alive and exchange data.  <br /></td></tr>
 <tr class="separator:ae3962f762b411e9b4bf06be013c3c9f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0294a111cf7bee7e06ab1199f7ccddd5"><td class="memItemLeft" align="right" valign="top">SOCKET&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a0294a111cf7bee7e06ab1199f7ccddd5">getSocket</a> ()</td></tr>
 <tr class="memdesc:a0294a111cf7bee7e06ab1199f7ccddd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">a getter method for the SOCKET sock  <br /></td></tr>
@@ -135,8 +138,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a157ed622da08c9e6f55e34e9d27c41bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a157ed622da08c9e6f55e34e9d27c41bb">SendWaveAssociationRequest</a> ()</td></tr>
 <tr class="memdesc:a157ed622da08c9e6f55e34e9d27c41bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sendet Assiation Request.  <br /></td></tr>
 <tr class="separator:a157ed622da08c9e6f55e34e9d27c41bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6cfc5eab3b471703c4a63de20013d5bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a6cfc5eab3b471703c4a63de20013d5bc">Receive</a> (char *buffer, size_t buffersize=maxbuffersize, int flags=0)</td></tr>
-<tr class="memdesc:a6cfc5eab3b471703c4a63de20013d5bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method for receiving data from the server  <br /></td></tr>
+<tr class="memitem:a6cfc5eab3b471703c4a63de20013d5bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a6cfc5eab3b471703c4a63de20013d5bc">Receive</a> (char *buffer, size_t buffersize=<a class="el" href="definitions_8h.html#a62ad1596044c3dac9b3ac5a6f0deff8d">maxbuffersize</a>, int flags=0)</td></tr>
+<tr class="memdesc:a6cfc5eab3b471703c4a63de20013d5bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method for receiving data from the server.  <br /></td></tr>
 <tr class="separator:a6cfc5eab3b471703c4a63de20013d5bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_u_d_p_socket"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_u_d_p_socket')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_u_d_p_socket.html">UDPSocket</a></td></tr>
 <tr class="memitem:a4f86f3023f5a08f6355802599a10e100 inherit pub_methods_class_u_d_p_socket"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_d_p_socket.html#a4f86f3023f5a08f6355802599a10e100">UDPSocket</a> ()</td></tr>
@@ -149,13 +152,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aba7d584e75564a4ba4b7fddb479abee1 inherit pub_methods_class_u_d_p_socket"><td class="mdescLeft">&#160;</td><td class="mdescRight">a getter method to get the socket  <br /></td></tr>
 <tr class="separator:aba7d584e75564a4ba4b7fddb479abee1 inherit pub_methods_class_u_d_p_socket"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeccce2a68cc6405a78415551c21e06d7 inherit pub_methods_class_u_d_p_socket"><td class="memItemLeft" align="right" valign="top">long unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_d_p_socket.html#aeccce2a68cc6405a78415551c21e06d7">SendTo</a> (sockaddr_in &amp;remoteIP, char *buffer, size_t buffersize, long unsigned int flags=0)</td></tr>
-<tr class="memdesc:aeccce2a68cc6405a78415551c21e06d7 inherit pub_methods_class_u_d_p_socket"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that calls the WSASendTo function for sending to the monitor  <br /></td></tr>
+<tr class="memdesc:aeccce2a68cc6405a78415551c21e06d7 inherit pub_methods_class_u_d_p_socket"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that calls the WSASendTo function for sending to the monitor.  <br /></td></tr>
 <tr class="separator:aeccce2a68cc6405a78415551c21e06d7 inherit pub_methods_class_u_d_p_socket"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae14d059981edd54ea45378687ba0861f inherit pub_methods_class_u_d_p_socket"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_d_p_socket.html#ae14d059981edd54ea45378687ba0861f">RecvFrom</a> (sockaddr_in remoteIP, char *buffer, size_t buffersize, long unsigned int &amp;numBytesReceived, LPWSAOVERLAPPED overlapped, long unsigned int flags=0, LPWSAOVERLAPPED_COMPLETION_ROUTINE callback=NULL)</td></tr>
-<tr class="memdesc:ae14d059981edd54ea45378687ba0861f inherit pub_methods_class_u_d_p_socket"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that calls the WSARecvFrom function to receive data from the monitor  <br /></td></tr>
+<tr class="memdesc:ae14d059981edd54ea45378687ba0861f inherit pub_methods_class_u_d_p_socket"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that calls the WSARecvFrom function to receive data from the monitor.  <br /></td></tr>
 <tr class="separator:ae14d059981edd54ea45378687ba0861f inherit pub_methods_class_u_d_p_socket"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a167ae3a1fd089f7e3d0644dd03044d7b inherit pub_methods_class_u_d_p_socket"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_d_p_socket.html#a167ae3a1fd089f7e3d0644dd03044d7b">Bind</a> (sockaddr_in &amp;localIP, unsigned short port)</td></tr>
-<tr class="memdesc:a167ae3a1fd089f7e3d0644dd03044d7b inherit pub_methods_class_u_d_p_socket"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method for associating a local address with the socket on the server side  <br /></td></tr>
+<tr class="memdesc:a167ae3a1fd089f7e3d0644dd03044d7b inherit pub_methods_class_u_d_p_socket"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method for associating a local address with the socket on the server side.  <br /></td></tr>
 <tr class="separator:a167ae3a1fd089f7e3d0644dd03044d7b inherit pub_methods_class_u_d_p_socket"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83253acb737a2409be60e2dd8350f46e inherit pub_methods_class_u_d_p_socket"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_d_p_socket.html#a83253acb737a2409be60e2dd8350f46e">Connect</a> (sockaddr_in &amp;remoteIP)</td></tr>
 <tr class="memdesc:a83253acb737a2409be60e2dd8350f46e inherit pub_methods_class_u_d_p_socket"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method for connecting the socket to the remote address.  <br /></td></tr>
@@ -219,6 +222,247 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a14a44cd2a061191e9b4cf510074a3822"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a616e44574262eadc3dfa4675d131324a"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::byte &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a616e44574262eadc3dfa4675d131324a">assoc_abort_resp_msg</a></td></tr>
 <tr class="separator:a616e44574262eadc3dfa4675d131324a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a4d7263d3b373ca4535cd0ebd8404c69e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a4d7263d3b373ca4535cd0ebd8404c69e">sendBytes</a> (std::vector&lt; std::byte &gt; bytes)</td></tr>
+<tr class="memdesc:a4d7263d3b373ca4535cd0ebd8404c69e"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method to send the specified bytes to the target address by putting them in a buffer and sending them via SendTO()  <br /></td></tr>
+<tr class="separator:a4d7263d3b373ca4535cd0ebd8404c69e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0685bceb1589dda27924dc056570a7a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a0685bceb1589dda27924dc056570a7a1">ProcessPacket</a> (char *buffer)</td></tr>
+<tr class="memdesc:a0685bceb1589dda27924dc056570a7a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes all incoming types of data protocols.  <br /></td></tr>
+<tr class="separator:a0685bceb1589dda27924dc056570a7a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bfd117f07b25a2ab74e82b117bfb43c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a7bfd117f07b25a2ab74e82b117bfb43c">CreateMask</a> (int significantbits)</td></tr>
+<tr class="memdesc:a7bfd117f07b25a2ab74e82b117bfb43c"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method to create a mask for only the significant bits, here mainly for creating a mask for the msb.  <br /></td></tr>
+<tr class="separator:a7bfd117f07b25a2ab74e82b117bfb43c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d8a208369c7080bc471a54384ab4ad7"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a4d8a208369c7080bc471a54384ab4ad7">ConvertToByte</a> (int value)</td></tr>
+<tr class="memdesc:a4d8a208369c7080bc471a54384ab4ad7"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method to convert int to unsigned char.  <br /></td></tr>
+<tr class="separator:a4d8a208369c7080bc471a54384ab4ad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ee8ec1e5409055dac62b91750ef7da3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a5ee8ec1e5409055dac62b91750ef7da3">IsLittleEndian</a> ()</td></tr>
+<tr class="memdesc:a5ee8ec1e5409055dac62b91750ef7da3"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method to check if data is in little endian format.  <br /></td></tr>
+<tr class="separator:a5ee8ec1e5409055dac62b91750ef7da3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af157e5b6ae6ed17807c88c2836239850"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#af157e5b6ae6ed17807c88c2836239850">CalibrateSaValue</a> (double Waveval, <a class="el" href="struct_sa_calib_data16.html">SaCalibData16</a> sacalibdata)</td></tr>
+<tr class="memdesc:af157e5b6ae6ed17807c88c2836239850"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method to calibrate the received wave values according to <a class="el" href="struct_sa_calib_data16.html">SaCalibData16</a>.  <br /></td></tr>
+<tr class="separator:af157e5b6ae6ed17807c88c2836239850"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a623eb07199b41e95cefac18f61327185"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a623eb07199b41e95cefac18f61327185">ScaleRangeSaValue</a> (double Waveval, <a class="el" href="struct_scale_range_spec16.html">ScaleRangeSpec16</a> sascaledata)</td></tr>
+<tr class="memdesc:a623eb07199b41e95cefac18f61327185"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method to scale the received wave values according to <a class="el" href="struct_scale_range_spec16.html">ScaleRangeSpec16</a>.  <br /></td></tr>
+<tr class="separator:a623eb07199b41e95cefac18f61327185"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a3e4a70dbd14f8f5e00cd6a02d571b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a0a3e4a70dbd14f8f5e00cd6a02d571b3">ExportNumValListToCSVFile</a> (const std::string &amp;filePath, const std::string &amp;data)</td></tr>
+<tr class="memdesc:a0a3e4a70dbd14f8f5e00cd6a02d571b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method to export numeric and wave data to the csv file.  <br /></td></tr>
+<tr class="separator:a0a3e4a70dbd14f8f5e00cd6a02d571b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9631e1f417936f7cfaece242a9156bba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a9631e1f417936f7cfaece242a9156bba">AppendToCSVBuilder</a> (std::ostringstream &amp;csvBuilder, const std::string &amp;timestamp, const std::string &amp;relativetimestamp, const std::string &amp;systemLocalTime, double waveval)</td></tr>
+<tr class="memdesc:a9631e1f417936f7cfaece242a9156bba"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method for adding to the CSVBuilder for exporting data to a csv file.  <br /></td></tr>
+<tr class="separator:a9631e1f417936f7cfaece242a9156bba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0b6d1f9400f9c844df189a23156c079"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#aa0b6d1f9400f9c844df189a23156c079">SaveNumericValueListRows</a> ()</td></tr>
+<tr class="separator:aa0b6d1f9400f9c844df189a23156c079"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e1541bf075b3b64031dc534c28339af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a6e1541bf075b3b64031dc534c28339af">WriteNumericHeadersList</a> ()</td></tr>
+<tr class="memdesc:a6e1541bf075b3b64031dc534c28339af"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method to write the headers for the csv file of the exported data.  <br /></td></tr>
+<tr class="separator:a6e1541bf075b3b64031dc534c28339af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a817a64f6a66db3b347dc885edfe88c92"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a817a64f6a66db3b347dc885edfe88c92">SaveNumericValueListConsolidatedCSV</a> ()</td></tr>
+<tr class="memdesc:a817a64f6a66db3b347dc885edfe88c92"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method to write the numeric values for the csv file of the exported data.  <br /></td></tr>
+<tr class="separator:a817a64f6a66db3b347dc885edfe88c92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54a9fe05c2e57daf8d46bb183cc2c0a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a54a9fe05c2e57daf8d46bb183cc2c0a8">WriteNumericHeadersListConsolidatedCSV</a> ()</td></tr>
+<tr class="memdesc:a54a9fe05c2e57daf8d46bb183cc2c0a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method to write the headers for the csv file of the exported data at transmission start.  <br /></td></tr>
+<tr class="separator:a54a9fe05c2e57daf8d46bb183cc2c0a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0168710b16154dfa3e3db26fd692a714"><td class="memItemLeft" align="right" valign="top">tm&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a0168710b16154dfa3e3db26fd692a714">GetAbsoluteTimeFromBCDFormat</a> (char *bcdtimebuffer)</td></tr>
+<tr class="separator:a0168710b16154dfa3e3db26fd692a714"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c44e516b72e44ebb1ba166932fab7c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a0c44e516b72e44ebb1ba166932fab7c5">AddTmMillseconds</a> (tm &amp;time, double millisecs)</td></tr>
+<tr class="separator:a0c44e516b72e44ebb1ba166932fab7c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cb21cf1a1709e329c7254ad22d73f2e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a3cb21cf1a1709e329c7254ad22d73f2e">initMsgs</a> ()</td></tr>
+<tr class="memdesc:a3cb21cf1a1709e329c7254ad22d73f2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method to initialise the possible messages with their corresponding bytes.  <br /></td></tr>
+<tr class="separator:a3cb21cf1a1709e329c7254ad22d73f2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9eec243c4918e7a71c7aaaa492594957"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a9eec243c4918e7a71c7aaaa492594957">CheckLinkedPollPacketActionType</a> (char *buffer)</td></tr>
+<tr class="memdesc:a9eec243c4918e7a71c7aaaa492594957"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that is called as part of the <a class="el" href="class_socket_client.html#a0685bceb1589dda27924dc056570a7a1" title="Processes all incoming types of data protocols.">ProcessPacket()</a> function to further categorise, decode and process the received data.  <br /></td></tr>
+<tr class="separator:a9eec243c4918e7a71c7aaaa492594957"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe5e218da3078eaaff6a522d8f1ac98a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#afe5e218da3078eaaff6a522d8f1ac98a">DecodePollObjects</a> (<a class="el" href="struct_poll_info_list.html">PollInfoList</a> *pollobjects, char *packetbuffer)</td></tr>
+<tr class="memdesc:afe5e218da3078eaaff6a522d8f1ac98a"><td class="mdescLeft">&#160;</td><td class="mdescRight">If a packet is identified as a PollObject, it is decoded in this function.  <br /></td></tr>
+<tr class="separator:afe5e218da3078eaaff6a522d8f1ac98a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb7b543430d602fb8a47bcf122aaebe4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#acb7b543430d602fb8a47bcf122aaebe4">DecodeSingleContextPollObjects</a> (<a class="el" href="struct_single_context_poll.html">SingleContextPoll</a> *scpoll, char *buffer)</td></tr>
+<tr class="memdesc:acb7b543430d602fb8a47bcf122aaebe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">If a packet is identified as a SingleContextPollObject, it is decoded in this function.  <br /></td></tr>
+<tr class="separator:acb7b543430d602fb8a47bcf122aaebe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7489e003d18ad052bdbf385dc2b1bcc7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a7489e003d18ad052bdbf385dc2b1bcc7">DecodeObservationPollObjects</a> (<a class="el" href="struct_observation_poll.html">ObservationPoll</a> *scpoll, char *buffer)</td></tr>
+<tr class="memdesc:a7489e003d18ad052bdbf385dc2b1bcc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">If a packet is identified as a SingleContextPollObject, it is decoded in this function.  <br /></td></tr>
+<tr class="separator:a7489e003d18ad052bdbf385dc2b1bcc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a48f0c50045adb2df122bac2e8b2bc9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a1a48f0c50045adb2df122bac2e8b2bc9">ReadIDLabel</a> (char *buffer)</td></tr>
+<tr class="memdesc:a1a48f0c50045adb2df122bac2e8b2bc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the <a class="el" href="struct_i_d_label.html">IDLabel</a> of a BufferObject.  <br /></td></tr>
+<tr class="separator:a1a48f0c50045adb2df122bac2e8b2bc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3e591d94c533d291d854f94b443f0a7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#ab3e591d94c533d291d854f94b443f0a7">ReadNumericObservationValue</a> (char *buffer)</td></tr>
+<tr class="memdesc:ab3e591d94c533d291d854f94b443f0a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method to read numeric observation values from the buffer.  <br /></td></tr>
+<tr class="separator:ab3e591d94c533d291d854f94b443f0a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae524e90b1fbf498324be67e15ebb7441"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#ae524e90b1fbf498324be67e15ebb7441">ReadCompoundNumericObsValue</a> (char *buffer)</td></tr>
+<tr class="memdesc:ae524e90b1fbf498324be67e15ebb7441"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method to read compound numeric observation values from the buffer.  <br /></td></tr>
+<tr class="separator:ae524e90b1fbf498324be67e15ebb7441"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6876609336f3ae74992b9e13bac9d9ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a6876609336f3ae74992b9e13bac9d9ac">ReadIDLabelString</a> (char *buffer)</td></tr>
+<tr class="memdesc:a6876609336f3ae74992b9e13bac9d9ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the <a class="el" href="struct_i_d_label.html">IDLabel</a> of a BufferObject and adds it to a list.  <br /></td></tr>
+<tr class="separator:a6876609336f3ae74992b9e13bac9d9ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae49ada1078c7336330e570835d92056e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#ae49ada1078c7336330e570835d92056e">ReadWaveSaObservationValueObject</a> (char *buffer)</td></tr>
+<tr class="memdesc:ae49ada1078c7336330e570835d92056e"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method to read numerical observation values from the buffer.  <br /></td></tr>
+<tr class="separator:ae49ada1078c7336330e570835d92056e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a324bc0ccfe839aaddc96b27349fd8826"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a324bc0ccfe839aaddc96b27349fd8826">ReadCompoundWaveSaObservationValue</a> (char *buffer)</td></tr>
+<tr class="memdesc:a324bc0ccfe839aaddc96b27349fd8826"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method to read wave observation values from the buffer.  <br /></td></tr>
+<tr class="separator:a324bc0ccfe839aaddc96b27349fd8826"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68569e23c8b3299a29a4652e76d8a3fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a68569e23c8b3299a29a4652e76d8a3fe">ReadSaSpecifications</a> (char *buffer)</td></tr>
+<tr class="memdesc:a68569e23c8b3299a29a4652e76d8a3fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the SaSpecification from a given buffer.  <br /></td></tr>
+<tr class="separator:a68569e23c8b3299a29a4652e76d8a3fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace0f3a08d7ef1959428c911d213691bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#ace0f3a08d7ef1959428c911d213691bb">ReadSaScaleSpecifications</a> (char *buffer)</td></tr>
+<tr class="memdesc:ace0f3a08d7ef1959428c911d213691bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method to read the Scaling Specifications from the buffer and set them for scaling later.  <br /></td></tr>
+<tr class="separator:ace0f3a08d7ef1959428c911d213691bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e0f253ca00ac5c97e8aa907284e1097"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a3e0f253ca00ac5c97e8aa907284e1097">ReadSaCalibrationSpecifications</a> (char *buffer)</td></tr>
+<tr class="memdesc:a3e0f253ca00ac5c97e8aa907284e1097"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method to read the Calibration Specifications from the buffer and set them for calibrating later.  <br /></td></tr>
+<tr class="separator:a3e0f253ca00ac5c97e8aa907284e1097"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcd9db208be211ef295a11284137ed02"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#afcd9db208be211ef295a11284137ed02">ReadWaveSaObservationValue</a> (char *buffer)</td></tr>
+<tr class="memdesc:afcd9db208be211ef295a11284137ed02"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method reads the WaveSaObservation Values from a given buffer.  <br /></td></tr>
+<tr class="separator:afcd9db208be211ef295a11284137ed02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d241186d44672699d1a7b536a7fa67a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a9d241186d44672699d1a7b536a7fa67a">GetPacketTimestamp</a> (char *header, uint16_t headersize)</td></tr>
+<tr class="memdesc:a9d241186d44672699d1a7b536a7fa67a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function gets the Timestamp from which the measurement was taken.  <br /></td></tr>
+<tr class="separator:a9d241186d44672699d1a7b536a7fa67a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87c59fc9d711a6892ccd0a0320d7c74e"><td class="memItemLeft" align="right" valign="top">tm&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a87c59fc9d711a6892ccd0a0320d7c74e">GetAbsoluteTimeFromRelativeTimestamp</a> (uint32_t currentRelativeTime)</td></tr>
+<tr class="memdesc:a87c59fc9d711a6892ccd0a0320d7c74e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a given relative timestamp into tm format.  <br /></td></tr>
+<tr class="separator:a87c59fc9d711a6892ccd0a0320d7c74e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb9cba529b53dfbd1014f993cecbc580"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#afb9cba529b53dfbd1014f993cecbc580">DecodeAvaObjects</a> (std::unique_ptr&lt; <a class="el" href="class_ava_obj.html">AvaObj</a> &gt; avaObj, char *buffer)</td></tr>
+<tr class="memdesc:afb9cba529b53dfbd1014f993cecbc580"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decodes the AvaObjects.  <br /></td></tr>
+<tr class="separator:afb9cba529b53dfbd1014f993cecbc580"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67172065a09c78492f4635bea8e1a678"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a67172065a09c78492f4635bea8e1a678">PollPacketDecoder</a> (char *packetbuffer, size_t headersize)</td></tr>
+<tr class="memdesc:a67172065a09c78492f4635bea8e1a678"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper function to process an identified PollPacket.  <br /></td></tr>
+<tr class="separator:a67172065a09c78492f4635bea8e1a678"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a606a34e47948002ab0da660cae7e5387"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a606a34e47948002ab0da660cae7e5387">ParseMDSCreateEventReport</a> (char *buffer)</td></tr>
+<tr class="memdesc:a606a34e47948002ab0da660cae7e5387"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that is called as part of the <a class="el" href="class_socket_client.html#a0685bceb1589dda27924dc056570a7a1" title="Processes all incoming types of data protocols.">ProcessPacket()</a> function to further categorise, decode and process the received data.  <br /></td></tr>
+<tr class="separator:a606a34e47948002ab0da660cae7e5387"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5ba70a270d42bf9745e79497cefa8fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#ae5ba70a270d42bf9745e79497cefa8fe">GetBaselineRelativeTimestamp</a> (char *timebuffer)</td></tr>
+<tr class="memdesc:ae5ba70a270d42bf9745e79497cefa8fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets the realtive timestamp from a given buffer  <br /></td></tr>
+<tr class="separator:ae5ba70a270d42bf9745e79497cefa8fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a796a16d693abdbf6536731dbb1b9207d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a796a16d693abdbf6536731dbb1b9207d">DecodeMDSAttribObjects</a> (std::unique_ptr&lt; <a class="el" href="class_ava_obj.html">AvaObj</a> &gt; avaobj, char *attriblistobjects_buffer, size_t count)</td></tr>
+<tr class="memdesc:a796a16d693abdbf6536731dbb1b9207d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decodes a buffer which was identified to hold MDSAttributes.  <br /></td></tr>
+<tr class="separator:a796a16d693abdbf6536731dbb1b9207d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5e6a670b7bdf58155cce2815ba7d204"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#ae5e6a670b7bdf58155cce2815ba7d204">SendMDSCreateEventResult</a> ()</td></tr>
+<tr class="memdesc:ae5e6a670b7bdf58155cce2815ba7d204"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method for sending an MDSCreateEvent message.  <br /></td></tr>
+<tr class="separator:ae5e6a670b7bdf58155cce2815ba7d204"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeebbddac0352909a7772193b095c85ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#aeebbddac0352909a7772193b095c85ce">CheckPollPacketActionType</a> (char *buffer)</td></tr>
+<tr class="memdesc:aeebbddac0352909a7772193b095c85ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifies the ActionType from a given PollPacket.  <br /></td></tr>
+<tr class="separator:aeebbddac0352909a7772193b095c85ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a273f71de35f9605380fa9a6fb3d3220d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a273f71de35f9605380fa9a6fb3d3220d">SendRTSAPriorityMessage</a> (std::vector&lt; std::byte &gt; WaveTrType)</td></tr>
+<tr class="memdesc:a273f71de35f9605380fa9a6fb3d3220d"><td class="mdescLeft">&#160;</td><td class="mdescRight">sends the RTSAPriorityMessage  <br /></td></tr>
+<tr class="separator:a273f71de35f9605380fa9a6fb3d3220d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e1a7c44072c870915d746872492a542"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a0e1a7c44072c870915d746872492a542">SendCycledExtendedPollDataRequest</a> (size_t nInterval)</td></tr>
+<tr class="memdesc:a0e1a7c44072c870915d746872492a542"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method for the thread that repeatedly sends an extended poll data request.  <br /></td></tr>
+<tr class="separator:a0e1a7c44072c870915d746872492a542"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f28ce2bad93e3a3cc34edaf4b815d10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a4f28ce2bad93e3a3cc34edaf4b815d10">SendCycledExtendedPollWaveDataRequest</a> (size_t nInterval)</td></tr>
+<tr class="memdesc:a4f28ce2bad93e3a3cc34edaf4b815d10"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method for the thread that repeatedly sends an extended poll wave data request.  <br /></td></tr>
+<tr class="separator:a4f28ce2bad93e3a3cc34edaf4b815d10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41fb9659994c0a7aa19620cd8d671759"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a41fb9659994c0a7aa19620cd8d671759">ExportDataToCSV</a> ()</td></tr>
+<tr class="memdesc:a41fb9659994c0a7aa19620cd8d671759"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method to export the data to a csv file in different formats depending on the value of m_csvexportset.  <br /></td></tr>
+<tr class="separator:a41fb9659994c0a7aa19620cd8d671759"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f629e397e5899ebe0f0621ba753d82f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a0f629e397e5899ebe0f0621ba753d82f">ExportWaveToCSV</a> ()</td></tr>
+<tr class="memdesc:a0f629e397e5899ebe0f0621ba753d82f"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method to export wave data to a csv file.  <br /></td></tr>
+<tr class="separator:a0f629e397e5899ebe0f0621ba753d82f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a958cd86656961e6662d5497db37f84d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a958cd86656961e6662d5497db37f84d7">CreateWaveformSet</a> (size_t nWaveSetType, std::vector&lt; std::byte &gt; WaveTrtype)</td></tr>
+<tr class="memdesc:a958cd86656961e6662d5497db37f84d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the WaveformSet to be extracted, based on the user inputs.  <br /></td></tr>
+<tr class="separator:a958cd86656961e6662d5497db37f84d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac804932ef7741b9a97d3869890019541"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#ac804932ef7741b9a97d3869890019541">GetRTSAPriorityListRequest</a> ()</td></tr>
+<tr class="memdesc:ac804932ef7741b9a97d3869890019541"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method for sending a request to receive an RTSA priority list.  <br /></td></tr>
+<tr class="separator:ac804932ef7741b9a97d3869890019541"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac11bd5de6f5950c8d76df508df5ecbe0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#ac11bd5de6f5950c8d76df508df5ecbe0">SetRTSAPriorityList</a> (size_t nWaveSetType)</td></tr>
+<tr class="memdesc:ac11bd5de6f5950c8d76df508df5ecbe0"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the RTSA Priority List based on the user input  <br /></td></tr>
+<tr class="separator:ac11bd5de6f5950c8d76df508df5ecbe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0392359d722168aa39fd3791a68b8a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#ac0392359d722168aa39fd3791a68b8a2">SaveNumericValueList</a> ()</td></tr>
+<tr class="memdesc:ac0392359d722168aa39fd3791a68b8a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">one case of ExportDataToCSV which is to export the data to a csv file in different formats depending on the value of m_csvexportset  <br /></td></tr>
+<tr class="separator:ac0392359d722168aa39fd3791a68b8a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e0f3829d0f0c29e1693741d53b1d56e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a0e0f3829d0f0c29e1693741d53b1d56e">AddIDLabelToList</a> ()</td></tr>
+<tr class="memdesc:a0e0f3829d0f0c29e1693741d53b1d56e"><td class="mdescLeft">&#160;</td><td class="mdescRight">adds the <a class="el" href="struct_i_d_label.html">IDLabel</a> to the m_obpollhandle  <br /></td></tr>
+<tr class="separator:a0e0f3829d0f0c29e1693741d53b1d56e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa869f960877d33a1b6dc57dc68c75c5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#aa869f960877d33a1b6dc57dc68c75c5c">RecheckMDSAttributes</a> (int nInterval=0)</td></tr>
+<tr class="memdesc:aa869f960877d33a1b6dc57dc68c75c5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method for repeatedly rechecking the monitors MDS attributes.  <br /></td></tr>
+<tr class="separator:aa869f960877d33a1b6dc57dc68c75c5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add419180d06942d202435e03ccdf1f0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#add419180d06942d202435e03ccdf1f0e">SendMDSPollDataRequest</a> ()</td></tr>
+<tr class="memdesc:add419180d06942d202435e03ccdf1f0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method for sending an MDS poll data request message.  <br /></td></tr>
+<tr class="separator:add419180d06942d202435e03ccdf1f0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a537146057b3c27487f4b6d2039e60012"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a537146057b3c27487f4b6d2039e60012">KeepConnectionAlive</a> (int nInterval=0)</td></tr>
+<tr class="memdesc:a537146057b3c27487f4b6d2039e60012"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method for repeatedly sending an MDSCreateEventResult so that the monitor keeps the connection alive.  <br /></td></tr>
+<tr class="separator:a537146057b3c27487f4b6d2039e60012"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a895e7fa61a7aa7ed861667bf1e866a19"><td class="memItemLeft" align="right" valign="top">void CALLBACK&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a895e7fa61a7aa7ed861667bf1e866a19">ReceiveCallback</a> (DWORD errorCode, DWORD numBytesReceived, LPWSAOVERLAPPED overlapped, DWORD flags=0)</td></tr>
+<tr class="memdesc:a895e7fa61a7aa7ed861667bf1e866a19"><td class="mdescLeft">&#160;</td><td class="mdescRight">the Callback function to be called whenever a data packet has been received to process the data  <br /></td></tr>
+<tr class="separator:a895e7fa61a7aa7ed861667bf1e866a19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99c031a8b2280d524245bd16e2ccdc05"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a99c031a8b2280d524245bd16e2ccdc05">ThreadRecheckMDSAttributes</a> (int nInterval=0)</td></tr>
+<tr class="memdesc:a99c031a8b2280d524245bd16e2ccdc05"><td class="mdescLeft">&#160;</td><td class="mdescRight">the thread that repeatedly rechecks the MDS attributes  <br /></td></tr>
+<tr class="separator:a99c031a8b2280d524245bd16e2ccdc05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3eaea5b577cb9108239f7458c2fd6f78"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a3eaea5b577cb9108239f7458c2fd6f78">ThreadKeepConnectionAlive</a> (int nInterval=0)</td></tr>
+<tr class="memdesc:a3eaea5b577cb9108239f7458c2fd6f78"><td class="mdescLeft">&#160;</td><td class="mdescRight">the thread that repeatedly makes sue the monitor keeps the connection alive  <br /></td></tr>
+<tr class="separator:a3eaea5b577cb9108239f7458c2fd6f78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa73e2440f43a32c791e8faca08f3ee0c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#aa73e2440f43a32c791e8faca08f3ee0c">ThreadReceive</a> (char *receivedBuffer)</td></tr>
+<tr class="memdesc:aa73e2440f43a32c791e8faca08f3ee0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">the thread tha trepeatedly calls the Receive function to receive answers and wave and numeric data from the monitor  <br /></td></tr>
+<tr class="separator:aa73e2440f43a32c791e8faca08f3ee0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acee5dd82e2750175a61b2ccd2a6b3b7d"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#acee5dd82e2750175a61b2ccd2a6b3b7d">getLastMessage</a> ()</td></tr>
+<tr class="memdesc:acee5dd82e2750175a61b2ccd2a6b3b7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logging.  <br /></td></tr>
+<tr class="separator:acee5dd82e2750175a61b2ccd2a6b3b7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:a49cb67d5bf92ead01c2c57fde651ab4b"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a49cb67d5bf92ead01c2c57fde651ab4b">ByteArrayToFile</a> (const std::string &amp;filename, const std::string &amp;bytes_string)</td></tr>
+<tr class="memdesc:a49cb67d5bf92ead01c2c57fde651ab4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method to write the received data bytes to a file for logging.  <br /></td></tr>
+<tr class="separator:a49cb67d5bf92ead01c2c57fde651ab4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3129c9412df69db8bd4710f1ccd6ec67"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a3129c9412df69db8bd4710f1ccd6ec67">ByteArrayToFile</a> (const std::string &amp;path_to_file, const std::vector&lt; std::byte &gt; &amp;data_bytes, uint32_t numBytesReceived)</td></tr>
+<tr class="memdesc:a3129c9412df69db8bd4710f1ccd6ec67"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method to write the received data bytes to a file for logging.  <br /></td></tr>
+<tr class="separator:a3129c9412df69db8bd4710f1ccd6ec67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a200bf87f9762e8424c74fc014465ccbd"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a200bf87f9762e8424c74fc014465ccbd">m_lastMsg</a></td></tr>
+<tr class="separator:a200bf87f9762e8424c74fc014465ccbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82723ec025dbb0aaa947cfd760ce3caa"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a82723ec025dbb0aaa947cfd760ce3caa">lastMsgSize</a> = 0</td></tr>
+<tr class="separator:a82723ec025dbb0aaa947cfd760ce3caa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3eba51aeb2b8c0abaa29a074625b9751"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::byte &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a3eba51aeb2b8c0abaa29a074625b9751">m_readassocbuffer</a></td></tr>
+<tr class="separator:a3eba51aeb2b8c0abaa29a074625b9751"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0121bb9f1e934b40ac4913141f1052c4"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::byte &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a0121bb9f1e934b40ac4913141f1052c4">m_readmdsconnectbuffer</a></td></tr>
+<tr class="separator:a0121bb9f1e934b40ac4913141f1052c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a423286f12932d5380a1e20c55212b796"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a423286f12932d5380a1e20c55212b796">m_remoteIPtarget</a> = &quot;&quot;</td></tr>
+<tr class="separator:a423286f12932d5380a1e20c55212b796"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a816551908b8b07ea392f31883ed2e532"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a816551908b8b07ea392f31883ed2e532">m_strTimestamp</a> = &quot;&quot;</td></tr>
+<tr class="separator:a816551908b8b07ea392f31883ed2e532"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86ce6b8305a45bda7e73f4be6d3b931a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a86ce6b8305a45bda7e73f4be6d3b931a">m_DeviceID</a> = &quot;&quot;</td></tr>
+<tr class="separator:a86ce6b8305a45bda7e73f4be6d3b931a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afad8e608b2391e32b51ea4f7b303f8b7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#afad8e608b2391e32b51ea4f7b303f8b7">m_idlabelstring</a> = &quot;&quot;</td></tr>
+<tr class="separator:afad8e608b2391e32b51ea4f7b303f8b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d9dc25a73aa40d3de9101072d1e4280"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="struct_numeric_val_result.html">NumericValResult</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a9d9dc25a73aa40d3de9101072d1e4280">m_NumericValList</a></td></tr>
+<tr class="separator:a9d9dc25a73aa40d3de9101072d1e4280"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d388ed8a1f2339891081ee0efada79b"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a9d388ed8a1f2339891081ee0efada79b">m_NumValHeaders</a></td></tr>
+<tr class="separator:a9d388ed8a1f2339891081ee0efada79b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad2f1d880c7f1aa93ef56c3fd915e762"><td class="memItemLeft" align="right" valign="top">const unsigned short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#aad2f1d880c7f1aa93ef56c3fd915e762">m_port</a> = 0</td></tr>
+<tr class="separator:aad2f1d880c7f1aa93ef56c3fd915e762"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28e33ed1a6225b9cce2b3e204dcdf025"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a28e33ed1a6225b9cce2b3e204dcdf025">m_baseRelativeTime</a> = 0</td></tr>
+<tr class="separator:a28e33ed1a6225b9cce2b3e204dcdf025"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9aaa9fc4a647f38aacaa3e25a3b6e7b7"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a9aaa9fc4a647f38aacaa3e25a3b6e7b7">m_actiontype</a> = 0</td></tr>
+<tr class="separator:a9aaa9fc4a647f38aacaa3e25a3b6e7b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af85fa502a7600e87a3885cb3a87473b5"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#af85fa502a7600e87a3885cb3a87473b5">m_obpollhandle</a> = 0</td></tr>
+<tr class="separator:af85fa502a7600e87a3885cb3a87473b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6da92a61484c5dafa1a45a6fd835a17c"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a6da92a61484c5dafa1a45a6fd835a17c">m_idlabelhandle</a> = 0</td></tr>
+<tr class="separator:a6da92a61484c5dafa1a45a6fd835a17c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb89f0c4553e29be9832024800929b4a"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#abb89f0c4553e29be9832024800929b4a">m_dataexportset</a> = 1</td></tr>
+<tr class="separator:abb89f0c4553e29be9832024800929b4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4524dfd64361626f3b3760a1456be0be"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a4524dfd64361626f3b3760a1456be0be">m_csvexportset</a> = 1</td></tr>
+<tr class="separator:a4524dfd64361626f3b3760a1456be0be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7d1a8054dd26bde3bc46c1af26cc048"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="struct_i_d_label.html">IDLabel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#ac7d1a8054dd26bde3bc46c1af26cc048">m_IDLabelList</a></td></tr>
+<tr class="separator:ac7d1a8054dd26bde3bc46c1af26cc048"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a0f04be6a0ace2dfa56b66dca185f88"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="struct_sa_calib_data16.html">SaCalibData16</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a0a0f04be6a0ace2dfa56b66dca185f88">m_SaCalibDataSpecList</a></td></tr>
+<tr class="separator:a0a0f04be6a0ace2dfa56b66dca185f88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14dd00f14f810b12186a2ddad5bdd36c"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="struct_scale_range_spec16.html">ScaleRangeSpec16</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a14dd00f14f810b12186a2ddad5bdd36c">m_ScaleRangeSpecList</a></td></tr>
+<tr class="separator:a14dd00f14f810b12186a2ddad5bdd36c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7023d9aaa9345fdb4213f2dfdfb7127"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="struct_sa_spec.html">SaSpec</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#ae7023d9aaa9345fdb4213f2dfdfb7127">m_SaSpecList</a></td></tr>
+<tr class="separator:ae7023d9aaa9345fdb4213f2dfdfb7127"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a610153cc85dcb0caea4f43b2d0f6c253"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="struct_wave_val_result.html">WaveValResult</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a610153cc85dcb0caea4f43b2d0f6c253">m_WaveValResultList</a></td></tr>
+<tr class="separator:a610153cc85dcb0caea4f43b2d0f6c253"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a32eb040a63fc5d66dceefe226e2032"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a3a32eb040a63fc5d66dceefe226e2032">m_calibratewavevalues</a></td></tr>
+<tr class="separator:a3a32eb040a63fc5d66dceefe226e2032"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13cceef53864410b937ff54c49dd3a5c"><td class="memItemLeft" align="right" valign="top">tm&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a13cceef53864410b937ff54c49dd3a5c">m_baseDateTime</a> {}</td></tr>
+<tr class="separator:a13cceef53864410b937ff54c49dd3a5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a53985ffad121ddbcc5708c3f7d5744"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a3a53985ffad121ddbcc5708c3f7d5744">m_transmissionstart</a> = TRUE</td></tr>
+<tr class="separator:a3a53985ffad121ddbcc5708c3f7d5744"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cceadeaeacf989d05c412d0d8f2c2ad"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a2cceadeaeacf989d05c412d0d8f2c2ad">stopThreadRecheckMDSAttributes</a> = false</td></tr>
+<tr class="separator:a2cceadeaeacf989d05c412d0d8f2c2ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b1fc6d7b60b68f36c3fe01d2cfa2e5c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a6b1fc6d7b60b68f36c3fe01d2cfa2e5c">stopThreadKeepConnectionAlive</a> = false</td></tr>
+<tr class="separator:a6b1fc6d7b60b68f36c3fe01d2cfa2e5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d04619a2ab6c4cf26654d2f60d37cf8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a8d04619a2ab6c4cf26654d2f60d37cf8">stopThreadReceive</a> = false</td></tr>
+<tr class="separator:a8d04619a2ab6c4cf26654d2f60d37cf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f39762f769cc2988caf25a9788a23af"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_client.html#a7f39762f769cc2988caf25a9788a23af">m_receiveInterval</a> = <a class="el" href="_socket_client_8h.html#a8682a8bde66a6aab34c56b6e7dfb43a3">RECEIVEINTERVAL</a></td></tr>
+<tr class="separator:a7f39762f769cc2988caf25a9788a23af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -293,6 +537,710 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0e0f3829d0f0c29e1693741d53b1d56e" name="a0e0f3829d0f0c29e1693741d53b1d56e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e0f3829d0f0c29e1693741d53b1d56e">&#9670;&#160;</a></span>AddIDLabelToList()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::AddIDLabelToList </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>adds the <a class="el" href="struct_i_d_label.html">IDLabel</a> to the m_obpollhandle </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000030">Todo:</a></b></dt><dd>doxygen </dd></dl>
+
+</div>
+</div>
+<a id="a0c44e516b72e44ebb1ba166932fab7c5" name="a0c44e516b72e44ebb1ba166932fab7c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c44e516b72e44ebb1ba166932fab7c5">&#9670;&#160;</a></span>AddTmMillseconds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::AddTmMillseconds </td>
+          <td>(</td>
+          <td class="paramtype">tm &amp;&#160;</td>
+          <td class="paramname"><em>timeInfo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>milliseconds</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000013">Todo:</a></b></dt><dd>doxygen </dd></dl>
+
+</div>
+</div>
+<a id="a9631e1f417936f7cfaece242a9156bba" name="a9631e1f417936f7cfaece242a9156bba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9631e1f417936f7cfaece242a9156bba">&#9670;&#160;</a></span>AppendToCSVBuilder()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::AppendToCSVBuilder </td>
+          <td>(</td>
+          <td class="paramtype">std::ostringstream &amp;&#160;</td>
+          <td class="paramname"><em>csvBuilder</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>timestamp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>relativetimestamp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>systemLocalTime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>waveval</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method for adding to the CSVBuilder for exporting data to a csv file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">csvBuilder</td><td>the CSVBuilder </td></tr>
+    <tr><td class="paramname">timestamp</td><td>the timestamp to be exported </td></tr>
+    <tr><td class="paramname">relativetimestamp</td><td>the relativetimestamp to be exported </td></tr>
+    <tr><td class="paramname">systemLocalTime</td><td>the systemLocalTime to be exported </td></tr>
+    <tr><td class="paramname">waveval</td><td>the wavevalue to be exported </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a49cb67d5bf92ead01c2c57fde651ab4b" name="a49cb67d5bf92ead01c2c57fde651ab4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49cb67d5bf92ead01c2c57fde651ab4b">&#9670;&#160;</a></span>ByteArrayToFile() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SocketClient::ByteArrayToFile </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>bytes_string</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method to write the received data bytes to a file for logging. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path_to_file</td><td>the path to the file </td></tr>
+    <tr><td class="paramname">bytes_string</td><td>the bytes in string format </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if no error occurred </dd></dl>
+
+</div>
+</div>
+<a id="a3129c9412df69db8bd4710f1ccd6ec67" name="a3129c9412df69db8bd4710f1ccd6ec67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3129c9412df69db8bd4710f1ccd6ec67">&#9670;&#160;</a></span>ByteArrayToFile() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SocketClient::ByteArrayToFile </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path_to_file</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::byte &gt; &amp;&#160;</td>
+          <td class="paramname"><em>data_bytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>numBytesReceived</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method to write the received data bytes to a file for logging. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path_to_file</td><td>the path to the file </td></tr>
+    <tr><td class="paramname">data_bytes</td><td>the bytes in form of a vector of std::bytes </td></tr>
+    <tr><td class="paramname">numBytesReceived</td><td>the number of bytes received </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if no errors occurred </dd></dl>
+
+</div>
+</div>
+<a id="af157e5b6ae6ed17807c88c2836239850" name="af157e5b6ae6ed17807c88c2836239850"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af157e5b6ae6ed17807c88c2836239850">&#9670;&#160;</a></span>CalibrateSaValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double SocketClient::CalibrateSaValue </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>Waveval</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_sa_calib_data16.html">SaCalibData16</a>&#160;</td>
+          <td class="paramname"><em>sacalibdata</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method to calibrate the received wave values according to <a class="el" href="struct_sa_calib_data16.html">SaCalibData16</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Waveval</td><td>the wave value to be calibrated </td></tr>
+    <tr><td class="paramname">sacalibdata</td><td>the calibration parameters </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the calibrated Wave value </dd></dl>
+
+</div>
+</div>
+<a id="a9eec243c4918e7a71c7aaaa492594957" name="a9eec243c4918e7a71c7aaaa492594957"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9eec243c4918e7a71c7aaaa492594957">&#9670;&#160;</a></span>CheckLinkedPollPacketActionType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::CheckLinkedPollPacketActionType </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buffer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method that is called as part of the <a class="el" href="class_socket_client.html#a0685bceb1589dda27924dc056570a7a1" title="Processes all incoming types of data protocols.">ProcessPacket()</a> function to further categorise, decode and process the received data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>the buffer with the receieved data </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aeebbddac0352909a7772193b095c85ce" name="aeebbddac0352909a7772193b095c85ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeebbddac0352909a7772193b095c85ce">&#9670;&#160;</a></span>CheckPollPacketActionType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::CheckPollPacketActionType </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buffer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Identifies the ActionType from a given PollPacket. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>The Buffer to read from <br  />
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">Todo:</a></b></dt><dd>doxygen </dd></dl>
+
+</div>
+</div>
+<a id="a4d8a208369c7080bc471a54384ab4ad7" name="a4d8a208369c7080bc471a54384ab4ad7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d8a208369c7080bc471a54384ab4ad7">&#9670;&#160;</a></span>ConvertToByte()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char SocketClient::ConvertToByte </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method to convert int to unsigned char. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>the int value to be converted </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the unsgined char </dd></dl>
+
+</div>
+</div>
+<a id="a7bfd117f07b25a2ab74e82b117bfb43c" name="a7bfd117f07b25a2ab74e82b117bfb43c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bfd117f07b25a2ab74e82b117bfb43c">&#9670;&#160;</a></span>CreateMask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SocketClient::CreateMask </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>significantbits</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method to create a mask for only the significant bits, here mainly for creating a mask for the msb. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">significantbits</td><td>the significant bits </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the mask </dd></dl>
+
+</div>
+</div>
+<a id="a958cd86656961e6662d5497db37f84d7" name="a958cd86656961e6662d5497db37f84d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a958cd86656961e6662d5497db37f84d7">&#9670;&#160;</a></span>CreateWaveformSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::CreateWaveformSet </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>nWaveSetType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::byte &gt;&#160;</td>
+          <td class="paramname"><em>WaveTrtype</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Determines the WaveformSet to be extracted, based on the user inputs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nWaveSetType</td><td>The wavetype to be written on </td></tr>
+    <tr><td class="paramname">WaveTrtype</td><td>Userinput which kind of WaveSet should be extracted</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000041">Todo:</a></b></dt><dd>doxygen </dd></dl>
+
+</div>
+</div>
+<a id="afb9cba529b53dfbd1014f993cecbc580" name="afb9cba529b53dfbd1014f993cecbc580"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb9cba529b53dfbd1014f993cecbc580">&#9670;&#160;</a></span>DecodeAvaObjects()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::DecodeAvaObjects </td>
+          <td>(</td>
+          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="class_ava_obj.html">AvaObj</a> &gt;&#160;</td>
+          <td class="paramname"><em>avaObj</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Decodes the AvaObjects. </p>
+<p>This includes all observation values. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">avaObj</td><td>An AvaObject to write on </td></tr>
+    <tr><td class="paramname">buffer</td><td>The Buffer to read from <br  />
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000023">Todo:</a></b></dt><dd>doxygen </dd></dl>
+
+</div>
+</div>
+<a id="a796a16d693abdbf6536731dbb1b9207d" name="a796a16d693abdbf6536731dbb1b9207d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a796a16d693abdbf6536731dbb1b9207d">&#9670;&#160;</a></span>DecodeMDSAttribObjects()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::DecodeMDSAttribObjects </td>
+          <td>(</td>
+          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="class_ava_obj.html">AvaObj</a> &gt;&#160;</td>
+          <td class="paramname"><em>avaobj</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>attriblistobjects_buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Decodes a buffer which was identified to hold MDSAttributes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">avaobj</td><td>a unique_ptr to an <a class="el" href="class_ava_obj.html" title="The AvaObj (AVA = Attribute Value Assertion) class implements the object attributes for the different...">AvaObj</a> to write on </td></tr>
+    <tr><td class="paramname">attriblistobjects_buffer</td><td>The Buffer to read from </td></tr>
+    <tr><td class="paramname">count</td><td>the amount of <a class="el" href="struct_ava.html">Ava</a> Objects</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>doxygen </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>sizeof 2 bytes per avaObjCount </dd></dl>
+
+</div>
+</div>
+<a id="a7489e003d18ad052bdbf385dc2b1bcc7" name="a7489e003d18ad052bdbf385dc2b1bcc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7489e003d18ad052bdbf385dc2b1bcc7">&#9670;&#160;</a></span>DecodeObservationPollObjects()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SocketClient::DecodeObservationPollObjects </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_observation_poll.html">ObservationPoll</a> *&#160;</td>
+          <td class="paramname"><em>obpollobject</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>If a packet is identified as a SingleContextPollObject, it is decoded in this function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scpoll</td><td><a class="el" href="struct_observation_poll.html">ObservationPoll</a> to write on </td></tr>
+    <tr><td class="paramname">buffer</td><td>Buffer, that contains the <a class="el" href="struct_observation_poll.html">ObservationPoll</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>returns the amount of PollObjects in the <a class="el" href="struct_observation_poll.html">ObservationPoll</a></dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000036">Todo:</a></b></dt><dd>doxygen </dd></dl>
+
+</div>
+</div>
+<a id="afe5e218da3078eaaff6a522d8f1ac98a" name="afe5e218da3078eaaff6a522d8f1ac98a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe5e218da3078eaaff6a522d8f1ac98a">&#9670;&#160;</a></span>DecodePollObjects()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SocketClient::DecodePollObjects </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_poll_info_list.html">PollInfoList</a> *&#160;</td>
+          <td class="paramname"><em>pollobjects</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>packetbuffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>If a packet is identified as a PollObject, it is decoded in this function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pollobjects</td><td>List with PollObjects to write on </td></tr>
+    <tr><td class="paramname">packetbuffer</td><td>Buffer, that contains the Pollobj </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>returns the amount of PollObjects in the list</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000037">Todo:</a></b></dt><dd>doxygen </dd></dl>
+
+</div>
+</div>
+<a id="acb7b543430d602fb8a47bcf122aaebe4" name="acb7b543430d602fb8a47bcf122aaebe4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb7b543430d602fb8a47bcf122aaebe4">&#9670;&#160;</a></span>DecodeSingleContextPollObjects()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SocketClient::DecodeSingleContextPollObjects </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_single_context_poll.html">SingleContextPoll</a> *&#160;</td>
+          <td class="paramname"><em>scpoll</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>If a packet is identified as a SingleContextPollObject, it is decoded in this function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scpoll</td><td>Struct to write on </td></tr>
+    <tr><td class="paramname">buffer</td><td>Buffer, that contains the <a class="el" href="struct_single_context_poll.html">SingleContextPoll</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>returns the amount of PollObjects in the <a class="el" href="struct_single_context_poll.html">SingleContextPoll</a></dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000035">Todo:</a></b></dt><dd>doxygen </dd></dl>
+
+</div>
+</div>
 <a id="ae3962f762b411e9b4bf06be013c3c9f1" name="ae3962f762b411e9b4bf06be013c3c9f1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae3962f762b411e9b4bf06be013c3c9f1">&#9670;&#160;</a></span>establishLanConnection()</h2>
 
@@ -308,9 +1256,316 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>A method to establish a LAN connection to the monitor, keep the connection alive and exchange data </p>
+<p>A method to establish a LAN connection to the monitor, keep the connection alive and exchange data. </p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000044">Todo:</a></b></dt><dd>schauen wie viel Buffer space wir brauchen (chapter4 p.29 sagt 1380 -&gt;testen) </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000045">Todo:</a></b></dt><dd>when to stop connection </dd></dl>
+
+</div>
+</div>
+<a id="a41fb9659994c0a7aa19620cd8d671759" name="a41fb9659994c0a7aa19620cd8d671759"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41fb9659994c0a7aa19620cd8d671759">&#9670;&#160;</a></span>ExportDataToCSV()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::ExportDataToCSV </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method to export the data to a csv file in different formats depending on the value of m_csvexportset. </p>
+
+</div>
+</div>
+<a id="a0a3e4a70dbd14f8f5e00cd6a02d571b3" name="a0a3e4a70dbd14f8f5e00cd6a02d571b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a3e4a70dbd14f8f5e00cd6a02d571b3">&#9670;&#160;</a></span>ExportNumValListToCSVFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::ExportNumValListToCSVFile </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filePath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method to export numeric and wave data to the csv file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filePath</td><td>the file path to the csv file </td></tr>
+    <tr><td class="paramname">data</td><td>the data to be exported </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0f629e397e5899ebe0f0621ba753d82f" name="a0f629e397e5899ebe0f0621ba753d82f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f629e397e5899ebe0f0621ba753d82f">&#9670;&#160;</a></span>ExportWaveToCSV()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::ExportWaveToCSV </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method to export wave data to a csv file. </p>
+
+</div>
+</div>
+<a id="a0168710b16154dfa3e3db26fd692a714" name="a0168710b16154dfa3e3db26fd692a714"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0168710b16154dfa3e3db26fd692a714">&#9670;&#160;</a></span>GetAbsoluteTimeFromBCDFormat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tm SocketClient::GetAbsoluteTimeFromBCDFormat </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>bcdtimebuffer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bcdtimebuffer</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><br  />
+ </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>doxygen </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>vielleicht anderen struct als tm benutzen </dd></dl>
+
+</div>
+</div>
+<a id="a87c59fc9d711a6892ccd0a0320d7c74e" name="a87c59fc9d711a6892ccd0a0320d7c74e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87c59fc9d711a6892ccd0a0320d7c74e">&#9670;&#160;</a></span>GetAbsoluteTimeFromRelativeTimestamp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tm SocketClient::GetAbsoluteTimeFromRelativeTimestamp </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>currentRelativeTime</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Converts a given relative timestamp into tm format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">currentRelativeTime</td><td>the relative timestamp in uint32_t </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>returns the absolut timestamp in tm format</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000012">Todo:</a></b></dt><dd>doxygen </dd></dl>
+
+</div>
+</div>
+<a id="ae5ba70a270d42bf9745e79497cefa8fe" name="ae5ba70a270d42bf9745e79497cefa8fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5ba70a270d42bf9745e79497cefa8fe">&#9670;&#160;</a></span>GetBaselineRelativeTimestamp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::GetBaselineRelativeTimestamp </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>bcdtimebuffer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>gets the realtive timestamp from a given buffer </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">timebuffer</td><td>the buffer to get the timestamp from</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>doxygen </dd></dl>
+
+</div>
+</div>
+<a id="acee5dd82e2750175a61b2ccd2a6b3b7d" name="acee5dd82e2750175a61b2ccd2a6b3b7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acee5dd82e2750175a61b2ccd2a6b3b7d">&#9670;&#160;</a></span>getLastMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">char * SocketClient::getLastMessage </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Logging. </p>
+
+</div>
+</div>
+<a id="a9d241186d44672699d1a7b536a7fa67a" name="a9d241186d44672699d1a7b536a7fa67a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d241186d44672699d1a7b536a7fa67a">&#9670;&#160;</a></span>GetPacketTimestamp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string SocketClient::GetPacketTimestamp </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>header</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>headersize</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This function gets the Timestamp from which the measurement was taken. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">header</td><td>The buffer to read from </td></tr>
+    <tr><td class="paramname">headersize</td><td>the size of the header to read from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>returns the string with the timestamp</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000011">Todo:</a></b></dt><dd>doxygen </dd></dl>
+
+</div>
+</div>
+<a id="ac804932ef7741b9a97d3869890019541" name="ac804932ef7741b9a97d3869890019541"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac804932ef7741b9a97d3869890019541">&#9670;&#160;</a></span>GetRTSAPriorityListRequest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::GetRTSAPriorityListRequest </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method for sending a request to receive an RTSA priority list. </p>
 
 </div>
 </div>
@@ -334,6 +1589,566 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a3cb21cf1a1709e329c7254ad22d73f2e" name="a3cb21cf1a1709e329c7254ad22d73f2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cb21cf1a1709e329c7254ad22d73f2e">&#9670;&#160;</a></span>initMsgs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::initMsgs </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method to initialise the possible messages with their corresponding bytes. </p>
+
+</div>
+</div>
+<a id="a5ee8ec1e5409055dac62b91750ef7da3" name="a5ee8ec1e5409055dac62b91750ef7da3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ee8ec1e5409055dac62b91750ef7da3">&#9670;&#160;</a></span>IsLittleEndian()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SocketClient::IsLittleEndian </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method to check if data is in little endian format. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if it is little endian </dd></dl>
+
+</div>
+</div>
+<a id="a537146057b3c27487f4b6d2039e60012" name="a537146057b3c27487f4b6d2039e60012"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a537146057b3c27487f4b6d2039e60012">&#9670;&#160;</a></span>KeepConnectionAlive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::KeepConnectionAlive </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nInterval</em> = <code>0</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method for repeatedly sending an MDSCreateEventResult so that the monitor keeps the connection alive. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nInterval</td><td>the time interval between sends </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a606a34e47948002ab0da660cae7e5387" name="a606a34e47948002ab0da660cae7e5387"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a606a34e47948002ab0da660cae7e5387">&#9670;&#160;</a></span>ParseMDSCreateEventReport()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::ParseMDSCreateEventReport </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buffer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method that is called as part of the <a class="el" href="class_socket_client.html#a0685bceb1589dda27924dc056570a7a1" title="Processes all incoming types of data protocols.">ProcessPacket()</a> function to further categorise, decode and process the received data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>the buffer with the receieved data </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a67172065a09c78492f4635bea8e1a678" name="a67172065a09c78492f4635bea8e1a678"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67172065a09c78492f4635bea8e1a678">&#9670;&#160;</a></span>PollPacketDecoder()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::PollPacketDecoder </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>packetbuffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>headersize</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Wrapper function to process an identified PollPacket. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">packetbuffer</td><td>the given buffer to read from </td></tr>
+    <tr><td class="paramname">headersize</td><td>the headersize, which is used to determine from which bufferindex to read from</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd>doxygen </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000015">Todo:</a></b></dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="a0685bceb1589dda27924dc056570a7a1" name="a0685bceb1589dda27924dc056570a7a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0685bceb1589dda27924dc056570a7a1">&#9670;&#160;</a></span>ProcessPacket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::ProcessPacket </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buffer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Processes all incoming types of data protocols. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>char array with the sent bytes</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>the method that is called whenever data is received from the monitor to categorise, decode and process the received data </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>the buffer with the received data </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae524e90b1fbf498324be67e15ebb7441" name="ae524e90b1fbf498324be67e15ebb7441"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae524e90b1fbf498324be67e15ebb7441">&#9670;&#160;</a></span>ReadCompoundNumericObsValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::ReadCompoundNumericObsValue </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buffer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method to read compound numeric observation values from the buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>buffer to read from</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000028">Todo:</a></b></dt><dd>doxygen </dd></dl>
+
+</div>
+</div>
+<a id="a324bc0ccfe839aaddc96b27349fd8826" name="a324bc0ccfe839aaddc96b27349fd8826"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a324bc0ccfe839aaddc96b27349fd8826">&#9670;&#160;</a></span>ReadCompoundWaveSaObservationValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::ReadCompoundWaveSaObservationValue </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buffer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method to read wave observation values from the buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>The Buffer to read from <br  />
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000033">Todo:</a></b></dt><dd>doxygen </dd></dl>
+
+</div>
+</div>
+<a id="a1a48f0c50045adb2df122bac2e8b2bc9" name="a1a48f0c50045adb2df122bac2e8b2bc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a48f0c50045adb2df122bac2e8b2bc9">&#9670;&#160;</a></span>ReadIDLabel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::ReadIDLabel </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buffer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reads the <a class="el" href="struct_i_d_label.html">IDLabel</a> of a BufferObject. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>The Buffer to read from <br  />
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000024">Todo:</a></b></dt><dd>doxygen </dd></dl>
+
+</div>
+</div>
+<a id="a6876609336f3ae74992b9e13bac9d9ac" name="a6876609336f3ae74992b9e13bac9d9ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6876609336f3ae74992b9e13bac9d9ac">&#9670;&#160;</a></span>ReadIDLabelString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::ReadIDLabelString </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buffer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reads the <a class="el" href="struct_i_d_label.html">IDLabel</a> of a BufferObject and adds it to a list. </p>
+<p><a class="el" href="class_socket_client.html#a0e0f3829d0f0c29e1693741d53b1d56e">buffer buffer to read from </a></p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000029">Todo:</a></b></dt><dd>doxygen </dd></dl>
+
+</div>
+</div>
+<a id="ab3e591d94c533d291d854f94b443f0a7" name="ab3e591d94c533d291d854f94b443f0a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3e591d94c533d291d854f94b443f0a7">&#9670;&#160;</a></span>ReadNumericObservationValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::ReadNumericObservationValue </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buffer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method to read numeric observation values from the buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>buffer to read from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000025">Todo:</a></b></dt><dd>test float type to value </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000026">Todo:</a></b></dt><dd>exception handling </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000027">Todo:</a></b></dt><dd>time </dd></dl>
+
+</div>
+</div>
+<a id="a3e0f253ca00ac5c97e8aa907284e1097" name="a3e0f253ca00ac5c97e8aa907284e1097"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e0f253ca00ac5c97e8aa907284e1097">&#9670;&#160;</a></span>ReadSaCalibrationSpecifications()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::ReadSaCalibrationSpecifications </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buffer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method to read the Calibration Specifications from the buffer and set them for calibrating later. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>buffer to read from </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ace0f3a08d7ef1959428c911d213691bb" name="ace0f3a08d7ef1959428c911d213691bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace0f3a08d7ef1959428c911d213691bb">&#9670;&#160;</a></span>ReadSaScaleSpecifications()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::ReadSaScaleSpecifications </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buffer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method to read the Scaling Specifications from the buffer and set them for scaling later. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>The Buffer to read from <br  />
+ </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a68569e23c8b3299a29a4652e76d8a3fe" name="a68569e23c8b3299a29a4652e76d8a3fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68569e23c8b3299a29a4652e76d8a3fe">&#9670;&#160;</a></span>ReadSaSpecifications()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::ReadSaSpecifications </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buffer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reads the SaSpecification from a given buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>ReadWaveSaObservationValue</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000034">Todo:</a></b></dt><dd>doxygen </dd></dl>
+
+</div>
+</div>
+<a id="afcd9db208be211ef295a11284137ed02" name="afcd9db208be211ef295a11284137ed02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcd9db208be211ef295a11284137ed02">&#9670;&#160;</a></span>ReadWaveSaObservationValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::ReadWaveSaObservationValue </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buffer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This method reads the WaveSaObservation Values from a given buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>The Buffer to read from <br  />
+ </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000032">Todo:</a></b></dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="ae49ada1078c7336330e570835d92056e" name="ae49ada1078c7336330e570835d92056e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae49ada1078c7336330e570835d92056e">&#9670;&#160;</a></span>ReadWaveSaObservationValueObject()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::ReadWaveSaObservationValueObject </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>avaattribobjects</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method to read numerical observation values from the buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>The Buffer to read from <br  />
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000031">Todo:</a></b></dt><dd>doxygen </dd></dl>
+
+</div>
+</div>
 <a id="a6cfc5eab3b471703c4a63de20013d5bc" name="a6cfc5eab3b471703c4a63de20013d5bc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6cfc5eab3b471703c4a63de20013d5bc">&#9670;&#160;</a></span>Receive()</h2>
 
@@ -350,7 +2165,7 @@ Additional Inherited Members</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>buffersize</em> = <code>maxbuffersize</code>, </td>
+          <td class="paramname"><em>buffersize</em> = <code><a class="el" href="definitions_8h.html#a62ad1596044c3dac9b3ac5a6f0deff8d">maxbuffersize</a></code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -366,7 +2181,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>A method for receiving data from the server </p>
+<p>A method for receiving data from the server. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">buffer1</td><td>the buffer that contains the data </td></tr>
@@ -375,6 +2190,425 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a895e7fa61a7aa7ed861667bf1e866a19" name="a895e7fa61a7aa7ed861667bf1e866a19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a895e7fa61a7aa7ed861667bf1e866a19">&#9670;&#160;</a></span>ReceiveCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CALLBACK SocketClient::ReceiveCallback </td>
+          <td>(</td>
+          <td class="paramtype">DWORD&#160;</td>
+          <td class="paramname"><em>errorCode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DWORD&#160;</td>
+          <td class="paramname"><em>numBytesReceived</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LPWSAOVERLAPPED&#160;</td>
+          <td class="paramname"><em>overlapped</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DWORD&#160;</td>
+          <td class="paramname"><em>flags</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>the Callback function to be called whenever a data packet has been received to process the data </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">errorCode</td><td>the error code from the receive operation </td></tr>
+    <tr><td class="paramname">numBytesReceived</td><td>the number of bytes received </td></tr>
+    <tr><td class="paramname">overlapped</td><td>the WSAOverlapped structure from the receive function </td></tr>
+    <tr><td class="paramname">flags</td><td>the flags from the WSARecvFrom function</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000040">Todo:</a></b></dt><dd>add path_to_file </dd></dl>
+
+</div>
+</div>
+<a id="aa869f960877d33a1b6dc57dc68c75c5c" name="aa869f960877d33a1b6dc57dc68c75c5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa869f960877d33a1b6dc57dc68c75c5c">&#9670;&#160;</a></span>RecheckMDSAttributes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::RecheckMDSAttributes </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nInterval</em> = <code>0</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method for repeatedly rechecking the monitors MDS attributes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nInterval</td><td>the time interval between polls </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac0392359d722168aa39fd3791a68b8a2" name="ac0392359d722168aa39fd3791a68b8a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0392359d722168aa39fd3791a68b8a2">&#9670;&#160;</a></span>SaveNumericValueList()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::SaveNumericValueList </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>one case of ExportDataToCSV which is to export the data to a csv file in different formats depending on the value of m_csvexportset </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000020">Todo:</a></b></dt><dd>filename </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000021">Todo:</a></b></dt><dd>add line </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000022">Todo:</a></b></dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="a817a64f6a66db3b347dc885edfe88c92" name="a817a64f6a66db3b347dc885edfe88c92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a817a64f6a66db3b347dc885edfe88c92">&#9670;&#160;</a></span>SaveNumericValueListConsolidatedCSV()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::SaveNumericValueListConsolidatedCSV </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method to write the numeric values for the csv file of the exported data. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000017">Todo:</a></b></dt><dd>path file name </dd></dl>
+
+</div>
+</div>
+<a id="aa0b6d1f9400f9c844df189a23156c079" name="aa0b6d1f9400f9c844df189a23156c079"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0b6d1f9400f9c844df189a23156c079">&#9670;&#160;</a></span>SaveNumericValueListRows()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::SaveNumericValueListRows </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000019">Todo:</a></b></dt><dd>path file name </dd></dl>
+
+</div>
+</div>
+<a id="a623eb07199b41e95cefac18f61327185" name="a623eb07199b41e95cefac18f61327185"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a623eb07199b41e95cefac18f61327185">&#9670;&#160;</a></span>ScaleRangeSaValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double SocketClient::ScaleRangeSaValue </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>Waveval</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_scale_range_spec16.html">ScaleRangeSpec16</a>&#160;</td>
+          <td class="paramname"><em>sascaledata</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method to scale the received wave values according to <a class="el" href="struct_scale_range_spec16.html">ScaleRangeSpec16</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Waveval</td><td>the wave value to be scaled </td></tr>
+    <tr><td class="paramname">sascaledata</td><td>the scaling parameters </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the scaled wave value </dd></dl>
+
+</div>
+</div>
+<a id="a4d7263d3b373ca4535cd0ebd8404c69e" name="a4d7263d3b373ca4535cd0ebd8404c69e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d7263d3b373ca4535cd0ebd8404c69e">&#9670;&#160;</a></span>sendBytes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::sendBytes </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; std::byte &gt;&#160;</td>
+          <td class="paramname"><em>bytes</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method to send the specified bytes to the target address by putting them in a buffer and sending them via SendTO() </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bytes</td><td>the bytes to be sent <br  />
+ </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>prüfen ob das funktioniert </dd></dl>
+
+</div>
+</div>
+<a id="a0e1a7c44072c870915d746872492a542" name="a0e1a7c44072c870915d746872492a542"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e1a7c44072c870915d746872492a542">&#9670;&#160;</a></span>SendCycledExtendedPollDataRequest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::SendCycledExtendedPollDataRequest </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>nInterval</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method for the thread that repeatedly sends an extended poll data request. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nInterval</td><td>the time interval between polls </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000038">Todo:</a></b></dt><dd>make time variable </dd></dl>
+
+</div>
+</div>
+<a id="a4f28ce2bad93e3a3cc34edaf4b815d10" name="a4f28ce2bad93e3a3cc34edaf4b815d10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f28ce2bad93e3a3cc34edaf4b815d10">&#9670;&#160;</a></span>SendCycledExtendedPollWaveDataRequest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::SendCycledExtendedPollWaveDataRequest </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>nInterval</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method for the thread that repeatedly sends an extended poll wave data request. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nInterval</td><td>the time interval between polls </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000039">Todo:</a></b></dt><dd>make time variable </dd></dl>
+
+</div>
+</div>
+<a id="ae5e6a670b7bdf58155cce2815ba7d204" name="ae5e6a670b7bdf58155cce2815ba7d204"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5e6a670b7bdf58155cce2815ba7d204">&#9670;&#160;</a></span>SendMDSCreateEventResult()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::SendMDSCreateEventResult </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method for sending an MDSCreateEvent message. </p>
+
+</div>
+</div>
+<a id="add419180d06942d202435e03ccdf1f0e" name="add419180d06942d202435e03ccdf1f0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add419180d06942d202435e03ccdf1f0e">&#9670;&#160;</a></span>SendMDSPollDataRequest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::SendMDSPollDataRequest </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method for sending an MDS poll data request message. </p>
+
+</div>
+</div>
+<a id="a273f71de35f9605380fa9a6fb3d3220d" name="a273f71de35f9605380fa9a6fb3d3220d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a273f71de35f9605380fa9a6fb3d3220d">&#9670;&#160;</a></span>SendRTSAPriorityMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::SendRTSAPriorityMessage </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; std::byte &gt;&#160;</td>
+          <td class="paramname"><em>WaveTrType</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>sends the RTSAPriorityMessage </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">WaveTrType</td><td>a byte vector with the bytes to be send</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000042">Todo:</a></b></dt><dd>doxygen </dd></dl>
 
 </div>
 </div>
@@ -394,7 +2628,200 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sendet Assiation Request. </p>
-<p>A method that sends a Wave Association Request by sending the corresponding bytes via sendBytes() </p>
+<p>A method that sends a Wave Association Request by sending the corresponding bytes via <a class="el" href="class_socket_client.html#a4d7263d3b373ca4535cd0ebd8404c69e" title="A method to send the specified bytes to the target address by putting them in a buffer and sending th...">sendBytes()</a> </p>
+
+</div>
+</div>
+<a id="ac11bd5de6f5950c8d76df508df5ecbe0" name="ac11bd5de6f5950c8d76df508df5ecbe0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac11bd5de6f5950c8d76df508df5ecbe0">&#9670;&#160;</a></span>SetRTSAPriorityList()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::SetRTSAPriorityList </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>nWaveSetType</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>sets the RTSA Priority List based on the user input </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nWaveSetType</td><td>The userinput which wavetype should be set</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000043">Todo:</a></b></dt><dd>doxygen </dd></dl>
+
+</div>
+</div>
+<a id="a3eaea5b577cb9108239f7458c2fd6f78" name="a3eaea5b577cb9108239f7458c2fd6f78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3eaea5b577cb9108239f7458c2fd6f78">&#9670;&#160;</a></span>ThreadKeepConnectionAlive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::ThreadKeepConnectionAlive </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nInterval</em> = <code>0</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>the thread that repeatedly makes sue the monitor keeps the connection alive </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nInterval</td><td>the time interval </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa73e2440f43a32c791e8faca08f3ee0c" name="aa73e2440f43a32c791e8faca08f3ee0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa73e2440f43a32c791e8faca08f3ee0c">&#9670;&#160;</a></span>ThreadReceive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::ThreadReceive </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>receivedBuffer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>the thread tha trepeatedly calls the Receive function to receive answers and wave and numeric data from the monitor </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">receivedBuffer</td><td>the buffer to pass to the Receive function </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a99c031a8b2280d524245bd16e2ccdc05" name="a99c031a8b2280d524245bd16e2ccdc05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99c031a8b2280d524245bd16e2ccdc05">&#9670;&#160;</a></span>ThreadRecheckMDSAttributes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::ThreadRecheckMDSAttributes </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nInterval</em> = <code>0</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>the thread that repeatedly rechecks the MDS attributes </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nInterval</td><td>the time interval </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6e1541bf075b3b64031dc534c28339af" name="a6e1541bf075b3b64031dc534c28339af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e1541bf075b3b64031dc534c28339af">&#9670;&#160;</a></span>WriteNumericHeadersList()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::WriteNumericHeadersList </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method to write the headers for the csv file of the exported data. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000018">Todo:</a></b></dt><dd>path file name </dd></dl>
+
+</div>
+</div>
+<a id="a54a9fe05c2e57daf8d46bb183cc2c0a8" name="a54a9fe05c2e57daf8d46bb183cc2c0a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54a9fe05c2e57daf8d46bb183cc2c0a8">&#9670;&#160;</a></span>WriteNumericHeadersListConsolidatedCSV()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketClient::WriteNumericHeadersListConsolidatedCSV </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method to write the headers for the csv file of the exported data at transmission start. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000016">Todo:</a></b></dt><dd>path file name </dd></dl>
 
 </div>
 </div>
@@ -651,6 +3078,446 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a82723ec025dbb0aaa947cfd760ce3caa" name="a82723ec025dbb0aaa947cfd760ce3caa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82723ec025dbb0aaa947cfd760ce3caa">&#9670;&#160;</a></span>lastMsgSize</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t SocketClient::lastMsgSize = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9aaa9fc4a647f38aacaa3e25a3b6e7b7" name="a9aaa9fc4a647f38aacaa3e25a3b6e7b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9aaa9fc4a647f38aacaa3e25a3b6e7b7">&#9670;&#160;</a></span>m_actiontype</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t SocketClient::m_actiontype = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a13cceef53864410b937ff54c49dd3a5c" name="a13cceef53864410b937ff54c49dd3a5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13cceef53864410b937ff54c49dd3a5c">&#9670;&#160;</a></span>m_baseDateTime</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tm SocketClient::m_baseDateTime {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a28e33ed1a6225b9cce2b3e204dcdf025" name="a28e33ed1a6225b9cce2b3e204dcdf025"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28e33ed1a6225b9cce2b3e204dcdf025">&#9670;&#160;</a></span>m_baseRelativeTime</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SocketClient::m_baseRelativeTime = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3a32eb040a63fc5d66dceefe226e2032" name="a3a32eb040a63fc5d66dceefe226e2032"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a32eb040a63fc5d66dceefe226e2032">&#9670;&#160;</a></span>m_calibratewavevalues</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SocketClient::m_calibratewavevalues</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4524dfd64361626f3b3760a1456be0be" name="a4524dfd64361626f3b3760a1456be0be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4524dfd64361626f3b3760a1456be0be">&#9670;&#160;</a></span>m_csvexportset</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SocketClient::m_csvexportset = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abb89f0c4553e29be9832024800929b4a" name="abb89f0c4553e29be9832024800929b4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb89f0c4553e29be9832024800929b4a">&#9670;&#160;</a></span>m_dataexportset</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SocketClient::m_dataexportset = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a86ce6b8305a45bda7e73f4be6d3b931a" name="a86ce6b8305a45bda7e73f4be6d3b931a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86ce6b8305a45bda7e73f4be6d3b931a">&#9670;&#160;</a></span>m_DeviceID</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string SocketClient::m_DeviceID = &quot;&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6da92a61484c5dafa1a45a6fd835a17c" name="a6da92a61484c5dafa1a45a6fd835a17c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6da92a61484c5dafa1a45a6fd835a17c">&#9670;&#160;</a></span>m_idlabelhandle</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SocketClient::m_idlabelhandle = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac7d1a8054dd26bde3bc46c1af26cc048" name="ac7d1a8054dd26bde3bc46c1af26cc048"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7d1a8054dd26bde3bc46c1af26cc048">&#9670;&#160;</a></span>m_IDLabelList</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="struct_i_d_label.html">IDLabel</a>&gt; SocketClient::m_IDLabelList</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afad8e608b2391e32b51ea4f7b303f8b7" name="afad8e608b2391e32b51ea4f7b303f8b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afad8e608b2391e32b51ea4f7b303f8b7">&#9670;&#160;</a></span>m_idlabelstring</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string SocketClient::m_idlabelstring = &quot;&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a200bf87f9762e8424c74fc014465ccbd" name="a200bf87f9762e8424c74fc014465ccbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a200bf87f9762e8424c74fc014465ccbd">&#9670;&#160;</a></span>m_lastMsg</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* SocketClient::m_lastMsg</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9d9dc25a73aa40d3de9101072d1e4280" name="a9d9dc25a73aa40d3de9101072d1e4280"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d9dc25a73aa40d3de9101072d1e4280">&#9670;&#160;</a></span>m_NumericValList</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="struct_numeric_val_result.html">NumericValResult</a>&gt; SocketClient::m_NumericValList</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9d388ed8a1f2339891081ee0efada79b" name="a9d388ed8a1f2339891081ee0efada79b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d388ed8a1f2339891081ee0efada79b">&#9670;&#160;</a></span>m_NumValHeaders</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::string&gt; SocketClient::m_NumValHeaders</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af85fa502a7600e87a3885cb3a87473b5" name="af85fa502a7600e87a3885cb3a87473b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af85fa502a7600e87a3885cb3a87473b5">&#9670;&#160;</a></span>m_obpollhandle</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t SocketClient::m_obpollhandle = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aad2f1d880c7f1aa93ef56c3fd915e762" name="aad2f1d880c7f1aa93ef56c3fd915e762"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad2f1d880c7f1aa93ef56c3fd915e762">&#9670;&#160;</a></span>m_port</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const unsigned short SocketClient::m_port = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3eba51aeb2b8c0abaa29a074625b9751" name="a3eba51aeb2b8c0abaa29a074625b9751"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3eba51aeb2b8c0abaa29a074625b9751">&#9670;&#160;</a></span>m_readassocbuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::byte&gt; SocketClient::m_readassocbuffer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0121bb9f1e934b40ac4913141f1052c4" name="a0121bb9f1e934b40ac4913141f1052c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0121bb9f1e934b40ac4913141f1052c4">&#9670;&#160;</a></span>m_readmdsconnectbuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::byte&gt; SocketClient::m_readmdsconnectbuffer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7f39762f769cc2988caf25a9788a23af" name="a7f39762f769cc2988caf25a9788a23af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f39762f769cc2988caf25a9788a23af">&#9670;&#160;</a></span>m_receiveInterval</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SocketClient::m_receiveInterval = <a class="el" href="_socket_client_8h.html#a8682a8bde66a6aab34c56b6e7dfb43a3">RECEIVEINTERVAL</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a423286f12932d5380a1e20c55212b796" name="a423286f12932d5380a1e20c55212b796"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a423286f12932d5380a1e20c55212b796">&#9670;&#160;</a></span>m_remoteIPtarget</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string SocketClient::m_remoteIPtarget = &quot;&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aacec48f332055a07a6729c31c38c71f7" name="aacec48f332055a07a6729c31c38c71f7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aacec48f332055a07a6729c31c38c71f7">&#9670;&#160;</a></span>m_sa_remoteIPtarget</h2>
 
@@ -661,6 +3528,138 @@ Additional Inherited Members</h2></td></tr>
           <td class="memname">sockaddr_in SocketClient::m_sa_remoteIPtarget</td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0a0f04be6a0ace2dfa56b66dca185f88" name="a0a0f04be6a0ace2dfa56b66dca185f88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a0f04be6a0ace2dfa56b66dca185f88">&#9670;&#160;</a></span>m_SaCalibDataSpecList</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="struct_sa_calib_data16.html">SaCalibData16</a>&gt; SocketClient::m_SaCalibDataSpecList</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae7023d9aaa9345fdb4213f2dfdfb7127" name="ae7023d9aaa9345fdb4213f2dfdfb7127"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7023d9aaa9345fdb4213f2dfdfb7127">&#9670;&#160;</a></span>m_SaSpecList</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="struct_sa_spec.html">SaSpec</a>&gt; SocketClient::m_SaSpecList</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a14dd00f14f810b12186a2ddad5bdd36c" name="a14dd00f14f810b12186a2ddad5bdd36c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14dd00f14f810b12186a2ddad5bdd36c">&#9670;&#160;</a></span>m_ScaleRangeSpecList</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="struct_scale_range_spec16.html">ScaleRangeSpec16</a>&gt; SocketClient::m_ScaleRangeSpecList</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a816551908b8b07ea392f31883ed2e532" name="a816551908b8b07ea392f31883ed2e532"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a816551908b8b07ea392f31883ed2e532">&#9670;&#160;</a></span>m_strTimestamp</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string SocketClient::m_strTimestamp = &quot;&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3a53985ffad121ddbcc5708c3f7d5744" name="a3a53985ffad121ddbcc5708c3f7d5744"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a53985ffad121ddbcc5708c3f7d5744">&#9670;&#160;</a></span>m_transmissionstart</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SocketClient::m_transmissionstart = TRUE</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a610153cc85dcb0caea4f43b2d0f6c253" name="a610153cc85dcb0caea4f43b2d0f6c253"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a610153cc85dcb0caea4f43b2d0f6c253">&#9670;&#160;</a></span>m_WaveValResultList</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="struct_wave_val_result.html">WaveValResult</a>&gt; SocketClient::m_WaveValResultList</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -787,6 +3786,72 @@ Additional Inherited Members</h2></td></tr>
           <td class="memname">std::vector&lt;std::byte&gt; SocketClient::set_rtsa_prio_msg</td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6b1fc6d7b60b68f36c3fe01d2cfa2e5c" name="a6b1fc6d7b60b68f36c3fe01d2cfa2e5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b1fc6d7b60b68f36c3fe01d2cfa2e5c">&#9670;&#160;</a></span>stopThreadKeepConnectionAlive</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SocketClient::stopThreadKeepConnectionAlive = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8d04619a2ab6c4cf26654d2f60d37cf8" name="a8d04619a2ab6c4cf26654d2f60d37cf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d04619a2ab6c4cf26654d2f60d37cf8">&#9670;&#160;</a></span>stopThreadReceive</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SocketClient::stopThreadReceive = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2cceadeaeacf989d05c412d0d8f2c2ad" name="a2cceadeaeacf989d05c412d0d8f2c2ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2cceadeaeacf989d05c412d0d8f2c2ad">&#9670;&#160;</a></span>stopThreadRecheckMDSAttributes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SocketClient::stopThreadRecheckMDSAttributes = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

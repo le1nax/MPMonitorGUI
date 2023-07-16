@@ -25,11 +25,11 @@ Inheritance diagram for UDPSocket\+:\begin{figure}[H]
 SOCKET \mbox{\hyperlink{class_u_d_p_socket_aba7d584e75564a4ba4b7fddb479abee1}{get\+Socket}} ()
 \begin{DoxyCompactList}\small\item\em a getter method to get the socket \end{DoxyCompactList}\item 
 long unsigned int \mbox{\hyperlink{class_u_d_p_socket_aeccce2a68cc6405a78415551c21e06d7}{Send\+To}} (sockaddr\+\_\+in \&remote\+IP, char \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t buffersize, long unsigned int flags=0)
-\begin{DoxyCompactList}\small\item\em A method that calls the WSASend\+To function for sending to the monitor \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em A method that calls the WSASend\+To function for sending to the monitor. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{class_u_d_p_socket_ae14d059981edd54ea45378687ba0861f}{Recv\+From}} (sockaddr\+\_\+in remote\+IP, char \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t buffersize, long unsigned int \&num\+Bytes\+Received, LPWSAOVERLAPPED overlapped, long unsigned int flags=0, LPWSAOVERLAPPED\+\_\+\+COMPLETION\+\_\+\+ROUTINE callback=NULL)
-\begin{DoxyCompactList}\small\item\em A method that calls the WSARecv\+From function to receive data from the monitor \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em A method that calls the WSARecv\+From function to receive data from the monitor. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_u_d_p_socket_a167ae3a1fd089f7e3d0644dd03044d7b}{Bind}} (sockaddr\+\_\+in \&local\+IP, unsigned short port)
-\begin{DoxyCompactList}\small\item\em A method for associating a local address with the socket on the server side \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em A method for associating a local address with the socket on the server side. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_u_d_p_socket_a83253acb737a2409be60e2dd8350f46e}{Connect}} (sockaddr\+\_\+in \&remote\+IP)
 \begin{DoxyCompactList}\small\item\em A method for connecting the socket to the remote address. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Protected Attributes}
@@ -76,7 +76,7 @@ the destructor of the \doxylink{class_u_d_p_socket}{UDPSocket} class
 
 
 
-A method for associating a local address with the socket on the server side 
+A method for associating a local address with the socket on the server side. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -121,7 +121,7 @@ the membersocket
 
 
 
-A method that calls the WSARecv\+From function to receive data from the monitor 
+A method that calls the WSARecv\+From function to receive data from the monitor. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -151,7 +151,7 @@ the result of the WSARecv\+From function which says if the operation was success
 
 
 
-A method that calls the WSASend\+To function for sending to the monitor 
+A method that calls the WSASend\+To function for sending to the monitor. 
 
 
 \begin{DoxyParams}{Parameters}

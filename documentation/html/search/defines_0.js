@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['_5f_5fhas_5finclude_0',['__has_include',['../_c_make_c_x_x_compiler_id_8cpp.html#ae5510d82e4946f1656f4969911c54736',1,'CMakeCXXCompilerId.cpp']]]
+  ['localip_0',['LOCALIP',['../main_8cpp.html#a8608223f2c450e53c77271321daef38c',1,'main.cpp']]],
+  ['localport_1',['LOCALPORT',['../main_8cpp.html#a3bc8b60465fdfade75d39f029cc70c22',1,'main.cpp']]]
 ];

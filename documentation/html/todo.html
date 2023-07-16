@@ -101,12 +101,94 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><dl class="reflist">
-<dt>Member <a class="el" href="class_socket_client.html#ae3962f762b411e9b4bf06be013c3c9f1">SocketClient::establishLanConnection</a>  ()</dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000044"></a>schauen wie viel Buffer space wir brauchen (chapter4 p.29 sagt 1380 -&gt;testen) </p>
-<p class="enddd"><a class="anchor" id="_todo000045"></a>when to stop connection  </p>
+<dt>Member <a class="el" href="definitions_8h.html#a62ad1596044c3dac9b3ac5a6f0deff8d">maxbuffersize</a>  </dt>
+<dd><a class="anchor" id="_todo000001"></a>statt const variablen constexpr  </dd>
+<dt>Member <a class="el" href="definitions_8h.html#a1301dfef2e69c9df57a27cb393b42142">ReadBytesFromBuffer</a>  (const char *array, size_t startIndex, size_t numBytes)</dt>
+<dd><a class="anchor" id="_todo000002"></a>testen  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#a0e0f3829d0f0c29e1693741d53b1d56e">SocketClient::AddIDLabelToList</a>  ()</dt>
+<dd><a class="anchor" id="_todo000030"></a>doxygen  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#a0c44e516b72e44ebb1ba166932fab7c5">SocketClient::AddTmMillseconds</a>  (tm &amp;time, double millisecs)</dt>
+<dd><a class="anchor" id="_todo000013"></a>doxygen  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#aeebbddac0352909a7772193b095c85ce">SocketClient::CheckPollPacketActionType</a>  (char *buffer)</dt>
+<dd><a class="anchor" id="_todo000010"></a>doxygen  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#a958cd86656961e6662d5497db37f84d7">SocketClient::CreateWaveformSet</a>  (size_t nWaveSetType, std::vector&lt; std::byte &gt; WaveTrtype)</dt>
+<dd><a class="anchor" id="_todo000041"></a>doxygen  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#afb9cba529b53dfbd1014f993cecbc580">SocketClient::DecodeAvaObjects</a>  (std::unique_ptr&lt; AvaObj &gt; avaObj, char *buffer)</dt>
+<dd><a class="anchor" id="_todo000023"></a>doxygen  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#a796a16d693abdbf6536731dbb1b9207d">SocketClient::DecodeMDSAttribObjects</a>  (std::unique_ptr&lt; AvaObj &gt; avaobj, char *attriblistobjects_buffer, size_t count)</dt>
+<dd><p class="startdd"><a class="anchor" id="_todo000005"></a>doxygen </p>
+<p class="enddd"><a class="anchor" id="_todo000006"></a>sizeof 2 bytes per avaObjCount  </p>
 </dd>
+<dt>Member <a class="el" href="class_socket_client.html#a7489e003d18ad052bdbf385dc2b1bcc7">SocketClient::DecodeObservationPollObjects</a>  (<a class="el" href="struct_observation_poll.html">ObservationPoll</a> *scpoll, char *buffer)</dt>
+<dd><a class="anchor" id="_todo000036"></a>doxygen  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#afe5e218da3078eaaff6a522d8f1ac98a">SocketClient::DecodePollObjects</a>  (<a class="el" href="struct_poll_info_list.html">PollInfoList</a> *pollobjects, char *packetbuffer)</dt>
+<dd><a class="anchor" id="_todo000037"></a>doxygen  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#acb7b543430d602fb8a47bcf122aaebe4">SocketClient::DecodeSingleContextPollObjects</a>  (<a class="el" href="struct_single_context_poll.html">SingleContextPoll</a> *scpoll, char *buffer)</dt>
+<dd><a class="anchor" id="_todo000035"></a>doxygen  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#ae3962f762b411e9b4bf06be013c3c9f1">SocketClient::establishLanConnection</a>  ()</dt>
+<dd><p class="startdd"><a class="anchor" id="_todo000045"></a>when to stop connection </p>
+<p class="enddd"><a class="anchor" id="_todo000044"></a>schauen wie viel Buffer space wir brauchen (chapter4 p.29 sagt 1380 -&gt;testen)  </p>
+</dd>
+<dt>Member <a class="el" href="class_socket_client.html#a0168710b16154dfa3e3db26fd692a714">SocketClient::GetAbsoluteTimeFromBCDFormat</a>  (char *bcdtimebuffer)</dt>
+<dd><p class="startdd"><a class="anchor" id="_todo000008"></a>doxygen </p>
+<p class="enddd"><a class="anchor" id="_todo000009"></a>vielleicht anderen struct als tm benutzen  </p>
+</dd>
+<dt>Member <a class="el" href="class_socket_client.html#a87c59fc9d711a6892ccd0a0320d7c74e">SocketClient::GetAbsoluteTimeFromRelativeTimestamp</a>  (uint32_t currentRelativeTime)</dt>
+<dd><a class="anchor" id="_todo000012"></a>doxygen  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#ae5ba70a270d42bf9745e79497cefa8fe">SocketClient::GetBaselineRelativeTimestamp</a>  (char *timebuffer)</dt>
+<dd><a class="anchor" id="_todo000007"></a>doxygen  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#a9d241186d44672699d1a7b536a7fa67a">SocketClient::GetPacketTimestamp</a>  (char *header, uint16_t headersize)</dt>
+<dd><a class="anchor" id="_todo000011"></a>doxygen  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#a67172065a09c78492f4635bea8e1a678">SocketClient::PollPacketDecoder</a>  (char *packetbuffer, size_t headersize)</dt>
+<dd><p class="startdd"><a class="anchor" id="_todo000014"></a>doxygen </p>
+<p class="enddd"><a class="anchor" id="_todo000015"></a>  </p>
+</dd>
+<dt>Member <a class="el" href="class_socket_client.html#ae524e90b1fbf498324be67e15ebb7441">SocketClient::ReadCompoundNumericObsValue</a>  (char *buffer)</dt>
+<dd><a class="anchor" id="_todo000028"></a>doxygen  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#a324bc0ccfe839aaddc96b27349fd8826">SocketClient::ReadCompoundWaveSaObservationValue</a>  (char *buffer)</dt>
+<dd><a class="anchor" id="_todo000033"></a>doxygen  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#a1a48f0c50045adb2df122bac2e8b2bc9">SocketClient::ReadIDLabel</a>  (char *buffer)</dt>
+<dd><a class="anchor" id="_todo000024"></a>doxygen  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#a6876609336f3ae74992b9e13bac9d9ac">SocketClient::ReadIDLabelString</a>  (char *buffer)</dt>
+<dd><a class="anchor" id="_todo000029"></a>doxygen  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#ab3e591d94c533d291d854f94b443f0a7">SocketClient::ReadNumericObservationValue</a>  (char *buffer)</dt>
+<dd><p class="startdd"><a class="anchor" id="_todo000025"></a>test float type to value </p>
+<p class="interdd"><a class="anchor" id="_todo000026"></a>exception handling </p>
+<p class="enddd"><a class="anchor" id="_todo000027"></a>time  </p>
+</dd>
+<dt>Member <a class="el" href="class_socket_client.html#a68569e23c8b3299a29a4652e76d8a3fe">SocketClient::ReadSaSpecifications</a>  (char *buffer)</dt>
+<dd><a class="anchor" id="_todo000034"></a>doxygen  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#afcd9db208be211ef295a11284137ed02">SocketClient::ReadWaveSaObservationValue</a>  (char *buffer)</dt>
+<dd><a class="anchor" id="_todo000032"></a>  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#ae49ada1078c7336330e570835d92056e">SocketClient::ReadWaveSaObservationValueObject</a>  (char *buffer)</dt>
+<dd><a class="anchor" id="_todo000031"></a>doxygen  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#a895e7fa61a7aa7ed861667bf1e866a19">SocketClient::ReceiveCallback</a>  (DWORD errorCode, DWORD numBytesReceived, LPWSAOVERLAPPED overlapped, DWORD flags=0)</dt>
+<dd><a class="anchor" id="_todo000040"></a>add path_to_file  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#ac0392359d722168aa39fd3791a68b8a2">SocketClient::SaveNumericValueList</a>  ()</dt>
+<dd><p class="startdd"><a class="anchor" id="_todo000022"></a> </p>
+<p class="interdd"><a class="anchor" id="_todo000021"></a>add line </p>
+<p class="enddd"><a class="anchor" id="_todo000020"></a>filename  </p>
+</dd>
+<dt>Member <a class="el" href="class_socket_client.html#a817a64f6a66db3b347dc885edfe88c92">SocketClient::SaveNumericValueListConsolidatedCSV</a>  ()</dt>
+<dd><a class="anchor" id="_todo000017"></a>path file name  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#aa0b6d1f9400f9c844df189a23156c079">SocketClient::SaveNumericValueListRows</a>  ()</dt>
+<dd><a class="anchor" id="_todo000019"></a>path file name  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#a4d7263d3b373ca4535cd0ebd8404c69e">SocketClient::sendBytes</a>  (std::vector&lt; std::byte &gt; bytes)</dt>
+<dd><a class="anchor" id="_todo000004"></a>prüfen ob das funktioniert  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#a0e1a7c44072c870915d746872492a542">SocketClient::SendCycledExtendedPollDataRequest</a>  (size_t nInterval)</dt>
+<dd><a class="anchor" id="_todo000038"></a>make time variable  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#a4f28ce2bad93e3a3cc34edaf4b815d10">SocketClient::SendCycledExtendedPollWaveDataRequest</a>  (size_t nInterval)</dt>
+<dd><a class="anchor" id="_todo000039"></a>make time variable  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#a273f71de35f9605380fa9a6fb3d3220d">SocketClient::SendRTSAPriorityMessage</a>  (std::vector&lt; std::byte &gt; WaveTrType)</dt>
+<dd><a class="anchor" id="_todo000042"></a>doxygen  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#ac11bd5de6f5950c8d76df508df5ecbe0">SocketClient::SetRTSAPriorityList</a>  (size_t nWaveSetType)</dt>
+<dd><a class="anchor" id="_todo000043"></a>doxygen  </dd>
 <dt>Member <a class="el" href="class_socket_client.html#a8dea390b6a95c2a63848a628fda9b962">SocketClient::SocketClient</a>  (std::string remoteIPtarget, const unsigned short remotePortTarget)</dt>
-<dd><a class="anchor" id="_todo000003"></a>Konstruktor soll die membervariablen initialisieren </dd>
+<dd><a class="anchor" id="_todo000003"></a>Konstruktor soll die membervariablen initialisieren  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#a6e1541bf075b3b64031dc534c28339af">SocketClient::WriteNumericHeadersList</a>  ()</dt>
+<dd><a class="anchor" id="_todo000018"></a>path file name  </dd>
+<dt>Member <a class="el" href="class_socket_client.html#a54a9fe05c2e57daf8d46bb183cc2c0a8">SocketClient::WriteNumericHeadersListConsolidatedCSV</a>  ()</dt>
+<dd><a class="anchor" id="_todo000016"></a>path file name </dd>
 </dl>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

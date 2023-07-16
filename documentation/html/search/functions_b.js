@@ -1,7 +1,25 @@
 var searchData=
 [
-  ['_7ereceive_5fstate_0',['~Receive_State',['../class_receive___state.html#a890a11302d03ecb22eec49ac39072827',1,'Receive_State']]],
-  ['_7esocketclient_1',['~SocketClient',['../class_socket_client.html#ae839cd8b58cb070012264f47e686744c',1,'SocketClient']]],
-  ['_7eudpsocket_2',['~UDPSocket',['../class_u_d_p_socket.html#adb1a5254938e5acf5d44ff7a347e9f0a',1,'UDPSocket']]],
-  ['_7ewsasession_3',['~WSASession',['../class_w_s_a_session.html#a2810b9b3a0efd33000e9fb83e5d39478',1,'WSASession']]]
+  ['read16bytevaluesfrombuffer_0',['Read16ByteValuesFromBuffer',['../definitions_8h.html#a1f46d152886e0ed295b7205287cca79c',1,'definitions.h']]],
+  ['read16bytevaluesfrombufferlittleendian_1',['Read16ByteValuesFromBufferLittleEndian',['../definitions_8h.html#ab35bac642be2cdd8df0305e5f9f02ed0',1,'definitions.h']]],
+  ['readbytesfromarray_2',['readBytesFromArray',['../definitions_8h.html#a006eb8ee4a63c5d8de066851e8fa76c1',1,'definitions.h']]],
+  ['readbytesfrombuffer_3',['ReadBytesFromBuffer',['../definitions_8h.html#a1301dfef2e69c9df57a27cb393b42142',1,'definitions.h']]],
+  ['readbytevaluesfrombuffer_4',['ReadByteValuesFromBuffer',['../definitions_8h.html#ad50b5a3ba0056ee1525b754bcc537173',1,'definitions.h']]],
+  ['readbytevaluesfrombufferlittleendian_5',['ReadByteValuesFromBufferLittleEndian',['../definitions_8h.html#a7a924ce7c33c05179992965d365f17e9',1,'definitions.h']]],
+  ['readcompoundnumericobsvalue_6',['ReadCompoundNumericObsValue',['../class_socket_client.html#ae524e90b1fbf498324be67e15ebb7441',1,'SocketClient']]],
+  ['readcompoundwavesaobservationvalue_7',['ReadCompoundWaveSaObservationValue',['../class_socket_client.html#a324bc0ccfe839aaddc96b27349fd8826',1,'SocketClient']]],
+  ['readidlabel_8',['ReadIDLabel',['../class_socket_client.html#a1a48f0c50045adb2df122bac2e8b2bc9',1,'SocketClient']]],
+  ['readidlabelstring_9',['ReadIDLabelString',['../class_socket_client.html#a6876609336f3ae74992b9e13bac9d9ac',1,'SocketClient']]],
+  ['readnumericobservationvalue_10',['ReadNumericObservationValue',['../class_socket_client.html#ab3e591d94c533d291d854f94b443f0a7',1,'SocketClient']]],
+  ['readsacalibrationspecifications_11',['ReadSaCalibrationSpecifications',['../class_socket_client.html#a3e0f253ca00ac5c97e8aa907284e1097',1,'SocketClient']]],
+  ['readsascalespecifications_12',['ReadSaScaleSpecifications',['../class_socket_client.html#ace0f3a08d7ef1959428c911d213691bb',1,'SocketClient']]],
+  ['readsaspecifications_13',['ReadSaSpecifications',['../class_socket_client.html#a68569e23c8b3299a29a4652e76d8a3fe',1,'SocketClient']]],
+  ['readwavesaobservationvalue_14',['ReadWaveSaObservationValue',['../class_socket_client.html#afcd9db208be211ef295a11284137ed02',1,'SocketClient']]],
+  ['readwavesaobservationvalueobject_15',['ReadWaveSaObservationValueObject',['../class_socket_client.html#ae49ada1078c7336330e570835d92056e',1,'SocketClient']]],
+  ['receive_16',['Receive',['../class_socket_client.html#a6cfc5eab3b471703c4a63de20013d5bc',1,'SocketClient']]],
+  ['receive_5fstate_17',['Receive_State',['../class_receive___state.html#a5448ec636f4ea86aad1c2ffc6520d3b2',1,'Receive_State']]],
+  ['receivecallback_18',['ReceiveCallback',['../class_socket_client.html#a895e7fa61a7aa7ed861667bf1e866a19',1,'SocketClient']]],
+  ['recheckmdsattributes_19',['RecheckMDSAttributes',['../class_socket_client.html#aa869f960877d33a1b6dc57dc68c75c5c',1,'SocketClient']]],
+  ['recvfrom_20',['RecvFrom',['../class_u_d_p_socket.html#ae14d059981edd54ea45378687ba0861f',1,'UDPSocket']]],
+  ['replacenullcharacters_21',['ReplaceNullCharacters',['../definitions_8h.html#a3f23d5bde3752bfc43551d89167d454b',1,'definitions.h']]]
 ];

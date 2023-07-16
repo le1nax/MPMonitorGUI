@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['compiler_5fid_0',['COMPILER_ID',['../_c_make_c_x_x_compiler_id_8cpp.html#a81dee0709ded976b2e0319239f72d174',1,'CMakeCXXCompilerId.cpp']]],
-  ['cxx_5fstd_1',['CXX_STD',['../_c_make_c_x_x_compiler_id_8cpp.html#a34cc889e576a1ae6c84ae9e0a851ba21',1,'CMakeCXXCompilerId.cpp']]]
+  ['receiveinterval_0',['RECEIVEINTERVAL',['../_socket_client_8h.html#a8682a8bde66a6aab34c56b6e7dfb43a3',1,'SocketClient.h']]],
+  ['remoteip_1',['REMOTEIP',['../main_8cpp.html#a9c0bec5722880e07144ea42f6cd3ec76',1,'REMOTEIP:&#160;main.cpp'],['../main__server_8cpp.html#a9c0bec5722880e07144ea42f6cd3ec76',1,'REMOTEIP:&#160;main_server.cpp']]],
+  ['remoteport_2',['REMOTEPORT',['../main_8cpp.html#ae22ee4011e650e92afab53d5e8d616c4',1,'REMOTEPORT:&#160;main.cpp'],['../main__server_8cpp.html#ae22ee4011e650e92afab53d5e8d616c4',1,'REMOTEPORT:&#160;main_server.cpp']]]
 ];

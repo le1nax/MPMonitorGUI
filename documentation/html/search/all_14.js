@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['validity_0',['validity',['../struct_numeric_object.html#a289c5968fcc5e4ecb624dec0965ea885',1,'NumericObject']]],
-  ['value_1',['value',['../struct_nu_obs_value.html#a0956c7e12b59f57f6e3818657c5fdde5',1,'NuObsValue::value'],['../struct_numeric_object.html#a2ff330f1288f9c1888d573b26a4d64ca',1,'NumericObject::value']]],
-  ['value_2',['Value',['../struct_numeric_val_result.html#a99e4991665f22b56020e4cde22dc2dda',1,'NumericValResult::Value'],['../struct_wave_val_result.html#a376a6fd4a1a2f7515cf0ab21f16ca29a',1,'WaveValResult::Value']]],
-  ['value1_3',['value1',['../struct_attribute_list.html#a1d7ef3848976decacb8c79680985d9f4',1,'AttributeList::value1'],['../struct_single_context_poll.html#a47cec37b01cccaa6bcce142628cb38b1',1,'SingleContextPoll::value1'],['../struct_poll_info_list.html#a8392eb3f19a282939a2b570ba6f1f7f1',1,'PollInfoList::value1'],['../struct_nu_obs_value_cmp.html#a6a7434d9b1b116a7171bd80543e15d97',1,'NuObsValueCmp::value1'],['../struct_sa_obs_value.html#ad2bc4ca79a6185b8b183f886f3564e1c',1,'SaObsValue::value1'],['../struct_sa_obs_value_cmp.html#a430944bbc8e827419fbdda0cb9b9ce77',1,'SaObsValueCmp::value1'],['../struct_string_m_p.html#a57a9473ea2061c5fd90bd862df3036ae',1,'StringMP::value1']]]
+  ['wavesidlabels_0',['WavesIDLabels',['../definitions_8h.html#a939534065e17395e094ec0605d7205c0',1,'definitions.h']]],
+  ['wavevalresult_1',['WaveValResult',['../struct_wave_val_result.html',1,'']]],
+  ['writenumericheaderslist_2',['WriteNumericHeadersList',['../class_socket_client.html#a6e1541bf075b3b64031dc534c28339af',1,'SocketClient']]],
+  ['writenumericheaderslistconsolidatedcsv_3',['WriteNumericHeadersListConsolidatedCSV',['../class_socket_client.html#a54a9fe05c2e57daf8d46bb183cc2c0a8',1,'SocketClient']]],
+  ['wsabuf_4',['wsaBuf',['../class_receive___state.html#a4ec9c8e650a3ee564cd824553074d66b',1,'Receive_State']]],
+  ['wsasession_5',['WSASession',['../class_w_s_a_session.html',1,'WSASession'],['../class_w_s_a_session.html#a4744cf8c86c6158881e5e79f3c850f0c',1,'WSASession::WSASession()']]]
 ];
