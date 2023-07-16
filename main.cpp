@@ -20,7 +20,7 @@
 #define LOCALIP "127.0.0.1"
 #define LOCALPORT 69696
 
-#define MAX_BUFFER_SIZE 1380
+#define MAX_BUFFER_SIZE 2001
 
 using namespace std;
 
@@ -56,7 +56,8 @@ using namespace std;
 //     // ImGui::DestroyContext();
 //     return 0;
 // }
-
+uint16_t extractNumber(const char* charArray);
+uint16_t convertBigEndianToLittleEndian(const char* charArray);
 int main()
 {
     try
@@ -76,7 +77,30 @@ int main()
 
     std::cin.get();
 
+    // const char* buffer = "\x04\x01";
+    // int ans = 0;
+    // //ans = ReadByteValuesFromBuffer(buffer, 0, 3);
+    // ans = Read16ByteValuesFromBuffer(buffer, 0);
+    // std::cout << ans << std::endl;
     return 0;
+}
+// static uint16_t Read16ByteValuesFromBuffer(const char* buffer, size_t startIndex) {
+//     uint16_t number = 0;
+//     const char* buffer1 = buffer;
+
+//     for (size_t i = startIndex; i < uInt16Size+startIndex; ++i) {
+//         number = (number << 8) | static_cast<uint16_t>(buffer1[i]);
+//     }
+//     return number;
+// }
+uint16_t extractNumber(const char* charArray) {
+    uint16_t number = (static_cast<uint8_t>(charArray[1]) << 8) | static_cast<uint8_t>(charArray[0]);
+    return number;
+}
+uint16_t convertBigEndianToLittleEndian(const char* charArray) {
+    uint16_t number = static_cast<uint16_t>(static_cast<uint8_t>(charArray[0])) << 8;
+    number |= static_cast<uint8_t>(charArray[1]);
+    return number;
 }
 
 // int main()

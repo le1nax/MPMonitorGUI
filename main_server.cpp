@@ -11,7 +11,7 @@
 #define REMOTEIP "169.254.0.1"
 #define REMOTEPORT 24105
 
-#define MAX_BUFFER_SIZE 1380
+#define MAX_BUFFER_SIZE 2001
 
 using namespace std;
 
@@ -78,15 +78,13 @@ int main()
         return -1;
     }
 
-
-
 	bool sent = FALSE;
 	bool recv = FALSE;
 
 	// Enter a loop
 	while (69 < 6969)
 	{
-		Sleep(2000);	
+		Sleep(2001);	
 
 
 		////////////////////////////////////////////////////////////
