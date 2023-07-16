@@ -279,18 +279,23 @@ void SocketClient::sendBytes(vector<std::byte> bytes)
     uint32_t numBytesSent = SendTo(m_sa_remoteIPtarget, charBytes, len, 0);
 }
 
+/// @brief Sendet Assiation Request
 void SocketClient::SendWaveAssociationRequest()
 {
+    std::cout << "Sending WaveAssociationRequest" << std::endl;
     sendBytes(aarq_msg_wave_ext_poll2);
 }
 
+/// @brief 
+/// @param buffer 
 void SocketClient::ProcessPacket(char* buffer)
 {
     //size_t session_head_size = sizeof(4bytes)
-    size_t session_head_size = uInt16Size*2;
+    // size_t session_head_size = 2*uInt16Size;
+    size_t session_head_size = 5;
     size_t ROapdu_type_size = uInt16Size;
-	auto ROapdu_type = htons(ReadByteValuesFromBuffer(buffer ,session_head_size, ROapdu_type_size));
-    switch (ROapdu_type)
+	unsigned long  ROapdu_type = Read16ByteValuesFromBuffer(buffer, session_head_size);
+    switch (ROapdu_type) 
         {
         case ROIV_APDU:
             // This is an MDS create event, answer with create response
@@ -315,7 +320,7 @@ void SocketClient::ProcessPacket(char* buffer)
 void SocketClient::CheckLinkedPollPacketActionType(char* buffer)
 {
         char* header = ReadBytesFromBuffer(buffer, 0, 22);
-        uint16_t action_type = htons((Read16ByteValuesFromBuffer(buffer, 22)));
+        uint16_t action_type = (Read16ByteValuesFromBuffer(buffer, 22));
         m_actiontype = action_type;
 
         switch (action_type)
@@ -337,8 +342,8 @@ void SocketClient::ParseMDSCreateEventReport(char* buffer)
     size_t attriblist_count_size = 2;
     size_t attriblist_length_size = 2;
     size_t header_size = 34;
-    auto attriblist_count = htons(ReadByteValuesFromBuffer(buffer,header_size, attriblist_count_size));
-    auto attriblist_length = htons(ReadByteValuesFromBuffer(buffer,header_size+attriblist_count_size, attriblist_length_size));
+    auto attriblist_count = ReadByteValuesFromBuffer(buffer,header_size, attriblist_count_size);
+    auto attriblist_length = ReadByteValuesFromBuffer(buffer,header_size+attriblist_count_size, attriblist_length_size);
     int avaobjectscount = attriblist_count;   
      if (avaobjectscount > 0)
         {
@@ -356,8 +361,8 @@ void SocketClient::DecodeMDSAttribObjects(unique_ptr<AvaObj> avaobject, char* at
 {
 
     ///@todo sizeof 2 bytes per avaObjCount
-    avaobject->attribute_id = htons(ReadByteValuesFromBuffer(attriblistobjects_buffer, uInt16Size*2*avaObjCount, uInt16Size)); 
-    avaobject->length = htons(ReadByteValuesFromBuffer(attriblistobjects_buffer, uInt16Size*2*avaObjCount+uInt16Size, uInt16Size)); 
+    avaobject->attribute_id = ReadByteValuesFromBuffer(attriblistobjects_buffer, uInt16Size*2*avaObjCount, uInt16Size); 
+    avaobject->length = ReadByteValuesFromBuffer(attriblistobjects_buffer, uInt16Size*2*avaObjCount+uInt16Size, uInt16Size); 
      //avaobject.attribute_val = htons(binreader4.ReadUInt16());
     if (avaobject->length > 0)
     {
@@ -389,9 +394,12 @@ void SocketClient::DecodeMDSAttribObjects(unique_ptr<AvaObj> avaobject, char* at
 
 void SocketClient::GetBaselineRelativeTimestamp(char* bcdtimebuffer)
 {
-    m_baseRelativeTime = htons(int(ReadByteValuesFromBuffer(bcdtimebuffer, 0, sizeof(bcdtimebuffer))));
+    m_baseRelativeTime = int(ReadByteValuesFromBuffer(bcdtimebuffer, 0, sizeof(bcdtimebuffer)));
 }
 
+/// @brief 
+/// @param bcdtimebuffer 
+/// @return 
 tm SocketClient::GetAbsoluteTimeFromBCDFormat(char* bcdtimebuffer)
     {
         ///@todo vielleicht anderen struct als tm benutzen
@@ -423,7 +431,7 @@ tm SocketClient::GetAbsoluteTimeFromBCDFormat(char* bcdtimebuffer)
 void SocketClient::CheckPollPacketActionType(char* buffer)
 {
     size_t header_size = 20;
-    uint16_t action_type = htons(ReadByteValuesFromBuffer(buffer, header_size, uInt16Size));
+    uint16_t action_type = ReadByteValuesFromBuffer(buffer, header_size, uInt16Size);
     m_actiontype = action_type;
     
     switch (action_type)
@@ -469,15 +477,15 @@ std::string SocketClient::GetPacketTimestamp(char* header, uint16_t headersize)
     {
     PollMdibDataReply pollmdibdatareply;;
 
-    pollmdibdatareply.poll_number = htons(Read16ByteValuesFromBuffer(pollmdibdatareplyarray, 0));
-    pollmdibdatareply.rel_time_stamp = htonl(ReadByteValuesFromBuffer(pollmdibdatareplyarray, uInt16Size, 2*uInt16Size));
+    pollmdibdatareply.poll_number = Read16ByteValuesFromBuffer(pollmdibdatareplyarray, 0);
+    pollmdibdatareply.rel_time_stamp = ReadByteValuesFromBuffer(pollmdibdatareplyarray, uInt16Size, 2*uInt16Size);
 
     relativetime = pollmdibdatareply.rel_time_stamp;
 
     absolutetimearray = ReadBytesFromBuffer(pollmdibdatareplyarray, 3*uInt16Size, 8);
 
-    pollmdibdatareply.type.partition = htons(Read16ByteValuesFromBuffer(pollmdibdatareplyarray, 3*uInt16Size+8));
-    pollmdibdatareply.type.code = htons(Read16ByteValuesFromBuffer(pollmdibdatareplyarray, 4*uInt16Size+8));
+    pollmdibdatareply.type.partition = Read16ByteValuesFromBuffer(pollmdibdatareplyarray, 3*uInt16Size+8);
+    pollmdibdatareply.type.code = Read16ByteValuesFromBuffer(pollmdibdatareplyarray, 4*uInt16Size+8);
 
     pollresultcode = pollmdibdatareply.type.code;
 
@@ -487,17 +495,17 @@ std::string SocketClient::GetPacketTimestamp(char* header, uint16_t headersize)
     {
     PollMdibDataReplyExt pollmdibdatareplyext;
 
-    pollmdibdatareplyext.poll_number = htons(Read16ByteValuesFromBuffer(pollmdibdatareplyarray, 0));
-    pollmdibdatareplyext.sequence_no = htons(Read16ByteValuesFromBuffer(pollmdibdatareplyarray, uInt16Size));
-    pollmdibdatareplyext.rel_time_stamp = htonl(ReadByteValuesFromBuffer(pollmdibdatareplyarray, 2*uInt16Size, 2*uInt16Size));
+    pollmdibdatareplyext.poll_number = Read16ByteValuesFromBuffer(pollmdibdatareplyarray, 0);
+    pollmdibdatareplyext.sequence_no = Read16ByteValuesFromBuffer(pollmdibdatareplyarray, uInt16Size);
+    pollmdibdatareplyext.rel_time_stamp = ReadByteValuesFromBuffer(pollmdibdatareplyarray, 2*uInt16Size, 2*uInt16Size);
 
 
     relativetime = pollmdibdatareplyext.rel_time_stamp;
 
     absolutetimearray = ReadBytesFromBuffer(pollmdibdatareplyarray, 3*uInt16Size, 8);
 
-    pollmdibdatareplyext.type.partition = htons(Read16ByteValuesFromBuffer(pollmdibdatareplyarray, 3*uInt16Size+8));
-    pollmdibdatareplyext.type.code = htons(Read16ByteValuesFromBuffer(pollmdibdatareplyarray, 4*uInt16Size+8));
+    pollmdibdatareplyext.type.partition = Read16ByteValuesFromBuffer(pollmdibdatareplyarray, 3*uInt16Size+8);
+    pollmdibdatareplyext.type.code = Read16ByteValuesFromBuffer(pollmdibdatareplyarray, 4*uInt16Size+8);
 
     pollresultcode = pollmdibdatareplyext.type.code;
     }
@@ -692,8 +700,8 @@ void SocketClient::SaveNumericValueList()
 
 void SocketClient::DecodeAvaObjects(unique_ptr<AvaObj> avaobject, char* buffer)
 {
-    avaobject->attribute_id = htons(Read16ByteValuesFromBuffer(buffer, 0));
-    avaobject->length = htons(Read16ByteValuesFromBuffer(buffer, uInt16Size));
+    avaobject->attribute_id = Read16ByteValuesFromBuffer(buffer, 0);
+    avaobject->length = Read16ByteValuesFromBuffer(buffer, uInt16Size);
     //avaobject.attribute_val = htons(binreader4.ReadUInt16());
     if (avaobject->length > 0)
     {
@@ -742,15 +750,15 @@ void SocketClient::DecodeAvaObjects(unique_ptr<AvaObj> avaobject, char* buffer)
 }
 void SocketClient::ReadIDLabel(char* buffer)
 {
-    m_idlabelhandle = htons(Read16ByteValuesFromBuffer(buffer, 0));
+    m_idlabelhandle = Read16ByteValuesFromBuffer(buffer, 0);
 }
 void SocketClient::ReadNumericObservationValue(char* buffer)
 {
     NuObsValue NumObjectValue;
-    NumObjectValue.physio_id = htons(Read16ByteValuesFromBuffer(buffer, 0));
-    NumObjectValue.state = htons(Read16ByteValuesFromBuffer(buffer, 0));
-    NumObjectValue.unit_code = htons(Read16ByteValuesFromBuffer(buffer, 0));
-    NumObjectValue.value = htonl(ReadByteValuesFromBuffer(buffer, 3*uInt16Size, 2*uInt16Size));
+    NumObjectValue.physio_id = Read16ByteValuesFromBuffer(buffer, 0);
+    NumObjectValue.state = Read16ByteValuesFromBuffer(buffer, 0);
+    NumObjectValue.unit_code = Read16ByteValuesFromBuffer(buffer, 0);
+    NumObjectValue.value = ReadByteValuesFromBuffer(buffer, 3*uInt16Size, 2*uInt16Size);
     ///@todo test float type to value
     double value = FloattypeToValue(NumObjectValue.value);
     string physiostring_id;
@@ -823,8 +831,8 @@ void SocketClient::ReadCompoundNumericObsValue(char* buffer)
     {
 
     NuObsValueCmp NumObjectValueCmp;
-    NumObjectValueCmp.count = htons(Read16ByteValuesFromBuffer(buffer, 0));
-    NumObjectValueCmp.length = htons(Read16ByteValuesFromBuffer(buffer, uInt16Size));
+    NumObjectValueCmp.count = Read16ByteValuesFromBuffer(buffer, 0);
+    NumObjectValueCmp.length = Read16ByteValuesFromBuffer(buffer, uInt16Size);
 
     int cmpnumericobjectscount = NumObjectValueCmp.count;
 
@@ -844,7 +852,7 @@ void SocketClient::ReadIDLabelString(char* buffer)
     {
     StringMP strmp;
 
-    strmp.length = htons(Read16ByteValuesFromBuffer(buffer, 0));
+    strmp.length = Read16ByteValuesFromBuffer(buffer, 0);
     //strmp.value1 = htons(binreader5.ReadUInt16());
     char* stringval = ReadBytesFromBuffer(buffer, uInt16Size, strmp.length);
 
@@ -892,9 +900,9 @@ void SocketClient::ReadWaveSaObservationValueObject(char* avaattribobjects)
 void SocketClient::ReadWaveSaObservationValue(char* buffer)
     {
     SaObsValue WaveSaObjectValue;
-    WaveSaObjectValue.physio_id = htons(Read16ByteValuesFromBuffer(buffer, 0));
-    WaveSaObjectValue.state = htons(Read16ByteValuesFromBuffer(buffer, uInt16Size));
-    WaveSaObjectValue.length = htons(Read16ByteValuesFromBuffer(buffer, 2*uInt16Size));
+    WaveSaObjectValue.physio_id = Read16ByteValuesFromBuffer(buffer, 0);
+    WaveSaObjectValue.state = Read16ByteValuesFromBuffer(buffer, uInt16Size);
+    WaveSaObjectValue.length = Read16ByteValuesFromBuffer(buffer, 2*uInt16Size);
 
     int wavevalobjectslength = WaveSaObjectValue.length;
     char* WaveValObjects = ReadBytesFromBuffer(buffer, 3*uInt16Size, wavevalobjectslength);
@@ -1059,8 +1067,8 @@ void SocketClient::ReadWaveSaObservationValue(char* buffer)
 void SocketClient::ReadCompoundWaveSaObservationValue(char* buffer)
 {
         SaObsValueCmp WaveSaObjectValueCmp;
-        WaveSaObjectValueCmp.count = htons(Read16ByteValuesFromBuffer(buffer, 0));
-        WaveSaObjectValueCmp.length = htons(Read16ByteValuesFromBuffer(buffer, uInt16Size));
+        WaveSaObjectValueCmp.count = Read16ByteValuesFromBuffer(buffer, 0);
+        WaveSaObjectValueCmp.length = Read16ByteValuesFromBuffer(buffer, uInt16Size);
 
         int cmpwaveobjectscount = WaveSaObjectValueCmp.count;
         int cmpwaveobjectslength =  WaveSaObjectValueCmp.length;
@@ -1078,11 +1086,11 @@ void SocketClient::ReadCompoundWaveSaObservationValue(char* buffer)
 void SocketClient::ReadSaSpecifications(char* buffer)
 {
         SaSpec Saspecobj;
-        Saspecobj.array_size = htons(Read16ByteValuesFromBuffer(buffer, 0));
+        Saspecobj.array_size = Read16ByteValuesFromBuffer(buffer, 0);
         //
         Saspecobj.sample_size = static_cast<std::byte>(*ReadBytesFromBuffer(buffer, uInt16Size, 1));
         Saspecobj.significant_bits = static_cast<std::byte>(*ReadBytesFromBuffer(buffer, uInt16Size+1, 1));
-        Saspecobj.SaFlags = htons(Read16ByteValuesFromBuffer(buffer, uInt16Size+2));
+        Saspecobj.SaFlags = Read16ByteValuesFromBuffer(buffer, uInt16Size+2);
 
         Saspecobj.obpoll_handle = m_obpollhandle;
 
@@ -1109,10 +1117,10 @@ void SocketClient::ReadSaScaleSpecifications(char* buffer)
 {
         ScaleRangeSpec16 ScaleSpec;
 
-        ScaleSpec.lower_absolute_value = htonl(ReadByteValuesFromBuffer(buffer, 0, 2*uInt16Size));
-        ScaleSpec.upper_absolute_value = htonl(ReadByteValuesFromBuffer(buffer, 2*uInt16Size, 2*uInt16Size));
-        ScaleSpec.lower_scaled_value = htons(Read16ByteValuesFromBuffer(buffer, 4*uInt16Size));
-        ScaleSpec.upper_scaled_value = htons(Read16ByteValuesFromBuffer(buffer, 5*uInt16Size));
+        ScaleSpec.lower_absolute_value = ReadByteValuesFromBuffer(buffer, 0, 2*uInt16Size);
+        ScaleSpec.upper_absolute_value = ReadByteValuesFromBuffer(buffer, 2*uInt16Size, 2*uInt16Size);
+        ScaleSpec.lower_scaled_value = Read16ByteValuesFromBuffer(buffer, 4*uInt16Size);
+        ScaleSpec.upper_scaled_value = Read16ByteValuesFromBuffer(buffer, 5*uInt16Size);
 
         ScaleSpec.obpoll_handle = m_obpollhandle;
         ScaleSpec.physio_id = Get16bitLSBfromUInt(m_idlabelhandle);
@@ -1140,12 +1148,12 @@ void SocketClient::ReadSaCalibrationSpecifications(char* buffer)
 {
         SaCalibData16 SaCalibData;
 
-        SaCalibData.lower_absolute_value = htonl(ReadByteValuesFromBuffer(buffer, 0, 2*uInt16Size));
-        SaCalibData.upper_absolute_value = htonl(ReadByteValuesFromBuffer(buffer, 2*uInt16Size, 2*uInt16Size));
-        SaCalibData.lower_scaled_value = htons(Read16ByteValuesFromBuffer(buffer, 4*uInt16Size));
-        SaCalibData.upper_scaled_value = htons(Read16ByteValuesFromBuffer(buffer, 5*uInt16Size));
-        SaCalibData.increment = htons(Read16ByteValuesFromBuffer(buffer, 6*uInt16Size));
-        SaCalibData.cal_type = htons(Read16ByteValuesFromBuffer(buffer, 7*uInt16Size));
+        SaCalibData.lower_absolute_value = ReadByteValuesFromBuffer(buffer, 0, 2*uInt16Size);
+        SaCalibData.upper_absolute_value = ReadByteValuesFromBuffer(buffer, 2*uInt16Size, 2*uInt16Size);
+        SaCalibData.lower_scaled_value = Read16ByteValuesFromBuffer(buffer, 4*uInt16Size);
+        SaCalibData.upper_scaled_value = Read16ByteValuesFromBuffer(buffer, 5*uInt16Size);
+        SaCalibData.increment = Read16ByteValuesFromBuffer(buffer, 6*uInt16Size);
+        SaCalibData.cal_type = Read16ByteValuesFromBuffer(buffer, 7*uInt16Size);
 
         SaCalibData.obpoll_handle = m_obpollhandle;
 
@@ -1174,11 +1182,11 @@ void SocketClient::ReadSaCalibrationSpecifications(char* buffer)
 
 int SocketClient::DecodeSingleContextPollObjects(SingleContextPoll* scpoll, char* buffer)
 {
-    scpoll->context_id = htons(Read16ByteValuesFromBuffer(buffer, 0));
-    scpoll->count = htons(Read16ByteValuesFromBuffer(buffer, uInt16Size));
+    scpoll->context_id = Read16ByteValuesFromBuffer(buffer, 0);
+    scpoll->count = Read16ByteValuesFromBuffer(buffer, uInt16Size);
     //There can be empty singlecontextpollobjects
     //if(scpoll.count>0) scpoll.length = htons(binreader2.ReadUInt16());
-    scpoll->length = htons(Read16ByteValuesFromBuffer(buffer,2*uInt16Size));
+    scpoll->length = Read16ByteValuesFromBuffer(buffer,2*uInt16Size);
 
     int obpollobjectscount = int(scpoll->count);
     if (scpoll->length > 0)
@@ -1191,16 +1199,16 @@ int SocketClient::DecodeSingleContextPollObjects(SingleContextPoll* scpoll, char
 
 int SocketClient::DecodeObservationPollObjects(ObservationPoll* obpollobject, char* buffer)
 {
-    obpollobject->obj_handle = htons(Read16ByteValuesFromBuffer(buffer, 0));
+    obpollobject->obj_handle = Read16ByteValuesFromBuffer(buffer, 0);
 
         m_obpollhandle = obpollobject->obj_handle;
 
         AttributeList* attributeliststruct;
 
-        attributeliststruct->count = htons(Read16ByteValuesFromBuffer(buffer, uInt16Size));
+        attributeliststruct->count = Read16ByteValuesFromBuffer(buffer, uInt16Size);
         if (attributeliststruct->count > 0) 
         {
-        attributeliststruct->length = htons(Read16ByteValuesFromBuffer(buffer, 2*uInt16Size));
+        attributeliststruct->length = Read16ByteValuesFromBuffer(buffer, 2*uInt16Size);
         }
 
         int avaobjectscount = attributeliststruct->count;
@@ -1216,9 +1224,9 @@ int SocketClient::DecodeObservationPollObjects(ObservationPoll* obpollobject, ch
 
 int SocketClient::DecodePollObjects(PollInfoList* pollobjects, char* packetbuffer)
     {
-        pollobjects->count = htons(Read16ByteValuesFromBuffer(packetbuffer, 0));
+        pollobjects->count = Read16ByteValuesFromBuffer(packetbuffer, 0);
         if (pollobjects->count > 0){
-        pollobjects->length = htons(Read16ByteValuesFromBuffer(packetbuffer, uInt16Size));
+        pollobjects->length = Read16ByteValuesFromBuffer(packetbuffer, uInt16Size);
         }
 
         int scpollobjectscount = pollobjects->count;
@@ -1238,6 +1246,7 @@ void SocketClient::SendCycledExtendedPollDataRequest(size_t nInterval)
         {
         do
         {
+            std::cout << "SendCycledExtendedPollDataRequest" << std::endl;
             sendBytes(ext_poll_request_msg);
             ///@todo make time variable
             std::this_thread::sleep_for(12000ms); 
@@ -1245,7 +1254,11 @@ void SocketClient::SendCycledExtendedPollDataRequest(size_t nInterval)
         }
         while (true);
         }
-        else sendBytes(ext_poll_request_msg);
+        else 
+        {
+            std::cout << "Sending extended poll data Request" << std::endl;
+            sendBytes(ext_poll_request_msg);
+        }
 
 }
 
@@ -1257,13 +1270,18 @@ void SocketClient::SendCycledExtendedPollWaveDataRequest(size_t nInterval)
         {
         do
         {
+            std::cout << "SendCycledExtendedPollWaveDataRequest" << std::endl;
             sendBytes(ext_poll_request_wave_msg);
             ///@todo make time variable
             std::this_thread::sleep_for(12000ms); 
         }
         while (true);
         }
-        else sendBytes(ext_poll_request_wave_msg);
+        else
+        {
+            std::cout << "SendCycledExtendedPollWaveDataRequest" << std::endl;
+            sendBytes(ext_poll_request_wave_msg);
+        } 
 
 }
 
@@ -1276,11 +1294,16 @@ void SocketClient::Receive(char* buffer1, size_t buffersize, int flags)
     struct sockaddr_in SenderAddr;
     int SenderAddrSize = sizeof (SenderAddr);
     state.state_ip = SenderAddr;
-
+    state.numBytesReceived = 0;
+    state.numBytesTransferred = 0;
+    
+    
     char RecvBuf[buffersize];
     int BufLen = buffersize;
-    state.buffer = RecvBuf;
-    DWORD BytesRecv = 0;
+    DataBuf.len = BufLen;
+    DataBuf.buf = RecvBuf;
+    state.wsaBuf = DataBuf;
+
     DWORD Flags = 0;
 
     int err = 0;
@@ -1306,14 +1329,11 @@ void SocketClient::Receive(char* buffer1, size_t buffersize, int flags)
     std::string targetip = m_remoteIPtarget; 
     inet_pton(AF_INET, targetip.c_str(), &(m_sa_remoteIPtarget.sin_addr));
 
-    DataBuf.len = BufLen;
-    DataBuf.buf = RecvBuf;
-
     wprintf(L"Listening for incoming datagrams on port=%d\n", m_port);
     rc = WSARecvFrom(sock,
-              &DataBuf,
+              &state.wsaBuf,
               1,
-              &BytesRecv,
+              &state.numBytesReceived,
               &Flags,
               (SOCKADDR *) & SenderAddr,
               &SenderAddrSize, &state.overlapped, NULL);
@@ -1334,7 +1354,7 @@ void SocketClient::Receive(char* buffer1, size_t buffersize, int flags)
         retval = 1;
         }
 
-        rc = WSAGetOverlappedResult(sock, &state.overlapped, &BytesRecv,
+        rc = WSAGetOverlappedResult(sock, &state.overlapped, &state.numBytesReceived,
                 FALSE, &Flags);
         if (rc == FALSE) {
         wprintf(L"WSArecvFrom failed with error: %d\n", WSAGetLastError());
@@ -1348,10 +1368,12 @@ void SocketClient::Receive(char* buffer1, size_t buffersize, int flags)
 			    // Receive operation completed successfully
 			    ReceiveCallback(0, state.numBytesReceived, &state.overlapped); //go and process data
         }
-        wprintf(L"Number of received bytes = %d\n", BytesRecv);
+        wprintf(L"Number of received bytes = %d\n", state.numBytesReceived);
+        readBytesFromArray(state.wsaBuf.buf, state.numBytesReceived);
+
         }
         
-        wprintf(L"Finished receiving. Closing socket.\n");
+        wprintf(L"Finished receiving.\n");
         cout << "Message recv: " << DataBuf.buf << endl;
     }
     
@@ -1366,6 +1388,8 @@ void SocketClient::Receive(char* buffer1, size_t buffersize, int flags)
     //---------------------------------------------
     // Clean up and quit.
     // WSACleanup();
+    m_lastMsg = state.wsaBuf.buf;
+    lastMsgSize = state.wsaBuf.len;
     return;
 }
 
@@ -1401,7 +1425,7 @@ void CALLBACK SocketClient::ReceiveCallback(DWORD errorCode, DWORD numBytesRecei
 	        // B: bool writing_to_file_successful2 = ByteArrayToFile(path_to_file, data_bytes, numBytesReceived);
 */
     std::cout << "now processing packet" << std::endl;
-    ProcessPacket(state.buffer);
+    ProcessPacket(state.wsaBuf.buf);
 
     }
     else
@@ -1495,6 +1519,7 @@ void SocketClient::RecheckMDSAttributes(int nInterval)
 
 void SocketClient::SendMDSPollDataRequest()
 {
+    std::cout << "SendMDSPollDataRequest" << std::endl;
     sendBytes(poll_mds_request_msg);
 }
 
@@ -1515,11 +1540,13 @@ void SocketClient::KeepConnectionAlive(int nInterval)
 
 void SocketClient::SendMDSCreateEventResult()
 {
+    std::cout << "SendMDSCreateEventResult" << std::endl;
     sendBytes(mds_create_resp_msg);
 }
 
 void SocketClient::GetRTSAPriorityListRequest()
 {
+    std::cout << "Sending RTSAPriority List Request" << std::endl;
     sendBytes(get_rtsa_prio_msg);
 }
 
@@ -1679,6 +1706,7 @@ void SocketClient::SendRTSAPriorityMessage(std::vector<std::byte> WaveTrType)
         tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(0x00)));
         tempbuffer.insert(tempbuffer.begin(), static_cast<std::byte>(htons(0xE1)));
 
+        std::cout << "SendRTSAPriorityMessage" << std::endl;
         sendBytes(tempbuffer);   
 }
 
@@ -1713,6 +1741,7 @@ void SocketClient::establishLanConnection()
         char readmdsconnectbuffer[1380] = "";
         Receive(readmdsconnectbuffer);
         ProcessPacket(readmdsconnectbuffer);
+        
 
        //Send Extended PollData Requests cycled every second
        std::thread sendCycledExtendedPollDataRequestThread([&]() {SendCycledExtendedPollDataRequest(nInterval);});
@@ -1735,13 +1764,14 @@ void SocketClient::establishLanConnection()
 		std::thread keepConnectionAliveThread([&]() {ThreadKeepConnectionAlive(nInterval);});
 		keepConnectionAliveThread.detach();
 
-    char* receivedBuffer;
+        char receivedBuffer[1380] = "";
 
 		std::thread receiveThread([&]() {ThreadReceive(receivedBuffer);});
 		receiveThread.detach();
 
     /// @todo when to stop connection
 
+    std::cin.get();
     // Stop Threads
     stopThreadRecheckMDSAttributes = true;
     stopThreadKeepConnectionAlive = true;
@@ -1774,5 +1804,9 @@ void SocketClient::ThreadReceive(char* receivedBuffer)
     Receive(receivedBuffer);
     std::this_thread::sleep_for(std::chrono::milliseconds(m_receiveInterval));
     }
+}
+
+char* SocketClient::getLastMessage()
+{
 }
 

@@ -14,6 +14,8 @@
 #include <codecvt>
 #include <locale>
 #include <iomanip>
+#include <WinSock2.h>
+#include <WS2tcpip.h>
 
 
 constexpr int FLOATTYPE_NAN = 0x007FFFFF;
@@ -24,13 +26,19 @@ constexpr int FLOATTYPE_NEGATIVE_INFINITY = 0x800002;
 
 ///@todo statt const variablen constexpr
 
-static constexpr size_t maxbuffersize = 1380;
+static constexpr size_t maxbuffersize = 2001;
 
 template<typename... Ts>
 std::vector<std::byte> make_bytes(Ts&&... args) noexcept {
 return{std::byte(std::forward<Ts>(args))...};
 }
 
+static void readBytesFromArray(const char* array, size_t numBytes) {
+    for (size_t i = 0; i < numBytes; ++i) {
+        std::cout << std::hex << static_cast<int>(static_cast<uint8_t>(array[i])) << " ";
+    }
+    std::cout << std::endl;
+}
 
 static std::string ReplaceNullCharacters(const std::string& inputString) {
     std::string outputString = inputString;
@@ -71,46 +79,24 @@ static std::string Utf8ToString(const std::string& utf8String)
 
 static inline constexpr size_t uInt16Size = sizeof(unsigned short);
 
-/// @todo testen
-static size_t Read16ByteValuesFromBuffer(const char* buffer, size_t startIndex)
-{
-    try {
-    size_t bufferSize = sizeof(buffer);
-    if (startIndex >= bufferSize)
-    {
-        throw std::runtime_error("Error: Invalid starting index.");
-    }
-    if (startIndex + uInt16Size > bufferSize)
-    {
-        throw std::runtime_error("Error: Insufficient buffer size.");
-    }
-    size_t value;
-    std::memcpy(&value, buffer + startIndex, uInt16Size);
-    return value;
-    } catch(...) {
-        std::throw_with_nested(std::runtime_error("Failed to read: " + *buffer));
-    }
-}
 
-/// @todo testen
-static size_t ReadByteValuesFromBuffer(const char* buffer, size_t startIndex, size_t numBytesToRead)
+/// @brief Konvertiert einen big-endian buffer in einen integer in little endian 
+/// @param buffer 
+/// @param startIndex 
+/// @param length 
+/// @return 
+static unsigned long ReadByteValuesFromBufferLittleEndian(const char* buffer, unsigned long  startIndex, unsigned long  numBytesToRead)
 {
-    try {
-    size_t bufferSize = sizeof(buffer);
-    if (startIndex >= bufferSize)
-    {
-        throw std::runtime_error("Error: Invalid starting index.");
-    }
-    if (startIndex + uInt16Size > bufferSize)
-    {
-        throw std::runtime_error("Error: Insufficient buffer size.");
-    }
-    size_t value;
+    unsigned long  value;
     std::memcpy(&value, buffer + startIndex, numBytesToRead);
     return value;
-    } catch(...) {
-        std::throw_with_nested(std::runtime_error("Failed to read: " + *buffer));
-    }
+}
+
+static unsigned long Read16ByteValuesFromBufferLittleEndian(const char* buffer, unsigned long  startIndex)
+{
+    unsigned long  value;
+    std::memcpy(&value, buffer + startIndex, uInt16Size);
+    return value;
 }
 
 static std::string formatTm(const struct tm& timeInfo) {
@@ -171,26 +157,31 @@ static double FloattypeToValue(uint32_t fvalue)
 }
 
 /// @todo testen
-static char* ReadBytesFromBuffer(const char* buffer, size_t startIndex, size_t numBytesToRead)
-{
-    try {
-    size_t bufferSize = sizeof(buffer);
-    if (startIndex >= bufferSize)
-    {
-        throw std::runtime_error("Error: Invalid starting index.");
+static char* ReadBytesFromBuffer(const char* array, size_t startIndex, size_t numBytes) {
+    char* output = new char[numBytes];
+
+    for (size_t i = 0; i < numBytes; ++i) {
+        output[i] = array[startIndex + i];
     }
-    if (startIndex + uInt16Size > bufferSize)
-    {
-        throw std::runtime_error("Error: Insufficient buffer size.");
-    }
-    char* read_buffer;
-    std::memcpy(read_buffer, buffer + startIndex, numBytesToRead);
-    return read_buffer;
-    } catch(...) {
-        std::throw_with_nested(std::runtime_error("Failed to read: " + *buffer));
-    }
+
+    return output;
 }
 
+static uint16_t Read16ByteValuesFromBuffer(const char* buffer, size_t startIndex) {
+    auto buf = ReadBytesFromBuffer(buffer, startIndex, uInt16Size);
+    unsigned long  value = 0;
+    std::memcpy(&value, buf, uInt16Size);
+    return value;
+}
+
+
+static unsigned long ReadByteValuesFromBuffer(const char* buffer, unsigned long  startIndex, unsigned long  numBytesToRead)
+{
+    auto buf = ReadBytesFromBuffer(buffer, startIndex, numBytesToRead);
+    unsigned long  value = 0;
+    std::memcpy(&value, buf, numBytesToRead);
+    return value;
+}
         //Date and Time
         constexpr int NOM_ATTR_TIME_ABS = 0x987;
         //Sample Period

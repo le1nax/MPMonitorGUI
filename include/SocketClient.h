@@ -31,6 +31,10 @@ class SocketClient : public UDPSocket {
                 sockaddr_in state_ip;
         } m_udpState; //current state of the client for the asynchronous receiving of data*/
         void ProcessPacket(char* buffer);
+
+        char* m_lastMsg;
+        size_t lastMsgSize = 0;
+
         std::vector<std::byte> m_readassocbuffer;
         std::vector<std::byte> m_readmdsconnectbuffer;
         std::string m_remoteIPtarget = "";
@@ -137,6 +141,9 @@ class SocketClient : public UDPSocket {
         void ThreadKeepConnectionAlive(int nInterval = 0);
         void ThreadReceive(char* receivedBuffer);
 
+        //Logging
+        char* getLastMessage();
+
 };
 
 //current state of the client for the asynchronous receiving of data
@@ -147,7 +154,7 @@ class Receive_State
         ~Receive_State() = default;
 
         WSAOVERLAPPED overlapped; //noetig um auf hEvent und overlap operation params zuzugreifen
-        char* buffer;
+        WSABUF wsaBuf;
         sockaddr_in state_ip;
         long unsigned int numBytesReceived;
         long unsigned int numBytesTransferred;
