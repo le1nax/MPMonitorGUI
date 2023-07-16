@@ -1,8 +1,6 @@
 #include "../include/Socket.h"
 #include <cstdint>
 
-
-/// @brief the constructor of the WSASession class
 WSASession::WSASession() {
     //calling Startup fct with Winsock version 2.2
     if (WSAStartup(MAKEWORD(2, 2), &data) != 0) 
@@ -12,17 +10,12 @@ WSASession::WSASession() {
     std::cout << "Started WSASession" << std::endl;
 }
 
-
-/// @brief the destructor of the WSASession class
 WSASession::~WSASession() {
     WSACleanup();
     std::cout << "Closed WSASession" << std::endl;
 }
 
 
-
-
-/// @brief the constructor of the UDPSocket class
 UDPSocket::UDPSocket() {
     
     //AF_INET = IPv4; SOCK_DGRAM = Byte stream for UDP; IPPROTO_UDP = UDP Protocol
@@ -46,27 +39,18 @@ UDPSocket::UDPSocket() {
 }
 
 
-/// @brief the destructor of the UDPSocket class
 UDPSocket::~UDPSocket() {
     closesocket(sock);
     std::cout << "Closed UDP socket" << std::endl;
 }
 
 
-/// @brief a getter method to get the socket
-/// @return the socket
 SOCKET UDPSocket::getSocket()
 {
     return sock;
 }
 
 
-/// @brief a method that calls the WSASendTo function for sending to the monitor
-/// @param remoteIP the remote IP address of the monitor
-/// @param buffer the buffer with the data to be sent
-/// @param buffersize the size of the buffer
-/// @param flags the flags to be set for the WSASendTo function
-/// @return the number of bytes sent
 long unsigned int UDPSocket::SendTo(sockaddr_in& remoteIP, char* buffer, size_t buffersize, long unsigned int flags) 
 {
     //send data provided in buffer to receiver address
@@ -148,16 +132,6 @@ long unsigned int UDPSocket::SendTo(sockaddr_in& remoteIP, char* buffer, size_t 
     return numBytesSent;
 }
 
-
-/// @brief a method that calls the WSARecvFrom function to receive data from the monitor
-/// @param remoteIP the remote IP address of the monitor
-/// @param buffer the buffer with the data to be sent
-/// @param buffersize the size of the buffer
-/// @param numBytesReceived the number of bytes received
-/// @param overlapped the WSAOverlapped structure for the WSARecvFrom function
-/// @param flags the flags to be set for the WSARecvFrom function
-/// @param callback the callback function to be passed to the WSARecvFrom function 
-/// @return the result of the WSARecvFrom function which says if the operation was successful
 int UDPSocket::RecvFrom(sockaddr_in remoteIP, char* buffer, size_t buffersize, long unsigned int &numBytesReceived, LPWSAOVERLAPPED overlapped, long unsigned int flags, LPWSAOVERLAPPED_COMPLETION_ROUTINE callback ) {
 //receive data into buffer from remote sender address
 
@@ -198,9 +172,6 @@ int UDPSocket::RecvFrom(sockaddr_in remoteIP, char* buffer, size_t buffersize, l
 }
 
 
-/// @brief a method for associating a local address with the socket on the server side
-/// @param localIP the sockaddress_in structure with the local IP address, port and settings of the server address
-/// @param port is actually not used in this implementation because it's already part of the scokaddr_in structure localIP
 void UDPSocket::Bind(sockaddr_in &localIP, unsigned short port) {
     /*
     sockaddr_in add;
@@ -222,9 +193,6 @@ void UDPSocket::Bind(sockaddr_in &localIP, unsigned short port) {
     }
 }
 
-
-/// @brief a method for connecting the socket to the remote address. Careful: in UDP, this doesn't have the same implications as the connecting in TCP
-/// @param remoteIP the remote target address's sockaddr_in structure
 void UDPSocket::Connect(sockaddr_in &remoteIP) {
 
     //the last four params are LPWSABUF lpCallerData, LPWSABUF lpCalleeData, LPQOS lpSQOS, LPQOS lpGQOS

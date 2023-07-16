@@ -1,0 +1,45 @@
+\doxysection{Socket.\+h}
+\hypertarget{_socket_8h_source}{}\label{_socket_8h_source}\index{include/Socket.h@{include/Socket.h}}
+\mbox{\hyperlink{_socket_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_ava_obj_8h}{AvaObj.h}}"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{definitions_8h}{definitions.h}}"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <system\_error>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <Windows.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <bitset>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ comment(lib,\ "{}ws2\_32.lib"{}})\ \textcolor{comment}{//link\ against\ the\ Winsock\ library}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_w_s_a_session}{WSASession}}\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_w_s_a_session_a4744cf8c86c6158881e5e79f3c850f0c}{WSASession}}();}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_w_s_a_session_a2810b9b3a0efd33000e9fb83e5d39478}{\string~WSASession}}();}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ WSAData\ \mbox{\hyperlink{class_w_s_a_session_ace64c590832ce02e33567c4d2be8b032}{data}};}
+\DoxyCodeLine{00025\ \};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_u_d_p_socket}{UDPSocket}}\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ SOCKET\ \mbox{\hyperlink{class_u_d_p_socket_a70085ad4b4b8c09258f206843db08de2}{sock}};}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_u_d_p_socket_a4f86f3023f5a08f6355802599a10e100}{UDPSocket}}();}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_u_d_p_socket_adb1a5254938e5acf5d44ff7a347e9f0a}{\string~UDPSocket}}();}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ SOCKET\ \mbox{\hyperlink{class_u_d_p_socket_aba7d584e75564a4ba4b7fddb479abee1}{getSocket}}();}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_u_d_p_socket_aeccce2a68cc6405a78415551c21e06d7}{SendTo}}(sockaddr\_in\&\ remoteIP,\ \textcolor{keywordtype}{char}*\ buffer,\ \textcolor{keywordtype}{size\_t}\ buffersize,\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ flags\ =\ 0);}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_u_d_p_socket_ae14d059981edd54ea45378687ba0861f}{RecvFrom}}(sockaddr\_in\ remoteIP,\ \textcolor{keywordtype}{char}*\ buffer,\ \textcolor{keywordtype}{size\_t}\ buffersize,\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \&numBytesReceived,\ LPWSAOVERLAPPED\ overlapped,\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ flags\ =\ 0,\ LPWSAOVERLAPPED\_COMPLETION\_ROUTINE\ callback\ =\ NULL);}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_u_d_p_socket_a167ae3a1fd089f7e3d0644dd03044d7b}{Bind}}(sockaddr\_in\ \&localIP,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ port);\ \textcolor{comment}{//for\ associating\ a\ local\ address\ with\ the\ socket,\ server\ side}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_u_d_p_socket_a83253acb737a2409be60e2dd8350f46e}{Connect}}(sockaddr\_in\&\ remoteIP);\ \textcolor{comment}{//for\ connecting\ the\ socket\ to\ the\ remote\ address}}
+\DoxyCodeLine{00072\ \};}
+
+\end{DoxyCode}

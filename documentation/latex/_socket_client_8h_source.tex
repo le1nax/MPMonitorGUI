@@ -1,0 +1,177 @@
+\doxysection{Socket\+Client.\+h}
+\hypertarget{_socket_client_8h_source}{}\label{_socket_client_8h_source}\index{include/SocketClient.h@{include/SocketClient.h}}
+\mbox{\hyperlink{_socket_client_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_socket_8h}{Socket.h}}"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ RECEIVEINTERVAL\ 500\ }\textcolor{comment}{//\ koennen\ den\ receive\ thread\ nicht\ komplett\ durchlaufen\ lassen\ weil\ wir\ keinen\ echten\ Parallelismus\ haben}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_socket_client}{SocketClient}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_u_d_p_socket}{UDPSocket}}\ \{}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_socket_client}{SocketClient}}(std::string\ remoteIPtarget,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ remotePortTarget);}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_socket_client_ae839cd8b58cb070012264f47e686744c}{\string~SocketClient}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_socket_client_ae3962f762b411e9b4bf06be013c3c9f1}{establishLanConnection}}();}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ SOCKET\ \mbox{\hyperlink{class_socket_client_a0294a111cf7bee7e06ab1199f7ccddd5}{getSocket}}();}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_socket_client_a157ed622da08c9e6f55e34e9d27c41bb}{SendWaveAssociationRequest}}();}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ sockaddr\_in\ \mbox{\hyperlink{class_socket_client_aacec48f332055a07a6729c31c38c71f7}{m\_sa\_remoteIPtarget}};}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_socket_client_a6cfc5eab3b471703c4a63de20013d5bc}{Receive}}(\textcolor{keywordtype}{char}*\ buffer,\ \textcolor{keywordtype}{size\_t}\ buffersize\ =\ maxbuffersize,\ \textcolor{keywordtype}{int}\ flags\ =\ 0);}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ sendBytes(std::vector<std::byte>\ bytes);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ProcessPacket(\textcolor{keywordtype}{char}*\ buffer);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}*\ m\_lastMsg;}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ lastMsgSize\ =\ 0;}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ m\_readassocbuffer;}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ m\_readmdsconnectbuffer;}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ std::string\ m\_remoteIPtarget\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ std::string\ m\_strTimestamp\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ std::string\ m\_DeviceID=\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ std::string\ m\_idlabelstring\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ std::vector<NumericValResult>\ m\_NumericValList;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ std::vector<std::string>\ m\_NumValHeaders;}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ m\_port\ =\ 0;\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ uint32\_t\ m\_baseRelativeTime=\ 0;}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ uint16\_t\ m\_actiontype=\ 0;}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ uint16\_t\ m\_obpollhandle\ =\ 0;}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ uint32\_t\ m\_idlabelhandle\ =\ 0;}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ uint32\_t\ m\_dataexportset\ =\ 1;}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ uint32\_t\ m\_csvexportset\ =\ 1;}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ std::vector<IDLabel>\ m\_IDLabelList;}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ std::vector<SaCalibData16>\ m\_SaCalibDataSpecList;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ std::vector<ScaleRangeSpec16>\ m\_ScaleRangeSpecList;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ std::vector<SaSpec>\ m\_SaSpecList;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ std::vector<WaveValResult>\ m\_WaveValResultList;}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ CreateMask(\textcolor{keywordtype}{int}\ significantbits);}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ ConvertToByte(\textcolor{keywordtype}{int}\ value);}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ IsLittleEndian();}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ m\_calibratewavevalues;}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ CalibrateSaValue(\textcolor{keywordtype}{double}\ Waveval,\ \mbox{\hyperlink{struct_sa_calib_data16}{SaCalibData16}}\ sacalibdata);}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ ScaleRangeSaValue(\textcolor{keywordtype}{double}\ Waveval,\ \mbox{\hyperlink{struct_scale_range_spec16}{ScaleRangeSpec16}}\ sascaledata);}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ExportNumValListToCSVFile(\textcolor{keyword}{const}\ std::string\&\ filePath,\ \textcolor{keyword}{const}\ std::string\&\ data);}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ AppendToCSVBuilder(std::ostringstream\&\ csvBuilder,\ \textcolor{keyword}{const}\ std::string\&\ timestamp,\ \textcolor{keyword}{const}\ std::string\&\ relativetimestamp,\ \textcolor{keyword}{const}\ std::string\&\ systemLocalTime,\ \textcolor{keywordtype}{double}\ waveval);\ \ \ \ \ \ \ \ tm\ m\_baseDateTime\{\};}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ SaveNumericValueListRows();}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ WriteNumericHeadersList();}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ SaveNumericValueListConsolidatedCSV();}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ WriteNumericHeadersListConsolidatedCSV();}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ m\_transmissionstart\ =\ TRUE;}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ tm\ GetAbsoluteTimeFromBCDFormat(\textcolor{keywordtype}{char}*\ bcdtimebuffer);}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ AddTmMillseconds(tm\&\ time,\ \textcolor{keywordtype}{double}\ millisecs);}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ initMsgs();}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_a5e0ec079306d6048c06abfa415c994a6}{aarq\_ms}};}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_ad099dd38fe5eb67f22169df758d28f41}{aarq\_msg\_ext\_poll}};}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_aa95000a6155779ba2a1136cfd352d32a}{aarq\_msg\_ext\_poll2}};}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_a23218ab67020c15c368125b4194c663a}{aarq\_msg\_wave\_ext\_poll}};}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_abfbe6fed3f273ac8441c91ce4e42c574}{aarq\_msg\_wave\_ext\_poll2}};}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_a401a88f61c3b90a7a35dc94f3d4b4885}{mds\_create\_resp\_msg}};}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_adc633955d26793c2fa0840c2f13be826}{poll\_mds\_request\_msg}};}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_a0026c6aeee085b8428a22dbf10037bdd}{poll\_request\_msg}};}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_a10584e1ebaf795c44ec92b64a907872e}{poll\_request\_msg2}};}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_a55bfeff576d864c1b66d5f4b2f51cf3b}{poll\_request\_msg3}};}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_a8930184b219af5b717bd85472d15dd62}{poll\_request\_msg4}};}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_ae08ba9f954f6f9f527b0d6a9e44b0322}{ext\_poll\_request\_msg3}};}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_afb562154b206a191ba15a073503c7c53}{ext\_poll\_request\_msg}};}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_ac9d7911e919881ab8e35abc9236c5223}{ext\_poll\_request\_msg2}};}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_a2c0a2e76b615bccd087eef87737204f6}{ext\_poll\_request\_msg4}};}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_adac3ee49178f47ca2f369d59c28e0614}{ext\_poll\_request\_msg5}};}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_a30985a83e32ef057c5458125f6db3002}{ext\_poll\_request\_wave\_msg3}};}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_acc686c72a1c7faa50f73b32b06f79978}{ext\_poll\_request\_wave\_msg}};}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_adff090000103a5b701e009fadb3a7af8}{ext\_poll\_request\_wave\_msg2}};}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_aec1b2861fe5f570a9e9f9647cea40bfe}{ext\_poll\_request\_alert\_msg}};}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_ac84436f8ec29e8e157351808ca1d499a}{get\_rtsa\_prio\_msg}};}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_a86bec6b625272160bdc141e7d93a4a50}{keep\_alive\_msg}};}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_afc0b74baea6423cba320ad1ada375dd7}{set\_rtsa\_prio\_msg}};}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_a29ada0aeb49d140548909b0c73f89b91}{keep\_alive\_msg2}};}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_ac6efa19fcb1884c787dc27cb6ca47cc9}{rlrq\_msg}};}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_a14a44cd2a061191e9b4cf510074a3822}{rlrq\_resp\_msg}};}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{class_socket_client_a616e44574262eadc3dfa4675d131324a}{assoc\_abort\_resp\_msg}};}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ CheckLinkedPollPacketActionType(\textcolor{keywordtype}{char}*\ buffer);}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ DecodePollObjects(\mbox{\hyperlink{struct_poll_info_list}{PollInfoList}}*\ pollobjects,\ \textcolor{keywordtype}{char}*\ packetbuffer);}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ DecodeSingleContextPollObjects(\mbox{\hyperlink{struct_single_context_poll}{SingleContextPoll}}*\ scpoll,\ \textcolor{keywordtype}{char}*\ buffer);}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ DecodeObservationPollObjects(\mbox{\hyperlink{struct_observation_poll}{ObservationPoll}}*\ scpoll,\ \textcolor{keywordtype}{char}*\ buffer);}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ReadIDLabel(\textcolor{keywordtype}{char}*\ buffer);}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ReadNumericObservationValue(\textcolor{keywordtype}{char}*\ buffer);}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ReadCompoundNumericObsValue(\textcolor{keywordtype}{char}*\ buffer);}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ReadIDLabelString(\textcolor{keywordtype}{char}*\ buffer);}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ReadWaveSaObservationValueObject(\textcolor{keywordtype}{char}*\ buffer);}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ReadCompoundWaveSaObservationValue(\textcolor{keywordtype}{char}*\ buffer);}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ReadSaSpecifications(\textcolor{keywordtype}{char}*\ buffer);}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ReadSaScaleSpecifications(\textcolor{keywordtype}{char}*\ buffer);}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ReadSaCalibrationSpecifications(\textcolor{keywordtype}{char}*\ buffer);}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ReadWaveSaObservationValue(\textcolor{keywordtype}{char}*\ buffer);}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ std::string\ GetPacketTimestamp(\textcolor{keywordtype}{char}*\ header,\ uint16\_t\ headersize);}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ tm\ GetAbsoluteTimeFromRelativeTimestamp(uint32\_t\ currentRelativeTime);}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ DecodeAvaObjects(std::unique\_ptr<AvaObj>\ avaObj,\ \textcolor{keywordtype}{char}*\ buffer);}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ PollPacketDecoder(\textcolor{keywordtype}{char}*\ packetbuffer,\ \textcolor{keywordtype}{size\_t}\ headersize);}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ParseMDSCreateEventReport(\textcolor{keywordtype}{char}*\ buffer);}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ GetBaselineRelativeTimestamp(\textcolor{keywordtype}{char}*\ timebuffer);}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ DecodeMDSAttribObjects(std::unique\_ptr<AvaObj>\ avaobj,\ \ \textcolor{keywordtype}{char}*\ attriblistobjects\_buffer,\ \textcolor{keywordtype}{size\_t}\ count);}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ SendMDSCreateEventResult();}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ CheckPollPacketActionType(\textcolor{keywordtype}{char}*\ buffer);}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ SendRTSAPriorityMessage(std::vector<std::byte>\ WaveTrType);}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ SendCycledExtendedPollDataRequest(\textcolor{keywordtype}{size\_t}\ nInterval);}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ SendCycledExtendedPollWaveDataRequest(\textcolor{keywordtype}{size\_t}\ nInterval);}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ExportDataToCSV();}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ExportWaveToCSV();}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ CreateWaveformSet(\textcolor{keywordtype}{size\_t}\ nWaveSetType,\ std::vector<std::byte>\ WaveTrtype);}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ GetRTSAPriorityListRequest();}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ SetRTSAPriorityList(\textcolor{keywordtype}{size\_t}\ nWaveSetType);}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ SaveNumericValueList();}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ AddIDLabelToList();}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ RecheckMDSAttributes(\textcolor{keywordtype}{int}\ nInterval\ =\ 0);}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ SendMDSPollDataRequest();}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ KeepConnectionAlive(\textcolor{keywordtype}{int}\ nInterval\ =\ 0);}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ CALLBACK\ ReceiveCallback(DWORD\ errorCode,\ DWORD\ numBytesReceived,\ LPWSAOVERLAPPED\ overlapped,\ DWORD\ flags\ =\ 0);}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ ByteArrayToFile(\textcolor{keyword}{const}\ std::string\&\ filename,\ \textcolor{keyword}{const}\ std::string\&\ bytes\_string);}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ ByteArrayToFile(\textcolor{keyword}{const}\ std::string\&\ path\_to\_file,\ \textcolor{keyword}{const}\ std::vector<std::byte>\&\ data\_bytes,\ uint32\_t\ numBytesReceived);}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ stopThreadRecheckMDSAttributes\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ stopThreadKeepConnectionAlive\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ stopThreadReceive\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ m\_receiveInterval\ =\ \mbox{\hyperlink{_socket_client_8h_a8682a8bde66a6aab34c56b6e7dfb43a3}{RECEIVEINTERVAL}};}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ThreadRecheckMDSAttributes(\textcolor{keywordtype}{int}\ nInterval\ =\ 0);}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ThreadKeepConnectionAlive(\textcolor{keywordtype}{int}\ nInterval\ =\ 0);}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ThreadReceive(\textcolor{keywordtype}{char}*\ receivedBuffer);}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}*\ getLastMessage();}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \};}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \textcolor{comment}{//current\ state\ of\ the\ client\ for\ the\ asynchronous\ receiving\ of\ data}}
+\DoxyCodeLine{00259\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_receive___state}{Receive\_State}}\ }
+\DoxyCodeLine{00260\ \{}
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_receive___state_a5448ec636f4ea86aad1c2ffc6520d3b2}{Receive\_State}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_receive___state_a890a11302d03ecb22eec49ac39072827}{\string~Receive\_State}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ WSAOVERLAPPED\ \mbox{\hyperlink{class_receive___state_a5d46d932827f8e09fe826b61f424306e}{overlapped}};\ \textcolor{comment}{//noetig\ um\ auf\ hEvent\ und\ overlap\ operation\ params\ zuzugreifen}}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ WSABUF\ \mbox{\hyperlink{class_receive___state_a4ec9c8e650a3ee564cd824553074d66b}{wsaBuf}};}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ sockaddr\_in\ \mbox{\hyperlink{class_receive___state_aab2eabd11f0cd87103752461e6799483}{state\_ip}};}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_receive___state_a83fe4f7e48aafe993c220a01cdf43c39}{numBytesReceived}};}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_receive___state_a8f326890bd357419138344df156898a4}{numBytesTransferred}};}
+\DoxyCodeLine{00270\ \};}
+
+\end{DoxyCode}

@@ -1,0 +1,178 @@
+\doxysection{UDPSocket Class Reference}
+\hypertarget{class_u_d_p_socket}{}\label{class_u_d_p_socket}\index{UDPSocket@{UDPSocket}}
+
+
+Superclass for UDP Sockets.  
+
+
+
+
+{\ttfamily \#include $<$Socket.\+h$>$}
+
+Inheritance diagram for UDPSocket\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_u_d_p_socket}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_u_d_p_socket_a4f86f3023f5a08f6355802599a10e100}{UDPSocket}} ()
+\begin{DoxyCompactList}\small\item\em the constructor of the \doxylink{class_u_d_p_socket}{UDPSocket} class \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_u_d_p_socket_adb1a5254938e5acf5d44ff7a347e9f0a}{\texorpdfstring{$\sim$}{\string~}\+UDPSocket}} ()
+\begin{DoxyCompactList}\small\item\em the destructor of the \doxylink{class_u_d_p_socket}{UDPSocket} class \end{DoxyCompactList}\item 
+SOCKET \mbox{\hyperlink{class_u_d_p_socket_aba7d584e75564a4ba4b7fddb479abee1}{get\+Socket}} ()
+\begin{DoxyCompactList}\small\item\em a getter method to get the socket \end{DoxyCompactList}\item 
+long unsigned int \mbox{\hyperlink{class_u_d_p_socket_aeccce2a68cc6405a78415551c21e06d7}{Send\+To}} (sockaddr\+\_\+in \&remote\+IP, char \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t buffersize, long unsigned int flags=0)
+\begin{DoxyCompactList}\small\item\em A method that calls the WSASend\+To function for sending to the monitor \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_u_d_p_socket_ae14d059981edd54ea45378687ba0861f}{Recv\+From}} (sockaddr\+\_\+in remote\+IP, char \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t buffersize, long unsigned int \&num\+Bytes\+Received, LPWSAOVERLAPPED overlapped, long unsigned int flags=0, LPWSAOVERLAPPED\+\_\+\+COMPLETION\+\_\+\+ROUTINE callback=NULL)
+\begin{DoxyCompactList}\small\item\em A method that calls the WSARecv\+From function to receive data from the monitor \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_u_d_p_socket_a167ae3a1fd089f7e3d0644dd03044d7b}{Bind}} (sockaddr\+\_\+in \&local\+IP, unsigned short port)
+\begin{DoxyCompactList}\small\item\em A method for associating a local address with the socket on the server side \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_u_d_p_socket_a83253acb737a2409be60e2dd8350f46e}{Connect}} (sockaddr\+\_\+in \&remote\+IP)
+\begin{DoxyCompactList}\small\item\em A method for connecting the socket to the remote address. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+SOCKET \mbox{\hyperlink{class_u_d_p_socket_a70085ad4b4b8c09258f206843db08de2}{sock}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Superclass for UDP Sockets. 
+
+The \doxylink{class_u_d_p_socket}{UDPSocket} class is the UDP client and server base class implementing the basic functions for sending, receiving, binding, and connecting between server and client. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_u_d_p_socket_a4f86f3023f5a08f6355802599a10e100}\label{class_u_d_p_socket_a4f86f3023f5a08f6355802599a10e100} 
+\index{UDPSocket@{UDPSocket}!UDPSocket@{UDPSocket}}
+\index{UDPSocket@{UDPSocket}!UDPSocket@{UDPSocket}}
+\doxysubsubsection{\texorpdfstring{UDPSocket()}{UDPSocket()}}
+{\footnotesize\ttfamily UDPSocket\+::\+UDPSocket (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+the constructor of the \doxylink{class_u_d_p_socket}{UDPSocket} class 
+
+\Hypertarget{class_u_d_p_socket_adb1a5254938e5acf5d44ff7a347e9f0a}\label{class_u_d_p_socket_adb1a5254938e5acf5d44ff7a347e9f0a} 
+\index{UDPSocket@{UDPSocket}!````~UDPSocket@{\texorpdfstring{$\sim$}{\string~}UDPSocket}}
+\index{````~UDPSocket@{\texorpdfstring{$\sim$}{\string~}UDPSocket}!UDPSocket@{UDPSocket}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}UDPSocket()}{\string~UDPSocket()}}
+{\footnotesize\ttfamily UDPSocket\+::\texorpdfstring{$\sim$}{\string~}\+UDPSocket (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+the destructor of the \doxylink{class_u_d_p_socket}{UDPSocket} class 
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_u_d_p_socket_a167ae3a1fd089f7e3d0644dd03044d7b}\label{class_u_d_p_socket_a167ae3a1fd089f7e3d0644dd03044d7b} 
+\index{UDPSocket@{UDPSocket}!Bind@{Bind}}
+\index{Bind@{Bind}!UDPSocket@{UDPSocket}}
+\doxysubsubsection{\texorpdfstring{Bind()}{Bind()}}
+{\footnotesize\ttfamily void UDPSocket\+::\+Bind (\begin{DoxyParamCaption}\item[{sockaddr\+\_\+in \&}]{local\+IP,  }\item[{unsigned short}]{port }\end{DoxyParamCaption})}
+
+
+
+A method for associating a local address with the socket on the server side 
+
+
+\begin{DoxyParams}{Parameters}
+{\em local\+IP} & the sockaddress\+\_\+in structure with the local IP address, port and settings of the server address \\
+\hline
+{\em port} & is actually not used in this implementation because it\textquotesingle{}s already part of the scokaddr\+\_\+in structure local\+IP \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_u_d_p_socket_a83253acb737a2409be60e2dd8350f46e}\label{class_u_d_p_socket_a83253acb737a2409be60e2dd8350f46e} 
+\index{UDPSocket@{UDPSocket}!Connect@{Connect}}
+\index{Connect@{Connect}!UDPSocket@{UDPSocket}}
+\doxysubsubsection{\texorpdfstring{Connect()}{Connect()}}
+{\footnotesize\ttfamily void UDPSocket\+::\+Connect (\begin{DoxyParamCaption}\item[{sockaddr\+\_\+in \&}]{remote\+IP }\end{DoxyParamCaption})}
+
+
+
+A method for connecting the socket to the remote address. 
+
+Careful\+: in UDP, this doesn\textquotesingle{}t have the same implications as the connecting in TCP 
+\begin{DoxyParams}{Parameters}
+{\em remote\+IP} & the remote target address\textquotesingle{}s sockaddr\+\_\+in structure \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_u_d_p_socket_aba7d584e75564a4ba4b7fddb479abee1}\label{class_u_d_p_socket_aba7d584e75564a4ba4b7fddb479abee1} 
+\index{UDPSocket@{UDPSocket}!getSocket@{getSocket}}
+\index{getSocket@{getSocket}!UDPSocket@{UDPSocket}}
+\doxysubsubsection{\texorpdfstring{getSocket()}{getSocket()}}
+{\footnotesize\ttfamily SOCKET UDPSocket\+::get\+Socket (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+a getter method to get the socket 
+
+\begin{DoxyReturn}{Returns}
+the membersocket 
+\end{DoxyReturn}
+\Hypertarget{class_u_d_p_socket_ae14d059981edd54ea45378687ba0861f}\label{class_u_d_p_socket_ae14d059981edd54ea45378687ba0861f} 
+\index{UDPSocket@{UDPSocket}!RecvFrom@{RecvFrom}}
+\index{RecvFrom@{RecvFrom}!UDPSocket@{UDPSocket}}
+\doxysubsubsection{\texorpdfstring{RecvFrom()}{RecvFrom()}}
+{\footnotesize\ttfamily int UDPSocket\+::\+Recv\+From (\begin{DoxyParamCaption}\item[{sockaddr\+\_\+in}]{remote\+IP,  }\item[{char \texorpdfstring{$\ast$}{*}}]{buffer,  }\item[{size\+\_\+t}]{buffersize,  }\item[{long unsigned int \&}]{num\+Bytes\+Received,  }\item[{LPWSAOVERLAPPED}]{overlapped,  }\item[{long unsigned int}]{flags = {\ttfamily 0},  }\item[{LPWSAOVERLAPPED\+\_\+\+COMPLETION\+\_\+\+ROUTINE}]{callback = {\ttfamily NULL} }\end{DoxyParamCaption})}
+
+
+
+A method that calls the WSARecv\+From function to receive data from the monitor 
+
+
+\begin{DoxyParams}{Parameters}
+{\em remote\+IP} & the remote IP address of the monitor \\
+\hline
+{\em buffer} & the buffer with the data to be sent \\
+\hline
+{\em buffersize} & the size of the buffer \\
+\hline
+{\em num\+Bytes\+Received} & the number of bytes received \\
+\hline
+{\em overlapped} & the WSAOverlapped structure for the WSARecv\+From function \\
+\hline
+{\em flags} & the flags to be set for the WSARecv\+From function \\
+\hline
+{\em callback} & the callback function to be passed to the WSARecv\+From function \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the result of the WSARecv\+From function which says if the operation was successful 
+\end{DoxyReturn}
+\Hypertarget{class_u_d_p_socket_aeccce2a68cc6405a78415551c21e06d7}\label{class_u_d_p_socket_aeccce2a68cc6405a78415551c21e06d7} 
+\index{UDPSocket@{UDPSocket}!SendTo@{SendTo}}
+\index{SendTo@{SendTo}!UDPSocket@{UDPSocket}}
+\doxysubsubsection{\texorpdfstring{SendTo()}{SendTo()}}
+{\footnotesize\ttfamily long unsigned int UDPSocket\+::\+Send\+To (\begin{DoxyParamCaption}\item[{sockaddr\+\_\+in \&}]{remote\+IP,  }\item[{char \texorpdfstring{$\ast$}{*}}]{buffer,  }\item[{size\+\_\+t}]{buffersize,  }\item[{long unsigned int}]{flags = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+A method that calls the WSASend\+To function for sending to the monitor 
+
+
+\begin{DoxyParams}{Parameters}
+{\em remote\+IP} & the remote IP address of the monitor \\
+\hline
+{\em buffer} & the buffer with the data to be sent \\
+\hline
+{\em buffersize} & the size of the buffer \\
+\hline
+{\em flags} & the flags to be set for the WSASend\+To function \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the number of bytes sent 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_u_d_p_socket_a70085ad4b4b8c09258f206843db08de2}\label{class_u_d_p_socket_a70085ad4b4b8c09258f206843db08de2} 
+\index{UDPSocket@{UDPSocket}!sock@{sock}}
+\index{sock@{sock}!UDPSocket@{UDPSocket}}
+\doxysubsubsection{\texorpdfstring{sock}{sock}}
+{\footnotesize\ttfamily SOCKET UDPSocket\+::sock\hspace{0.3cm}{\ttfamily [protected]}}
+

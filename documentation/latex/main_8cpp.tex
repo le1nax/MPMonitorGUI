@@ -1,0 +1,86 @@
+\doxysection{main.\+cpp File Reference}
+\hypertarget{main_8cpp}{}\label{main_8cpp}\index{main.cpp@{main.cpp}}
+{\ttfamily \#include \"{}include/\+Socket\+Client.\+h\"{}}\newline
+{\ttfamily \#include \"{}include/\+Program.\+h\"{}}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$thread$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$imgui.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{main_8cpp_a9c0bec5722880e07144ea42f6cd3ec76}{REMOTEIP}}~\"{}169.\+254.\+0.\+1\"{}
+\item 
+\#define \mbox{\hyperlink{main_8cpp_ae22ee4011e650e92afab53d5e8d616c4}{REMOTEPORT}}~24105
+\item 
+\#define \mbox{\hyperlink{main_8cpp_a8608223f2c450e53c77271321daef38c}{LOCALIP}}~\"{}127.\+0.\+0.\+1\"{}
+\item 
+\#define \mbox{\hyperlink{main_8cpp_a3bc8b60465fdfade75d39f029cc70c22}{LOCALPORT}}~69696
+\item 
+\#define \mbox{\hyperlink{main_8cpp_ad4d796b98c583d49e83adabd74a63bf6}{MAX\+\_\+\+BUFFER\+\_\+\+SIZE}}~2001
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{main_8cpp_a0a4f9306947ea64ca0c0406fd07d47b8}{extract\+Number}} (const char \texorpdfstring{$\ast$}{*}char\+Array)
+\item 
+uint16\+\_\+t \mbox{\hyperlink{main_8cpp_a0bf4d94d350b42ef471ac6833c81a9eb}{convert\+Big\+Endian\+To\+Little\+Endian}} (const char \texorpdfstring{$\ast$}{*}char\+Array)
+\item 
+int \mbox{\hyperlink{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{main_8cpp_a8608223f2c450e53c77271321daef38c}\label{main_8cpp_a8608223f2c450e53c77271321daef38c} 
+\index{main.cpp@{main.cpp}!LOCALIP@{LOCALIP}}
+\index{LOCALIP@{LOCALIP}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{LOCALIP}{LOCALIP}}
+{\footnotesize\ttfamily \#define LOCALIP~\"{}127.\+0.\+0.\+1\"{}}
+
+\Hypertarget{main_8cpp_a3bc8b60465fdfade75d39f029cc70c22}\label{main_8cpp_a3bc8b60465fdfade75d39f029cc70c22} 
+\index{main.cpp@{main.cpp}!LOCALPORT@{LOCALPORT}}
+\index{LOCALPORT@{LOCALPORT}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{LOCALPORT}{LOCALPORT}}
+{\footnotesize\ttfamily \#define LOCALPORT~69696}
+
+\Hypertarget{main_8cpp_ad4d796b98c583d49e83adabd74a63bf6}\label{main_8cpp_ad4d796b98c583d49e83adabd74a63bf6} 
+\index{main.cpp@{main.cpp}!MAX\_BUFFER\_SIZE@{MAX\_BUFFER\_SIZE}}
+\index{MAX\_BUFFER\_SIZE@{MAX\_BUFFER\_SIZE}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{MAX\_BUFFER\_SIZE}{MAX\_BUFFER\_SIZE}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+BUFFER\+\_\+\+SIZE~2001}
+
+\Hypertarget{main_8cpp_a9c0bec5722880e07144ea42f6cd3ec76}\label{main_8cpp_a9c0bec5722880e07144ea42f6cd3ec76} 
+\index{main.cpp@{main.cpp}!REMOTEIP@{REMOTEIP}}
+\index{REMOTEIP@{REMOTEIP}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{REMOTEIP}{REMOTEIP}}
+{\footnotesize\ttfamily \#define REMOTEIP~\"{}169.\+254.\+0.\+1\"{}}
+
+\Hypertarget{main_8cpp_ae22ee4011e650e92afab53d5e8d616c4}\label{main_8cpp_ae22ee4011e650e92afab53d5e8d616c4} 
+\index{main.cpp@{main.cpp}!REMOTEPORT@{REMOTEPORT}}
+\index{REMOTEPORT@{REMOTEPORT}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{REMOTEPORT}{REMOTEPORT}}
+{\footnotesize\ttfamily \#define REMOTEPORT~24105}
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8cpp_a0bf4d94d350b42ef471ac6833c81a9eb}\label{main_8cpp_a0bf4d94d350b42ef471ac6833c81a9eb} 
+\index{main.cpp@{main.cpp}!convertBigEndianToLittleEndian@{convertBigEndianToLittleEndian}}
+\index{convertBigEndianToLittleEndian@{convertBigEndianToLittleEndian}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{convertBigEndianToLittleEndian()}{convertBigEndianToLittleEndian()}}
+{\footnotesize\ttfamily uint16\+\_\+t convert\+Big\+Endian\+To\+Little\+Endian (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{char\+Array }\end{DoxyParamCaption})}
+
+\Hypertarget{main_8cpp_a0a4f9306947ea64ca0c0406fd07d47b8}\label{main_8cpp_a0a4f9306947ea64ca0c0406fd07d47b8} 
+\index{main.cpp@{main.cpp}!extractNumber@{extractNumber}}
+\index{extractNumber@{extractNumber}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{extractNumber()}{extractNumber()}}
+{\footnotesize\ttfamily uint16\+\_\+t extract\+Number (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{char\+Array }\end{DoxyParamCaption})}
+
+\Hypertarget{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+\index{main.cpp@{main.cpp}!main@{main}}
+\index{main@{main}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+

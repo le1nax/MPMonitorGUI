@@ -1,0 +1,377 @@
+\doxysection{Socket\+Client Class Reference}
+\hypertarget{class_socket_client}{}\label{class_socket_client}\index{SocketClient@{SocketClient}}
+
+
+The \doxylink{class_socket_client}{Socket\+Client} class is derived from the \doxylink{class_u_d_p_socket}{UDPSocket} class and implements the UDP client connecting to the patient monitor and processing the received data.  
+
+
+
+
+{\ttfamily \#include $<$Socket\+Client.\+h$>$}
+
+Inheritance diagram for Socket\+Client\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_socket_client}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_socket_client_a8dea390b6a95c2a63848a628fda9b962}{Socket\+Client}} (std\+::string remote\+IPtarget, const unsigned short remote\+Port\+Target)
+\begin{DoxyCompactList}\small\item\em Constructor of class \doxylink{class_socket_client}{Socket\+Client}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_socket_client_ae839cd8b58cb070012264f47e686744c}{\texorpdfstring{$\sim$}{\string~}\+Socket\+Client}} ()=default
+\item 
+void \mbox{\hyperlink{class_socket_client_ae3962f762b411e9b4bf06be013c3c9f1}{establish\+Lan\+Connection}} ()
+\begin{DoxyCompactList}\small\item\em A method to establish a LAN connection to the monitor, keep the connection alive and exchange data \end{DoxyCompactList}\item 
+SOCKET \mbox{\hyperlink{class_socket_client_a0294a111cf7bee7e06ab1199f7ccddd5}{get\+Socket}} ()
+\begin{DoxyCompactList}\small\item\em a getter method for the SOCKET sock \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a157ed622da08c9e6f55e34e9d27c41bb}{Send\+Wave\+Association\+Request}} ()
+\begin{DoxyCompactList}\small\item\em Sendet Assiation Request. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_client_a6cfc5eab3b471703c4a63de20013d5bc}{Receive}} (char \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t buffersize=maxbuffersize, int flags=0)
+\begin{DoxyCompactList}\small\item\em A method for receiving data from the server \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_u_d_p_socket}{UDPSocket}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_u_d_p_socket_a4f86f3023f5a08f6355802599a10e100}{UDPSocket}} ()
+\begin{DoxyCompactList}\small\item\em the constructor of the \doxylink{class_u_d_p_socket}{UDPSocket} class \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_u_d_p_socket_adb1a5254938e5acf5d44ff7a347e9f0a}{\texorpdfstring{$\sim$}{\string~}\+UDPSocket}} ()
+\begin{DoxyCompactList}\small\item\em the destructor of the \doxylink{class_u_d_p_socket}{UDPSocket} class \end{DoxyCompactList}\item 
+SOCKET \mbox{\hyperlink{class_u_d_p_socket_aba7d584e75564a4ba4b7fddb479abee1}{get\+Socket}} ()
+\begin{DoxyCompactList}\small\item\em a getter method to get the socket \end{DoxyCompactList}\item 
+long unsigned int \mbox{\hyperlink{class_u_d_p_socket_aeccce2a68cc6405a78415551c21e06d7}{Send\+To}} (sockaddr\+\_\+in \&remote\+IP, char \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t buffersize, long unsigned int flags=0)
+\begin{DoxyCompactList}\small\item\em A method that calls the WSASend\+To function for sending to the monitor \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_u_d_p_socket_ae14d059981edd54ea45378687ba0861f}{Recv\+From}} (sockaddr\+\_\+in remote\+IP, char \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t buffersize, long unsigned int \&num\+Bytes\+Received, LPWSAOVERLAPPED overlapped, long unsigned int flags=0, LPWSAOVERLAPPED\+\_\+\+COMPLETION\+\_\+\+ROUTINE callback=NULL)
+\begin{DoxyCompactList}\small\item\em A method that calls the WSARecv\+From function to receive data from the monitor \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_u_d_p_socket_a167ae3a1fd089f7e3d0644dd03044d7b}{Bind}} (sockaddr\+\_\+in \&local\+IP, unsigned short port)
+\begin{DoxyCompactList}\small\item\em A method for associating a local address with the socket on the server side \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_u_d_p_socket_a83253acb737a2409be60e2dd8350f46e}{Connect}} (sockaddr\+\_\+in \&remote\+IP)
+\begin{DoxyCompactList}\small\item\em A method for connecting the socket to the remote address. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+sockaddr\+\_\+in \mbox{\hyperlink{class_socket_client_aacec48f332055a07a6729c31c38c71f7}{m\+\_\+sa\+\_\+remote\+IPtarget}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_a5e0ec079306d6048c06abfa415c994a6}{aarq\+\_\+ms}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_ad099dd38fe5eb67f22169df758d28f41}{aarq\+\_\+msg\+\_\+ext\+\_\+poll}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_aa95000a6155779ba2a1136cfd352d32a}{aarq\+\_\+msg\+\_\+ext\+\_\+poll2}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_a23218ab67020c15c368125b4194c663a}{aarq\+\_\+msg\+\_\+wave\+\_\+ext\+\_\+poll}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_abfbe6fed3f273ac8441c91ce4e42c574}{aarq\+\_\+msg\+\_\+wave\+\_\+ext\+\_\+poll2}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_a401a88f61c3b90a7a35dc94f3d4b4885}{mds\+\_\+create\+\_\+resp\+\_\+msg}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_adc633955d26793c2fa0840c2f13be826}{poll\+\_\+mds\+\_\+request\+\_\+msg}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_a0026c6aeee085b8428a22dbf10037bdd}{poll\+\_\+request\+\_\+msg}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_a10584e1ebaf795c44ec92b64a907872e}{poll\+\_\+request\+\_\+msg2}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_a55bfeff576d864c1b66d5f4b2f51cf3b}{poll\+\_\+request\+\_\+msg3}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_a8930184b219af5b717bd85472d15dd62}{poll\+\_\+request\+\_\+msg4}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_ae08ba9f954f6f9f527b0d6a9e44b0322}{ext\+\_\+poll\+\_\+request\+\_\+msg3}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_afb562154b206a191ba15a073503c7c53}{ext\+\_\+poll\+\_\+request\+\_\+msg}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_ac9d7911e919881ab8e35abc9236c5223}{ext\+\_\+poll\+\_\+request\+\_\+msg2}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_a2c0a2e76b615bccd087eef87737204f6}{ext\+\_\+poll\+\_\+request\+\_\+msg4}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_adac3ee49178f47ca2f369d59c28e0614}{ext\+\_\+poll\+\_\+request\+\_\+msg5}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_a30985a83e32ef057c5458125f6db3002}{ext\+\_\+poll\+\_\+request\+\_\+wave\+\_\+msg3}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_acc686c72a1c7faa50f73b32b06f79978}{ext\+\_\+poll\+\_\+request\+\_\+wave\+\_\+msg}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_adff090000103a5b701e009fadb3a7af8}{ext\+\_\+poll\+\_\+request\+\_\+wave\+\_\+msg2}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_aec1b2861fe5f570a9e9f9647cea40bfe}{ext\+\_\+poll\+\_\+request\+\_\+alert\+\_\+msg}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_ac84436f8ec29e8e157351808ca1d499a}{get\+\_\+rtsa\+\_\+prio\+\_\+msg}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_a86bec6b625272160bdc141e7d93a4a50}{keep\+\_\+alive\+\_\+msg}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_afc0b74baea6423cba320ad1ada375dd7}{set\+\_\+rtsa\+\_\+prio\+\_\+msg}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_a29ada0aeb49d140548909b0c73f89b91}{keep\+\_\+alive\+\_\+msg2}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_ac6efa19fcb1884c787dc27cb6ca47cc9}{rlrq\+\_\+msg}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_a14a44cd2a061191e9b4cf510074a3822}{rlrq\+\_\+resp\+\_\+msg}}
+\item 
+std\+::vector$<$ std\+::byte $>$ \mbox{\hyperlink{class_socket_client_a616e44574262eadc3dfa4675d131324a}{assoc\+\_\+abort\+\_\+resp\+\_\+msg}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_u_d_p_socket}{UDPSocket}}}
+\begin{DoxyCompactItemize}
+\item 
+SOCKET \mbox{\hyperlink{class_u_d_p_socket_a70085ad4b4b8c09258f206843db08de2}{sock}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \doxylink{class_socket_client}{Socket\+Client} class is derived from the \doxylink{class_u_d_p_socket}{UDPSocket} class and implements the UDP client connecting to the patient monitor and processing the received data. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_socket_client_a8dea390b6a95c2a63848a628fda9b962}\label{class_socket_client_a8dea390b6a95c2a63848a628fda9b962} 
+\index{SocketClient@{SocketClient}!SocketClient@{SocketClient}}
+\index{SocketClient@{SocketClient}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{SocketClient()}{SocketClient()}}
+{\footnotesize\ttfamily Socket\+Client\+::\+Socket\+Client (\begin{DoxyParamCaption}\item[{std\+::string}]{remote\+IPtarget,  }\item[{const unsigned short}]{remote\+Port\+Target }\end{DoxyParamCaption})}
+
+
+
+Constructor of class \doxylink{class_socket_client}{Socket\+Client}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em remote\+IPtarget} & the IP address to send to \\
+\hline
+{\em remote\+Port\+Target} & the port of the target address \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000003}{Todo}}]Konstruktor soll die membervariablen initialisieren \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_ae839cd8b58cb070012264f47e686744c}\label{class_socket_client_ae839cd8b58cb070012264f47e686744c} 
+\index{SocketClient@{SocketClient}!````~SocketClient@{\texorpdfstring{$\sim$}{\string~}SocketClient}}
+\index{````~SocketClient@{\texorpdfstring{$\sim$}{\string~}SocketClient}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}SocketClient()}{\string~SocketClient()}}
+{\footnotesize\ttfamily Socket\+Client\+::\texorpdfstring{$\sim$}{\string~}\+Socket\+Client (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_socket_client_ae3962f762b411e9b4bf06be013c3c9f1}\label{class_socket_client_ae3962f762b411e9b4bf06be013c3c9f1} 
+\index{SocketClient@{SocketClient}!establishLanConnection@{establishLanConnection}}
+\index{establishLanConnection@{establishLanConnection}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{establishLanConnection()}{establishLanConnection()}}
+{\footnotesize\ttfamily void Socket\+Client\+::establish\+Lan\+Connection (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+A method to establish a LAN connection to the monitor, keep the connection alive and exchange data 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000044}{Todo}}]schauen wie viel Buffer space wir brauchen (chapter4 p.\+29 sagt 1380 -\/\texorpdfstring{$>$}{>}testen) \end{DoxyRefDesc}
+
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000045}{Todo}}]when to stop connection \end{DoxyRefDesc}
+\Hypertarget{class_socket_client_a0294a111cf7bee7e06ab1199f7ccddd5}\label{class_socket_client_a0294a111cf7bee7e06ab1199f7ccddd5} 
+\index{SocketClient@{SocketClient}!getSocket@{getSocket}}
+\index{getSocket@{getSocket}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{getSocket()}{getSocket()}}
+{\footnotesize\ttfamily SOCKET Socket\+Client\+::get\+Socket (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+a getter method for the SOCKET sock 
+
+\begin{DoxyReturn}{Returns}
+the membervariable SOCKET sock 
+\end{DoxyReturn}
+\Hypertarget{class_socket_client_a6cfc5eab3b471703c4a63de20013d5bc}\label{class_socket_client_a6cfc5eab3b471703c4a63de20013d5bc} 
+\index{SocketClient@{SocketClient}!Receive@{Receive}}
+\index{Receive@{Receive}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{Receive()}{Receive()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Receive (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer,  }\item[{size\+\_\+t}]{buffersize = {\ttfamily maxbuffersize},  }\item[{int}]{flags = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+A method for receiving data from the server 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer1} & the buffer that contains the data \\
+\hline
+{\em buffersize} & the size of the buffer \\
+\hline
+{\em flags} & the flags to set for the base WSARecv\+From function \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_socket_client_a157ed622da08c9e6f55e34e9d27c41bb}\label{class_socket_client_a157ed622da08c9e6f55e34e9d27c41bb} 
+\index{SocketClient@{SocketClient}!SendWaveAssociationRequest@{SendWaveAssociationRequest}}
+\index{SendWaveAssociationRequest@{SendWaveAssociationRequest}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{SendWaveAssociationRequest()}{SendWaveAssociationRequest()}}
+{\footnotesize\ttfamily void Socket\+Client\+::\+Send\+Wave\+Association\+Request (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Sendet Assiation Request. 
+
+A method that sends a Wave Association Request by sending the corresponding bytes via send\+Bytes() 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_socket_client_a5e0ec079306d6048c06abfa415c994a6}\label{class_socket_client_a5e0ec079306d6048c06abfa415c994a6} 
+\index{SocketClient@{SocketClient}!aarq\_ms@{aarq\_ms}}
+\index{aarq\_ms@{aarq\_ms}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{aarq\_ms}{aarq\_ms}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::aarq\+\_\+ms}
+
+\Hypertarget{class_socket_client_ad099dd38fe5eb67f22169df758d28f41}\label{class_socket_client_ad099dd38fe5eb67f22169df758d28f41} 
+\index{SocketClient@{SocketClient}!aarq\_msg\_ext\_poll@{aarq\_msg\_ext\_poll}}
+\index{aarq\_msg\_ext\_poll@{aarq\_msg\_ext\_poll}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{aarq\_msg\_ext\_poll}{aarq\_msg\_ext\_poll}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::aarq\+\_\+msg\+\_\+ext\+\_\+poll}
+
+\Hypertarget{class_socket_client_aa95000a6155779ba2a1136cfd352d32a}\label{class_socket_client_aa95000a6155779ba2a1136cfd352d32a} 
+\index{SocketClient@{SocketClient}!aarq\_msg\_ext\_poll2@{aarq\_msg\_ext\_poll2}}
+\index{aarq\_msg\_ext\_poll2@{aarq\_msg\_ext\_poll2}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{aarq\_msg\_ext\_poll2}{aarq\_msg\_ext\_poll2}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::aarq\+\_\+msg\+\_\+ext\+\_\+poll2}
+
+\Hypertarget{class_socket_client_a23218ab67020c15c368125b4194c663a}\label{class_socket_client_a23218ab67020c15c368125b4194c663a} 
+\index{SocketClient@{SocketClient}!aarq\_msg\_wave\_ext\_poll@{aarq\_msg\_wave\_ext\_poll}}
+\index{aarq\_msg\_wave\_ext\_poll@{aarq\_msg\_wave\_ext\_poll}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{aarq\_msg\_wave\_ext\_poll}{aarq\_msg\_wave\_ext\_poll}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::aarq\+\_\+msg\+\_\+wave\+\_\+ext\+\_\+poll}
+
+\Hypertarget{class_socket_client_abfbe6fed3f273ac8441c91ce4e42c574}\label{class_socket_client_abfbe6fed3f273ac8441c91ce4e42c574} 
+\index{SocketClient@{SocketClient}!aarq\_msg\_wave\_ext\_poll2@{aarq\_msg\_wave\_ext\_poll2}}
+\index{aarq\_msg\_wave\_ext\_poll2@{aarq\_msg\_wave\_ext\_poll2}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{aarq\_msg\_wave\_ext\_poll2}{aarq\_msg\_wave\_ext\_poll2}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::aarq\+\_\+msg\+\_\+wave\+\_\+ext\+\_\+poll2}
+
+\Hypertarget{class_socket_client_a616e44574262eadc3dfa4675d131324a}\label{class_socket_client_a616e44574262eadc3dfa4675d131324a} 
+\index{SocketClient@{SocketClient}!assoc\_abort\_resp\_msg@{assoc\_abort\_resp\_msg}}
+\index{assoc\_abort\_resp\_msg@{assoc\_abort\_resp\_msg}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{assoc\_abort\_resp\_msg}{assoc\_abort\_resp\_msg}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::assoc\+\_\+abort\+\_\+resp\+\_\+msg}
+
+\Hypertarget{class_socket_client_aec1b2861fe5f570a9e9f9647cea40bfe}\label{class_socket_client_aec1b2861fe5f570a9e9f9647cea40bfe} 
+\index{SocketClient@{SocketClient}!ext\_poll\_request\_alert\_msg@{ext\_poll\_request\_alert\_msg}}
+\index{ext\_poll\_request\_alert\_msg@{ext\_poll\_request\_alert\_msg}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ext\_poll\_request\_alert\_msg}{ext\_poll\_request\_alert\_msg}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::ext\+\_\+poll\+\_\+request\+\_\+alert\+\_\+msg}
+
+\Hypertarget{class_socket_client_afb562154b206a191ba15a073503c7c53}\label{class_socket_client_afb562154b206a191ba15a073503c7c53} 
+\index{SocketClient@{SocketClient}!ext\_poll\_request\_msg@{ext\_poll\_request\_msg}}
+\index{ext\_poll\_request\_msg@{ext\_poll\_request\_msg}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ext\_poll\_request\_msg}{ext\_poll\_request\_msg}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::ext\+\_\+poll\+\_\+request\+\_\+msg}
+
+\Hypertarget{class_socket_client_ac9d7911e919881ab8e35abc9236c5223}\label{class_socket_client_ac9d7911e919881ab8e35abc9236c5223} 
+\index{SocketClient@{SocketClient}!ext\_poll\_request\_msg2@{ext\_poll\_request\_msg2}}
+\index{ext\_poll\_request\_msg2@{ext\_poll\_request\_msg2}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ext\_poll\_request\_msg2}{ext\_poll\_request\_msg2}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::ext\+\_\+poll\+\_\+request\+\_\+msg2}
+
+\Hypertarget{class_socket_client_ae08ba9f954f6f9f527b0d6a9e44b0322}\label{class_socket_client_ae08ba9f954f6f9f527b0d6a9e44b0322} 
+\index{SocketClient@{SocketClient}!ext\_poll\_request\_msg3@{ext\_poll\_request\_msg3}}
+\index{ext\_poll\_request\_msg3@{ext\_poll\_request\_msg3}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ext\_poll\_request\_msg3}{ext\_poll\_request\_msg3}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::ext\+\_\+poll\+\_\+request\+\_\+msg3}
+
+\Hypertarget{class_socket_client_a2c0a2e76b615bccd087eef87737204f6}\label{class_socket_client_a2c0a2e76b615bccd087eef87737204f6} 
+\index{SocketClient@{SocketClient}!ext\_poll\_request\_msg4@{ext\_poll\_request\_msg4}}
+\index{ext\_poll\_request\_msg4@{ext\_poll\_request\_msg4}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ext\_poll\_request\_msg4}{ext\_poll\_request\_msg4}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::ext\+\_\+poll\+\_\+request\+\_\+msg4}
+
+\Hypertarget{class_socket_client_adac3ee49178f47ca2f369d59c28e0614}\label{class_socket_client_adac3ee49178f47ca2f369d59c28e0614} 
+\index{SocketClient@{SocketClient}!ext\_poll\_request\_msg5@{ext\_poll\_request\_msg5}}
+\index{ext\_poll\_request\_msg5@{ext\_poll\_request\_msg5}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ext\_poll\_request\_msg5}{ext\_poll\_request\_msg5}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::ext\+\_\+poll\+\_\+request\+\_\+msg5}
+
+\Hypertarget{class_socket_client_acc686c72a1c7faa50f73b32b06f79978}\label{class_socket_client_acc686c72a1c7faa50f73b32b06f79978} 
+\index{SocketClient@{SocketClient}!ext\_poll\_request\_wave\_msg@{ext\_poll\_request\_wave\_msg}}
+\index{ext\_poll\_request\_wave\_msg@{ext\_poll\_request\_wave\_msg}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ext\_poll\_request\_wave\_msg}{ext\_poll\_request\_wave\_msg}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::ext\+\_\+poll\+\_\+request\+\_\+wave\+\_\+msg}
+
+\Hypertarget{class_socket_client_adff090000103a5b701e009fadb3a7af8}\label{class_socket_client_adff090000103a5b701e009fadb3a7af8} 
+\index{SocketClient@{SocketClient}!ext\_poll\_request\_wave\_msg2@{ext\_poll\_request\_wave\_msg2}}
+\index{ext\_poll\_request\_wave\_msg2@{ext\_poll\_request\_wave\_msg2}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ext\_poll\_request\_wave\_msg2}{ext\_poll\_request\_wave\_msg2}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::ext\+\_\+poll\+\_\+request\+\_\+wave\+\_\+msg2}
+
+\Hypertarget{class_socket_client_a30985a83e32ef057c5458125f6db3002}\label{class_socket_client_a30985a83e32ef057c5458125f6db3002} 
+\index{SocketClient@{SocketClient}!ext\_poll\_request\_wave\_msg3@{ext\_poll\_request\_wave\_msg3}}
+\index{ext\_poll\_request\_wave\_msg3@{ext\_poll\_request\_wave\_msg3}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{ext\_poll\_request\_wave\_msg3}{ext\_poll\_request\_wave\_msg3}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::ext\+\_\+poll\+\_\+request\+\_\+wave\+\_\+msg3}
+
+\Hypertarget{class_socket_client_ac84436f8ec29e8e157351808ca1d499a}\label{class_socket_client_ac84436f8ec29e8e157351808ca1d499a} 
+\index{SocketClient@{SocketClient}!get\_rtsa\_prio\_msg@{get\_rtsa\_prio\_msg}}
+\index{get\_rtsa\_prio\_msg@{get\_rtsa\_prio\_msg}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{get\_rtsa\_prio\_msg}{get\_rtsa\_prio\_msg}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::get\+\_\+rtsa\+\_\+prio\+\_\+msg}
+
+\Hypertarget{class_socket_client_a86bec6b625272160bdc141e7d93a4a50}\label{class_socket_client_a86bec6b625272160bdc141e7d93a4a50} 
+\index{SocketClient@{SocketClient}!keep\_alive\_msg@{keep\_alive\_msg}}
+\index{keep\_alive\_msg@{keep\_alive\_msg}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{keep\_alive\_msg}{keep\_alive\_msg}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::keep\+\_\+alive\+\_\+msg}
+
+\Hypertarget{class_socket_client_a29ada0aeb49d140548909b0c73f89b91}\label{class_socket_client_a29ada0aeb49d140548909b0c73f89b91} 
+\index{SocketClient@{SocketClient}!keep\_alive\_msg2@{keep\_alive\_msg2}}
+\index{keep\_alive\_msg2@{keep\_alive\_msg2}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{keep\_alive\_msg2}{keep\_alive\_msg2}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::keep\+\_\+alive\+\_\+msg2}
+
+\Hypertarget{class_socket_client_aacec48f332055a07a6729c31c38c71f7}\label{class_socket_client_aacec48f332055a07a6729c31c38c71f7} 
+\index{SocketClient@{SocketClient}!m\_sa\_remoteIPtarget@{m\_sa\_remoteIPtarget}}
+\index{m\_sa\_remoteIPtarget@{m\_sa\_remoteIPtarget}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{m\_sa\_remoteIPtarget}{m\_sa\_remoteIPtarget}}
+{\footnotesize\ttfamily sockaddr\+\_\+in Socket\+Client\+::m\+\_\+sa\+\_\+remote\+IPtarget}
+
+\Hypertarget{class_socket_client_a401a88f61c3b90a7a35dc94f3d4b4885}\label{class_socket_client_a401a88f61c3b90a7a35dc94f3d4b4885} 
+\index{SocketClient@{SocketClient}!mds\_create\_resp\_msg@{mds\_create\_resp\_msg}}
+\index{mds\_create\_resp\_msg@{mds\_create\_resp\_msg}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{mds\_create\_resp\_msg}{mds\_create\_resp\_msg}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::mds\+\_\+create\+\_\+resp\+\_\+msg}
+
+\Hypertarget{class_socket_client_adc633955d26793c2fa0840c2f13be826}\label{class_socket_client_adc633955d26793c2fa0840c2f13be826} 
+\index{SocketClient@{SocketClient}!poll\_mds\_request\_msg@{poll\_mds\_request\_msg}}
+\index{poll\_mds\_request\_msg@{poll\_mds\_request\_msg}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{poll\_mds\_request\_msg}{poll\_mds\_request\_msg}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::poll\+\_\+mds\+\_\+request\+\_\+msg}
+
+\Hypertarget{class_socket_client_a0026c6aeee085b8428a22dbf10037bdd}\label{class_socket_client_a0026c6aeee085b8428a22dbf10037bdd} 
+\index{SocketClient@{SocketClient}!poll\_request\_msg@{poll\_request\_msg}}
+\index{poll\_request\_msg@{poll\_request\_msg}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{poll\_request\_msg}{poll\_request\_msg}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::poll\+\_\+request\+\_\+msg}
+
+\Hypertarget{class_socket_client_a10584e1ebaf795c44ec92b64a907872e}\label{class_socket_client_a10584e1ebaf795c44ec92b64a907872e} 
+\index{SocketClient@{SocketClient}!poll\_request\_msg2@{poll\_request\_msg2}}
+\index{poll\_request\_msg2@{poll\_request\_msg2}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{poll\_request\_msg2}{poll\_request\_msg2}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::poll\+\_\+request\+\_\+msg2}
+
+\Hypertarget{class_socket_client_a55bfeff576d864c1b66d5f4b2f51cf3b}\label{class_socket_client_a55bfeff576d864c1b66d5f4b2f51cf3b} 
+\index{SocketClient@{SocketClient}!poll\_request\_msg3@{poll\_request\_msg3}}
+\index{poll\_request\_msg3@{poll\_request\_msg3}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{poll\_request\_msg3}{poll\_request\_msg3}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::poll\+\_\+request\+\_\+msg3}
+
+\Hypertarget{class_socket_client_a8930184b219af5b717bd85472d15dd62}\label{class_socket_client_a8930184b219af5b717bd85472d15dd62} 
+\index{SocketClient@{SocketClient}!poll\_request\_msg4@{poll\_request\_msg4}}
+\index{poll\_request\_msg4@{poll\_request\_msg4}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{poll\_request\_msg4}{poll\_request\_msg4}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::poll\+\_\+request\+\_\+msg4}
+
+\Hypertarget{class_socket_client_ac6efa19fcb1884c787dc27cb6ca47cc9}\label{class_socket_client_ac6efa19fcb1884c787dc27cb6ca47cc9} 
+\index{SocketClient@{SocketClient}!rlrq\_msg@{rlrq\_msg}}
+\index{rlrq\_msg@{rlrq\_msg}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{rlrq\_msg}{rlrq\_msg}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::rlrq\+\_\+msg}
+
+\Hypertarget{class_socket_client_a14a44cd2a061191e9b4cf510074a3822}\label{class_socket_client_a14a44cd2a061191e9b4cf510074a3822} 
+\index{SocketClient@{SocketClient}!rlrq\_resp\_msg@{rlrq\_resp\_msg}}
+\index{rlrq\_resp\_msg@{rlrq\_resp\_msg}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{rlrq\_resp\_msg}{rlrq\_resp\_msg}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::rlrq\+\_\+resp\+\_\+msg}
+
+\Hypertarget{class_socket_client_afc0b74baea6423cba320ad1ada375dd7}\label{class_socket_client_afc0b74baea6423cba320ad1ada375dd7} 
+\index{SocketClient@{SocketClient}!set\_rtsa\_prio\_msg@{set\_rtsa\_prio\_msg}}
+\index{set\_rtsa\_prio\_msg@{set\_rtsa\_prio\_msg}!SocketClient@{SocketClient}}
+\doxysubsubsection{\texorpdfstring{set\_rtsa\_prio\_msg}{set\_rtsa\_prio\_msg}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::byte$>$ Socket\+Client\+::set\+\_\+rtsa\+\_\+prio\+\_\+msg}
+
